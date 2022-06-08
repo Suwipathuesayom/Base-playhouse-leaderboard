@@ -4,21 +4,23 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Landing from './pages/Landing';
+import Learner from './pages/Learner';
 import SpeakerScreen from './pages/SpeakerScreen';
-
-
+import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Learner />} />
         <Route path="speaker" element={<SpeakerScreen />}>
         </Route>
       </Routes>
     </BrowserRouter>
+    
+    
   );
 }
 
 export default App;
+
