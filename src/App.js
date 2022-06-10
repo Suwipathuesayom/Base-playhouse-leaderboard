@@ -13,8 +13,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Learner />} />
-        <Route path="AdminLeaderboard" element={<AdminLeaderboard />}>
+        <Route path="/" element={<SpeakerScreen  />} />
+        <Route path="landing" element={<Landing />}>
         </Route>
       </Routes>
     </BrowserRouter>
