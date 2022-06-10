@@ -5,15 +5,16 @@ import {
   Route
 } from "react-router-dom";
 import Learner from './pages/Learner';
-import SpeakerScreen from './pages/SpeakerScreen';
 import './App.css';
+import AdminLeaderboard from './pages/Admin/AdminLeaderboard';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Learner />} />
-        <Route path="speaker" element={<SpeakerScreen />}>
+        <Route path="AdminLeaderboard" element={<AdminLeaderboard />}>
         </Route>
       </Routes>
     </BrowserRouter>
