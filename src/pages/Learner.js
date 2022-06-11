@@ -1,9 +1,9 @@
 import React from "react";
-import "../assets/styles/Landing.css";
+import "../assets/Styles/Landing.css";
 import LearnerTable from "../components/LeanerTable";
 import { Row, Col } from "react-bootstrap";
 import marvelSvg from "../assets/images/marvelImg.svg";
-import "../assets/styles/Leaner.css";
+import "../assets/Styles/Leaner.css";
 import Dropdown from "react-bootstrap/Dropdown";
 
 function Learner() {

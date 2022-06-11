@@ -1,15 +1,15 @@
 import React from "react";
-import "../assets/styles/Landing.css";
+import "../assets/Styles/Landing.css";
 import { Table } from "react-bootstrap";
-import '../assets/styles/LearnerTable.css'
-import BgDark from '../assets/images/Bg-dark.png'
+import "../assets/Styles/LearnerTable.css";
+import BgDark from "../assets/images/Bg-dark.png";
 
 function LearnerTable() {
   return (
     <div className="learner-container">
-    <div className="bgdark">
-    <img src={BgDark} alt="logo-name" />
-    </div>
+      <div className="bgdark">
+        <img src={BgDark} alt="logo-name" />
+      </div>
       {/* <Table striped hover>
         <thead style={{backgroundColor: '#151515' , color: '#ffffff'}}>
           <tr>
