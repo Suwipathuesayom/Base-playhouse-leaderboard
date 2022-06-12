@@ -4,16 +4,28 @@ import React, { useState } from "react";
 import color from "../../constant/color";
 
 function NewProjectNameAndColor({ project, setProject }) {
-  const [isEditing, setIsEditing] = useState(true);
-  const [projectName, setProjectName] = useState("");
+  const [isEditing, setIsEditing] = useState(
+    project.projectName ? false : true
+  );
+  const [projectName, setProjectName] = useState(
+    project.projectName ? project.projectName : ""
+  );
   const [newProjectName, setNewProjectName] = useState("");
 
   //   State Handler
   const handleRemaneProjectName = (newProjectName) => {
+    // let tempProject = project;
+    // tempProject.projectName = newProjectName;
+    // setProject(tempProject);
+    // console.log(tempProject);
+
+    // setProjectName(newProjectName);
+    // setIsEditing(false);
+
     let tempProject = project;
     tempProject.projectName = newProjectName;
     setProject(tempProject);
-    console.log(tempProject);
+    console.log("Edited Project:", tempProject);
 
     setProjectName(newProjectName);
     setIsEditing(false);
@@ -130,7 +142,9 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
-        defaultValue={"#000000"}
+        defaultValue={
+          project.theme.top3 !== "#000000" ? project.theme.top3 : "#000000"
+        }
         onBlur={(event) => handleTopThreeColorChange(event.target.value)}
         startAdornment={
           <InputAdornment position="start">TOP 3 COLOR</InputAdornment>
@@ -146,7 +160,11 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
-        defaultValue={"#000000"}
+        defaultValue={
+          project.theme.hilight !== "#000000"
+            ? project.theme.hilight
+            : "#000000"
+        }
         onBlur={(event) => handleHilightColorChange(event.target.value)}
         startAdornment={
           <InputAdornment position="start">

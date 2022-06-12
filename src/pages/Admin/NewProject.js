@@ -50,7 +50,7 @@ import NewProjectBody from "./NewProjectBody";
 function NewProject() {
   const [project, setProject] = useState({
     createdAt: new Date(),
-    imageUrl: "TestUrl",
+    imageUrl: require("../../assets/images/uploadImage.png"),
     projectName: "",
     mentors: [],
     theme: {
@@ -62,9 +62,13 @@ function NewProject() {
   });
   return (
     <div className="newProject">
-      <NewProjectHeader project={project} setProject={setProject} />
+      <NewProjectHeader
+        project={project}
+        setProject={setProject}
+        header={"NEW PROJECT"}
+      />
       <NewProjectBody project={project} setProject={setProject} />
-      <NewProjectFooter />
+      <NewProjectFooter project={project} setProject={setProject} />
     </div>
   );
 }

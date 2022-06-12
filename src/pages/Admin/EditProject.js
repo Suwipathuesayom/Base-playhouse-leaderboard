@@ -58,9 +58,13 @@ function EditProject() {
         index: 1,
         fullName: "Stan Lee",
       },
+      {
+        index: 2,
+        fullName: "Thanat Raktham",
+      },
     ],
     theme: {
-      top3: "##ff0000",
+      top3: "#ff0000",
       hilight: "#ffffff",
     },
     learnerGroups: [
@@ -109,32 +113,37 @@ function EditProject() {
         weight: 10,
         isHidden: false,
       },
-      {
-        taskName: "เอาชนะ Ultron",
-        subTasks: [
-          {
-            subTaskName: "ยกเมืองขึ้นฟ้า",
-            point: 1,
-            isHidden: false,
-          },
-          {
-            subTaskName: "เอาเมืองไปไว้ที่เดิม",
-            point: 1,
-            isHidden: true,
-          },
-        ],
-        showSubTasks: false,
-        point: 2,
-        weight: 20,
-        isHidden: false,
-      },
+      //   {
+      //     taskName: "เอาชนะ Ultron",
+      //     subTasks: [
+      //       {
+      //         subTaskName: "ยกเมืองขึ้นฟ้า",
+      //         point: 1,
+      //         isHidden: false,
+      //       },
+      //       {
+      //         subTaskName: "เอาเมืองไปไว้ที่เดิม",
+      //         point: 1,
+      //         isHidden: true,
+      //       },
+      //     ],
+      //     showSubTasks: false,
+      //     point: 2,
+      //     weight: 20,
+      //     isHidden: false,
+      //   },
     ],
   });
+  console.log("Project:", project);
   return (
     <div className="newProject">
-      <NewProjectHeader project={project} setProject={setProject} />
-      <NewProjectBody project={project} setProject={setProject} />
-      <NewProjectFooter />
+      <NewProjectHeader
+        project={{ ...project }}
+        setProject={setProject}
+        header={"EDIT PROJECT"}
+      />
+      <NewProjectBody project={{ ...project }} setProject={setProject} />
+      <NewProjectFooter project={project} setProject={setProject} />
     </div>
   );
 }

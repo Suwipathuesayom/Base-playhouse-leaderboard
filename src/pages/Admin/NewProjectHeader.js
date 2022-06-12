@@ -5,7 +5,7 @@ import { Box, Stack } from "@mui/material";
 import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
 
-function NewProjectHeader({ project, setProject }) {
+function NewProjectHeader({ project, setProject, header }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSelectImage = (selectedImage) => {
@@ -21,7 +21,7 @@ function NewProjectHeader({ project, setProject }) {
           src={
             selectedImage
               ? URL.createObjectURL(selectedImage)
-              : require("../../assets/images/uploadImage.png")
+              : project.imageUrl
           }
           alt="not found"
         />
@@ -49,7 +49,7 @@ function NewProjectHeader({ project, setProject }) {
           // backgroundColor: "pink",
         }}
       >
-        <h1>NEW PROJECT</h1>
+        <h1>{header}</h1>
         <Stack
           className="header__contentImport"
           width={"100%"}

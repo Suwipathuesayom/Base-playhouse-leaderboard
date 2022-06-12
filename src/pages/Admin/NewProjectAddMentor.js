@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import color from "../../constant/color";
 
 function NewProjectAddMentor({ project, setProject }) {
-  const [mentorList, setMentorList] = useState([
-    // { fullName: "Tony Stark" },
-  ]);
+  const [mentorList, setMentorList] = useState(
+    !!project.mentors.length ? [...project.mentors] : []
+  );
   const [mentorName, setMentorName] = useState("");
 
   //   State Handler
@@ -88,7 +88,7 @@ function NewProjectAddMentor({ project, setProject }) {
         }}
         onClick={() => handleAddMentor(mentorName)}
       />
-      {mentorList.map((mentor, index) => (
+      {mentorList?.map((mentor, index) => (
         <Button
           key={index}
           variant="contained"
@@ -107,7 +107,7 @@ function NewProjectAddMentor({ project, setProject }) {
           onClick={() => handleRemoveMentor(index)}
           endIcon={<HighlightOff style={{ fontSize: 32 }} />}
         >
-          {`${mentor.fullName}.`}
+          {`${mentor.fullName}`}
         </Button>
       ))}
     </Stack>

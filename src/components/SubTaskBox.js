@@ -42,7 +42,7 @@ const SubTaskBox = ({
       index
     );
     setProject(tempProject);
-    console.log(tempProject);
+    // console.log(tempProject);
   };
   const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
     // handle UI State

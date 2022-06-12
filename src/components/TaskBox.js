@@ -69,7 +69,7 @@ const TaskBox = ({
       );
     }
     setProject(tempProject);
-    console.log(tempProject);
+    // console.log(tempProject);
   };
   const handleShowSubTasksClicked = (index) => {
     // handle UI State
@@ -81,7 +81,7 @@ const TaskBox = ({
     tempProject.tasks[index].showSubTasks =
       !tempProject.tasks[index].showSubTasks;
     setProject(tempProject);
-    console.log(tempProject);
+    console.log("Edited Project,", tempProject);
   };
   const handlePointValueChange = (index, newPointValue) => {
     // handle UI State
@@ -279,29 +279,57 @@ const TaskBox = ({
           onClick={() => handleAddNewSubTask(index)}
         />
 
-        <InputBase
-          type={"number"}
-          disabled={!!subTasks.length || isHidden}
-          sx={{
-            width: "5%",
-            minWidth: 60,
-            borderRadius: 2,
-            padding: "0 10px",
-            margin: "0 5px",
-            fontSize: 20,
-            backgroundColor: "white",
-          }}
-          value={point}
-          onKeyPress={(event) => {
-            if (event?.key === "-" || event?.key === "+") {
-              event.preventDefault();
+        {!!!subTasks.length && !isHidden && (
+          <InputBase
+            type={"number"}
+            sx={{
+              width: "5%",
+              minWidth: 60,
+              borderRadius: 2,
+              padding: "0 10px",
+              margin: "0 5px",
+              fontSize: 20,
+              backgroundColor: "white",
+            }}
+            onKeyPress={(event) => {
+              if (event?.key === "-" || event?.key === "+") {
+                event.preventDefault();
+              }
+              if (event.key === "Enter")
+                handlePointValueChange(index, event.target.value);
+            }}
+            onBlur={(event) =>
+              handlePointValueChange(index, event.target.value)
             }
-            if (event.key === "Enter")
-              handlePointValueChange(index, event.target.value);
-          }}
-          onBlur={(event) => handlePointValueChange(index, event.target.value)}
-          //   defaultValue={point}
-        />
+            defaultValue={point}
+          />
+        )}
+        {(!!subTasks.length || isHidden) && (
+          <InputBase
+            type={"number"}
+            disabled={true}
+            sx={{
+              width: "5%",
+              minWidth: 60,
+              borderRadius: 2,
+              padding: "0 10px",
+              margin: "0 5px",
+              fontSize: 20,
+              backgroundColor: "white",
+            }}
+            value={point}
+            onKeyPress={(event) => {
+              if (event?.key === "-" || event?.key === "+") {
+                event.preventDefault();
+              }
+              if (event.key === "Enter")
+                handlePointValueChange(index, event.target.value);
+            }}
+            onBlur={(event) =>
+              handlePointValueChange(index, event.target.value)
+            }
+          />
+        )}
         <InputBase
           sx={{
             width: "5%",

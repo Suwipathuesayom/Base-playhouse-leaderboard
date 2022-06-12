@@ -11,7 +11,9 @@ import color from "../../constant/color";
 import "../../assets/Styles/NewProject.css";
 
 function NewProjectLearner({ project, setProject }) {
-  const [learnerGroups, setLearnerGroups] = useState([]);
+  const [learnerGroups, setLearnerGroups] = useState(
+    !!project.learnerGroups.length ? [...project.learnerGroups] : []
+  );
   const [newGroup, setNewGroup] = useState("");
 
   // State Handlers
@@ -209,8 +211,8 @@ function NewProjectLearner({ project, setProject }) {
           width={"100%"}
           height={"70px"}
           sx={{
-            borderBottomLeftRadius: !!!learnerGroups.length ? 20 : null,
-            borderBottomRightRadius: !!!learnerGroups.length ? 20 : null,
+            borderBottomLeftRadius: !!!learnerGroups?.length ? 20 : null,
+            borderBottomRightRadius: !!!learnerGroups?.length ? 20 : null,
           }}
           flexDirection="row"
           alignItems={"center"}
@@ -246,7 +248,7 @@ function NewProjectLearner({ project, setProject }) {
             }}
           />
         </Stack>
-        {learnerGroups.map((learnerGroup, index) => (
+        {learnerGroups?.map((learnerGroup, index) => (
           <LearnerBox
             key={index}
             index={index}

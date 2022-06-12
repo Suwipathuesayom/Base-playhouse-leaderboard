@@ -16,7 +16,7 @@
 
 .header {
   display: flex;
-  padding: 0 1%;
+  padding: 1%;
 }
 
 .header__upload > img {

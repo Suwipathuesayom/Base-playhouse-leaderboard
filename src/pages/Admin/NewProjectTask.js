@@ -7,44 +7,10 @@ import "../../assets/Styles/NewProject.css";
 import TaskBox from "../../components/TaskBox";
 
 function NewProjectTask({ project, setProject }) {
-  const [newTask, setNewTask] = useState([
-    // {
-    //   taskName:
-    //     "ยืนตรงเคารพธงชาติ หันหน้าเข้าหาเสาธงที่มุมตะวันตกเฉียงใต้ 34 องศา ยืนให้แดดส่องหน้าจนกระทั่งครูเป่า",
-    //   subTasks: [],
-    //   showSubTasks: false,
-    //   point: 5,
-    //   weight: 10,
-    //   isHidden: false,
-    // },
-    // {
-    //   taskName: "กินผัก",
-    //   subTasks: [
-    //     {
-    //       subTaskName: "กินกะหล่ำเต็มใบ",
-    //       point: 2,
-    //       isHidden: true,
-    //     },
-    //     {
-    //       subTaskName: "กินพริกสด",
-    //       point: 3,
-    //       isHidden: true,
-    //     },
-    //   ],
-    //   showSubTasks: false,
-    //   point: 0,
-    //   weight: 10,
-    //   isHidden: false,
-    // },
-    // {
-    //   taskName: "นอน",
-    //   subTasks: [],
-    //   showSubTasks: false,
-    //   point: 5,
-    //   weight: 10,
-    //   isHidden: true,
-    // },
-  ]);
+  const [newTask, setNewTask] = useState(
+    !!project.tasks.length ? [...project.tasks] : []
+  );
+  // console.log(newTask);
   const [newTaskName, setNewTaskName] = useState("");
 
   // State Handlers
@@ -104,7 +70,7 @@ function NewProjectTask({ project, setProject }) {
             padding: "0 20px",
           },
 
-          !!!newTask.length && {
+          !!!newTask?.length && {
             borderBottomLeftRadius: 20,
             borderBottomRightRadius: 20,
           },
@@ -180,23 +146,26 @@ function NewProjectTask({ project, setProject }) {
           คะแนนรวม: {9}
         </Typography> */}
       </Stack>
-      {newTask?.map((task, index) => (
-        <TaskBox
-          key={index}
-          project={project}
-          setProject={setProject}
-          newTask={newTask}
-          setNewTask={setNewTask}
-          index={index}
-          taskName={task.taskName}
-          subTasks={task.subTasks}
-          showSubTasks={task.showSubTasks}
-          isHidden={task.isHidden}
-          point={task.point}
-          weight={task.weight}
-          lastTask={newTask.length === index + 1}
-        />
-      ))}
+      {newTask?.map((task, index) => {
+        // console.log(task);
+        return (
+          <TaskBox
+            key={index}
+            project={project}
+            setProject={setProject}
+            newTask={newTask}
+            setNewTask={setNewTask}
+            index={index}
+            taskName={task.taskName}
+            subTasks={task.subTasks}
+            showSubTasks={task.showSubTasks}
+            isHidden={task.isHidden}
+            point={task.point}
+            weight={task.weight}
+            lastTask={newTask.length === index + 1}
+          />
+        );
+      })}
     </Box>
   );
 }
