@@ -1,21 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/Styles/NewProject.css";
-import { Box, Button, InputBase, Stack, Typography } from "@mui/material";
-import { AddCircle, HighlightOff } from "@mui/icons-material";
+import { Box, Stack } from "@mui/material";
 
-import color from "../../constant/color";
+import NewProjectAddMentor from "./NewProjectAddMentor";
+import NewProjectNameAndColor from "./NewProjectNameAndColor";
 
-function NewProjectHeader() {
+function NewProjectHeader({ project, setProject }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleSelectImage = (selectedImage) => {
+    let tempProject = project;
+    tempProject.imageUrl = selectedImage;
+    setProject(tempProject);
+    console.log(tempProject);
+  };
   return (
     <div className="header">
-      <img src={require("../../assets/images/uploadImage.png")} alt="" />
+      <div className="header__upload">
+        <img
+          src={
+            selectedImage
+              ? URL.createObjectURL(selectedImage)
+              : require("../../assets/images/uploadImage.png")
+          }
+          alt="not found"
+        />
+        <div>
+          <input
+            type={"file"}
+            onChange={(event) => {
+              setSelectedImage(event.target.files[0]);
+              handleSelectImage(event.target.files[0]);
+            }}
+          />
+        </div>
+      </div>
       <Box
         className="header__content"
+        minWidth={"1500px"}
         sx={{
           display: "flex",
           flexDirection: "column",
           width: "100%",
-          minWidth: 1200,
+          marginLeft: "20px",
+          // minWidth: 1200,
           justifyContent: "space-between",
           alignItems: "center",
           // backgroundColor: "pink",
@@ -31,124 +59,8 @@ function NewProjectHeader() {
         >
           <p>เพิ่มเกณฑ์จากโปรเจคที่มีอยู่แล้ว ?</p>
         </Stack>
-        <Stack
-          width={"100%"}
-          height={"70px"}
-          sx={{ borderRadius: 5, padding: "0 20px" }}
-          flexDirection="row"
-          alignItems={"center"}
-          bgcolor={color.secondaryBlack}
-        >
-          <Typography
-            sx={{
-              width: 180,
-              fontSize: 32,
-              fontWeight: 600,
-              fontFamily: "Prompt",
-              marginRight: "20px",
-              color: color.primaryOrange,
-            }}
-          >
-            ชื่อโปรเจค
-          </Typography>
-          <InputBase
-            sx={{
-              width: 500,
-              padding: "0 10px",
-              marginRight: "20px",
-              borderRadius: 2,
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
-          />
-          <InputBase
-            sx={{
-              width: 150,
-              padding: "0 10px",
-              marginRight: "20px",
-              borderRadius: 2,
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
-            defaultValue={"#"}
-          />
-          <InputBase
-            sx={{
-              width: 150,
-              padding: "0 10px",
-              marginRight: "20px",
-              borderRadius: 2,
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
-            defaultValue={"#"}
-          />
-        </Stack>
-        <Stack
-          width={"100%"}
-          height={"70px"}
-          sx={{ borderRadius: 5, padding: "0 20px" }}
-          flexDirection="row"
-          alignItems={"center"}
-          bgcolor={color.secondaryBlack}
-        >
-          <Typography
-            sx={{
-              width: 180,
-              fontSize: 32,
-              fontWeight: 600,
-              marginRight: "20px",
-              color: color.primaryOrange,
-            }}
-          >
-            เพิ่ม Mentor
-          </Typography>
-          <InputBase
-            sx={{
-              width: 500,
-              padding: "0 10px",
-              marginRight: "20px",
-              borderRadius: 2,
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
-          />
-          <AddCircle
-            style={{
-              fontSize: 40,
-              color: color.primaryOrange,
-              marginRight: "20px",
-            }}
-          />
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: 16,
-              fontWeight: 600,
-              // borderRadius: 20,
-              marginRight: "20px",
-              color: color.primaryBlack,
-              backgroundColor: "white",
-            }}
-            endIcon={<HighlightOff style={{ fontSize: 32 }} />}
-          >
-            Tony S.
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: 16,
-              fontWeight: 600,
-              // borderRadius: 20,
-              marginRight: "20px",
-              color: color.primaryBlack,
-              backgroundColor: "white",
-            }}
-            endIcon={<HighlightOff style={{ fontSize: 32 }} />}
-          >
-            Steve R.
-          </Button>
-        </Stack>
+        <NewProjectNameAndColor project={project} setProject={setProject} />
+        <NewProjectAddMentor project={project} setProject={setProject} />
       </Box>
     </div>
   );

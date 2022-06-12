@@ -1,64 +1,56 @@
 * {
-    font-family: 'Raleway', 'Prompt';
+  font-family: "Raleway", "Prompt";
 }
 
 .newProject {
-    padding: 10px 50px;
-    background-color: #DCDFE1;
-    overflow-x: overlay;
+  padding: 10px 50px;
+  background-color: #dcdfe1;
+  overflow-x: overlay;
 }
 
 .newProject__icon:hover {
-    transition: transform 0.2s ease-in-out;
-    transform: scale(1.3) !important;
+  transition: transform 0.2s ease-in-out;
+  transform: scale(1.3) !important;
 }
 
 .header {
-    display: flex;
+  display: flex;
 }
 
-.header > img{
-    /* height: 20vw;
+.header__upload > img {
+  /* height: 20vw;
     min-height: 300px;
     max-height: 400px; */
-    width: 300px;
-    height: 300px;
-    object-fit: contain;
-}
-
-.header__content {
-    /* width: 100%;
-    min-width: 1200px;
-    align-items: center;
-    max-height: 400px; */
-    padding: 0 20px;
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
 }
 
 .header__content > h1 {
-    font-size: 84px;
+  font-size: 84px;
 }
 
 .header__contentImport > p {
-    /* width: 100%;
+  /* width: 100%;
     height: 10%;
     text-align: right; */
-    font-size: 24px;
-    /* background-color: red; */
+  font-size: 24px;
+  /* background-color: red; */
 }
 
 .header__nameAndColor {
-    display: flex;
-    height: 25%;
-    align-items: center;
-    justify-content: space-between;
-    /* background-color: yellow; */
+  display: flex;
+  height: 25%;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: yellow; */
 }
 
 .header__mentor {
-    display: flex;
-    align-items: center;
-    height: 25%;
-    /* background-color: green; */
+  display: flex;
+  align-items: center;
+  height: 25%;
+  /* background-color: green; */
 }
 
 /* .newProject__body {
@@ -66,19 +58,19 @@
 } */
 
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* position: fixed;
     bottom: 0; */
-    height: 10vh;
-    min-height: 100px;
-    min-width: 1500px;
-    /* background-color: grey; */
+  height: 10vh;
+  min-height: 100px;
+  min-width: 1500px;
+  /* background-color: grey; */
 }
 
 .button {
-    width: 150px;
-    height: 5vh;
-    min-height: 50px;
+  width: 150px;
+  height: 5vh;
+  min-height: 50px;
 }

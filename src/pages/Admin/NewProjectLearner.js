@@ -1,53 +1,70 @@
 import React, { useState } from "react";
-import { AddCircle, Done, DriveFileRenameOutline } from "@mui/icons-material";
+import {
+  AddCircle,
+  Delete,
+  Done,
+  DriveFileRenameOutline,
+} from "@mui/icons-material";
 import { Box, InputBase, Stack, Typography } from "@mui/material";
 
 import color from "../../constant/color";
 import "../../assets/Styles/NewProject.css";
 
-function NewProjectLearner() {
-  const [learnerList, setLearnerList] = useState([
-    {
-      groupName: "Believer",
-    },
-    {
-      groupName: "ความรักทำให้คนตาบอด",
-    },
-    {
-      groupName: "Thunder",
-    },
-    {
-      groupName: "เล่นของสูง",
-    },
-    {
-      groupName: "Demons",
-    },
-    {
-      groupName: "Avengers",
-    },
-  ]);
+function NewProjectLearner({ project, setProject }) {
+  const [learnerGroups, setLearnerGroups] = useState([]);
   const [newGroup, setNewGroup] = useState("");
 
   // State Handlers
   const handleAddNewLearnerGroup = (newGroup) => {
-    let tempLearnerList = [...learnerList];
-    tempLearnerList[tempLearnerList.length] = {
+    // handle UI State
+    let tempLearnerGroups = [...learnerGroups];
+    tempLearnerGroups[tempLearnerGroups.length] = {
       groupName: newGroup,
+      avatar: generateUnsplashImage(),
     };
-    setLearnerList(tempLearnerList);
-    // Clear TextInput To Blank
+    setLearnerGroups(tempLearnerGroups);
+    // handle Data State
+    let tempProject = project;
+    tempProject.learnerGroups[tempProject.learnerGroups.length] = {
+      groupName: newGroup,
+      avatar: generateUnsplashImage(),
+    };
+    setProject(tempProject);
+    console.log(tempProject);
+
+    // clear TextInput
     setNewGroup("");
   };
+
+  const generateUnsplashImage = (query) =>
+    `https://source.unsplash.com/random/64x64/?${query ?? "avatar"}`;
 
   const LearnerBox = ({ index, groupName, lastGroup = false }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newGroupName, setNewGroupName] = useState(groupName);
-    const TEXTMAXSAFELENGTH = 15;
+    const TEXTMAXSAFELENGTH = 20;
 
     const handleRenameGroup = (index, newGroupName) => {
-      let tempLearnerList = [...learnerList];
-      tempLearnerList[index].groupName = newGroupName;
-      setLearnerList(tempLearnerList);
+      // handle UI State
+      let tempLearnerGroups = [...learnerGroups];
+      tempLearnerGroups[index].groupName = newGroupName;
+      setLearnerGroups(tempLearnerGroups);
+      // handle Data State
+      let tempProject = project;
+      tempProject.learnerGroups[index].groupName = newGroupName;
+      setProject(tempProject);
+      console.log(tempProject);
+    };
+    const handleRemoveLearnerGroup = (index) => {
+      // handle UI State
+      let tempLearnerGroups = [...learnerGroups];
+      tempLearnerGroups.splice(index, 1);
+      setLearnerGroups(tempLearnerGroups);
+      // handle Data State
+      let tempProject = project;
+      tempProject.learnerGroups.splice(index, 1);
+      setProject(tempProject);
+      console.log(tempProject);
     };
     return (
       <Stack
@@ -65,12 +82,12 @@ function NewProjectLearner() {
         bgcolor={!!!(index % 2) ? color.secondaryBlack : color.primaryBlack}
       >
         <Stack
-          width={"75%"}
+          width={"60%"}
           // height={"70px"}
           flexDirection="row"
           alignItems={"center"}
           // justifyContent={"space-evenly"}
-          //   backgroundColor={"cyan"}
+          // backgroundColor={"cyan"}
         >
           <Typography
             sx={{
@@ -148,6 +165,16 @@ function NewProjectLearner() {
             }}
           />
         )}
+        <Delete
+          className="newProject__icon"
+          style={{
+            fontSize: 40,
+            color: color.primaryOrange,
+            // marginRight: "20px",
+            // backgroundColor: "pink",
+          }}
+          onClick={() => handleRemoveLearnerGroup(index)}
+        />
       </Stack>
     );
   };
@@ -177,10 +204,16 @@ function NewProjectLearner() {
           กลุ่ม Learner
         </Typography>
       </Stack>
-      <Box sx={{ height: "50vh", backgroundColor: "pink" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", flexShrink: 1 }}>
         <Stack
           width={"100%"}
           height={"70px"}
+          sx={
+            !!!learnerGroups.length && {
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
+            }
+          }
           flexDirection="row"
           alignItems={"center"}
           justifyContent={"space-evenly"}
@@ -188,7 +221,7 @@ function NewProjectLearner() {
         >
           <InputBase
             sx={{
-              width: "75%",
+              width: "70%",
               borderRadius: 2,
               padding: "0 10px",
               fontSize: 20,
@@ -215,11 +248,11 @@ function NewProjectLearner() {
             }}
           />
         </Stack>
-        {learnerList.map((learnerGroup, index) => (
+        {learnerGroups.map((learnerGroup, index) => (
           <LearnerBox
             index={index}
             groupName={learnerGroup.groupName}
-            lastGroup={index + 1 === learnerList.length}
+            lastGroup={index + 1 === learnerGroups.length}
           />
         ))}
       </Box>

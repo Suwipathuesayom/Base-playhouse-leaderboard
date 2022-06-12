@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Button, createTheme, ThemeProvider, Typography } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import Learner from "./pages/Learner";
 import SpeakerScreen from "./pages/SpeakerScreen";
 import "./App.css";

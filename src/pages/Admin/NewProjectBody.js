@@ -4,18 +4,16 @@ import "../../assets/Styles/NewProject.css";
 import NewProjectLearner from "./NewProjectLearner";
 import NewProjectTask from "./NewProjectTask";
 
-function NewProjectBody() {
+function NewProjectBody({ project, setProject }) {
   return (
     <Stack
       minWidth={"1500px"}
       marginTop={"10px"}
       flexDirection={"row"}
-      height={"65vh"}
       minHeight={"500px"}
-      // bgcolor="orange"
     >
-      <NewProjectLearner />
-      <NewProjectTask />
+      <NewProjectLearner project={project} setProject={setProject} />
+      <NewProjectTask project={project} setProject={setProject} />
     </Stack>
   );
 }
