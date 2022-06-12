@@ -134,15 +134,14 @@ function EditProject() {
       //   },
     ],
   });
-  console.log("Project:", project);
   return (
     <div className="newProject">
       <NewProjectHeader
-        project={{ ...project }}
+        project={project}
         setProject={setProject}
         header={"EDIT PROJECT"}
       />
-      <NewProjectBody project={{ ...project }} setProject={setProject} />
+      <NewProjectBody project={project} setProject={setProject} />
       <NewProjectFooter project={project} setProject={setProject} />
     </div>
   );

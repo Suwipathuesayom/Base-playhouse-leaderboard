@@ -55,7 +55,7 @@ const TaskBox = ({
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    tempProject.tasks[index].isHidden = !tempProject.tasks[index].isHidden;
+    tempProject.tasks[index].isHidden = tempTask[index].isHidden;
     // tempProject.tasks[index].point = tempProject.tasks[index].isHidden ? 0 : tempProject.tasks[index].point
 
     tempProject.tasks[index].subTasks.forEach((subTask) => {
@@ -78,8 +78,7 @@ const TaskBox = ({
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    tempProject.tasks[index].showSubTasks =
-      !tempProject.tasks[index].showSubTasks;
+    tempProject.tasks[index].showSubTasks = tempTask[index].showSubTasks;
     setProject(tempProject);
     console.log("Edited Project,", tempProject);
   };

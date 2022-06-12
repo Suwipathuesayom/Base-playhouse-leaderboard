@@ -36,7 +36,7 @@ const SubTaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].subTasks[subIndex].isHidden =
-      !tempProject.tasks[index].subTasks[subIndex].isHidden;
+      tempTask[index].subTasks[subIndex].isHidden;
     tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
       project.tasks,
       index
