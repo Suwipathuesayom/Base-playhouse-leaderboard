@@ -21,6 +21,7 @@ function NewProjectLearner({ project, setProject }) {
     tempLearnerGroups[tempLearnerGroups.length] = {
       groupName: newGroup,
       avatar: generateUnsplashImage(),
+      points: {},
     };
     setLearnerGroups(tempLearnerGroups);
     // handle Data State
@@ -28,6 +29,7 @@ function NewProjectLearner({ project, setProject }) {
     tempProject.learnerGroups[tempProject.learnerGroups.length] = {
       groupName: newGroup,
       avatar: generateUnsplashImage(),
+      points: {},
     };
     setProject(tempProject);
     console.log(tempProject);
@@ -70,12 +72,10 @@ function NewProjectLearner({ project, setProject }) {
       <Stack
         width={"100%"}
         height={"70px"}
-        sx={
-          lastGroup && {
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }
-        }
+        sx={{
+          borderBottomLeftRadius: lastGroup ? 20 : null,
+          borderBottomRightRadius: lastGroup ? 20 : null,
+        }}
         flexDirection="row"
         alignItems={"center"}
         justifyContent={"space-evenly"}
@@ -97,7 +97,7 @@ function NewProjectLearner({ project, setProject }) {
               fontWeight: 400,
               marginRight: "10px",
               color: color.primaryOrange,
-              //   backgroundColor: "yellow",
+              // backgroundColor: "yellow",
             }}
           >
             {index + 1}
@@ -110,7 +110,7 @@ function NewProjectLearner({ project, setProject }) {
                 fontSize: 24,
                 fontWeight: 400,
                 color: color.secondaryGrey,
-                //   backgroundColor: "lime",
+                // backgroundColor: "lime",
               }}
             >
               {groupName.length > TEXTMAXSAFELENGTH
@@ -122,9 +122,9 @@ function NewProjectLearner({ project, setProject }) {
             <InputBase
               type={"text"}
               sx={{
-                flexGrow: 1,
+                // flexShrink: 1,
+                maxWidth: 160,
                 padding: "0 10px",
-                // marginRight: "20px",
                 borderRadius: 2,
                 fontSize: 20,
                 backgroundColor: "white",
@@ -208,12 +208,10 @@ function NewProjectLearner({ project, setProject }) {
         <Stack
           width={"100%"}
           height={"70px"}
-          sx={
-            !!!learnerGroups.length && {
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-            }
-          }
+          sx={{
+            borderBottomLeftRadius: !!!learnerGroups.length ? 20 : null,
+            borderBottomRightRadius: !!!learnerGroups.length ? 20 : null,
+          }}
           flexDirection="row"
           alignItems={"center"}
           justifyContent={"space-evenly"}
@@ -250,6 +248,7 @@ function NewProjectLearner({ project, setProject }) {
         </Stack>
         {learnerGroups.map((learnerGroup, index) => (
           <LearnerBox
+            key={index}
             index={index}
             groupName={learnerGroup.groupName}
             lastGroup={index + 1 === learnerGroups.length}

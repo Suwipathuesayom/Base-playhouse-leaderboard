@@ -130,6 +130,7 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
+        defaultValue={"#000000"}
         onBlur={(event) => handleTopThreeColorChange(event.target.value)}
         startAdornment={
           <InputAdornment position="start">TOP 3 COLOR</InputAdornment>
@@ -145,6 +146,7 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
+        defaultValue={"#000000"}
         onBlur={(event) => handleHilightColorChange(event.target.value)}
         startAdornment={
           <InputAdornment position="start">

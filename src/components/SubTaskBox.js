@@ -61,8 +61,7 @@ const SubTaskBox = ({
       index
     );
     setProject(tempProject);
-    // console.log(tempProject);
-    console.log("Temp Task: ", tempTask);
+    console.log(tempProject);
   };
   const handleRenameSubTask = (index, newSubTaskName) => {
     // handle UI State
@@ -108,12 +107,10 @@ const SubTaskBox = ({
     <Stack
       width={"100%"}
       height={"70px"}
-      sx={
-        lastTask && {
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        }
-      }
+      sx={{
+        borderBottomLeftRadius: lastTask ? 20 : null,
+        borderBottomRightRadius: lastTask ? 20 : null,
+      }}
       flexDirection="row"
       alignItems={"center"}
       justifyContent={"space-around"}
@@ -208,6 +205,7 @@ const SubTaskBox = ({
       <Box width={40} />
       <InputBase
         type={"number"}
+        disabled={isHidden}
         sx={{
           width: "5%",
           borderRadius: 2,

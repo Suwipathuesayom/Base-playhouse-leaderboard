@@ -3,9 +3,10 @@
 }
 
 .newProject {
-  padding: 10px 50px;
+  /* padding: 10px 1%; */
   background-color: #dcdfe1;
   overflow-x: overlay;
+  overflow-y: overlay;
 }
 
 .newProject__icon:hover {
@@ -15,6 +16,7 @@
 
 .header {
   display: flex;
+  padding: 0 1%;
 }
 
 .header__upload > img {
@@ -61,12 +63,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* position: fixed;
-    bottom: 0; */
-  height: 10vh;
-  min-height: 100px;
+  position: fixed;
+    bottom: 0;
+  height: 5vh;
+  min-height: 50px;
+  width: 100%;
   min-width: 1500px;
-  /* background-color: grey; */
+  padding: 0 1%;
+  background-color: #969696;
 }
 
 .button {

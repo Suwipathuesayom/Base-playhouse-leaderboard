@@ -54,8 +54,8 @@ function NewProject() {
     projectName: "",
     mentors: [],
     theme: {
-      top3: "",
-      hilight: "",
+      top3: "#000000",
+      hilight: "#000000",
     },
     learnerGroups: [],
     tasks: [],

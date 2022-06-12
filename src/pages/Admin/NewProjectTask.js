@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, InputBase, Stack, Typography } from "@mui/material";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, KeyboardArrowUp } from "@mui/icons-material";
 
 import color from "../../constant/color";
 import "../../assets/Styles/NewProject.css";
@@ -76,6 +76,20 @@ function NewProjectTask({ project, setProject }) {
     // clear TextInput
     setNewTaskName("");
   };
+  const handleCollapseAllTask = () => {
+    // handle UI State
+    let tempTask = [...newTask];
+    tempTask.forEach((task) => {
+      task.showSubTasks = false;
+    });
+    setNewTask(tempTask);
+    // handle Data State
+    let tempProject = project;
+    tempProject.tasks.forEach((task) => {
+      task.showSubTasks = false;
+    });
+    setProject(tempProject);
+  };
 
   return (
     <Box sx={{ width: "100%", minWidth: 1500, marginLeft: "20px" }}>
@@ -141,6 +155,14 @@ function NewProjectTask({ project, setProject }) {
           onClick={() => {
             if (!!newTaskName.length) handleAddNewTask(newTaskName);
           }}
+        />
+        <KeyboardArrowUp
+          className="newProject__icon"
+          style={{
+            fontSize: 28,
+            color: color.primaryOrange,
+          }}
+          onClick={() => handleCollapseAllTask()}
         />
         {/* <Typography
           sx={{

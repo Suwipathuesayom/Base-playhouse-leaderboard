@@ -43,6 +43,7 @@ const TaskBox = ({
     // handle UI State
     let tempTask = [...newTask];
     tempTask[index].isHidden = !tempTask[index].isHidden;
+    // tempTask[index].point = tempTask[index].isHidden ? 0 : tempTask[index].point
 
     tempTask[index].subTasks.forEach((subTask) => {
       subTask.isHidden = tempTask[index].isHidden;
@@ -55,6 +56,7 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].isHidden = !tempProject.tasks[index].isHidden;
+    // tempProject.tasks[index].point = tempProject.tasks[index].isHidden ? 0 : tempProject.tasks[index].point
 
     tempProject.tasks[index].subTasks.forEach((subTask) => {
       subTask.isHidden = tempProject.tasks[index].isHidden;
@@ -121,8 +123,9 @@ const TaskBox = ({
     tempTask[index].subTasks.push({
       subTaskName: "",
       point: 5,
-      isHidden: true,
+      isHidden: false,
     });
+    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
     tempTask[index].showSubTasks = true;
     setNewTask(tempTask);
     // handle Data State
@@ -130,8 +133,12 @@ const TaskBox = ({
     tempProject.tasks[index].subTasks.push({
       subTaskName: "",
       point: 5,
-      isHidden: true,
+      isHidden: false,
     });
+    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+      tempProject.tasks,
+      index
+    );
     tempProject.tasks[index].showSubTasks = true;
     setProject(tempProject);
     console.log(tempProject);
@@ -274,7 +281,7 @@ const TaskBox = ({
 
         <InputBase
           type={"number"}
-          disabled={!!subTasks.length}
+          disabled={!!subTasks.length || isHidden}
           sx={{
             width: "5%",
             minWidth: 60,
