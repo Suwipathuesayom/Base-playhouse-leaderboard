@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { db } from "../../config/firebase";
 import React from "react";
-import "../../assets/Styles/NewProject.css";
+import "../../assets/styles/NewProject.css";
 
 import color from "../../constant/color";
 
