@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/styles/AdminDashboard.css";
+import "../../assets/Styles/AdminDashboard.css";
 import plusIcon from "../../assets/images/PlusIcon.svg";
 import circle1 from "../../assets/images/circle1.png";
 import circle2 from "../../assets/images/circle2.png"
