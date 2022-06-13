@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+=======
+import React from "react";
+import "../assets/Styles/Landing.css";
+import { Table } from "react-bootstrap";
+import "../assets/Styles/LearnerTable.css";
+import BgDark from "../assets/images/Bg-dark.png";
+>>>>>>> 81a6852a5f5a37c91206571932c62cded1a90151
 
 function createData(rank,group, name, total, protein) {
   return {rank, group, name, total, protein };
@@ -32,6 +40,7 @@ const rows = [
 
 export default function LeanerTable() {
   return (
+<<<<<<< HEAD
     <TableContainer component={Paper}>
       <Table style={{width: 969}} size="large" aria-label="a dense table">
         <TableHead>
@@ -61,5 +70,45 @@ export default function LeanerTable() {
         </TableBody>
       </Table>
     </TableContainer>
+=======
+    <div className="learner-container">
+      <div className="bgdark">
+        <img src={BgDark} alt="logo-name" />
+      </div>
+      {/* <Table striped hover>
+        <thead style={{backgroundColor: '#151515' , color: '#ffffff'}}>
+          <tr>
+            <th>RANK</th>
+            <th>GROUP</th>
+            <th>NAME</th>
+            <th>TOTAL</th>
+            <th>POINT</th>
+          </tr>
+        </thead>
+        <tbody style={{backgroundColor: '#FF5B4A'}}>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@111</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@222</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td colSpan={2}>Larry the Bird</td>
+            <td>@twitter</td>
+            <td>@333</td>
+          </tr>
+        </tbody>
+      </Table> */}
+    </div>
+>>>>>>> 81a6852a5f5a37c91206571932c62cded1a90151
   );
 }

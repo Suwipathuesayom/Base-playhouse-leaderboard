@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 /* *{
   -ms-overflow-style: none;
 } */
@@ -12,3 +13,18 @@
 } */
 
 
+=======
+/* Disable Number Input Up/Down Arrow on html */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/*  */
+>>>>>>> 81a6852a5f5a37c91206571932c62cded1a90151
