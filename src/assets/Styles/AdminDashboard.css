@@ -1,5 +1,8 @@
-* {
-  min-width: 100%;
+.adminLeaderboard {
+  /* min-width: 1000px; */
+  background-color: pink;
+  overflow-x: overlay;
+  overflow-y: clip;
 }
 
 .admin-header h1 {

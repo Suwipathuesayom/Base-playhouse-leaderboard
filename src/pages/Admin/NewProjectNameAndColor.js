@@ -10,6 +10,12 @@ function NewProjectNameAndColor({ project, setProject }) {
   const [projectName, setProjectName] = useState(
     project.projectName ? project.projectName : ""
   );
+  const [top3Color] = useState(
+    project.theme.top3 ? project.theme.top3 : "#000000"
+  );
+  const [hilightColor] = useState(
+    project.theme.hilight ? project.theme.hilight : "#000000"
+  );
   const [newProjectName, setNewProjectName] = useState("");
 
   //   State Handler
@@ -79,7 +85,7 @@ function NewProjectNameAndColor({ project, setProject }) {
               handleRemaneProjectName(event.target.value);
           }}
           onChange={(event) => setNewProjectName(event.target.value)}
-          defaultValue={projectName}
+          defaultValue={projectName === "" ? projectName : project.projectName}
         />
       )}
       {!isEditing && (
@@ -98,7 +104,7 @@ function NewProjectNameAndColor({ project, setProject }) {
             //   backgroundColor: "lime",
           }}
         >
-          {projectName}
+          {projectName === "" ? projectName : project.projectName}
         </Typography>
       )}
       {isEditing && (
@@ -142,9 +148,10 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
-        defaultValue={
-          project.theme.top3 !== "#000000" ? project.theme.top3 : "#000000"
-        }
+        // defaultValue={
+        //   project.theme.top3 === "#000000" ? "#000000" : project.theme.top3
+        // }
+        defaultValue={top3Color === "#000000" ? top3Color : project.theme.top3}
         onBlur={(event) => handleTopThreeColorChange(event.target.value)}
         startAdornment={
           <InputAdornment position="start">TOP 3 COLOR</InputAdornment>
@@ -160,10 +167,13 @@ function NewProjectNameAndColor({ project, setProject }) {
           fontSize: 20,
           backgroundColor: "white",
         }}
+        // defaultValue={
+        //   project.theme.hilight === "#000000"
+        //   ? "#000000"
+        //   : project.theme.hilight
+        // }
         defaultValue={
-          project.theme.hilight !== "#000000"
-            ? project.theme.hilight
-            : "#000000"
+          hilightColor === "#000000" ? hilightColor : project.theme.hilight
         }
         onBlur={(event) => handleHilightColorChange(event.target.value)}
         startAdornment={

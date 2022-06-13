@@ -7,7 +7,7 @@ import AdminTable from "../../components/AdminTable";
 
 function AdminLeaderboard() {
   return (
-    <div>
+    <div className="adminLeaderboard">
       <img src={circle1} alt="circle1" className="circle1" />
       <img src={circle2} alt="circle2" className="circle2" />
       <div className="admin-header">

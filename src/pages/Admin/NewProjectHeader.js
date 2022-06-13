@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../assets/styles/NewProject.css";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
@@ -58,7 +58,7 @@ function NewProjectHeader({ project, setProject, header }) {
           // backgroundColor: "pink",
         }}
       >
-        <h1>{header}</h1>
+        <Typography variant="h2">{header}</Typography>
         <Stack
           className="header__contentImport"
           width={"100%"}

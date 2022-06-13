@@ -3,7 +3,7 @@ import { Table, Button, Modal, Form } from "react-bootstrap";
 import data from "../../src/mock.js";
 import "../../src/assets/styles/AdminDashboard.css";
 // import EditableRow from "./EditableRow";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+// import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 function AdminTable() {
   const [show, setShow] = useState(false);
@@ -124,13 +124,13 @@ function AdminTable() {
             >
               <Form.Label>
                 Excel <br />{" "}
-                <ReactHTMLTableToExcel
+                {/* <ReactHTMLTableToExcel
                   className="btn btn-danger"
                   table="adminTable"
                   filename="Table Excel file"
                   sheet="Sheet"
                   buttonText="Download"
-                />
+                /> */}
               </Form.Label>
             </Form.Group>
           </Form>

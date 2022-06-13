@@ -78,20 +78,23 @@ const SubTaskBox = ({
   const handleRemoveSubTask = (index, subIndex) => {
     // handle UI State
     let tempTask = [...newTask];
+    let subTaskLength = tempTask[index].subTasks.length;
     tempTask[index].subTasks.splice(subIndex, 1);
     tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
     tempTask[index].showSubTasks = !!tempTask[index].subTasks.length;
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    tempProject.tasks[index].subTasks.splice(subIndex, 1);
-    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-      project.tasks,
-      index
-    );
-    tempProject.tasks[index].showSubTasks =
-      !!tempProject.tasks[index].subTasks.length;
-    setProject(tempProject);
+    if (tempProject.tasks[index].subTasks.length === subTaskLength) {
+      tempProject.tasks[index].subTasks.splice(subIndex, 1);
+      tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+        project.tasks,
+        index
+      );
+      tempProject.tasks[index].showSubTasks =
+        !!tempProject.tasks[index].subTasks.length;
+      setProject(tempProject);
+    }
     console.log(tempProject);
   };
 

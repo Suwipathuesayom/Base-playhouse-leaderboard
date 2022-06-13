@@ -129,11 +129,17 @@ const TaskBox = ({
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    tempProject.tasks[index].subTasks.push({
-      subTaskName: "",
-      point: 5,
-      isHidden: false,
-    });
+    if (
+      tempProject.tasks[index].subTask[
+        tempProject.tasks[index].subTask.length
+      ] !== tempTask[index].subTask[tempProject.tasks[index].subTask.length]
+    ) {
+      tempProject.tasks[index].subTasks.push({
+        subTaskName: "",
+        point: 5,
+        isHidden: false,
+      });
+    }
     tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
       tempProject.tasks,
       index
