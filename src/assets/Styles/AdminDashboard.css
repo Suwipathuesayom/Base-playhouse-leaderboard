@@ -1,8 +1,11 @@
+* {
+  min-width: 100%;
+}
+
 .admin-header h1 {
   position: absolute;
   width: 568px;
   height: 92px;
-  left: 676px;
   top: 32px;
   text-transform: uppercase;
 
@@ -21,8 +24,7 @@
   position: absolute;
   width: 437px;
   height: 52px;
-  left: 705px;
-  top: 160px;
+  top: 150px;
 
   font-family: "Raleway";
   font-style: normal;
@@ -42,7 +44,6 @@
   width: 100%;
   height: 100%;
   top: 212px;
-
   background: rgba(32, 27, 27, 0.78);
   border: 10px solid rgba(255, 255, 255, 0.6);
   border-radius: 40px;
@@ -52,31 +53,50 @@
   position: absolute;
   width: 38px;
   height: 53.2px;
-  left: 1120px;
-  top: 152px;
+  left: 230px;
+  top: 145px;
   cursor: pointer;
 }
 .admin-header img:hover {
   transform: scale(1.1);
 }
 
-.admin-table {
-  justify-content: center;
-  align-items: center;
-  padding: 12px, 40px, 12px, 40px;
-  gap: 40px;
-
-  position: absolute;
-  width: 1860px;
-  height: 80px;
-  left: 30px;
-  top: 10px;
+.circle1 {
+  position: relative;
+  width: 788px;
+  height: 706.48px;
+  left: -419px;
+  transform: rotate(-37.53deg);
 }
-
 .circle2 {
   position: absolute;
   width: 662.6px;
   height: 510.3px;
-  left: 1460.85px;
-  top: 710px;
+  top: 490px;
+}
+
+.admin-table {
+  position: absolute;
+  min-width: 95%;
+  width: 240px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.table-container th,
+td,
+tr {
+  color: white;
+}
+
+.Edit-Txt {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 42px;
+
+  color: #ff5b4a;
+  text-transform: uppercase;
+  cursor: pointer;
 }
