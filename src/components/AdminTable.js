@@ -32,7 +32,7 @@ function AdminTable() {
                   {project.people?.map((person, index) => {
                     return (
                       <tr key={index}>
-                        <td>{person.firstName}</td>     
+                        <td>{person.firstName}</td>
                       </tr>
                     );
                   })}
