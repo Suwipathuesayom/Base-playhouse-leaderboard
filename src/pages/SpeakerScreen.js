@@ -1,123 +1,123 @@
-import React, { useState } from "react";
+import React from "react";
 import "../assets/styles/SpeakerScreen.css";
 import marvel from "../assets/image/marvel.png";
-import crown from "../assets/image/crown1.png";
-import avatar from "../assets/image/avatar1.png";
-import avatar2 from "../assets/image/avatar2.png";
-import avatar3 from "../assets/image/avatar3.png";
+// import crown from "../assets/image/crown1.png";
+// import avatar from "../assets/image/avatar1.png";
+// import avatar2 from "../assets/image/avatar2.png";
+// import avatar3 from "../assets/image/avatar3.png";
 import { Box } from "@mui/material";
 
 function SpeakerScreen() {
-  const [data] = useState({
-    createdAt: new Date(),
-    imageUrl:
-      "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
-    projectName: "Marvel",
-    mentors: [
-      {
-        index: 1,
-        fullName: "Stan Lee",
-      },
-      {
-        index: 2,
-        fullName: "Thanat Raktham",
-      },
-    ],
-    theme: {
-      top3: "#ff0000",
-      hilight: "#ffffff",
-    },
-    learnerGroups: [
-      {
-        groupName: "Avengers",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-      {
-        groupName: "Inhumans",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-      {
-        groupName: "X-men",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-      {
-        groupName: "Avengers",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-      {
-        groupName: "Inhumans",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-      {
-        groupName: "X-men",
-        avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
-      },
-    ],
-    tasks: [
-      {
-        taskName: "สู้ Alien บุกโลก",
-        subTasks: [
-          {
-            subTaskName: "ยืนล้อมวงเท่",
-            point: 2,
-            isHidden: false,
-          },
-          {
-            subTaskName: "จับ Loki",
-            point: 7,
-            isHidden: false,
-          },
-        ],
-        showSubTasks: false,
-        point: 9,
-        weight: 10,
-        isHidden: false,
-      },
-      {
-        taskName: "เอาชนะ Ultron",
-        subTasks: [
-          {
-            subTaskName: "ยกเมืองขึ้นฟ้า",
-            point: 1,
-            isHidden: false,
-          },
-          {
-            subTaskName: "เอาเมืองไปไว้ที่เดิม",
-            point: 1,
-            isHidden: true,
-          },
-        ],
-        showSubTasks: false,
-        point: 2,
-        weight: 20,
-        isHidden: false,
-      },
-    ],
-  });
+  // const [data] = useState({
+  //   createdAt: new Date(),
+  //   imageUrl:
+  //     "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
+  //   projectName: "Marvel",
+  //   mentors: [
+  //     {
+  //       index: 1,
+  //       fullName: "Stan Lee",
+  //     },
+  //     {
+  //       index: 2,
+  //       fullName: "Thanat Raktham",
+  //     },
+  //   ],
+  //   theme: {
+  //     top3: "#ff0000",
+  //     hilight: "#ffffff",
+  //   },
+  //   learnerGroups: [
+  //     {
+  //       groupName: "Avengers",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //     {
+  //       groupName: "Inhumans",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //     {
+  //       groupName: "X-men",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //     {
+  //       groupName: "Avengers",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //     {
+  //       groupName: "Inhumans",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //     {
+  //       groupName: "X-men",
+  //       avatar: "string",
+  //       points: {
+  //         taskIndex: 0,
+  //         taskPoint: 0,
+  //       },
+  //     },
+  //   ],
+  //   tasks: [
+  //     {
+  //       taskName: "สู้ Alien บุกโลก",
+  //       subTasks: [
+  //         {
+  //           subTaskName: "ยืนล้อมวงเท่",
+  //           point: 2,
+  //           isHidden: false,
+  //         },
+  //         {
+  //           subTaskName: "จับ Loki",
+  //           point: 7,
+  //           isHidden: false,
+  //         },
+  //       ],
+  //       showSubTasks: false,
+  //       point: 9,
+  //       weight: 10,
+  //       isHidden: false,
+  //     },
+  //     {
+  //       taskName: "เอาชนะ Ultron",
+  //       subTasks: [
+  //         {
+  //           subTaskName: "ยกเมืองขึ้นฟ้า",
+  //           point: 1,
+  //           isHidden: false,
+  //         },
+  //         {
+  //           subTaskName: "เอาเมืองไปไว้ที่เดิม",
+  //           point: 1,
+  //           isHidden: true,
+  //         },
+  //       ],
+  //       showSubTasks: false,
+  //       point: 2,
+  //       weight: 20,
+  //       isHidden: false,
+  //     },
+  //   ],
+  // });
 
   return (
     <div className="header">
