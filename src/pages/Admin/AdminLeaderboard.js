@@ -2,11 +2,10 @@ import React from "react";
 import "../../assets/styles/AdminDashboard.css";
 import plusIcon from "../../assets/images/PlusIcon.svg";
 import circle1 from "../../assets/images/circle1.png";
-import circle2 from "../../assets/images/circle2.png"
+import circle2 from "../../assets/images/circle2.png";
 import AdminTable from "../../components/AdminTable";
 
 function AdminLeaderboard() {
-
   return (
     <div>
       <img src={circle1} alt="circle1" className="circle1" />
@@ -19,10 +18,9 @@ function AdminLeaderboard() {
       </div>
       <div className="admin-body">
         <div className="admin-table">
-        <AdminTable />
+          <AdminTable />
         </div>
       </div>
-      
     </div>
   );
 }

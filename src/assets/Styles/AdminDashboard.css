@@ -62,11 +62,10 @@
 }
 
 .circle1 {
-  position: relative;
+  position: absolute;
   width: 788px;
   height: 706.48px;
-  left: -419px;
-  transform: rotate(-37.53deg);
+  left: -1219px;
 }
 .circle2 {
   position: absolute;
@@ -83,20 +82,7 @@
   margin-right: 20px;
 }
 
-.table-container th,
-td,
-tr {
-  color: white;
-}
 
-.Edit-Txt {
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 42px;
+/* */
 
-  color: #ff5b4a;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+
