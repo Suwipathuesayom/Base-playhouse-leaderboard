@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Button } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,12 +47,14 @@ export default function CustomizedTables() {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)</StyledTableCell>
+            <StyledTableCell align="center">
+              ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)
+            </StyledTableCell>
             <StyledTableCell align="left">แก้ไขล่าสุด</StyledTableCell>
             <StyledTableCell align="left">คะแนนรวม</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody style={{ backgroundColor: "#151515"}}>
+        <TableBody style={{ backgroundColor: "#151515" }}>
           {rows.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell align="center" component="th" scope="row">
@@ -59,6 +62,16 @@ export default function CustomizedTables() {
               </StyledTableCell>
               <StyledTableCell align="left">{row.lastEdit}</StyledTableCell>
               <StyledTableCell align="left">{row.total}</StyledTableCell>
+              <StyledTableCell>
+                <Button variant="contained" color="danger">
+                  Success
+                </Button>
+              </StyledTableCell>
+              <StyledTableCell>
+                <Button variant="contained" color="danger">
+                  Success
+                </Button>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
