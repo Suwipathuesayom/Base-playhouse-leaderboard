@@ -19,20 +19,29 @@ function NewProjectHeader({ project, setProject, header }) {
       <div className="header__upload">
         <img
           src={
-            selectedImage
-              ? URL.createObjectURL(selectedImage)
-              : project.imageUrl
+            selectedImage ? selectedImage : project.imageUrl
+            // selectedImage
+            //   ? URL.createObjectURL(selectedImage)
+            //   : project.imageUrl
           }
           alt="not found"
         />
         <div>
           <input
+            type={"text"}
+            onChange={(event) => {
+              setSelectedImage(event.target.value);
+              handleSelectImage(event.target.value);
+            }}
+            placeholder={"image url ..."}
+          />
+          {/* <input
             type={"file"}
             onChange={(event) => {
               setSelectedImage(event.target.files[0]);
               handleSelectImage(event.target.files[0]);
             }}
-          />
+          /> */}
         </div>
       </div>
       <Box

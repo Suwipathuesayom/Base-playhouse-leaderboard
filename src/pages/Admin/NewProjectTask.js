@@ -58,7 +58,15 @@ function NewProjectTask({ project, setProject }) {
   };
 
   return (
-    <Box sx={{ width: "100%", minWidth: 1500, marginLeft: "20px" }}>
+    <Box
+      sx={{
+        width: "100%",
+        minWidth: 1500,
+        marginLeft: "20px",
+        paddingBottom: "50px",
+        backgroundColor: "pink",
+      }}
+    >
       <Stack
         width={"100%"}
         height={"70px"}
