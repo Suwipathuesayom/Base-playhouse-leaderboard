@@ -4,6 +4,9 @@ import "../../assets/styles/NewProject.css";
 import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
+import { SyncLoader } from "react-spinners";
+import { Stack, Typography } from "@mui/material";
+import color from "../../constant/color";
 
 // Project Object Structure:
 // const project = {
@@ -143,7 +146,7 @@ function EditProject() {
         .collection("users")
         .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
         .collection("project")
-        .where("projectName", "==", "DC")
+        .where("projectName", "==", "star lord")
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
@@ -167,12 +170,39 @@ function EditProject() {
         <NewProjectFooter
           project={project}
           setProject={setProject}
-          // queryProject={queryProject}
+          header={"EDIT PROJECT"}
         />
       </div>
     );
   } else {
-    return <div className="newProject">Loading</div>;
+    return (
+      <React.Fragment>
+        <Stack
+          sx={{
+            bgcolor: "#dcdfe1",
+            width: "100vw",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
+        >
+          <SyncLoader
+            color={color.primaryOrange}
+            backgroundColor={"pink"}
+            size={25}
+          />
+          <Typography
+            variant={"h2"}
+            sx={{
+              marginTop: 5,
+              color: color.primaryBlack,
+            }}
+          >
+            Loading
+          </Typography>
+        </Stack>
+      </React.Fragment>
+    );
   }
 }
 

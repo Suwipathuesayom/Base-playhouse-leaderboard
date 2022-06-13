@@ -68,7 +68,11 @@ function NewProject() {
         header={"NEW PROJECT"}
       />
       <NewProjectBody project={project} setProject={setProject} />
-      <NewProjectFooter project={project} setProject={setProject} />
+      <NewProjectFooter
+        project={project}
+        setProject={setProject}
+        header={"NEW PROJECT"}
+      />
     </div>
   );
 }

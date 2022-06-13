@@ -127,12 +127,14 @@ const TaskBox = ({
     tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
     tempTask[index].showSubTasks = true;
     setNewTask(tempTask);
+    console.log(tempTask);
     // handle Data State
     let tempProject = project;
+    console.log(tempProject);
     if (
-      tempProject.tasks[index].subTask[
-        tempProject.tasks[index].subTask.length
-      ] !== tempTask[index].subTask[tempProject.tasks[index].subTask.length]
+      tempProject.tasks[index].subTasks[
+        tempProject.tasks[index].subTasks.length
+      ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
     ) {
       tempProject.tasks[index].subTasks.push({
         subTaskName: "",

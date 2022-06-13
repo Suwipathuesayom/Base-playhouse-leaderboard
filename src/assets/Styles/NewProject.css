@@ -51,10 +51,6 @@
   /* background-color: green; */
 }
 
-/* .newProject__body {
-    overflow-x: overlay;
-} */
-
 .footer {
   display: flex;
   justify-content: space-between;
@@ -66,10 +62,4 @@
   width: 100%;
   padding: 0 1%;
   background-color: #151515;
-}
-
-.button {
-  width: 150px;
-  height: 5vh;
-  min-height: 50px;
 }
