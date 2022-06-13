@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import "../../assets/Styles/NewProject.css";
+import "../../assets/styles/NewProject.css";
 import NewProjectLearner from "./NewProjectLearner";
 import NewProjectTask from "./NewProjectTask";
 
@@ -10,6 +10,7 @@ function NewProjectBody({ project, setProject }) {
       minWidth={"1500px"}
       marginTop={"10px"}
       paddingX={"1%"}
+      marginBottom={"20%"}
       flexDirection={"row"}
       height={"70vh"}
     >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/Styles/NewProject.css";
+import "../../assets/styles/NewProject.css";
 import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";

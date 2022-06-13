@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-import React  from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
-import Learner from './pages/Learner';
-import './App.css';
-import AdminLeaderboard from './pages/Admin/AdminLeaderboard';
-
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Learner />} />
-        <Route path="AdminLeaderboard" element={<AdminLeaderboard />}>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    
-    
-=======
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -44,7 +20,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
->>>>>>> 81a6852a5f5a37c91206571932c62cded1a90151
   );
 }
 

@@ -3,7 +3,7 @@ import { Box, InputBase, Stack, Typography } from "@mui/material";
 import { AddCircle, KeyboardArrowUp } from "@mui/icons-material";
 
 import color from "../../constant/color";
-import "../../assets/Styles/NewProject.css";
+import "../../assets/styles/NewProject.css";
 import TaskBox from "../../components/TaskBox";
 
 function NewProjectTask({ project, setProject }) {
@@ -64,7 +64,7 @@ function NewProjectTask({ project, setProject }) {
         minWidth: 1500,
         marginLeft: "20px",
         paddingBottom: "50px",
-        backgroundColor: "pink",
+        // backgroundColor: "pink",
       }}
     >
       <Stack

@@ -6,7 +6,7 @@
   /* padding: 10px 1%; */
   background-color: #dcdfe1;
   overflow-x: overlay;
-  overflow-y: overlay;
+  overflow-y: hidden;
 }
 
 .newProject__icon:hover {
@@ -63,14 +63,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* position: fixed;
-    bottom: 0; */
+  position: fixed;
+  bottom: 0;
   height: 5vh;
-  min-height: 50px;
+  min-height: 75px;
   width: 100%;
-  min-width: 1500px;
   padding: 0 1%;
-  background-color: #969696;
+  background-color: #151515;
 }
 
 .button {
