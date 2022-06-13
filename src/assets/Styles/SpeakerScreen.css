@@ -9,7 +9,6 @@ body {
   box-sizing: border-box;
   background-color: #DCDFE1;
 }
-
 .header h1 {
   position: absolute;
   width: 496px;
@@ -83,7 +82,7 @@ body {
 .bg-tables {
   position: absolute;
   width: 990px;
-  height: 850px;
+  height: 632px;
   left: 0px;
   top: 50px;
   background: #201b1b;
@@ -115,7 +114,7 @@ body {
 .bg-point {
   position: absolute;
   width: 1058px;
-  height: 850px;
+  height: 632px;
   left: 990px;
   top: 50px;
   background: #242424;
@@ -125,7 +124,7 @@ body {
 .bg-col1 {
   position: absolute;
   width: 150px;
-  height: 850px;
+  height: 632px;
   left: 225px;
   top: 0px;
   background: #000000;
@@ -134,7 +133,7 @@ body {
 .bg-col2 {
   position: absolute;
   width: 150px;
-  height: 850px;
+  height: 632px;
   left: 470px;
   top: 0px;
   background: #000000;
@@ -150,10 +149,370 @@ body {
   border-radius: 10px;
 }
 
-.crown1-image {
+.crown1-image img {
   position: absolute;
-  width: 20px;
+  width: 75px;
   height: 75px;
   left: -18px;
-  top: 20px;
+  top: -40px;
+  transform: rotate(-5deg);
+}
+
+.col-table1 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 134px;
+  top: 4px;
+
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.col-table2 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 54px;
+  background: #F67F7F;
+  border-radius: 10px;
+}
+
+.avatar1-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+
+}
+
+.col-table2 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 134px;
+  top: 4px;
+
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.avatar2-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table3 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 108px;
+  background: #FBA1A1;
+  border-radius: 10px;
+}
+
+.col-table3 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 134px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar3-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table4 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 162px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table4 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 133px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar1-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+
+}
+
+.col-table5 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 216px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table5 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 133px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar2-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table6{
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 270px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table6 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 132px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar6-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table7 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 324px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table7 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 131px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar7-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table8 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 378px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table8 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 131px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar8-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table9 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 432px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table9 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 131px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar9-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table10 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 486px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table10 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 124px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar10-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
+}
+
+.col-table11 {
+  position: absolute;
+  width: 915px;
+  height: 45px;
+  left: 0px;
+  top: 540px;
+  background: #888383;
+  border-radius: 10px;
+}
+
+.col-table11 h2 {
+  position: absolute;
+  width: 13px;
+  height: 39px;
+  left: 124px;
+  top: 4px;
+  font-family: 'Rambla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 39px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.avatar11-image img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 225px;
+  top: 8px;
 }
