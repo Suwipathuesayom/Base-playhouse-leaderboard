@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/styles/NewProject.css";
+import "../../assets/Styles/NewProject.css";
 import { Box, Stack } from "@mui/material";
 
 import NewProjectAddMentor from "./NewProjectAddMentor";

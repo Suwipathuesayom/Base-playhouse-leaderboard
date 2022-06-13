@@ -8,7 +8,7 @@ import {
 import { Box, InputBase, Stack, Typography } from "@mui/material";
 
 import color from "../../constant/color";
-import "../../assets/styles/NewProject.css";
+import "../../assets/Styles/NewProject.css";
 
 function NewProjectLearner({ project, setProject }) {
   const [learnerGroups, setLearnerGroups] = useState(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import "../../assets/styles/NewProject.css";
+import "../../assets/Styles/NewProject.css";
 import NewProjectLearner from "./NewProjectLearner";
 import NewProjectTask from "./NewProjectTask";
 
