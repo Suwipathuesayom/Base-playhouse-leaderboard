@@ -10,7 +10,6 @@ import EditProject from "./pages/Admin/EditProject";
 import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 import Landing from './pages/Landing';
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>

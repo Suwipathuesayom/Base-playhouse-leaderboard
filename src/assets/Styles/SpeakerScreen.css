@@ -58,19 +58,20 @@ body {
 
 .bg-table {
   position: absolute;
-  width: 850px;
-  height: 58px;
+  width: 100%;
+  height: 700px;
   left: 0px;
   top: 268px;
-  background: #151515;
+  /* background: #151515; */
+  background-color: orange;
 }
 
 .table {
-  position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 0px;
   left: 0px;
-  top: 12px;
+  top: 12px; */
   font-family: "Raleway";
   font-style: normal;
   font-weight: 800;
@@ -91,11 +92,11 @@ body {
 
 .table-point {
   position: absolute;
-  width: 1198px;
+  width: 500px;
   height: 50px;
-  left: 850px;
+  /* left: 850px; */
   top: 0px;
-  background: #151515;
+  background: cyan;
 }
 
 .col-point {
@@ -114,7 +115,7 @@ body {
 
 .bg-point {
   position: absolute;
-  width: 1058px;
+  width: 900px;
   height: 632px;
   left: 990px;
   top: 50px;

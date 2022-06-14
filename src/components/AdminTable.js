@@ -126,7 +126,11 @@ export default function AdminTable({ projectDashboard }) {
                       justifyContent: "space-evenly",
                     }}
                   >
-                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickOpen}
+                    >
                       Export
                     </Button>
                     <Box
