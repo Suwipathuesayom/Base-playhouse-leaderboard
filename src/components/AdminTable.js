@@ -62,7 +62,8 @@ const rows = [
   createData("Gingerbread", 356, 16.0),
 ];
 
-export default function CustomizedTables() {
+export default function AdminTable({ projectDashboard }) {
+  console.log(projectDashboard);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -72,7 +73,6 @@ export default function CustomizedTables() {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <TableContainer component={Paper} style={{ marginTop: 30 }}>
@@ -81,7 +81,7 @@ export default function CustomizedTables() {
             <TableRow>
               <StyledTableCell align="center">
                 <StarBorderIcon></StarBorderIcon>
-                ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)
+                ชื่อโปรเจค (ทั้งหมด {projectDashboard?.length} โปรเจค)
               </StyledTableCell>
               <StyledTableCell align="center">
                 แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
@@ -96,21 +96,23 @@ export default function CustomizedTables() {
             style={{ backgroundColor: "#151515" }}
             className="custom-bodyCell"
           >
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {projectDashboard.map((project, index) => (
+              <StyledTableRow key={index}>
                 <StyledTableCell align="center" component="th" scope="row">
                   <StarBorderIcon></StarBorderIcon>
-                  {row.name}
+                  {project.projectName}
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.lastEdit}</StyledTableCell>
-                <StyledTableCell align="center">{row.total}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {/* {project.createdAt} */}
+                  {5555}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {project.totalPoint}
+                </StyledTableCell>
                 <StyledTableCell
                   align="left"
                   style={{
-                    // display: "flex",
-                    // backgroundColor: "#FFFFFF",
                     flexDirection: "row",
-                    // justifyContent: "space-evenly",
                     alignItems: "left",
                     height: "100%",
                     padding: "5px",
@@ -124,11 +126,7 @@ export default function CustomizedTables() {
                       justifyContent: "space-evenly",
                     }}
                   >
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={handleClickOpen}
-                    >
+                    <Button variant="contained" color="error" onClick={handleClickOpen}>
                       Export
                     </Button>
                     <Box
@@ -150,8 +148,6 @@ export default function CustomizedTables() {
                       </Typography>
                     </Box>
                   </Stack>
-                  {/* <div>555</div>
-                <div>555</div> */}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
