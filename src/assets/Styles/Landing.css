@@ -1,44 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
 body {
   margin: 0;
-  background-color: #F3F1F1;
-
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ff0505;
+  width: 100%;
+  height: 100%;
 }
-.container{
-  max-width: 100%;
-  margin: auto;
-}
 
-.flex{
+.flex {
   display: flex;
   justify-content: space-between;
 }
 
-.container h1 {
-  display: inline-block;
+.ImageBoomSeen {
   position: absolute;
-  display: flex;
+  left: 10%;
+  right: 0.36%;
+  top: 1.67%;
+  bottom: 65.37%;
+
+  transform: rotate(10.2deg);
+  background-color: "orange";
+}
+
+.head-body h1 {
+  position: absolute;
   width: 1131px;
   height: 266px;
   left: 96px;
   top: 217px;
-  font-family: 'Russo One', sans-serif;
+
+  font-family: "Russo One";
   font-style: normal;
   font-weight: 400;
   font-size: 110px;
   line-height: 133px;
-  color: #151515;
+
+  color: #ce0c0c;
 }
 
-.container img{
+.container img {
   display: inline-block;
   position: absolute;
   left: 79.64%;
@@ -48,7 +51,7 @@ body {
   transform: rotate(10.2deg);
 }
 
-.image{
+.image {
   display: inline-block;
   position: absolute;
   width: 1108.62px;
@@ -59,29 +62,35 @@ body {
   transform: rotate(21.07deg);
 }
 
-
-.leader-btn  {
-position: absolute;
-display: inline-block;
-width: 422px;
-height: 90px;
-left: 135px;
-top: 717px;
-font-family: 'Raleway';
-font-weight: 400;
-font-size: 32px;
-line-height: 56px;
-text-align: center;
-border-radius: 200px;
-background-color: #FF5B4A;
-border-style: none;
-color: #ffffff;
+.leader-btn {
+  position: absolute;
+  display: inline-block;
+  width: 422px;
+  height: 90px;
+  left: 135px;
+  top: 717px;
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 56px;
+  text-align: center;
+  border-radius: 200px;
+  background-color: #ff5b4a;
+  border-style: none;
+  color: #ffffff;
 }
 
-.leader-btn:hover{
+.leader-btn:hover {
   background-color: #f18888;
   color: #ffffff;
 }
 
+.dice {
+  position: relative;
+  left: 2.89%;
+  right: 1.66%;
+  top: 91.33%;
+  bottom: -85.37%;
 
-
+  transform: matrix(0.93, 0.36, 0.36, -0.93, 0, 0);
+}

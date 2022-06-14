@@ -11,6 +11,14 @@ import Button from "@mui/material/Button";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Stack, Typography } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import InputLabel from "@mui/material/InputLabel";
+import "../assets/styles/AdminDashboard.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,85 +63,131 @@ const rows = [
 ];
 
 export default function CustomizedTables() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <TableContainer component={Paper} style={{ marginTop: 30 }}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">
-              <StarBorderIcon></StarBorderIcon>
-              ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
-            </StyledTableCell>
-            <StyledTableCell align="left"></StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody
-          style={{ backgroundColor: "#151515" }}
-          className="custom-bodyCell"
-        >
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell align="center" component="th" scope="row">
+    <div>
+      <TableContainer component={Paper} style={{ marginTop: 30 }}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">
                 <StarBorderIcon></StarBorderIcon>
-                {row.name}
+                ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)
               </StyledTableCell>
-              <StyledTableCell align="center">{row.lastEdit}</StyledTableCell>
-              <StyledTableCell align="center">{row.total}</StyledTableCell>
-              <StyledTableCell
-                align="left"
-                style={{
-                  // display: "flex",
-                  // backgroundColor: "#FFFFFF",
-                  flexDirection: "row",
-                  // justifyContent: "space-evenly",
-                  alignItems: "left",
-                  height: "100%",
-                  padding: "5px",
-                }}
-              >
-                <Stack
-                  sx={{
-                    display: "flex",
+              <StyledTableCell align="center">
+                แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
+              </StyledTableCell>
+              <StyledTableCell align="left"></StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody
+            style={{ backgroundColor: "#151515" }}
+            className="custom-bodyCell"
+          >
+            {rows.map((row) => (
+              <StyledTableRow key={row.name}>
+                <StyledTableCell align="center" component="th" scope="row">
+                  <StarBorderIcon></StarBorderIcon>
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">{row.lastEdit}</StyledTableCell>
+                <StyledTableCell align="center">{row.total}</StyledTableCell>
+                <StyledTableCell
+                  align="left"
+                  style={{
+                    // display: "flex",
+                    // backgroundColor: "#FFFFFF",
                     flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
+                    // justifyContent: "space-evenly",
+                    alignItems: "left",
+                    height: "100%",
+                    padding: "5px",
                   }}
                 >
-                  <Button variant="contained" color="error">
-                    Export
-                  </Button>
-                  <Box
+                  <Stack
                     sx={{
-                      height: "100%",
-                      justifyContent: "center",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-evenly",
                     }}
                   >
-                    <Typography
-                      variant="p"
-                      style={{
-                        color: "#FF5B4A",
-                        fontSize: 15,
-                        fontFamily: "Raleway",
-                        textTransform: "uppercase",
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickOpen}
+                    >
+                      Export
+                    </Button>
+                    <Box
+                      sx={{
+                        height: "100%",
+                        justifyContent: "center",
                       }}
                     >
-                      Edit
-                    </Typography>
-                  </Box>
-                </Stack>
-                {/* <div>555</div>
+                      <Typography
+                        variant="p"
+                        style={{
+                          color: "#FF5B4A",
+                          fontSize: 15,
+                          fontFamily: "Raleway",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Edit
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  {/* <div>555</div>
                 <div>555</div> */}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box>
+        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+          <DialogTitle>Export</DialogTitle>
+          <DialogContent>
+            <DialogContentText className="popup-header">
+              Project:{" "}
+              <Typography
+                variant="p"
+                style={{
+                  color: "#FF5B4A",
+                  fontSize: 15,
+                  fontFamily: "Raleway",
+                  textTransform: "uppercase",
+                }}
+              >
+                Avengers
+              </Typography>
+            </DialogContentText>
+            <InputLabel>Speaker</InputLabel>
+            <TextField id="outlined" fullWidth />
+            <InputLabel>Leaner</InputLabel>
+            <TextField id="outlined" fullWidth />
+            <InputLabel>Mentor/Judge</InputLabel>
+            <TextField id="outlined" fullWidth />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </div>
   );
 }
