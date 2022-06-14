@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "../assets/styles/SpeakerScreen.css";
 import color from "../constant/color";
 import marvel from "../assets/image/marvel.png";
-// import crown from "../assets/image/crown1.png";
+// // import crown from "../assets/image/crown1.png";
 // import avatar from "../assets/image/avatar1.png";
 // import avatar2 from "../assets/image/avatar2.png";
 // import avatar3 from "../assets/image/avatar3.png";
-import { Avatar, Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 
 function SpeakerScreen() {
   const [data] = useState({
@@ -30,52 +31,142 @@ function SpeakerScreen() {
     },
     learnerGroups: [
       {
+        groupIndex: 0,
         groupName: "Avengers",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
       {
+        groupIndex: 1,
         groupName: "Inhumans",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
       {
+        groupIndex: 2,
         groupName: "X-men",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
       {
+        groupIndex: 0,
         groupName: "Avengers",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
       {
+        groupIndex: 1,
         groupName: "Inhumans",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
       {
+        groupIndex: 2,
         groupName: "X-men",
         avatar: "string",
-        points: {
-          taskIndex: 0,
-          taskPoint: 0,
-        },
+        points: [
+          {
+            taskIndex: 0,
+            taskPoint: 5,
+          },
+          {
+            taskIndex: 1,
+            taskPoint: 2,
+          },
+          {
+            taskIndex: 2,
+            taskPoint: 9,
+          },
+          {
+            taskIndex: 3,
+            taskPoint: 15,
+          },
+        ],
       },
     ],
     tasks: [
@@ -254,16 +345,7 @@ function SpeakerScreen() {
                         // backgroundColor: "black",
                       }}
                     >
-                      <Avatar
-                        alt={"alt"}
-                        src="../assets/image/avatar1.png"
-                        sx={{
-                          // flex: 0.5,
-                          width: 32,
-                          height: 32,
-                          // backgroundColor: "red",
-                        }}
-                      />
+                      <AccountCircle sx={{ fontSize: 36, color: "white" }} />
                     </Box>
                     <Typography
                       sx={{
