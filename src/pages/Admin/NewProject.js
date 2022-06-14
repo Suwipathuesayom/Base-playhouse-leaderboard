@@ -3,6 +3,8 @@ import "../../assets/styles/NewProject.css";
 import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
+import { Alert, Box, Button, Collapse, IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material";
 
 // Project Object Structure:
 // const project = {
@@ -60,8 +62,78 @@ function NewProject() {
     learnerGroups: [],
     tasks: [],
   });
+  const [createProjectStatus, setCreateProjectStatus] = useState("editing");
+
   return (
     <div className="newProject">
+      <Box
+        sx={{
+          width: "100%",
+          paddingX: "20%",
+          position: "absolute",
+          top: "10px",
+        }}
+      >
+        <Collapse in={createProjectStatus === "success"}>
+          <Alert
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setCreateProjectStatus("exiting");
+                }}
+              >
+                <Close fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}
+          >
+            สร้างโปรเจคสำเร็จ!
+          </Alert>
+        </Collapse>
+        <Collapse in={createProjectStatus === "creating"}>
+          <Alert
+            severity="info"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setCreateProjectStatus("exiting");
+                }}
+              >
+                <Close fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}
+          >
+            กำลังสร้างโปรเจค ...
+          </Alert>
+        </Collapse>
+        <Collapse in={createProjectStatus === "failure"}>
+          <Alert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setCreateProjectStatus("exiting");
+                }}
+              >
+                <Close fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}
+          >
+            เกิดข้อผิดพลาดในการสร้างโปรเจค
+          </Alert>
+        </Collapse>
+      </Box>
       <NewProjectHeader
         project={project}
         setProject={setProject}
@@ -72,6 +144,7 @@ function NewProject() {
         project={project}
         setProject={setProject}
         header={"NEW PROJECT"}
+        setCreateProjectStatus={setCreateProjectStatus}
       />
     </div>
   );

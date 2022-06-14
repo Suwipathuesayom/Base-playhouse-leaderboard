@@ -21,19 +21,28 @@ function NewProjectLearner({ project, setProject }) {
     // handle UI State
     let tempLearnerGroups = [...learnerGroups];
     tempLearnerGroups[tempLearnerGroups.length] = {
+      groupIndex: -1,
       groupName: newGroup,
       avatar: generateUnsplashImage(),
-      points: {},
+      points: [],
     };
+    for (let i = 0; i < tempLearnerGroups.length; i++) {
+      tempLearnerGroups[i].groupIndex = i + 1;
+    }
     setLearnerGroups(tempLearnerGroups);
     // handle Data State
     let tempProject = project;
     tempProject.learnerGroups[tempProject.learnerGroups.length] = {
+      groupIndex: -1,
       groupName: newGroup,
       avatar: generateUnsplashImage(),
-      points: {},
+      points: [],
     };
+    for (let i = 0; i < tempProject.learnerGroups.length; i++) {
+      tempProject.learnerGroups[i].groupIndex = i + 1;
+    }
     setProject(tempProject);
+    // callback
     console.log(tempProject);
 
     // clear TextInput
@@ -63,11 +72,18 @@ function NewProjectLearner({ project, setProject }) {
       // handle UI State
       let tempLearnerGroups = [...learnerGroups];
       tempLearnerGroups.splice(index, 1);
+      for (let i = 0; i < tempLearnerGroups.length; i++) {
+        tempLearnerGroups[i].groupIndex = i + 1;
+      }
       setLearnerGroups(tempLearnerGroups);
       // handle Data State
       let tempProject = project;
       tempProject.learnerGroups.splice(index, 1);
+      for (let i = 0; i < tempProject.learnerGroups.length; i++) {
+        tempProject.learnerGroups[i].groupIndex = i + 1;
+      }
       setProject(tempProject);
+      // callback
       console.log(tempProject);
     };
     return (
