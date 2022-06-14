@@ -1,123 +1,137 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/styles/SpeakerScreen.css";
+import color from "../constant/color";
 import marvel from "../assets/image/marvel.png";
 // import crown from "../assets/image/crown1.png";
 // import avatar from "../assets/image/avatar1.png";
 // import avatar2 from "../assets/image/avatar2.png";
 // import avatar3 from "../assets/image/avatar3.png";
-import { Box } from "@mui/material";
+import { Avatar, Box, Divider, Stack, Typography } from "@mui/material";
 
 function SpeakerScreen() {
-  // const [data] = useState({
-  //   createdAt: new Date(),
-  //   imageUrl:
-  //     "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
-  //   projectName: "Marvel",
-  //   mentors: [
-  //     {
-  //       index: 1,
-  //       fullName: "Stan Lee",
-  //     },
-  //     {
-  //       index: 2,
-  //       fullName: "Thanat Raktham",
-  //     },
-  //   ],
-  //   theme: {
-  //     top3: "#ff0000",
-  //     hilight: "#ffffff",
-  //   },
-  //   learnerGroups: [
-  //     {
-  //       groupName: "Avengers",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //     {
-  //       groupName: "Inhumans",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //     {
-  //       groupName: "X-men",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //     {
-  //       groupName: "Avengers",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //     {
-  //       groupName: "Inhumans",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //     {
-  //       groupName: "X-men",
-  //       avatar: "string",
-  //       points: {
-  //         taskIndex: 0,
-  //         taskPoint: 0,
-  //       },
-  //     },
-  //   ],
-  //   tasks: [
-  //     {
-  //       taskName: "สู้ Alien บุกโลก",
-  //       subTasks: [
-  //         {
-  //           subTaskName: "ยืนล้อมวงเท่",
-  //           point: 2,
-  //           isHidden: false,
-  //         },
-  //         {
-  //           subTaskName: "จับ Loki",
-  //           point: 7,
-  //           isHidden: false,
-  //         },
-  //       ],
-  //       showSubTasks: false,
-  //       point: 9,
-  //       weight: 10,
-  //       isHidden: false,
-  //     },
-  //     {
-  //       taskName: "เอาชนะ Ultron",
-  //       subTasks: [
-  //         {
-  //           subTaskName: "ยกเมืองขึ้นฟ้า",
-  //           point: 1,
-  //           isHidden: false,
-  //         },
-  //         {
-  //           subTaskName: "เอาเมืองไปไว้ที่เดิม",
-  //           point: 1,
-  //           isHidden: true,
-  //         },
-  //       ],
-  //       showSubTasks: false,
-  //       point: 2,
-  //       weight: 20,
-  //       isHidden: false,
-  //     },
-  //   ],
-  // });
+  const [data] = useState({
+    createdAt: new Date(),
+    imageUrl:
+      "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
+    projectName: "Marvel",
+    mentors: [
+      {
+        index: 1,
+        fullName: "Stan Lee",
+      },
+      {
+        index: 2,
+        fullName: "Thanat Raktham",
+      },
+    ],
+    theme: {
+      top3: "#ff00ff",
+      hilight: "#ffffff",
+    },
+    learnerGroups: [
+      {
+        groupName: "Avengers",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+      {
+        groupName: "Inhumans",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+      {
+        groupName: "X-men",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+      {
+        groupName: "Avengers",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+      {
+        groupName: "Inhumans",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+      {
+        groupName: "X-men",
+        avatar: "string",
+        points: {
+          taskIndex: 0,
+          taskPoint: 0,
+        },
+      },
+    ],
+    tasks: [
+      {
+        taskName: "สู้ Alien บุกโลก",
+        subTasks: [
+          {
+            subTaskName: "ยืนล้อมวงเท่",
+            point: 2,
+            isHidden: false,
+          },
+          {
+            subTaskName: "จับ Loki",
+            point: 7,
+            isHidden: false,
+          },
+        ],
+        showSubTasks: false,
+        point: 9,
+        weight: 10,
+        isHidden: false,
+      },
+      {
+        taskName: "เอาชนะ Ultron",
+        subTasks: [
+          {
+            subTaskName: "ยกเมืองขึ้นฟ้า",
+            point: 1,
+            isHidden: false,
+          },
+          {
+            subTaskName: "เอาเมืองไปไว้ที่เดิม",
+            point: 1,
+            isHidden: true,
+          },
+        ],
+        showSubTasks: false,
+        point: 2,
+        weight: 20,
+        isHidden: false,
+      },
+    ],
+  });
+
+  const getRankColor = (index, top3) => {
+    // const top3 = "#00FF00";
+    if (index === 0) {
+      return top3 + "DD";
+    } else if (index === 1) {
+      return top3 + "AA";
+    } else if (index === 2) {
+      return top3 + "77";
+    } else {
+      return "#88838355";
+    }
+  };
 
   return (
     <div className="header">
@@ -129,133 +143,236 @@ function SpeakerScreen() {
           <h2>PROJECT AVENGERS</h2>
         </div>
         <div className="bg-table">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">RANK</th>
-                <th scope="col">GROUP</th>
-                <th scope="col">NAME</th>
-                <th scope="col">TOTAL</th>
-              </tr>
-            </thead>
-          </table>
-          <div className="bg-tables">
-            {/* {data.learnerGroups.map((group, index) => {
-              console.log(group.groupName);
-              return (
-                <div className={`col-table${index + 1}`}>
-                  <h2>{index + 1}</h2>
-                  <div className={`avatar${index + 1}-image`}>
-                    <img
-                      src={require(`../assets/image/avatar${
-                        ((index + 1) % 3) + 1
-                      }.png`)}
-                      alt={`avatar${index + 1}`}
-                      className={`avatar${index + 1}`}
-                    />
-                  </div>
-                  <h2>{group.groupName}</h2>
-                </div>
-              );
-            })} */}
-            <Box
-              sx={{
-                width: "100%",
-                height: 38,
-                borderRadius: 17,
-                backgroundColor: "yellow",
-              }}
+          <Stack backgroundColor={"pink"} direction={"row"} height={"100%"}>
+            <Stack
+              backgroundColor={color.secondaryBlack}
+              height={"100%"}
+              width={"50%"}
+              minWidth={1000}
             >
-              {5555}
-            </Box>
-            {/* <div className="col-table1">
-              <h2>1</h2>
-              <div className="crown1-image">
-                <img src={crown} alt="crown1" className="crown1" />
-              </div>
-              <div className="avatar1-image">
-                <img src={avatar} alt="avatar1" className="avatar1" />
-              </div>
-              <div className="col-table2">
-                <h2>2</h2>
-                <div className="avatar2-image">
-                  <img src={avatar2} alt="avatar2" className="avatar2" />
-                </div>
-              </div>
-              <div className="col-table3">
-                <h2>3</h2>
-                <div className="avatar3-image">
-                  <img src={avatar3} alt="avatar3" className="avatar3" />
-                </div>
-              </div>
-              <div className="col-table4">
-                <h2>4</h2>
-                <div className="avatar1-image">
-                  <img src={avatar} alt="avatar1" className="avatar1" />
-                </div>
-              </div>
-              <div className="col-table5">
-                <h2>5</h2>
-                <div className="avatar2-image">
-                  <img src={avatar2} alt="avatar2" className="avatar2" />
-                </div>
-              </div>
-              <div className="col-table6">
-                <h2>6</h2>
-                <div className="avatar6-image">
-                  <img src={avatar3} alt="avatar6" className="avatar6" />
-                </div>
-              </div>
-              <div className="col-table7">
-                <h2>7</h2>
-                <div className="avatar1-image">
-                  <img src={avatar} alt="avatar7" className="avatar7" />
-                </div>
-              </div>
-              <div className="col-table8">
-                <h2>8</h2>
-                <div className="avatar2-image">
-                  <img src={avatar2} alt="avatar8" className="avatar8" />
-                </div>
-              </div>
-              <div className="col-table9">
-                <h2>9</h2>
-                <div className="avatar3-image">
-                  <img src={avatar3} alt="avatar3" className="avatar3" />
-                </div>
-              </div>
-              <div className="col-table10">
-                <h2>10</h2>
-                <div className="avatar1-image">
-                  <img src={avatar} alt="avatar1" className="avatar1" />
-                </div>
-              </div>
-              <div className="col-table11">
-                <h2>11</h2>
-                <div className="avatar2-image">
-                  <img src={avatar2} alt="avatar2" className="avatar2" />
-                </div>
-              </div>
-            </div> */}
-          </div>
-          <div className="table-point">
-            <table class="col-point">
-              <thead>
-                <tr>
-                  <th scope="col">POINT 1</th>
-                  <th scope="col">POINT 2</th>
-                  <th scope="col">POINT 3</th>
-                  <th scope="col">POINT 4</th>
-                  <th scope="col">POINT 5</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div className="bg-point">
-            <div className="bg-col1">
-              <div className="bg-col2"></div>
-            </div>
-          </div>
+              <Divider color={"white"} />
+              <Stack
+                justifyContent={"center"}
+                height={"60px"}
+                paddingX={"10px"}
+                backgroundColor={color.primaryBlack}
+              >
+                <Stack direction={"row"}>
+                  <Typography
+                    sx={{
+                      flex: 0.5,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    RANK
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 0.5,
+                      // backgroundColor: "green",
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      flex: 0.75,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    GROUP
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 3,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "yellow",
+                    }}
+                  >
+                    GROUP NAME
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 1,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "green",
+                    }}
+                  >
+                    TOTAL
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Divider color={"white"} />
+              <Stack
+                flexGrow={1}
+                paddingX={"10px"}
+                // backgroundColor={"blue"}
+              >
+                {data?.learnerGroups.map((group, index) => (
+                  <Stack
+                    key={index}
+                    direction="row"
+                    // flex={1}
+                    flexDirection={"row"}
+                    height={40}
+                    alignItems={"center"}
+                    borderRadius={10}
+                    marginTop={"15px"}
+                    // paddingX={"15px"}
+                    backgroundColor={getRankColor(index, data.theme.top3)}
+                  >
+                    <Typography
+                      sx={{
+                        flex: 0.5,
+                        textAlign: "center",
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: "#FFFFFF",
+                        fontFamily: "Raleway",
+                        // backgroundColor: "red",
+                      }}
+                    >
+                      {index + 1}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flex: 0.5,
+                        justifyContent: "center",
+                        // backgroundColor: "black",
+                      }}
+                    >
+                      <Avatar
+                        alt={"alt"}
+                        src="../assets/image/avatar1.png"
+                        sx={{
+                          // flex: 0.5,
+                          width: 32,
+                          height: 32,
+                          // backgroundColor: "red",
+                        }}
+                      />
+                    </Box>
+                    <Typography
+                      sx={{
+                        flex: 0.75,
+                        textAlign: "center",
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: "#FFFFFF ",
+                        fontFamily: "Raleway",
+                        // backgroundColor: "orange",
+                      }}
+                    >
+                      {index + 3}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        flex: 3,
+                        textAlign: "center",
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: "#FFFFFF",
+                        fontFamily: "Raleway",
+                      }}
+                    >
+                      {group.groupName}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        flex: 1,
+                        textAlign: "center",
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: "#FFFFFF",
+                        fontFamily: "Raleway",
+                      }}
+                    >
+                      {99}
+                    </Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Stack>
+            <Stack
+              backgroundColor={color.secondaryBlack}
+              height={"100%"}
+              width={"50%"}
+              minWidth={1000}
+            >
+              <Divider color={"white"} />
+              <Stack
+                justifyContent={"center"}
+                height={"60px"}
+                paddingX={"10px"}
+                backgroundColor={color.primaryBlack}
+              >
+                <Stack direction={"row"}>
+                  <Typography
+                    sx={{
+                      flex: 1,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    POINT1
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 1,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    POINT2
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 1,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    POINT3
+                  </Typography>
+                  <Typography
+                    sx={{
+                      flex: 1,
+                      textAlign: "center",
+                      fontSize: 28,
+                      color: "#FFFFFF",
+                      fontFamily: "Raleway",
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    POINT4
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Divider color={"white"} />
+            </Stack>
+          </Stack>
         </div>
       </div>
     </div>
