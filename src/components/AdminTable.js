@@ -6,12 +6,8 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-<<<<<<< HEAD
-import Paper from "@mui/material/Paper";
-=======
 import Paper from '@mui/material/Paper';
 
->>>>>>> toey2
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -66,7 +62,6 @@ export default function CustomizedTables() {
               </StyledTableCell>
               <StyledTableCell align="left">{row.lastEdit}</StyledTableCell>
               <StyledTableCell align="left">{row.total}</StyledTableCell>
-<<<<<<< HEAD
               {/* <StyledTableCell>
                 <Button variant="contained" color="danger">
                   Success
@@ -77,8 +72,6 @@ export default function CustomizedTables() {
                   Success
                 </Button>
               </StyledTableCell> */}
-=======
->>>>>>> toey2
             </StyledTableRow>
           ))}
         </TableBody>

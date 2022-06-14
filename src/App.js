@@ -9,7 +9,6 @@ import theme from "./assets/theme/theme";
 import EditProject from "./pages/Admin/EditProject";
 import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
