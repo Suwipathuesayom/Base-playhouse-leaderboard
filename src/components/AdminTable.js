@@ -6,20 +6,30 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-<<<<<<< HEAD
 import Paper from "@mui/material/Paper";
-=======
-import Paper from '@mui/material/Paper';
-
->>>>>>> toey2
+import Button from "@mui/material/Button";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { Box, Stack, Typography } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: "#FF5B4A",
+    fontSize: "1.2rem",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    color: "#ffffff",
+    fontWeight: 800,
+    fontFamily: "Raleway",
+    fontSize: 15,
+    fontStyle: "normal",
+    flex: "none",
+    order: 1,
+    backgroundColor: "#242424",
+    // flexGrow: 0,
+    // height: 42,
   },
 }));
 
@@ -33,8 +43,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, lastEdit, total) {
-  return { name, lastEdit, total };
+function createData(name, lastEdit, total, button) {
+  return { name, lastEdit, total, button };
 }
 
 const rows = [
@@ -52,33 +62,75 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">
+              <StarBorderIcon></StarBorderIcon>
               ชื่อโปรเจค (ทั้งหมด 69 โปรเจค)
             </StyledTableCell>
-            <StyledTableCell align="left">แก้ไขล่าสุด</StyledTableCell>
-            <StyledTableCell align="left">คะแนนรวม</StyledTableCell>
+            <StyledTableCell align="center">
+              แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
+            </StyledTableCell>
+            <StyledTableCell align="left"></StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody style={{ backgroundColor: "#151515" }}>
+        <TableBody
+          style={{ backgroundColor: "#151515" }}
+          className="custom-bodyCell"
+        >
           {rows.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell align="center" component="th" scope="row">
+                <StarBorderIcon></StarBorderIcon>
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="left">{row.lastEdit}</StyledTableCell>
-              <StyledTableCell align="left">{row.total}</StyledTableCell>
-<<<<<<< HEAD
-              {/* <StyledTableCell>
-                <Button variant="contained" color="danger">
-                  Success
-                </Button>
+              <StyledTableCell align="center">{row.lastEdit}</StyledTableCell>
+              <StyledTableCell align="center">{row.total}</StyledTableCell>
+              <StyledTableCell
+                align="left"
+                style={{
+                  // display: "flex",
+                  // backgroundColor: "#FFFFFF",
+                  flexDirection: "row",
+                  // justifyContent: "space-evenly",
+                  alignItems: "left",
+                  height: "100%",
+                  padding: "5px",
+                }}
+              >
+                <Stack
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <Button variant="contained" color="error">
+                    Export
+                  </Button>
+                  <Box
+                    sx={{
+                      height: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="p"
+                      style={{
+                        color: "#FF5B4A",
+                        fontSize: 15,
+                        fontFamily: "Raleway",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Edit
+                    </Typography>
+                  </Box>
+                </Stack>
+                {/* <div>555</div>
+                <div>555</div> */}
               </StyledTableCell>
-              <StyledTableCell>
-                <Button variant="contained" color="danger">
-                  Success
-                </Button>
-              </StyledTableCell> */}
-=======
->>>>>>> toey2
             </StyledTableRow>
           ))}
         </TableBody>
