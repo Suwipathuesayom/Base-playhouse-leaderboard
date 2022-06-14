@@ -19,7 +19,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: "1.2rem",
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
     color: "#ffffff",
     fontWeight: 800,
     fontFamily: "Raleway",
