@@ -19,6 +19,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputLabel from "@mui/material/InputLabel";
 import "../assets/styles/AdminDashboard.css";
+import { CSVLink } from "react-csv";
+import { Link } from 'react-router-dom'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,18 +51,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-function createData(name, lastEdit, total, button) {
-  return { name, lastEdit, total, button };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Eclair", 262, 16.0),
-  createData("Cupcake", 305, 3.7),
-  createData("Gingerbread", 356, 16.0),
-];
 
 export default function AdminTable({ projectDashboard }) {
   console.log(projectDashboard);
@@ -126,7 +116,11 @@ export default function AdminTable({ projectDashboard }) {
                       justifyContent: "space-evenly",
                     }}
                   >
-                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickOpen}
+                    >
                       Export
                     </Button>
                     <Box
@@ -136,12 +130,16 @@ export default function AdminTable({ projectDashboard }) {
                       }}
                     >
                       <Typography
+                        component={Link}
+                        to="/edit-project"
                         variant="p"
                         style={{
                           color: "#FF5B4A",
                           fontSize: 15,
                           fontFamily: "Raleway",
                           textTransform: "uppercase",
+                          cursor: "pointer",
+                          textDecoration: "none",
                         }}
                       >
                         Edit
@@ -169,18 +167,51 @@ export default function AdminTable({ projectDashboard }) {
                   textTransform: "uppercase",
                 }}
               >
-                Avengers
+              firefox
+                {/* {projectDashboard[0].projectName} */}
               </Typography>
             </DialogContentText>
             <InputLabel>Speaker</InputLabel>
-            <TextField id="outlined" fullWidth />
+            <TextField
+              id="outlined"
+              fullWidth
+              inputProps={{
+                style: {
+                  height: "5px",
+                },
+              }}
+            />
             <InputLabel>Leaner</InputLabel>
-            <TextField id="outlined" fullWidth />
+            <TextField
+              id="outlined"
+              type="url"
+              fullWidth
+              inputProps={{
+                style: {
+                  height: "5px",
+                },
+              }}
+            />
             <InputLabel>Mentor/Judge</InputLabel>
-            <TextField id="outlined" fullWidth />
+            <TextField
+              id="outlined"
+              fullWidth
+              inputProps={{
+                style: {
+                  height: "5px",
+                },
+              }}
+            />
+            <CSVLink
+              type="button"
+              data={projectDashboard}
+              style={{ marginTop: 20 }}
+            >
+              Download Excel
+            </CSVLink>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>ปิด</Button>
           </DialogActions>
         </Dialog>
       </Box>
