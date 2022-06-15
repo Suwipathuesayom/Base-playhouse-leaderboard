@@ -1,24 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import Moment from "react-moment";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Box, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  InputLabel,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+  Paper,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableBody,
+  Table,
+  TableContainer,
+  tableCellClasses,
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
@@ -58,7 +63,6 @@ export default function AdminTable({ projectDashboard }) {
   console.log(projectDashboard);
 
   const [open, setOpen] = React.useState(false);
-  const [copied, setCopied] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,16 +71,6 @@ export default function AdminTable({ projectDashboard }) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function copy() {
-    const el = document.createElement("input");
-    el.value = window.location.href;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-    setCopied(true);
-  }
 
   return (
     <div>
@@ -209,10 +203,8 @@ export default function AdminTable({ projectDashboard }) {
                   },
                 }}
               ></TextField>
-              <Button onClick={copy}>
-                <ContentCopyIcon>
-                  {!copied ? "Copy link" : "Copied!"}
-                </ContentCopyIcon>
+              <Button>
+                <ContentCopyIcon></ContentCopyIcon>
               </Button>
             </div>
             <InputLabel>Leaner</InputLabel>
@@ -235,10 +227,8 @@ export default function AdminTable({ projectDashboard }) {
                   },
                 }}
               ></TextField>
-              <Button onClick={copy}>
-                <ContentCopyIcon>
-                  {!copied ? "Copy link" : "Copied!"}
-                </ContentCopyIcon>
+              <Button>
+                <ContentCopyIcon></ContentCopyIcon>
               </Button>
             </div>
             <InputLabel>Mentor/Judge</InputLabel>
@@ -261,10 +251,8 @@ export default function AdminTable({ projectDashboard }) {
                   },
                 }}
               ></TextField>
-              <Button onClick={copy}>
-                <ContentCopyIcon>
-                  {!copied ? "Copy link" : "Copied!"}
-                </ContentCopyIcon>
+              <Button>
+                <ContentCopyIcon></ContentCopyIcon>
               </Button>
             </div>
             <div style={{ marginTop: 10 }}>
