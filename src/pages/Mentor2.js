@@ -1,15 +1,37 @@
 import React from "react";
+import { db } from "../config/firebase";
 import "../../src/assets/styles/Mentor2.css";
 // import { Table } from "react-bootstrap";
 import MentorTable from "../../src/pages/MentorTable";
 import Box from "@mui/material/Box";
 import { Stack, Typography } from "@mui/material";
+import SplashScreen from "../components/SplashScreen";
 
 export default function BoxSx() {
-  const name = "เกณฑ์ A";
-  return (
-    <>
-      {/* <div className="head-mentor"></div> */}
+  const [dummyData, setDummyData] = React.useState();
+  const name = dummyData?.mentors[0].fullName;
+
+  const queryProject = async (projectName) => {
+    await db
+      .collection("users")
+      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .collection("project")
+      .where("projectName", "==", projectName)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          setDummyData(doc.data());
+          console.log(doc.data());
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setDummyData({});
+      });
+  };
+
+  if (dummyData) {
+    return (
       <Box
         className="mentor"
         sx={{
@@ -65,11 +87,18 @@ export default function BoxSx() {
               },
             }}
           >
-            <MentorTable sx={{ height: "100%" }}></MentorTable>
+            <MentorTable
+              dummyData={dummyData}
+              setDummyData={setDummyData}
+              sx={{ height: "100%" }}
+            />
             {/* {name?.length > 6 ? `${name.slice(0, 5)}...` : name} */}
           </Box>
         </Stack>
       </Box>
-    </>
-  );
+    );
+  } else {
+    queryProject("Bruno Mars");
+    return <SplashScreen />;
+  }
 }
