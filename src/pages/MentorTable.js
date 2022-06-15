@@ -164,6 +164,13 @@ export default function CustomizedTables() {
         totalPoint: -1,
         points: [],
       },
+      {
+        groupIndex: 1,
+        groupName: "X-men",
+        avatar: "string",
+        totalPoint: -1,
+        points: [],
+      },
     ],
     tasks: [
       {
@@ -223,122 +230,101 @@ export default function CustomizedTables() {
   const handleCheckTaskByIndex = (index, subIndex) => {
     // handle UI State
     const tempLearnerGroups = dummyData.learnerGroups;
-    console.log([...tempLearnerGroups]);
-    let foundTaskIndex = false;
-    tempLearnerGroups[index].points.forEach((point) => {
-      if (!foundTaskIndex && (point.taskIndex = subIndex)) {
-        point.isChecked = !point.isChecked;
-        foundTaskIndex = true;
+    if (tempLearnerGroups[index].points.length === 0) {
+      for (let i = 0; i < dummyData.tasks.length; i++) {
+        tempLearnerGroups[index].points.push({});
       }
-    });
-    if (!foundTaskIndex) {
-      tempLearnerGroups[index].points.push({
+    }
+    if (Object.keys(tempLearnerGroups[index].points[subIndex]).length === 0) {
+      tempLearnerGroups[index].points[subIndex] = {
         isChecked: true,
         taskIndex: subIndex,
         taskPoint: dummyData.tasks[subIndex].point,
-      });
+      };
+    } else {
+      tempLearnerGroups[index].points[subIndex].isChecked =
+        !tempLearnerGroups[index].points[subIndex].isChecked;
     }
     tempLearnerGroups[index].totalPoint = calculateNewTotalPoint(
       tempLearnerGroups,
       index
     );
     setLearnerGroups([...tempLearnerGroups]);
-    console.log([...tempLearnerGroups]);
 
     // handle Data State
     const tempDummyData = dummyData;
-    foundTaskIndex = false;
-    tempDummyData.learnerGroups[index].points.forEach((point) => {
-      if (!foundTaskIndex && (point.taskIndex = subIndex)) {
-        point.isChecked = !point.isChecked;
-        foundTaskIndex = true;
+    if (tempDummyData.learnerGroups[index].points.length === 0) {
+      for (let i = 0; i < dummyData.tasks.length; i++) {
+        tempDummyData.learnerGroups[index].points.push({});
       }
-    });
-    if (!foundTaskIndex) {
-      tempDummyData.learnerGroups[index].points.push({
+    }
+    if (
+      Object.keys(tempDummyData.learnerGroups[index].points[subIndex])
+        .length === 0
+    ) {
+      tempDummyData.learnerGroups[index].points[subIndex] = {
         isChecked: true,
         taskIndex: subIndex,
         taskPoint: dummyData.tasks[subIndex].point,
-      });
-    }
-    if (tempDummyData.learnerGroups[index].points[subIndex]) {
+      };
+    } else {
       tempDummyData.learnerGroups[index].points[subIndex].isChecked =
         tempLearnerGroups[index].points[subIndex].isChecked;
-    } else {
-      tempDummyData.learnerGroups[index].points.push({
-        isChecked: true,
-        taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
-      });
     }
     tempDummyData.learnerGroups[index].totalPoint = calculateNewTotalPoint(
       tempDummyData.learnerGroups,
       index
     );
     setDummyData(tempDummyData);
-    // console.log(tempDummyData);
   };
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 700, marginTop: 0, borderRadius: 20, minHeight: 650 }}
-          aria-label="customized table"
-        >
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>ลำดับกลุ่ม </StyledTableCell>
-              <StyledTableCell>ชื่อกลุ่ม</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(1)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(2)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(3)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(4)</StyledTableCell>
-              <StyledTableCell>Total</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {learnerGroups.map((group, index) => {
-              console.log(learnerGroups);
-              return (
-                <StyledTableRow key={index}>
-                  <StyledTableCell component="th" scope="row">
-                    {group.groupIndex + 1}
-                  </StyledTableCell>
-                  <StyledTableCell>{group.groupName}</StyledTableCell>
-                  {dummyData?.tasks.map((task, subIndex) => {
-                    return (
-                      <StyledTableCell key={subIndex}>
-                        <Checkbox
-                          checked={
-                            group.points[subIndex]
+    <TableContainer component={Paper}>
+      <Table
+        sx={{ minWidth: 700, marginTop: 0, borderRadius: 20, minHeight: 650 }}
+        aria-label="customized table"
+      >
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>ลำดับกลุ่ม</StyledTableCell>
+            <StyledTableCell>ชื่อกลุ่ม</StyledTableCell>
+            {dummyData?.tasks.map((task, subIndex) => (
+              <StyledTableCell>เกณฑ์ที่ {subIndex + 1}</StyledTableCell>
+            ))}
+            <StyledTableCell>Total</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {learnerGroups.map((group, index) => {
+            return (
+              <StyledTableRow key={index}>
+                <StyledTableCell component="th" scope="row">
+                  {group.groupIndex + 1}
+                </StyledTableCell>
+                <StyledTableCell>{group.groupName}</StyledTableCell>
+                {dummyData?.tasks.map((task, subIndex) => {
+                  return (
+                    <StyledTableCell key={subIndex}>
+                      <Checkbox
+                        checked={
+                          group.points[subIndex]
+                            ? group.points[subIndex]?.isChecked
                               ? group.points[subIndex].isChecked
                               : false
-                          }
-                          onChange={() =>
-                            handleCheckTaskByIndex(index, subIndex)
-                          }
-                        />
-                      </StyledTableCell>
-                    );
-                  })}
-                  <StyledTableCell>
-                    {group.totalPoint < 0 ? 0 : group.totalPoint}
-                  </StyledTableCell>
-                  {/* <StyledTableCell>{row.A4}</StyledTableCell>
-                <StyledTableCell>{row.Total}</StyledTableCell> */}
-                </StyledTableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* <div>
-      <Checkbox  />
-      <Checkbox  />
-      <Checkbox {...label} disabled />
-      <Checkbox {...label} disabled checked />
-    </div> */}
-    </>
+                            : false
+                        }
+                        onChange={() => handleCheckTaskByIndex(index, subIndex)}
+                      />
+                    </StyledTableCell>
+                  );
+                })}
+                <StyledTableCell>
+                  {group.totalPoint < 0 ? 0 : group.totalPoint}
+                </StyledTableCell>
+              </StyledTableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
