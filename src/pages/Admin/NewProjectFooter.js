@@ -1,40 +1,89 @@
 import { Button } from "@mui/material";
-import { db } from "../../config/firebase";
+import { db, firebase } from "../../config/firebase";
 import React from "react";
 import "../../assets/styles/NewProject.css";
 
 import color from "../../constant/color";
 
-function NewProjectFooter({ project, setProject, header }) {
+function NewProjectFooter({
+  project,
+  setProject,
+  header,
+  setCreateProjectStatus,
+}) {
   const handleAddNewProject = async () => {
     let tempProject = project;
-    tempProject.createdAt = new Date();
+    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
     setProject(tempProject);
     console.log(tempProject);
-
+    setCreateProjectStatus("creating");
     try {
-      await db
+      let projectRef = db
         .collection("users")
-        .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+        .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+      // .doc(project.projectName)
+      // .set(tempProject)
+      let newProjectRef = await projectRef
         .collection("project")
-        .doc(tempProject.projectName)
-        .set(tempProject);
+        .add(tempProject);
+
+      tempProject.id = newProjectRef.id;
+
+      await projectRef
+        .collection("project")
+        .doc(newProjectRef.id)
+        .update(tempProject);
+
+      await projectRef
+        .collection("projectDashboard")
+        .doc(newProjectRef.id)
+        .set({
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          projectName: tempProject.projectName,
+          totalPoint: 20,
+        })
+        .then(() => {
+          setCreateProjectStatus("success");
+        })
+        .catch((error) => {
+          console.log(error);
+          setCreateProjectStatus("failure");
+        });
     } catch (error) {
       console.log(error);
     }
   };
   const handleUpdateProject = async () => {
     let tempProject = project;
-    tempProject.createdAt = new Date();
+    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
+    console.log(tempProject);
     setProject(tempProject);
 
+    setCreateProjectStatus("creating");
     try {
-      await db
-        .collection("users")
-        .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+
+      await userRef
         .collection("project")
-        .doc(tempProject.projectName)
-        .update(tempProject);
+        .doc(tempProject.id)
+        .update(tempProject)
+        .catch((error) => {
+          setCreateProjectStatus("failure");
+        });
+
+      await userRef
+        .collection("projectDashboard")
+        .doc(tempProject.id)
+        .update({
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          projectName: tempProject.projectName,
+        })
+        .then(() => {
+          setCreateProjectStatus("success");
+        })
+        .catch((error) => {
+          setCreateProjectStatus("failure");
+        });
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +101,7 @@ function NewProjectFooter({ project, setProject, header }) {
         }}
         disableElevation
         variant="contained"
-        // onClick={async () => queryProject()}
+        onClick={() => {}}
       >
         ย้อนกลับ
       </Button>

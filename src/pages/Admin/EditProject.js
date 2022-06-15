@@ -5,7 +5,15 @@ import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import { SyncLoader } from "react-spinners";
-import { Stack, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Collapse,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Close } from "@mui/icons-material";
 import color from "../../constant/color";
 
 // Project Object Structure:
@@ -139,6 +147,7 @@ function EditProject() {
   //   ],
   // });
   const [project, setProject] = useState(null);
+  const [createProjectStatus, setCreateProjectStatus] = useState("editing");
 
   useEffect(() => {
     const queryProject = async () => {
@@ -146,13 +155,17 @@ function EditProject() {
         .collection("users")
         .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
         .collection("project")
-        .where("projectName", "==", "star lord")
+        .where("projectName", "==", "Bruno Mars")
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
             setProject(doc.data());
             console.log(doc.data());
           });
+        })
+        .catch((error) => {
+          console.log(error);
+          setProject({});
         });
     };
     queryProject();
@@ -161,6 +174,74 @@ function EditProject() {
   if (project) {
     return (
       <div className="newProject">
+        <Box
+          sx={{
+            width: "100%",
+            paddingX: "20%",
+            position: "absolute",
+            top: "10px",
+          }}
+        >
+          <Collapse in={createProjectStatus === "success"}>
+            <Alert
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setCreateProjectStatus("exiting");
+                  }}
+                >
+                  <Close fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              อัพเดตโปรเจคสำเร็จ!
+            </Alert>
+          </Collapse>
+          <Collapse in={createProjectStatus === "creating"}>
+            <Alert
+              severity="info"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setCreateProjectStatus("exiting");
+                  }}
+                >
+                  <Close fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              กำลังอัพเดตโปรเจค ...
+            </Alert>
+          </Collapse>
+          <Collapse in={createProjectStatus === "failure"}>
+            <Alert
+              severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setCreateProjectStatus("exiting");
+                  }}
+                >
+                  <Close fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              เกิดข้อผิดพลาดในการอัพเดตโปรเจค
+            </Alert>
+          </Collapse>
+        </Box>
         <NewProjectHeader
           project={project}
           setProject={setProject}
@@ -171,8 +252,33 @@ function EditProject() {
           project={project}
           setProject={setProject}
           header={"EDIT PROJECT"}
+          setCreateProjectStatus={setCreateProjectStatus}
         />
       </div>
+    );
+  } else if (project === {}) {
+    return (
+      <React.Fragment>
+        <Stack
+          sx={{
+            bgcolor: "#dcdfe1",
+            width: "100vw",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
+        >
+          <Typography
+            variant={"h2"}
+            sx={{
+              marginTop: 5,
+              color: color.primaryBlack,
+            }}
+          >
+            404 NOT FOUND
+          </Typography>
+        </Stack>
+      </React.Fragment>
     );
   } else {
     return (
