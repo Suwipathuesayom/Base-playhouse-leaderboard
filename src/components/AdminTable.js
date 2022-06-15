@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -22,6 +22,7 @@ import InputLabel from "@mui/material/InputLabel";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,7 +56,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function AdminTable({ projectDashboard }) {
   console.log(projectDashboard);
+
   const [open, setOpen] = React.useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,6 +67,17 @@ export default function AdminTable({ projectDashboard }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  function copy() {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+  }
+
   return (
     <div>
       <TableContainer component={Paper} style={{ marginTop: 30 }}>
@@ -176,46 +190,98 @@ export default function AdminTable({ projectDashboard }) {
               </Typography>
             </DialogContentText>
             <InputLabel>Speaker</InputLabel>
-            <TextField
-              id="outlined"
-              fullWidth
-              inputProps={{
-                style: {
-                  height: "5px",
-                },
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
               }}
-            />
-            <InputLabel>Leaner</InputLabel>
-            <TextField
-              id="outlined"
-              type="url"
-              fullWidth
-              inputProps={{
-                style: {
-                  height: "5px",
-                },
-              }}
-            />
-            <InputLabel>Mentor/Judge</InputLabel>
-            <TextField
-              id="outlined"
-              fullWidth
-              inputProps={{
-                style: {
-                  height: "5px",
-                },
-              }}
-            />
-            <CSVLink
-              type="button"
-              data={projectDashboard}
-              style={{ marginTop: 20 }}
             >
-              Download Excel
-            </CSVLink>
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                defaultValue="https://speakerdeck.com/firefox"
+                inputProps={{
+                  style: {
+                    height: "1px",
+                    display: "flex",
+                  },
+                }}
+              ></TextField>
+              <Button onClick={copy}>
+                <ContentCopyIcon>
+                  {!copied ? "Copy link" : "Copied!"}
+                </ContentCopyIcon>
+              </Button>
+            </div>
+            <InputLabel>Leaner</InputLabel>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                defaultValue="https://learner.com"
+                inputProps={{
+                  style: {
+                    height: "1px",
+                    display: "flex",
+                  },
+                }}
+              ></TextField>
+              <Button onClick={copy}>
+                <ContentCopyIcon>
+                  {!copied ? "Copy link" : "Copied!"}
+                </ContentCopyIcon>
+              </Button>
+            </div>
+            <InputLabel>Mentor/Judge</InputLabel>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                defaultValue="https://mentor/judge"
+                inputProps={{
+                  style: {
+                    height: "1px",
+                    display: "flex",
+                  },
+                }}
+              ></TextField>
+              <Button onClick={copy}>
+                <ContentCopyIcon>
+                  {!copied ? "Copy link" : "Copied!"}
+                </ContentCopyIcon>
+              </Button>
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <CSVLink
+                data={projectDashboard}
+                style={{ textDecoration: "none" }}
+              >
+                <Button variant="contained" color="success">
+                  Dowload Excel
+                </Button>
+              </CSVLink>
+            </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>ปิด</Button>
+            <Button onClick={handleClose} variant="contained">
+              Close
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>
