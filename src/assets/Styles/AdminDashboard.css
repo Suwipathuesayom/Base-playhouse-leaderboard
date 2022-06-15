@@ -7,7 +7,7 @@
   position: absolute;
   width: 568px;
   height: 92px;
-  left: 476px;
+  left: 676px;
   top: 32px;
 
   font-family: "Raleway";
@@ -25,9 +25,8 @@
   position: absolute;
   width: 437px;
   height: 52px;
-  left: 500px;
-  top: 150px;
-  text-transform: uppercase;
+  left: 705px;
+  top: 160px;
 
   font-family: "Raleway";
   font-style: normal;
@@ -56,9 +55,8 @@
   position: absolute;
   width: 38px;
   height: 53.2px;
-  left: 950px;
-  top: 140px;
-  cursor: pointer;
+  left: 1120px;
+  top: 152px;
 }
 .admin-header img:hover {
   transform: scale(1.1);
@@ -71,13 +69,13 @@
   left: -419px;
   top: 0px;
 }
-.circle2 {
+/* .circle2 {
   position: absolute;
   width: 662.6px;
   height: 510.3px;
   left: 890px;
   top: 500px;
-}
+} */
 
 .admin-table {
   position: absolute;
@@ -105,5 +103,3 @@
   order: 1;
   flex-grow: 0;
 }
-
-
