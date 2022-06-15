@@ -235,7 +235,8 @@ export default function AdminTable({ projectDashboard }) {
                   textTransform: "uppercase",
                 }}
               >
-                firefox
+                {selectedProject.projectName}
+                {/* firefox */}
                 {/* {projectDashboard[0].projectName} */}
               </Typography>
             </DialogContentText>
