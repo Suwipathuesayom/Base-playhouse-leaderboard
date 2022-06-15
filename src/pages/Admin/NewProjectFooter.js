@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { db } from "../../config/firebase";
+import { db, firebase } from "../../config/firebase";
 import React from "react";
 import "../../assets/styles/NewProject.css";
 
@@ -13,7 +13,7 @@ function NewProjectFooter({
 }) {
   const handleAddNewProject = async () => {
     let tempProject = project;
-    tempProject.createdAt = new Date();
+    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
     setProject(tempProject);
     console.log(tempProject);
     setCreateProjectStatus("creating");
@@ -38,7 +38,7 @@ function NewProjectFooter({
         .collection("projectDashboard")
         .doc(newProjectRef.id)
         .set({
-          createdAt: new Date(),
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
           projectName: tempProject.projectName,
           totalPoint: 20,
         })
@@ -55,7 +55,7 @@ function NewProjectFooter({
   };
   const handleUpdateProject = async () => {
     let tempProject = project;
-    tempProject.createdAt = new Date();
+    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
     console.log(tempProject);
     setProject(tempProject);
 
@@ -75,7 +75,7 @@ function NewProjectFooter({
         .collection("projectDashboard")
         .doc(tempProject.id)
         .update({
-          createdAt: new Date(),
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
           projectName: tempProject.projectName,
         })
         .then(() => {
