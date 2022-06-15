@@ -21,6 +21,7 @@ function NewProjectLearner({ project, setProject }) {
     // handle UI State
     let tempLearnerGroups = [...learnerGroups];
     tempLearnerGroups[tempLearnerGroups.length] = {
+      totalPoint: -1,
       groupIndex: -1,
       groupName: newGroup,
       avatar: generateUnsplashImage(),
@@ -33,6 +34,7 @@ function NewProjectLearner({ project, setProject }) {
     // handle Data State
     let tempProject = project;
     tempProject.learnerGroups[tempProject.learnerGroups.length] = {
+      totalPoint: -1,
       groupIndex: -1,
       groupName: newGroup,
       avatar: generateUnsplashImage(),
