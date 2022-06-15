@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 
 function Landing() {
   return (
-      <div className="container">
+      <div className="container2">
         <div className="header-title">
           <h1> Leader board score </h1> 
         </div>
