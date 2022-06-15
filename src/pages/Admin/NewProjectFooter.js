@@ -12,8 +12,10 @@ function NewProjectFooter({
   setCreateProjectStatus,
 }) {
   const handleAddNewProject = async () => {
+    let createdDateTime = new Date();
     let tempProject = project;
-    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
+    tempProject.createdAt =
+      firebase.firestore.Timestamp.fromDate(createdDateTime);
     setProject(tempProject);
     console.log(tempProject);
     setCreateProjectStatus("creating");
@@ -38,7 +40,7 @@ function NewProjectFooter({
         .collection("projectDashboard")
         .doc(newProjectRef.id)
         .set({
-          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          createdAt: firebase.firestore.Timestamp.fromDate(createdDateTime),
           projectName: tempProject.projectName,
           totalPoint: 20,
         })
@@ -54,8 +56,10 @@ function NewProjectFooter({
     }
   };
   const handleUpdateProject = async () => {
+    let updatedDateTime = new Date();
     let tempProject = project;
-    tempProject.createdAt = firebase.firestore.Timestamp.fromDate(new Date());
+    tempProject.createdAt =
+      firebase.firestore.Timestamp.fromDate(updatedDateTime);
     console.log(tempProject);
     setProject(tempProject);
 
@@ -75,7 +79,7 @@ function NewProjectFooter({
         .collection("projectDashboard")
         .doc(tempProject.id)
         .update({
-          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          createdAt: firebase.firestore.Timestamp.fromDate(updatedDateTime),
           projectName: tempProject.projectName,
         })
         .then(() => {

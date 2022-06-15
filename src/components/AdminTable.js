@@ -1,4 +1,5 @@
 import * as React from "react";
+import Moment from "react-moment";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,7 +21,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import InputLabel from "@mui/material/InputLabel";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -93,8 +94,10 @@ export default function AdminTable({ projectDashboard }) {
                   {project.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {/* {project.createdAt} */}
-                  {5555}
+                  <Moment fromNow>
+                    {project.createdAt.toDate().toISOString()}
+                  </Moment>
+                  {/* {5555} */}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {project.totalPoint}
@@ -132,6 +135,7 @@ export default function AdminTable({ projectDashboard }) {
                       <Typography
                         component={Link}
                         to="/edit-project"
+                        state={{ projectName: project.projectName }}
                         variant="p"
                         style={{
                           color: "#FF5B4A",
@@ -167,7 +171,7 @@ export default function AdminTable({ projectDashboard }) {
                   textTransform: "uppercase",
                 }}
               >
-              firefox
+                firefox
                 {/* {projectDashboard[0].projectName} */}
               </Typography>
             </DialogContentText>

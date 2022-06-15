@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import color from "../../constant/color";
+import { useLocation } from "react-router-dom";
 
 // Project Object Structure:
 // const project = {
@@ -146,6 +147,8 @@ function EditProject() {
   //     },
   //   ],
   // });
+  const { projectName } = useLocation().state;
+  console.log(projectName);
   const [project, setProject] = useState(null);
   const [createProjectStatus, setCreateProjectStatus] = useState("editing");
 
@@ -155,7 +158,7 @@ function EditProject() {
         .collection("users")
         .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
         .collection("project")
-        .where("projectName", "==", "Bruno Mars")
+        .where("projectName", "==", projectName)
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
@@ -169,7 +172,7 @@ function EditProject() {
         });
     };
     queryProject();
-  }, []);
+  });
 
   if (project) {
     return (

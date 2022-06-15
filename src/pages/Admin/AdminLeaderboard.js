@@ -5,7 +5,7 @@ import plusIcon from "../../assets/images/PlusIcon.svg";
 import circle1 from "../../assets/images/circle1.png";
 // import circle2 from "../../assets/images/circle2.png";
 import AdminTable from "../../components/AdminTable";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function AdminLeaderboard() {
   const [projectDashboard, setProjectDashboard] = useState([]);
@@ -23,7 +23,7 @@ function AdminLeaderboard() {
           .get()
           .then((snapshot) => {
             snapshot.forEach((doc) => {
-              // console.log(doc.data());
+              console.log(doc.data().createdAt.toDate().toISOString());
               // setProjectDashboard(doc.data())
               tempProjectDashboard.push(doc.data());
             });
