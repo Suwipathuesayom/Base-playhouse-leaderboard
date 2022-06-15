@@ -9,6 +9,7 @@ import theme from "./assets/theme/theme";
 import EditProject from "./pages/Admin/EditProject";
 import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 import Landing from './pages/Landing';
+import Mentor2 from './pages/Mentor2'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="edit-project" element={<EditProject />} />
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
           <Route path="learner" element={<Learner />} />
+          <Route path="mentor2" element={<Mentor2/>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

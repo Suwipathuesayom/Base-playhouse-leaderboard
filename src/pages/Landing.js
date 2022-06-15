@@ -13,7 +13,7 @@ function Landing() {
       <div className="head-body">
       <h1> LEADER BOARD SCORE </h1>
       </div>
-      <Button className="leader-btn">LEADERBIARD</Button>
+      <Button className="leader-btn">LEADERBOARD</Button>
     </div>
   );
 }

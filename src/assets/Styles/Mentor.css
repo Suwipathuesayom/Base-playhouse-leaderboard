@@ -1,0 +1,102 @@
+.container {
+  position: absolute;
+  /* left: 21.74px;
+  top: 10px; */
+  min-width: 1920px;
+  width: 100%;
+  height: 635vh;
+  /* justify-content: center; */
+  /* background-color: yellow; */
+  /* border-radius: 17px; */
+  background-color: rgb(171, 68, 68);
+  display: flex;
+}
+
+.container h2 {
+  /* position: absolute;
+  width: 238px;
+  height: 68.06px;
+  left: 70px;
+  top: 250px;
+  font-family: "Prompt";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 70px;
+  line-height: 106px;
+  display: flex;
+  align-items: flex-end;
+  text-align: center; */
+  /* height: 100%; */
+  font-size: 72px;
+  width: 100%;
+  text-align: center;
+  color: #ff5b4a;
+  /* background-color: pink; */
+}
+
+.container__mentorName {
+  display: flex;
+  width: 300px;
+  height: 80vh;
+  margin: 50px 50px;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 20px;
+}
+
+
+/* .container_table {
+  position: absolute;
+  width: 200%;
+  height: 835vh;
+  left: 400px;
+  top: 47px;
+  border-radius: 20px;
+  
+} */
+
+
+/* .head th {
+  text-align: center;
+  font-family: "Prompt";
+
+  font-size: 35px;
+  
+  color: #ff5b4a;
+  text-align: center;
+  background-color: black;
+} */
+
+/* .head td {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12.2239px 40px;
+  gap: 30px;
+  text-align: center;
+  position: absolute;
+  width: 1638px;
+  height: 92px;
+  left: 239px;
+  top: 507px;
+  color: rgb(255, 255, 255);
+  background-color: black;
+} */
+
+/* .text.center {
+  width: 119px;
+  height: 41px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 41px;
+  
+  color: #ffffff;
+} */
+
+/* .tablecenterCSS td {
+  text-align: center;
+} */
+
