@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import Moment from "react-moment";
+import { styled } from "@mui/material/styles";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import {
   Box,
-  Button,
+  Stack,
+  Typography,
+  InputLabel,
+  TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  InputLabel,
+  Button,
   Paper,
-  Stack,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  tableCellClasses,
-  TableContainer,
-  TableHead,
   TableRow,
-  TextField,
-  Typography,
+  TableHead,
+  TableCell,
+  TableBody,
+  Table,
+  TableContainer,
+  tableCellClasses,
 } from "@mui/material";
-import { db } from "../config/firebase";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
@@ -61,65 +60,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function AdminTable({ projectDashboard }) {
-  const [open, setOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState([]);
+  console.log(projectDashboard);
 
-  const handleClickOpen = (project) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
     setOpen(true);
-    queryProject(project);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedProject([]);
-  };
-
-  const queryProject = async (project) => {
-    console.log("in query project");
-    await db
-      .collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
-      .collection("project")
-      .where("projectName", "==", project.projectName)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          const data = {
-            createdAt: doc.data().createdAt.toDate(),
-            id: doc.data().id,
-            imageUrl: doc.data().imageUrl,
-            learnerGroups: doc
-              .data()
-              .learnerGroups.map((group) => group.groupName),
-            mentors: doc.data().mentors.map((mentor) => mentor.fullName),
-            projectName: doc.data().projectName,
-            tasks: doc.data().tasks.map((task) => task.taskName),
-            points: doc.data().tasks.map((task) => task.point),
-            subTasks: doc
-              .data()
-              .tasks.map((task, index) =>
-                task.subTasks.map(
-                  (subTask, subIndex) =>
-                    `[${index},${subIndex},${subTask.subTaskName}]`
-                )
-              ),
-            subTasksPoints: doc
-              .data()
-              .tasks.map((task, index) =>
-                task.subTasks.map(
-                  (subTask, subIndex) =>
-                    `[${index},${subIndex},${subTask.point}]`
-                )
-              ),
-            theme: [doc.data().theme.top3, doc.data().theme.hilight],
-          };
-          console.log(data);
-          setSelectedProject(data);
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -155,7 +105,6 @@ export default function AdminTable({ projectDashboard }) {
                   <Moment fromNow>
                     {project.createdAt.toDate().toISOString()}
                   </Moment>
-
                   {/* {5555} */}
                 </StyledTableCell>
                 <StyledTableCell align="center">
@@ -181,7 +130,7 @@ export default function AdminTable({ projectDashboard }) {
                     <Button
                       variant="contained"
                       color="error"
-                      onClick={() => handleClickOpen(project)}
+                      onClick={handleClickOpen}
                     >
                       Export
                     </Button>
@@ -216,12 +165,7 @@ export default function AdminTable({ projectDashboard }) {
         </Table>
       </TableContainer>
       <Box>
-        <Dialog
-          open={open}
-          onClose={() => handleClose()}
-          fullWidth
-          maxWidth="md"
-        >
+        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
           <DialogTitle>Export</DialogTitle>
           <DialogContent>
             <DialogContentText className="popup-header">
@@ -235,8 +179,7 @@ export default function AdminTable({ projectDashboard }) {
                   textTransform: "uppercase",
                 }}
               >
-                {selectedProject.projectName}
-                {/* firefox */}
+                firefox
                 {/* {projectDashboard[0].projectName} */}
               </Typography>
             </DialogContentText>
@@ -259,7 +202,7 @@ export default function AdminTable({ projectDashboard }) {
                     display: "flex",
                   },
                 }}
-              />
+              ></TextField>
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
@@ -283,7 +226,7 @@ export default function AdminTable({ projectDashboard }) {
                     display: "flex",
                   },
                 }}
-              />
+              ></TextField>
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
@@ -307,14 +250,14 @@ export default function AdminTable({ projectDashboard }) {
                     display: "flex",
                   },
                 }}
-              />
+              ></TextField>
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
             </div>
             <div style={{ marginTop: 10 }}>
               <CSVLink
-                data={[selectedProject]}
+                data={projectDashboard}
                 style={{ textDecoration: "none" }}
               >
                 <Button variant="contained" color="success">
@@ -324,7 +267,7 @@ export default function AdminTable({ projectDashboard }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => handleClose()} variant="contained">
+            <Button onClick={handleClose} variant="contained">
               Close
             </Button>
           </DialogActions>
