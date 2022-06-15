@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/Styles/Mentor.css";
+import "../assets/styles/Mentor.css";
 import { Table } from "react-bootstrap";
 
 function Mentor() {
@@ -10,7 +10,7 @@ function Mentor() {
       </div>
       <div className="container_table">
         <Table striped bordered hover variant="dark">
-          <thead >
+          <thead>
             <tr>
               <th>ลำดับกลุ่ม</th>
               <th>ชื่อกลุ่ม</th>

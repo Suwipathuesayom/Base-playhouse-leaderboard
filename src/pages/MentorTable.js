@@ -45,9 +45,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 // console.log("product", "total");
 
-function createData(name, calories, product, carbs, protein, A4, Total) {
-  return { name, calories, product, carbs, protein, A4, Total };
-}
+// function createData(name, calories, product, carbs, protein, A4, Total) {
+//   return { name, calories, product, carbs, protein, A4, Total };
+// }
 
 // function EnhancedTableHead(props) {
 //   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
@@ -57,77 +57,77 @@ function createData(name, calories, product, carbs, protein, A4, Total) {
 //   };
 // }
 
-const rows = [
-  createData(
-    "กลุ่มที่1",
-    "แตงโมง",
-    <Checkbox
-      input
-      name="product"
-      value="5.50"
-      type="checkbox"
-      onclick="totalIt()"
-    />,
-    <input value="$0.00" readonly="readonly" type="text" id="total" />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่2",
-    "ไก่ย่าง",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่3",
-    "กลัวยหอม",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่4",
-    "ว๊าวซ่า",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่5",
-    "แอปเปิ้ล",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่6",
-    "แมส",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-  createData(
-    "กลุ่มที่7",
-    "สายไฟ",
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    <Checkbox />,
-    5
-  ),
-];
+// const rows = [
+//   createData(
+//     "กลุ่มที่1",
+//     "แตงโมง",
+//     <Checkbox
+//       input
+//       name="product"
+//       value="5.50"
+//       type="checkbox"
+//       onclick="totalIt()"
+//     />,
+//     <input value="$0.00" readonly="readonly" type="text" id="total" />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่2",
+//     "ไก่ย่าง",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่3",
+//     "กลัวยหอม",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่4",
+//     "ว๊าวซ่า",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่5",
+//     "แอปเปิ้ล",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่6",
+//     "แมส",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+//   createData(
+//     "กลุ่มที่7",
+//     "สายไฟ",
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     <Checkbox />,
+//     5
+//   ),
+// ];
 
 export default function CustomizedTables() {
   const [dummyData, setDummyData] = React.useState({

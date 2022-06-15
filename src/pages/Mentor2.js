@@ -1,10 +1,9 @@
 import React from "react";
-import "../../src/assets/Styles/Mentor2.css";
+import "../../src/assets/styles/Mentor2.css";
 // import { Table } from "react-bootstrap";
 import MentorTable from "../../src/pages/MentorTable";
 import Box from "@mui/material/Box";
 import { Stack, Typography } from "@mui/material";
-
 
 export default function BoxSx() {
   const name = "เกณฑ์ A";
@@ -44,7 +43,11 @@ export default function BoxSx() {
           >
             <Typography
               variant={"h1"}
-              sx={{ backgroundColor: "red", textAlign: "center",textColor:"red" }}
+              sx={{
+                backgroundColor: "red",
+                textAlign: "center",
+                textColor: "red",
+              }}
             >
               {name?.length > 10 ? `${name.slice(0, 9)}...` : name}
             </Typography>
@@ -59,15 +62,10 @@ export default function BoxSx() {
               backgroundColor: "gray",
               "& .mentor-header": {
                 // overflowX: "hidden",
-              
               },
             }}
           >
-            <MentorTable
-            sx={{height: "100%"}}
-            >
-            
-            </MentorTable>
+            <MentorTable sx={{ height: "100%" }}></MentorTable>
             {/* {name?.length > 6 ? `${name.slice(0, 5)}...` : name} */}
           </Box>
         </Stack>
