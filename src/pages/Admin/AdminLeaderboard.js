@@ -23,7 +23,7 @@ function AdminLeaderboard() {
           .get()
           .then((snapshot) => {
             snapshot.forEach((doc) => {
-              console.log(doc.data().createdAt.toDate().toISOString());
+              // console.log(doc.data().createdAt.toDate().toISOString());
               // setProjectDashboard(doc.data())
               tempProjectDashboard.push(doc.data());
             });
