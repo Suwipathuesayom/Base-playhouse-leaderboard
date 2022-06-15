@@ -26,14 +26,16 @@ function SpeakerScreen() {
       },
     ],
     theme: {
-      top3: "#ff00ff",
+      top3: "#FA0404",
       hilight: "#ffffff",
     },
     learnerGroups: [
       {
+        isChecked: true,
         groupIndex: 0,
         groupName: "Avengers",
         avatar: "string",
+        totalPoint: 31,
         points: [
           {
             taskIndex: 0,
@@ -64,7 +66,7 @@ function SpeakerScreen() {
           },
           {
             taskIndex: 1,
-            taskPoint: 2,
+            taskPoint: 5,
           },
           {
             taskIndex: 2,
@@ -214,11 +216,11 @@ function SpeakerScreen() {
   const getRankColor = (index, top3) => {
     // const top3 = "#00FF00";
     if (index === 0) {
-      return top3 + "DD";
+      return top3 + "99";
     } else if (index === 1) {
-      return top3 + "AA";
-    } else if (index === 2) {
       return top3 + "77";
+    } else if (index === 2) {
+      return top3 + "55";
     } else {
       return "#88838355";
     }
@@ -317,7 +319,7 @@ function SpeakerScreen() {
                     direction="row"
                     // flex={1}
                     flexDirection={"row"}
-                    height={40}
+                    height={48}
                     alignItems={"center"}
                     borderRadius={10}
                     marginTop={"15px"}
@@ -382,7 +384,7 @@ function SpeakerScreen() {
                         fontFamily: "Raleway",
                       }}
                     >
-                      {99}
+                      {group.totalPoint}
                     </Typography>
                   </Stack>
                 ))}
@@ -395,6 +397,7 @@ function SpeakerScreen() {
               minWidth={1000}
             >
               <Divider color={"white"} />
+
               <Stack
                 justifyContent={"center"}
                 height={"60px"}
@@ -402,57 +405,53 @@ function SpeakerScreen() {
                 backgroundColor={color.primaryBlack}
               >
                 <Stack direction={"row"}>
-                  <Typography
-                    sx={{
-                      flex: 1,
-                      textAlign: "center",
-                      fontSize: 28,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "purple",
-                    }}
-                  >
-                    POINT1
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 1,
-                      textAlign: "center",
-                      fontSize: 28,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "purple",
-                    }}
-                  >
-                    POINT2
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 1,
-                      textAlign: "center",
-                      fontSize: 28,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "purple",
-                    }}
-                  >
-                    POINT3
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 1,
-                      textAlign: "center",
-                      fontSize: 28,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "purple",
-                    }}
-                  >
-                    POINT4
-                  </Typography>
+                  {data?.learnerGroups[0].points.map((point, index) => (
+                    <Typography
+                      sx={{
+                        flex: 1,
+                        textAlign: "center",
+                        fontSize: 28,
+                        color: "#FFFFFF",
+                        fontFamily: "Raleway",
+                        // backgroundColor: "purple",
+                      }}
+                    >
+                      POINT {index + 1}
+                    </Typography>
+                  ))}
                 </Stack>
               </Stack>
               <Divider color={"white"} />
+
+              {data?.learnerGroups.map((group, index) => (
+                <Stack
+                  direction="row"
+                  key={index}
+                  // flex={1}
+                  flexDirection={"row"}
+                  height={48}
+                  alignItems={"center"}
+                  borderRadius={10}
+                  marginTop={"15px"}
+                  // paddingX={"15px"}
+                >
+                  {group.points.map((point, index) => (
+                    <Typography
+                      sx={{
+                        flex: 1,
+                        textAlign: "center",
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: "#FFFFFF",
+                        fontFamily: "Raleway",
+                        // backgroundColor: "red",
+                      }}
+                    >
+                      {point.taskPoint}
+                    </Typography>
+                  ))}
+                </Stack>
+              ))}
             </Stack>
           </Stack>
         </div>
