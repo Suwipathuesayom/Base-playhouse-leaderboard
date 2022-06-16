@@ -20,11 +20,16 @@ function SpeakerScreen() {
       .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
       .collection("project")
       .where("projectName", "==", projectName)
-      .get()
-      .then((snapshot) => {
+      // .get()
+      // .then((snapshot) => {
+      //   snapshot.forEach((doc) => {
+      //     setData(doc.data());
+      //     console.log(doc.data());
+      //   });
+      // })
+      .onSnapshot((snapshot) => {
         snapshot.forEach((doc) => {
           setData(doc.data());
-          console.log(doc.data());
         });
       })
       .catch((error) => {
