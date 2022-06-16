@@ -51,7 +51,7 @@ function SpeakerScreen() {
       <div className="header">
         <h1>LEADERBOARD</h1>
         <div className="marvel-image">
-          <img src={marvel} alt="marvel" className="marvel" />
+          <img src={data?.imageUrl} alt="marvel" className="marvel" />
           <div className="bg-project"></div>
           <div className="title">
             <h2>{data?.projectName}</h2>
@@ -205,7 +205,7 @@ function SpeakerScreen() {
                           fontFamily: "Raleway",
                         }}
                       >
-                        {group.totalPoint ? group.totalPoint : 0}
+                        {group.totalPoint > 0 ? group.totalPoint : 0}
                       </Typography>
                     </Stack>
                   ))}
@@ -226,20 +226,25 @@ function SpeakerScreen() {
                   backgroundColor={color.primaryBlack}
                 >
                   <Stack direction={"row"}>
-                    {data?.learnerGroups[0].points.map((point, index) => (
-                      <Typography
-                        sx={{
-                          flex: 1,
-                          textAlign: "center",
-                          fontSize: 28,
-                          color: "#FFFFFF",
-                          fontFamily: "Raleway",
-                          // backgroundColor: "purple",
-                        }}
-                      >
-                        POINT {index + 1}
-                      </Typography>
-                    ))}
+                    {data?.learnerGroups[0].points.map((point, index) => {
+                      if (!data.tasks[index].isHidden) {
+                        return (
+                          <Typography
+                            sx={{
+                              flex: 1,
+                              textAlign: "center",
+                              fontSize: 28,
+                              color: "#FFFFFF",
+                              fontFamily: "Raleway",
+                              // backgroundColor: "purple",
+                            }}
+                          >
+                            {data.tasks[index].taskName}
+                          </Typography>
+                        );
+                      }
+                      return <div></div>;
+                    })}
                   </Stack>
                 </Stack>
                 <Divider color={"white"} />
@@ -258,50 +263,47 @@ function SpeakerScreen() {
                   >
                     {!!group.points.length &&
                       group.points.map((point, index) => {
-                        console.log(
-                          "group",
-                          group.groupIndex,
-                          "task",
-                          index,
-                          "point",
-                          point.taskPoint
-                        );
-                        return (
-                          <Typography
-                            key={index}
-                            sx={{
-                              flex: 1,
-                              textAlign: "center",
-                              fontSize: 28,
-                              fontWeight: 800,
-                              color: "#FFFFFF",
-                              fontFamily: "Raleway",
-                              // backgroundColor: "red",
-                            }}
-                          >
-                            {point.taskPoint ? point.taskPoint : 0}
-                          </Typography>
-                        );
+                        if (!data.tasks[index].isHidden) {
+                          return (
+                            <Typography
+                              key={index}
+                              sx={{
+                                flex: 1,
+                                textAlign: "center",
+                                fontSize: 28,
+                                fontWeight: 800,
+                                color: "#FFFFFF",
+                                fontFamily: "Raleway",
+                                // backgroundColor: "red",
+                              }}
+                            >
+                              {point.isChecked ? point.taskPoint : 0}
+                            </Typography>
+                          );
+                        }
+                        return <div></div>;
                       })}
                     {!!!group.points.length &&
                       data?.tasks.map((task, subIndex) => {
-                        console.log("task", subIndex);
-                        return (
-                          <Typography
-                            key={subIndex}
-                            sx={{
-                              flex: 1,
-                              textAlign: "center",
-                              fontSize: 28,
-                              fontWeight: 800,
-                              color: "#FFFFFF",
-                              fontFamily: "Raleway",
-                              // backgroundColor: "red",
-                            }}
-                          >
-                            {0}
-                          </Typography>
-                        );
+                        if (!task.isHidden) {
+                          return (
+                            <Typography
+                              key={subIndex}
+                              sx={{
+                                flex: 1,
+                                textAlign: "center",
+                                fontSize: 28,
+                                fontWeight: 800,
+                                color: "#FFFFFF",
+                                fontFamily: "Raleway",
+                                // backgroundColor: "red",
+                              }}
+                            >
+                              {0}
+                            </Typography>
+                          );
+                        }
+                        return <div></div>;
                       })}
                   </Stack>
                 ))}
