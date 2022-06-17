@@ -1,4 +1,5 @@
 import * as React from "react";
+import { db } from "../config/firebase";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -129,86 +130,161 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //   ),
 // ];
 
-export default function CustomizedTables() {
-  const [dummyData, setDummyData] = React.useState({
-    createdAt: new Date(),
-    imageUrl:
-      "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
-    projectName: "Marvel",
-    mentors: [
-      {
-        index: 1,
-        fullName: "Stan Lee",
-      },
-      {
-        index: 2,
-        fullName: "Thanat Raktham",
-      },
-    ],
-    theme: {
-      top3: "#ff00ff",
-      hilight: "#ffffff",
-    },
-    learnerGroups: [
-      {
-        groupIndex: 0,
-        groupName: "Avengers",
-        avatar: "string",
-        totalPoint: -1,
-        points: [],
-      },
-      {
-        groupIndex: 1,
-        groupName: "Inhumans",
-        avatar: "string",
-        totalPoint: -1,
-        points: [],
-      },
-    ],
-    tasks: [
-      {
-        taskName: "สู้ Alien บุกโลก",
-        subTasks: [
-          {
-            subTaskName: "ยืนล้อมวงเท่",
-            point: 2,
-            isHidden: false,
-          },
-          {
-            subTaskName: "จับ Loki",
-            point: 7,
-            isHidden: false,
-          },
-        ],
-        showSubTasks: false,
-        point: 9,
-        weight: 10,
-        isHidden: false,
-      },
-      {
-        taskName: "เอาชนะ Ultron",
-        subTasks: [
-          {
-            subTaskName: "ยกเมืองขึ้นฟ้า",
-            point: 1,
-            isHidden: false,
-          },
-          {
-            subTaskName: "เอาเมืองไปไว้ที่เดิม",
-            point: 1,
-            isHidden: true,
-          },
-        ],
-        showSubTasks: false,
-        point: 2,
-        weight: 20,
-        isHidden: false,
-      },
-    ],
-  });
+export default function MentorTable({ dummyData, setDummyData }) {
+  // const [dummyData, setDummyData] = React.useState({
+  //   createdAt: new Date(),
+  //   imageUrl:
+  //     "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
+  //   projectName: "Marvel",
+  //   mentors: [
+  //     {
+  //       index: 1,
+  //       fullName: "Stan Lee",
+  //     },
+  //     {
+  //       index: 2,
+  //       fullName: "Thanat Raktham",
+  //     },
+  //   ],
+  //   theme: {
+  //     top3: "#ff00ff",
+  //     hilight: "#ffffff",
+  //   },
+  //   learnerGroups: [
+  //     {
+  //       groupIndex: 0,
+  //       groupName: "Avengers",
+  //       avatar: "string",
+  //       totalPoint: -1,
+  //       points: [],
+  //     },
+  //     {
+  //       groupIndex: 1,
+  //       groupName: "Inhumans",
+  //       avatar: "string",
+  //       totalPoint: -1,
+  //       points: [],
+  //     },
+  //     {
+  //       groupIndex: 1,
+  //       groupName: "X-men",
+  //       avatar: "string",
+  //       totalPoint: -1,
+  //       points: [],
+  //     },
+  //   ],
+  //   tasks: [
+  //     {
+  //       taskName: "สู้ Alien บุกโลก",
+  //       subTasks: [
+  //         {
+  //           subTaskName: "ยืนล้อมวงเท่",
+  //           point: 2,
+  //           isHidden: false,
+  //         },
+  //         {
+  //           subTaskName: "จับ Loki",
+  //           point: 7,
+  //           isHidden: false,
+  //         },
+  //       ],
+  //       showSubTasks: false,
+  //       point: 9,
+  //       weight: 10,
+  //       isHidden: false,
+  //     },
+  //     {
+  //       taskName: "เอาชนะ Ultron",
+  //       subTasks: [
+  //         {
+  //           subTaskName: "ยกเมืองขึ้นฟ้า",
+  //           point: 1,
+  //           isHidden: false,
+  //         },
+  //         {
+  //           subTaskName: "เอาเมืองไปไว้ที่เดิม",
+  //           point: 1,
+  //           isHidden: true,
+  //         },
+  //       ],
+  //       showSubTasks: false,
+  //       point: 2,
+  //       weight: 20,
+  //       isHidden: false,
+  //     },
+  //   ],
+  // });
   const [learnerGroups, setLearnerGroups] = React.useState(
-    dummyData.learnerGroups
+    dummyData?.learnerGroups
   );
+
+  const handleUpdateProject = async (tempProject) => {
+    try {
+      let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+
+      await userRef
+        .collection("project")
+        .doc(tempProject.id)
+        .update(tempProject)
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCheckTaskByIndex = (index, subIndex) => {
+    // handle UI State
+    const tempLearnerGroups = dummyData.learnerGroups;
+    if (tempLearnerGroups[index].points.length === 0) {
+      for (let i = 0; i < dummyData.tasks.length; i++) {
+        tempLearnerGroups[index].points.push({});
+      }
+    }
+    if (Object.keys(tempLearnerGroups[index].points[subIndex]).length === 0) {
+      tempLearnerGroups[index].points[subIndex] = {
+        isChecked: true,
+        taskIndex: subIndex,
+        taskPoint: dummyData.tasks[subIndex].point,
+      };
+    } else {
+      tempLearnerGroups[index].points[subIndex].isChecked =
+        !tempLearnerGroups[index].points[subIndex].isChecked;
+    }
+    tempLearnerGroups[index].totalPoint = calculateNewTotalPoint(
+      tempLearnerGroups,
+      index
+    );
+    setLearnerGroups([...tempLearnerGroups]);
+
+    // handle Data State
+    const tempDummyData = dummyData;
+    if (tempDummyData.learnerGroups[index].points.length === 0) {
+      for (let i = 0; i < dummyData.tasks.length; i++) {
+        tempDummyData.learnerGroups[index].points.push({});
+      }
+    }
+    if (
+      Object.keys(tempDummyData.learnerGroups[index].points[subIndex])
+        .length === 0
+    ) {
+      tempDummyData.learnerGroups[index].points[subIndex] = {
+        isChecked: true,
+        taskIndex: subIndex,
+        taskPoint: dummyData.tasks[subIndex].point,
+      };
+    } else {
+      tempDummyData.learnerGroups[index].points[subIndex].isChecked =
+        tempLearnerGroups[index].points[subIndex].isChecked;
+    }
+    tempDummyData.learnerGroups[index].totalPoint = calculateNewTotalPoint(
+      tempDummyData.learnerGroups,
+      index
+    );
+    setDummyData(tempDummyData);
+    handleUpdateProject(tempDummyData);
+  };
 
   const calculateNewTotalPoint = (arr, index) => {
     let sum = 0;
@@ -220,98 +296,62 @@ export default function CustomizedTables() {
     return sum;
   };
 
-  const handleCheckTaskByIndex = (index, subIndex) => {
-    // handle UI State
-    const tempLearnerGroups = dummyData.learnerGroups;
-    console.log([...tempLearnerGroups]);
-    let foundTaskIndex = false;
-    tempLearnerGroups[index].points.forEach((point) => {
-      if (!foundTaskIndex && (point.taskIndex = subIndex)) {
-        point.isChecked = !point.isChecked;
-        foundTaskIndex = true;
-      }
-    });
-    if (!foundTaskIndex) {
-      tempLearnerGroups[index].points.push({
-        isChecked: true,
-        taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
-      });
-    }
-    tempLearnerGroups[index].totalPoint = calculateNewTotalPoint(
-      tempLearnerGroups,
-      index
-    );
-    setLearnerGroups([...tempLearnerGroups]);
-    console.log([...tempLearnerGroups]);
-
-    // handle Data State
-    const tempDummyData = dummyData;
-    foundTaskIndex = false;
-    tempDummyData.learnerGroups[index].points.forEach((point) => {
-      if (!foundTaskIndex && (point.taskIndex = subIndex)) {
-        point.isChecked = !point.isChecked;
-        foundTaskIndex = true;
-      }
-    });
-    if (!foundTaskIndex) {
-      tempDummyData.learnerGroups[index].points.push({
-        isChecked: true,
-        taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
-      });
-    }
-    if (tempDummyData.learnerGroups[index].points[subIndex]) {
-      tempDummyData.learnerGroups[index].points[subIndex].isChecked =
-        tempLearnerGroups[index].points[subIndex].isChecked;
-    } else {
-      tempDummyData.learnerGroups[index].points.push({
-        isChecked: true,
-        taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
-      });
-    }
-    tempDummyData.learnerGroups[index].totalPoint = calculateNewTotalPoint(
-      tempDummyData.learnerGroups,
-      index
-    );
-    setDummyData(tempDummyData);
-    // console.log(tempDummyData);
-  };
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: 700, marginTop: 0, borderRadius: 20, minHeight: 650 }}
-          aria-label="customized table"
-        >
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>ลำดับกลุ่ม </StyledTableCell>
-              <StyledTableCell>ชื่อกลุ่ม</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(1)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(2)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(3)</StyledTableCell>
-              <StyledTableCell>เกณฑ์&nbsp;(4)</StyledTableCell>
-              <StyledTableCell>Total</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {learnerGroups.map((group, index) => {
-              console.log(learnerGroups);
-              return (
-                <StyledTableRow key={index}>
-                  <StyledTableCell component="th" scope="row">
-                    {group.groupIndex + 1}
+    <TableContainer component={Paper}>
+      <Table
+        sx={{ minWidth: 700, marginTop: 0, borderRadius: 20, minHeight: 650 }}
+        aria-label="customized table"
+      >
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>ลำดับกลุ่ม</StyledTableCell>
+            <StyledTableCell>ชื่อกลุ่ม</StyledTableCell>
+            {dummyData?.tasks.map((task, subIndex) => {
+              if (!task.isHidden) {
+                return (
+                  <StyledTableCell key={subIndex}>
+                    {task.taskName}
                   </StyledTableCell>
-                  <StyledTableCell>{group.groupName}</StyledTableCell>
-                  {dummyData?.tasks.map((task, subIndex) => {
+                );
+              }
+              return <div></div>;
+              // ** DO NOT DELETE !!! Later for handling subTask
+
+              // if (!!!task.subTasks.length) {
+              //   return (
+              //     <StyledTableCell key={subIndex}>
+              //       {task.taskName}
+              //     </StyledTableCell>
+              //   );
+              // } else {
+              //   return task.subTasks.map((subTask, subTaskIndex) => (
+              //     <StyledTableCell key={subIndex}>
+              //       {subTask.subTaskName}
+              //     </StyledTableCell>
+              //   ));
+              // }
+            })}
+            <StyledTableCell>Total</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {learnerGroups.map((group, index) => {
+            return (
+              <StyledTableRow key={index}>
+                <StyledTableCell component="th" scope="row">
+                  {group.groupIndex}
+                </StyledTableCell>
+                <StyledTableCell>{group.groupName}</StyledTableCell>
+                {dummyData?.tasks.map((task, subIndex) => {
+                  if (!task.isHidden) {
                     return (
                       <StyledTableCell key={subIndex}>
                         <Checkbox
                           checked={
                             group.points[subIndex]
-                              ? group.points[subIndex].isChecked
+                              ? group.points[subIndex]?.isChecked
+                                ? group.points[subIndex].isChecked
+                                : false
                               : false
                           }
                           onChange={() =>
@@ -320,25 +360,54 @@ export default function CustomizedTables() {
                         />
                       </StyledTableCell>
                     );
-                  })}
-                  <StyledTableCell>
-                    {group.totalPoint < 0 ? 0 : group.totalPoint}
-                  </StyledTableCell>
-                  {/* <StyledTableCell>{row.A4}</StyledTableCell>
-                <StyledTableCell>{row.Total}</StyledTableCell> */}
-                </StyledTableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  }
+                  return <div></div>;
+                  // ** DO NOT DELETE !!! Later for handling subTask
 
-      {/* <div>
-      <Checkbox  />
-      <Checkbox  />
-      <Checkbox {...label} disabled />
-      <Checkbox {...label} disabled checked />
-    </div> */}
-    </>
+                  // if (!!!task.subTasks.length) {
+                  //   return (
+                  //     <StyledTableCell key={subIndex}>
+                  //       <Checkbox
+                  //         checked={
+                  //           group.points[subIndex]
+                  //             ? group.points[subIndex]?.isChecked
+                  //               ? group.points[subIndex].isChecked
+                  //               : false
+                  //             : false
+                  //         }
+                  //         onChange={() =>
+                  //           handleCheckTaskByIndex(index, subIndex)
+                  //         }
+                  //       />
+                  //     </StyledTableCell>
+                  //   );
+                  // } else {
+                  //   return task.subTasks.map((subTask, subTaksIndex) => (
+                  //     <StyledTableCell key={subIndex}>
+                  //       <Checkbox
+                  //         checked={
+                  //           group.points[subIndex]
+                  //             ? group.points[subIndex]?.isChecked
+                  //               ? group.points[subIndex].isChecked
+                  //               : false
+                  //             : false
+                  //         }
+                  //         onChange={() =>
+                  //           handleCheckTaskByIndex(index, subIndex)
+                  //         }
+                  //       />
+                  //     </StyledTableCell>
+                  //   ));
+                  // }
+                })}
+                <StyledTableCell>
+                  {group.totalPoint < 0 ? 0 : group.totalPoint}
+                </StyledTableCell>
+              </StyledTableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
