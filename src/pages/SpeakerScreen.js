@@ -3,11 +3,6 @@ import "../assets/styles/SpeakerScreen.css";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import color from "../constant/color";
-import marvel from "../assets/image/marvel.png";
-// // import crown from "../assets/image/crown1.png";
-// import avatar from "../assets/image/avatar1.png";
-// import avatar2 from "../assets/image/avatar2.png";
-// import avatar3 from "../assets/image/avatar3.png";
 import { Box, Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 
@@ -15,9 +10,8 @@ function SpeakerScreen() {
   const [data, setData] = useState();
   const { projectNameParams } = useParams();
 
-  const queryProject = async (projectName) => {
-    await db
-      .collection("users")
+  const queryProject = (projectName) => {
+    db.collection("users")
       .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
       .collection("project")
       .where("projectName", "==", projectName)
@@ -29,10 +23,6 @@ function SpeakerScreen() {
           });
           setData(tempData);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        setData();
       });
   };
 
@@ -56,7 +46,7 @@ function SpeakerScreen() {
           width: "100%",
           height: "100vh",
           paddingY: "1%",
-          overflowX: "Overlay",
+          // overflowX: "Overlay",
           // backgroundColor: "brown",
         }}
       >
@@ -108,7 +98,7 @@ function SpeakerScreen() {
           // backgroundColor={"pink"}
           direction={"row"}
           // width={3000}
-          overflowX={"overlay"}
+          // overflowX={"overlay"}
           padding={"1%"}
         >
           <Stack
@@ -309,7 +299,7 @@ function SpeakerScreen() {
             }}
             paddingX={"15px"}
             backgroundColor={color.primaryBlack}
-            overflowX={"scroll"}
+            // overflowX={"scroll"}
           >
             <Stack
               justifyContent={"center"}

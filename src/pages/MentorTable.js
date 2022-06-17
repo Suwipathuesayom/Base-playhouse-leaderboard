@@ -12,8 +12,6 @@ import Checkbox from "@mui/material/Checkbox";
 import color from "../constant/color";
 import { Box, Stack, Typography } from "@mui/material";
 import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
-import { CheckCircle } from "react-bootstrap-icons";
-// import PropTypes from 'prop-types';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
