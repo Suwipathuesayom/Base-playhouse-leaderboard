@@ -9,22 +9,32 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-// import PropTypes from 'prop-types';
+import color from "../constant/color";
+import { Box, Stack, Typography } from "@mui/material";
+import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    // width: 200,
+    backgroundColor: color.primaryOrange,
     color: theme.palette.common.white,
+    borderBottomWidth: 0,
     fontSize: 20,
+    fontWeight: 600,
   },
   [`&.${tableCellClasses.body}`]: {
+    color: theme.palette.common.white,
+    borderBottomWidth: 0,
     fontSize: 20,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: color.secondaryBlack,
+  },
+  "&:nth-of-type(even)": {
+    backgroundColor: color.primaryBlack,
   },
   // hide last border
   "&:last-child td, &:last-child th": {
@@ -304,8 +314,25 @@ export default function MentorTable({ dummyData, setDummyData }) {
       >
         <TableHead>
           <TableRow>
-            <StyledTableCell>ลำดับกลุ่ม</StyledTableCell>
-            <StyledTableCell>ชื่อกลุ่ม</StyledTableCell>
+            <StyledTableCell>GROUP</StyledTableCell>
+            <StyledTableCell>
+              <Stack
+                direction="row"
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Typography fontWeight={600} fontSize={20}>
+                  NAME
+                </Typography>
+                <Box
+                  sx={{
+                    width: "2px",
+                    height: "50px",
+                    backgroundColor: "white",
+                  }}
+                />
+              </Stack>
+            </StyledTableCell>
             {dummyData?.tasks.map((task, subIndex) => {
               if (!task.isHidden) {
                 return (
@@ -331,7 +358,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
               //   ));
               // }
             })}
-            <StyledTableCell>Total</StyledTableCell>
+            <StyledTableCell>TOTAL</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -341,12 +368,25 @@ export default function MentorTable({ dummyData, setDummyData }) {
                 <StyledTableCell component="th" scope="row">
                   {group.groupIndex}
                 </StyledTableCell>
-                <StyledTableCell>{group.groupName}</StyledTableCell>
+                <StyledTableCell>
+                  <Stack direction="row" justifyContent={"space-between"}>
+                    {group.groupName}
+                    <Box
+                      sx={{
+                        width: "2px",
+                        height: "50px",
+                        backgroundColor: "white",
+                      }}
+                    />
+                  </Stack>
+                </StyledTableCell>
                 {dummyData?.tasks.map((task, subIndex) => {
                   if (!task.isHidden) {
                     return (
                       <StyledTableCell key={subIndex}>
                         <Checkbox
+                          icon={<RadioButtonUnchecked />}
+                          checkedIcon={<RadioButtonChecked />}
                           checked={
                             group.points[subIndex]
                               ? group.points[subIndex]?.isChecked
@@ -357,6 +397,12 @@ export default function MentorTable({ dummyData, setDummyData }) {
                           onChange={() =>
                             handleCheckTaskByIndex(index, subIndex)
                           }
+                          sx={{
+                            color: "white",
+                            "&.Mui-checked": {
+                              color: color.primaryOrange,
+                            },
+                          }}
                         />
                       </StyledTableCell>
                     );

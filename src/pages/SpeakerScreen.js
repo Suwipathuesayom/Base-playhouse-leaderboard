@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import "../assets/styles/SpeakerScreen.css";
 import { db } from "../config/firebase";
+import { useParams } from "react-router-dom";
 import color from "../constant/color";
-//import marvel from "../assets/image/marvel.png";
-// // import crown from "../assets/image/crown1.png";
-// import avatar from "../assets/image/avatar1.png";
-// import avatar2 from "../assets/image/avatar2.png";
-// import avatar3 from "../assets/image/avatar3.png";
 import { Box, Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 
 function SpeakerScreen() {
   const [data, setData] = useState();
+  const { projectNameParams } = useParams();
 
-  const queryProject = async (projectName) => {
-    await db
-      .collection("users")
+  const queryProject = (projectName) => {
+    db.collection("users")
       .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
       .collection("project")
       .where("projectName", "==", projectName)
@@ -27,10 +23,6 @@ function SpeakerScreen() {
           });
           setData(tempData);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        setData();
       });
   };
 
@@ -54,7 +46,7 @@ function SpeakerScreen() {
           width: "100%",
           height: "100vh",
           paddingY: "1%",
-          overflowX: "Overlay",
+          // overflowX: "Overlay",
           // backgroundColor: "brown",
         }}
       >
@@ -106,7 +98,7 @@ function SpeakerScreen() {
           // backgroundColor={"pink"}
           direction={"row"}
           // width={3000}
-          overflowX={"overlay"}
+          // overflowX={"overlay"}
           padding={"1%"}
         >
           <Stack
@@ -307,7 +299,7 @@ function SpeakerScreen() {
             }}
             paddingX={"15px"}
             backgroundColor={color.primaryBlack}
-            overflowX={"scroll"}
+            // overflowX={"scroll"}
           >
             <Stack
               justifyContent={"center"}
@@ -321,12 +313,13 @@ function SpeakerScreen() {
                 display={"flex"}
                 flexDirection={"row"}
                 alignItems={"center"}
-                width={200 * data?.learnerGroups[0].points.length}
+                width={200 * data?.tasks.length}
               >
-                {data?.learnerGroups[0].points.map((point, index) => {
-                  if (!data.tasks[index].isHidden) {
+                {data?.tasks.map((task, taskIndex) => {
+                  if (!task?.isHidden) {
                     return (
                       <Typography
+                        key={taskIndex}
                         sx={{
                           flex: 1,
                           textAlign: "center",
@@ -335,9 +328,9 @@ function SpeakerScreen() {
                           // fontFamily: "Raleway",
                         }}
                       >
-                        {data.tasks[index].taskName.length > 19
-                          ? data.tasks[index].taskName.slice(0, 19) + "..."
-                          : data.tasks[index].taskName}
+                        {task.taskName.length > 19
+                          ? task.taskName.slice(0, 19) + "..."
+                          : task.taskName}
                       </Typography>
                     );
                   }
@@ -353,7 +346,7 @@ function SpeakerScreen() {
                 // flex={1}
                 flexDirection={"row"}
                 height={48}
-                width={200 * data?.learnerGroups[0].points.length}
+                width={200 * data?.tasks.length}
                 alignItems={"center"}
                 borderRadius={3}
                 marginTop={"15px"}
@@ -361,11 +354,11 @@ function SpeakerScreen() {
                 // paddingX={"15px"}
               >
                 {!!group.points.length &&
-                  group.points.map((point, index) => {
-                    if (!data.tasks[index].isHidden) {
+                  group.points.map((point, pointIndex) => {
+                    if (!data.tasks[pointIndex].isHidden) {
                       return (
                         <Typography
-                          key={index}
+                          key={pointIndex}
                           sx={{
                             flex: 1,
                             textAlign: "center",
@@ -373,10 +366,6 @@ function SpeakerScreen() {
                             fontWeight: 800,
                             // color: "#FFFFFF",
                             fontFamily: "Raleway",
-                            // backgroundColor: "red",
-                            // backgroundColor: !!(index % 2)
-                            //   ? color.secondaryBlack
-                            //   : color.primaryBlack,
                           }}
                         >
                           {point.isChecked ? point.taskPoint : 0}
@@ -386,17 +375,17 @@ function SpeakerScreen() {
                     return <div></div>;
                   })}
                 {!!!group.points.length &&
-                  data?.tasks.map((task, subIndex) => {
+                  data?.tasks.map((task, taskIndex) => {
                     if (!task.isHidden) {
                       return (
                         <Typography
-                          key={subIndex}
+                          key={taskIndex}
                           sx={{
                             flex: 1,
                             textAlign: "center",
                             fontSize: 28,
                             fontWeight: 800,
-                            color: "#FFFFFF",
+                            // color: "#FFFFFF",
                             fontFamily: "Raleway",
                             // backgroundColor: "red",
                           }}
@@ -414,7 +403,8 @@ function SpeakerScreen() {
       </Box>
     );
   } else {
-    queryProject("Bruno Mars");
+    // queryProject("Bruno Mars");
+    queryProject(projectNameParams);
     return <SplashScreen />;
   }
 }
