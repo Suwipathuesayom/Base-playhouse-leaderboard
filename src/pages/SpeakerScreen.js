@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../assets/styles/SpeakerScreen.css";
 import { db } from "../config/firebase";
 import color from "../constant/color";
-import marvel from "../assets/image/marvel.png";
+//import marvel from "../assets/image/marvel.png";
 // // import crown from "../assets/image/crown1.png";
 // import avatar from "../assets/image/avatar1.png";
 // import avatar2 from "../assets/image/avatar2.png";
