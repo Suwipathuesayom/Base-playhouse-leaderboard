@@ -1,6 +1,9 @@
-import { AddCircle, HighlightOff } from "@mui/icons-material";
-import { Button, InputBase, Stack, Typography } from "@mui/material";
+import { AddCircle, HighlightOff, Share } from "@mui/icons-material";
+import { Stack } from "@mui/material";
 import React, { useState } from "react";
+import { TextInput } from "../../assets/styles/InputStyles";
+import { HeaderText } from "../../assets/styles/TypographyStyles";
+import MentorButton from "../../components/MentorButton";
 import color from "../../constant/color";
 
 function NewProjectAddMentor({ project, setProject }) {
@@ -18,7 +21,6 @@ function NewProjectAddMentor({ project, setProject }) {
       fullName: mentorName,
     });
     setProject(tempProject);
-    console.log(tempProject);
     // handle UI State
     let tempMentorList = [...mentorList];
     tempMentorList.push({
@@ -34,7 +36,6 @@ function NewProjectAddMentor({ project, setProject }) {
     let tempProject = project;
     tempProject.mentors.splice(index, 1);
     setProject(tempProject);
-    console.log(tempProject);
 
     let tempMentorList = [...mentorList];
     tempMentorList.splice(index, 1);
@@ -44,31 +45,14 @@ function NewProjectAddMentor({ project, setProject }) {
     <Stack
       width={"100%"}
       height={"70px"}
-      sx={{ borderRadius: 5, padding: "0 20px" }}
+      sx={{ borderRadius: 2, padding: "0 20px" }}
       flexDirection="row"
       alignItems={"center"}
       bgcolor={color.secondaryBlack}
     >
-      <Typography
-        sx={{
-          width: 180,
-          fontSize: 32,
-          fontWeight: 600,
-          marginRight: "20px",
-          color: color.primaryOrange,
-        }}
-      >
-        เพิ่ม Mentor
-      </Typography>
-      <InputBase
-        sx={{
-          width: "30%",
-          padding: "0 10px",
-          marginRight: "10px",
-          borderRadius: 2,
-          fontSize: 20,
-          backgroundColor: "white",
-        }}
+      <HeaderText width={180}>เพิ่ม Mentor</HeaderText>
+      <TextInput
+        width={"30%"}
         value={mentorName}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
@@ -84,31 +68,43 @@ function NewProjectAddMentor({ project, setProject }) {
           color: !!mentorName.length
             ? color.primaryOrange
             : color.secondaryGrey,
-          marginRight: "10px",
+          marginRight: 20,
         }}
         onClick={() => handleAddMentor(mentorName)}
       />
       {mentorList?.map((mentor, index) => (
-        <Button
+        <MentorButton
           key={index}
           variant="contained"
           sx={{
-            fontSize: 16,
-            fontWeight: 600,
-            borderRadius: 2,
-            marginRight: "20px",
-            color: color.primaryBlack,
-            backgroundColor: "white",
             ":hover": {
-              bgcolor: "#f44336",
-              color: "white",
+              bgcolor: "white",
             },
           }}
-          onClick={() => handleRemoveMentor(index)}
-          endIcon={<HighlightOff style={{ fontSize: 32 }} />}
+          startIcon={
+            <HighlightOff
+              onClick={() => handleRemoveMentor(index)}
+              style={{ fontSize: 32 }}
+              sx={{
+                ":hover": {
+                  color: "#f44336",
+                },
+              }}
+            />
+          }
+          endIcon={
+            <Share
+              style={{ fontSize: 32 }}
+              sx={{
+                ":hover": {
+                  color: "blue",
+                },
+              }}
+            />
+          }
         >
           {`${mentor.fullName}`}
-        </Button>
+        </MentorButton>
       ))}
     </Stack>
   );

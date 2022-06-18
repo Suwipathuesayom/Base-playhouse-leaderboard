@@ -9,7 +9,7 @@ function NewProjectFooter({
   project,
   setProject,
   header,
-  setCreateProjectStatus,
+  setEditProjectStatus,
 }) {
   const handleAddNewProject = async () => {
     let createdDateTime = new Date();
@@ -17,8 +17,7 @@ function NewProjectFooter({
     tempProject.createdAt =
       firebase.firestore.Timestamp.fromDate(createdDateTime);
     setProject(tempProject);
-    console.log(tempProject);
-    setCreateProjectStatus("creating");
+    setEditProjectStatus("info");
     try {
       let projectRef = db
         .collection("users")
@@ -45,11 +44,11 @@ function NewProjectFooter({
           totalPoint: 20,
         })
         .then(() => {
-          setCreateProjectStatus("success");
+          setEditProjectStatus("success");
         })
         .catch((error) => {
           console.log(error);
-          setCreateProjectStatus("failure");
+          setEditProjectStatus("error");
         });
     } catch (error) {
       console.log(error);
@@ -60,10 +59,9 @@ function NewProjectFooter({
     let tempProject = project;
     tempProject.createdAt =
       firebase.firestore.Timestamp.fromDate(updatedDateTime);
-    console.log(tempProject);
     setProject(tempProject);
 
-    setCreateProjectStatus("creating");
+    setEditProjectStatus("info");
     try {
       let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
 
@@ -72,7 +70,7 @@ function NewProjectFooter({
         .doc(tempProject.id)
         .update(tempProject)
         .catch((error) => {
-          setCreateProjectStatus("failure");
+          setEditProjectStatus("error");
         });
 
       await userRef
@@ -83,10 +81,10 @@ function NewProjectFooter({
           projectName: tempProject.projectName,
         })
         .then(() => {
-          setCreateProjectStatus("success");
+          setEditProjectStatus("success");
         })
         .catch((error) => {
-          setCreateProjectStatus("failure");
+          setEditProjectStatus("error");
         });
     } catch (error) {
       console.log(error);

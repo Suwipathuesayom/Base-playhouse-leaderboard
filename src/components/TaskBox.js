@@ -8,15 +8,12 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
-import {
-  Box,
-  InputAdornment,
-  InputBase,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, InputAdornment, Stack } from "@mui/material";
 import color from "../constant/color";
 import SubTaskBox from "./SubTaskBox";
+import { TextInput } from "../assets/styles/InputStyles";
+import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
+import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 
 const TaskBox = ({
   project,
@@ -71,7 +68,6 @@ const TaskBox = ({
       );
     }
     setProject(tempProject);
-    // console.log(tempProject);
   };
   const handleShowSubTasksClicked = (index) => {
     // handle UI State
@@ -82,7 +78,6 @@ const TaskBox = ({
     let tempProject = project;
     tempProject.tasks[index].showSubTasks = tempTask[index].showSubTasks;
     setProject(tempProject);
-    console.log("Edited Project,", tempProject);
   };
   const handlePointValueChange = (index, newPointValue) => {
     // handle UI State
@@ -93,7 +88,6 @@ const TaskBox = ({
     let tempProject = project;
     tempProject.tasks[index].point = parseInt(newPointValue, 10);
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleWeightValueChange = (index, newWeightValue) => {
     // handle UI State
@@ -104,7 +98,6 @@ const TaskBox = ({
     let tempProject = project;
     tempProject.tasks[index].weight = parseInt(newWeightValue, 10);
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleRenameTask = (index, newTaskName) => {
     // handle UI State
@@ -116,7 +109,6 @@ const TaskBox = ({
     let tempProject = project;
     tempProject.tasks[index].taskName = newTaskName;
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleAddNewSubTask = (index) => {
     // handle UI State
@@ -129,10 +121,8 @@ const TaskBox = ({
     tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
     tempTask[index].showSubTasks = true;
     setNewTask(tempTask);
-    console.log(tempTask);
     // handle Data State
     let tempProject = project;
-    console.log(tempProject);
     if (
       tempProject.tasks[index].subTasks[
         tempProject.tasks[index].subTasks.length
@@ -150,7 +140,6 @@ const TaskBox = ({
     );
     tempProject.tasks[index].showSubTasks = true;
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleRemoveTask = (index) => {
     // handle UI State
@@ -161,7 +150,6 @@ const TaskBox = ({
     let tempProject = project;
     tempProject.tasks.splice(index, 1);
     setProject(tempProject);
-    console.log(tempProject);
   };
 
   const calculateNewTaskPointFromSubTasks = (arr, index) => {
@@ -176,10 +164,8 @@ const TaskBox = ({
     project.learnerGroups.forEach((group, groupIndex) => {
       let newTotalPoint = 0;
       group.points.forEach((point, pointIndex) => {
-        console.log("point length", Object.keys(point).length);
         if (Object.keys(point).length !== 0 && point.isChecked) {
           newTotalPoint += point.taskPoint;
-          console.log("newTotalPoint", newTotalPoint);
         }
       });
       project.learnerGroups[groupIndex].totalPoint = newTotalPoint;
@@ -200,67 +186,38 @@ const TaskBox = ({
         sx={[
           lastTask &&
             !showSubTasks && {
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: 8,
+              borderBottomRightRadius: 8,
             },
         ]}
         flexDirection="row"
         alignItems={"center"}
         justifyContent={"space-around"}
-        bgcolor={!!(index % 2) ? color.secondaryBlack : color.primaryBlack}
+        bgcolor={getBackgroundColorFromIndex(index)}
       >
-        <Stack
-          width={"75%"}
-          // height={"70px"}
-          flexDirection="row"
-          alignItems={"center"}
-          // justifyContent={"space-evenly"}
-          //   backgroundColor={"cyan"}
-        >
-          <Typography
-            sx={{
-              flexShrink: 1,
-              width: 50,
-              textAlign: "center",
-              textDecoration: isHidden && "line-through",
-              fontSize: 28,
-              fontWeight: 400,
-              color: color.primaryOrange,
-              //   backgroundColor: "yellow",
-            }}
+        <Stack width={"75%"} flexDirection="row" alignItems={"center"}>
+          <NumberText
+            flexShrink={1}
+            width={50}
+            textDecoration={isHidden ? "line-through" : "false"}
           >
             {index + 1}
-          </Typography>
+          </NumberText>
           {!isEditing && (
-            <Typography
-              sx={{
-                flexGrow: 1,
-                textDecoration: isHidden && "line-through",
-                //   textAlign: "center",
-                fontSize: 24,
-                fontWeight: 400,
-                color: color.secondaryGrey,
-
-                //   backgroundColor: "lime",
-              }}
+            <ContentText
+              flexGrow={1}
+              textDecoration={isHidden ? "line-through" : "false"}
             >
               {taskName?.length > TEXTMAXSAFELENGTH
                 ? taskName.slice(0, TEXTMAXSAFELENGTH - 1) + "..."
                 : taskName}
-            </Typography>
+            </ContentText>
           )}
           {isEditing && (
-            <InputBase
+            <TextInput
+              sx={{ flexGrow: 1 }}
               inputRef={(input) => input?.focus()}
               type={"text"}
-              sx={{
-                flexGrow: 1,
-                padding: "0 10px",
-                // marginRight: "20px",
-                borderRadius: 2,
-                fontSize: 20,
-                backgroundColor: "white",
-              }}
               defaultValue={taskName}
               onKeyPress={(event) => {
                 if (event.key === "Enter")
@@ -277,7 +234,6 @@ const TaskBox = ({
             style={{
               fontSize: 28,
               color: color.primaryOrange,
-              // backgroundColor: "orange",
             }}
             onClick={() => {
               handleRenameTask(index, newTaskName);
@@ -290,7 +246,6 @@ const TaskBox = ({
             style={{
               fontSize: 28,
               color: color.primaryOrange,
-              // backgroundColor: "orange",
             }}
             onClick={() => {
               setIsEditing(!isEditing);
@@ -302,24 +257,15 @@ const TaskBox = ({
           style={{
             fontSize: 40,
             color: color.primaryOrange,
-            // marginRight: "20px",
-            // backgroundColor: "pink",
           }}
           onClick={() => handleAddNewSubTask(index)}
         />
 
         {!!!subTasks.length && !isHidden && (
-          <InputBase
+          <TextInput
+            width={100}
+            marginright={"10px"}
             type={"number"}
-            sx={{
-              width: "5%",
-              minWidth: 60,
-              borderRadius: 2,
-              padding: "0 10px",
-              margin: "0 5px",
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
             onKeyPress={(event) => {
               if (event?.key === "-" || event?.key === "+") {
                 event.preventDefault();
@@ -334,18 +280,11 @@ const TaskBox = ({
           />
         )}
         {(!!subTasks.length || isHidden) && (
-          <InputBase
+          <TextInput
+            width={100}
+            marginright={"10px"}
             type={"number"}
             disabled={true}
-            sx={{
-              width: "5%",
-              minWidth: 60,
-              borderRadius: 2,
-              padding: "0 10px",
-              margin: "0 5px",
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
             value={point}
             onKeyPress={(event) => {
               if (event?.key === "-" || event?.key === "+") {
@@ -359,15 +298,9 @@ const TaskBox = ({
             }
           />
         )}
-        <InputBase
-          sx={{
-            width: "5%",
-            minWidth: 77,
-            borderRadius: 2,
-            padding: "0 10px",
-            fontSize: 20,
-            backgroundColor: "white",
-          }}
+        <TextInput
+          width={100}
+          marginright={"10px"}
           type={"number"}
           inputprops={{ minpercent, maxpercent }}
           onKeyPress={(event) => {
@@ -378,17 +311,10 @@ const TaskBox = ({
               handleWeightValueChange(index, event.target.value);
           }}
           onChange={(event) => {
-            // let value = parseInt(event.target.value, 10);
-
-            // if (value > maxpercent) value = maxpercent;
-            // else if (value < minpercent) value = minpercent;
-
             if (parseInt(event.target.value, 10) > 100)
               event.target.value = 100;
             else if (parseInt(event.target.value, 10) < 0)
               event.target.value = 0;
-
-            // event.target.value = value;
           }}
           placeholder={"weight"}
           onBlur={(event) => handleWeightValueChange(index, event.target.value)}
@@ -400,8 +326,6 @@ const TaskBox = ({
           style={{
             fontSize: 40,
             color: color.primaryOrange,
-            // marginRight: "20px",
-            // backgroundColor: "pink",
           }}
           onClick={() => handleRemoveTask(index)}
         />
@@ -412,7 +336,6 @@ const TaskBox = ({
             size={"large"}
             sx={{
               color: color.primaryOrange,
-              // backgroundColor: "yellow",
             }}
           />
         )}
@@ -423,7 +346,6 @@ const TaskBox = ({
             size={"large"}
             sx={{
               color: color.secondaryGrey,
-              // backgroundColor: "yellow",
             }}
           />
         )}
@@ -433,10 +355,6 @@ const TaskBox = ({
             style={{
               fontSize: 28,
               color: color.primaryOrange,
-              // transform: showSubTasks
-              //   ? "rotate(0deg)"
-              //   : "rotate(-180deg)",
-              // backgroundColor: "orange",
             }}
             onClick={() => handleShowSubTasksClicked(index)}
           />

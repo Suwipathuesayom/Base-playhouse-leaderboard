@@ -6,8 +6,11 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
-import { Box, InputBase, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import color from "../constant/color";
+import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
+import { TextInput } from "../assets/styles/InputStyles";
+import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 
 const SubTaskBox = ({
   project,
@@ -42,7 +45,6 @@ const SubTaskBox = ({
       index
     );
     setProject(tempProject);
-    // console.log(tempProject);
   };
   const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
     // handle UI State
@@ -61,7 +63,6 @@ const SubTaskBox = ({
       index
     );
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleRenameSubTask = (index, newSubTaskName) => {
     // handle UI State
@@ -73,7 +74,6 @@ const SubTaskBox = ({
     let tempProject = project;
     tempProject.tasks[index].subTasks[subIndex].subTaskName = newSubTaskName;
     setProject(tempProject);
-    console.log(tempProject);
   };
   const handleRemoveSubTask = (index, subIndex) => {
     // handle UI State
@@ -95,7 +95,6 @@ const SubTaskBox = ({
         !!tempProject.tasks[index].subTasks.length;
       setProject(tempProject);
     }
-    console.log(tempProject);
   };
 
   const calculateNewTaskPointFromSubTasks = (arr, index) => {
@@ -111,66 +110,42 @@ const SubTaskBox = ({
       width={"100%"}
       height={"70px"}
       sx={{
-        borderBottomLeftRadius: lastTask ? 20 : null,
-        borderBottomRightRadius: lastTask ? 20 : null,
+        borderBottomLeftRadius: lastTask ? 8 : null,
+        borderBottomRightRadius: lastTask ? 8 : null,
       }}
       flexDirection="row"
       alignItems={"center"}
       justifyContent={"space-around"}
-      bgcolor={!!(index % 2) ? color.secondaryBlack : color.primaryBlack}
+      bgcolor={getBackgroundColorFromIndex(index)}
     >
       <Stack
         width={"75%"}
-        // height={"70px"}
         flexDirection="row"
         alignItems={"center"}
         padding={"0 30px"}
-        // justifyContent={"space-evenly"}
-        //   backgroundColor={"cyan"}
       >
-        <Typography
-          sx={{
-            flexShrink: 1,
-            width: 50,
-            textAlign: "center",
-            textDecoration: isHidden && "line-through",
-            fontSize: 28,
-            fontWeight: 400,
-            color: color.primaryOrange,
-            //   backgroundColor: "yellow",
-          }}
+        <NumberText
+          flexShrink={1}
+          width={50}
+          textDecoration={isHidden ? "line-through" : "false"}
         >
           {`${index + 1}.${subIndex + 1}`}
-        </Typography>
+        </NumberText>
         {!isEditing && (
-          <Typography
-            sx={{
-              flexGrow: 1,
-              //   textAlign: "center",
-              textDecoration: isHidden && "line-through",
-              fontSize: 24,
-              fontWeight: 400,
-              color: color.secondaryGrey,
-              //   backgroundColor: "lime",
-            }}
+          <ContentText
+            flexGrow={1}
+            textDecoration={isHidden ? "line-through" : "false"}
           >
             {subTaskName.length > TEXTMAXSAFELENGTH
               ? subTaskName.slice(0, TEXTMAXSAFELENGTH - 1) + "..."
               : subTaskName}
-          </Typography>
+          </ContentText>
         )}
         {isEditing && (
-          <InputBase
+          <TextInput
             type={"text"}
             inputRef={(input) => input?.focus()}
-            sx={{
-              flexGrow: 1,
-              padding: "0 10px",
-              // marginRight: "20px",
-              borderRadius: 2,
-              fontSize: 20,
-              backgroundColor: "white",
-            }}
+            sx={{ flexGrow: 1 }}
             defaultValue={subTaskName}
             onKeyPress={(event) => {
               if (event.key === "Enter")
@@ -187,7 +162,6 @@ const SubTaskBox = ({
           style={{
             fontSize: 28,
             color: color.primaryOrange,
-            // backgroundColor: "orange",
           }}
           onClick={() => {
             handleRenameSubTask(index, newSubTaskName);
@@ -200,24 +174,16 @@ const SubTaskBox = ({
           style={{
             fontSize: 28,
             color: color.primaryOrange,
-            // backgroundColor: "orange",
           }}
           onClick={() => setIsEditing(!isEditing)}
         />
       )}
       <Box width={40} />
-      <InputBase
+      <TextInput
         type={"number"}
         disabled={isHidden}
-        sx={{
-          width: "5%",
-          borderRadius: 2,
-          padding: "0 10px",
-          margin: "0 5px",
-          fontSize: 20,
-          backgroundColor: "white",
-        }}
-        // value={subPointValue}
+        width={100}
+        marginright={"10px"}
         onKeyPress={(event) => {
           if (event?.key === "-" || event?.key === "+") {
             event.preventDefault();
@@ -230,14 +196,12 @@ const SubTaskBox = ({
         }
         defaultValue={point}
       />
-      <Box width={"5%"} />
+      <Box width={110} />
       <Delete
         className="newProject__icon"
         style={{
           fontSize: 40,
           color: color.primaryOrange,
-          // marginRight: "20px",
-          // backgroundColor: "pink",
         }}
         onClick={() => handleRemoveSubTask(index, subIndex)}
       />
@@ -248,7 +212,6 @@ const SubTaskBox = ({
           size={"large"}
           sx={{
             color: color.primaryOrange,
-            // backgroundColor: "yellow",
           }}
         />
       )}
@@ -259,7 +222,6 @@ const SubTaskBox = ({
           size={"large"}
           sx={{
             color: color.secondaryGrey,
-            // backgroundColor: "yellow",
           }}
         />
       )}

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Alert, Box, Collapse, IconButton } from "@mui/material";
-import { Close } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 
 import { db } from "../../config/firebase";
@@ -9,11 +7,12 @@ import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
+import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 
 function EditProject() {
   const { projectName } = useLocation().state;
   const [project, setProject] = useState(null);
-  const [createProjectStatus, setCreateProjectStatus] = useState("editing");
+  const [editProjectStatus, setEditProjectStatus] = useState("warning");
 
   const queryProject = async (projectName) => {
     await db
@@ -25,7 +24,6 @@ function EditProject() {
       .then((snapshot) => {
         snapshot.forEach((doc) => {
           setProject(doc.data());
-          console.log(doc.data());
         });
       })
       .catch((error) => {
@@ -37,74 +35,11 @@ function EditProject() {
   if (project) {
     return (
       <div className="newProject">
-        <Box
-          sx={{
-            width: "100%",
-            paddingX: "20%",
-            position: "absolute",
-            top: "10px",
-          }}
-        >
-          <Collapse in={createProjectStatus === "success"}>
-            <Alert
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setCreateProjectStatus("exiting");
-                  }}
-                >
-                  <Close fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ mb: 2 }}
-            >
-              อัพเดตโปรเจคสำเร็จ!
-            </Alert>
-          </Collapse>
-          <Collapse in={createProjectStatus === "creating"}>
-            <Alert
-              severity="info"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setCreateProjectStatus("exiting");
-                  }}
-                >
-                  <Close fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ mb: 2 }}
-            >
-              กำลังอัพเดตโปรเจค ...
-            </Alert>
-          </Collapse>
-          <Collapse in={createProjectStatus === "failure"}>
-            <Alert
-              severity="error"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setCreateProjectStatus("exiting");
-                  }}
-                >
-                  <Close fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ mb: 2 }}
-            >
-              เกิดข้อผิดพลาดในการอัพเดตโปรเจค
-            </Alert>
-          </Collapse>
-        </Box>
+        <ProjectStatusAlert
+          editProjectStatus={editProjectStatus}
+          setEditProjectStatus={setEditProjectStatus}
+          action={"edit"}
+        />
         <NewProjectHeader
           project={project}
           setProject={setProject}
@@ -115,7 +50,7 @@ function EditProject() {
           project={project}
           setProject={setProject}
           header={"EDIT PROJECT"}
-          setCreateProjectStatus={setCreateProjectStatus}
+          setEditProjectStatus={setEditProjectStatus}
         />
       </div>
     );
