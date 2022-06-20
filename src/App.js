@@ -10,7 +10,6 @@ import EditProject from "./pages/Admin/EditProject";
 import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 import Landing from "./pages/Landing";
 import Mentor from "./pages/Mentor";
-import Note from "./pages/Note";
 
 
 
@@ -29,7 +28,6 @@ function App() {
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
           <Route path="learner" element={<Learner />} />
           <Route path="mentor/:projectNameParams" element={<Mentor />} />
-          <Route path="note" element={<Note />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

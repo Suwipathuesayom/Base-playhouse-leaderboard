@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { db } from "../config/firebase";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -12,10 +12,14 @@ import Checkbox from "@mui/material/Checkbox";
 import color from "../constant/color";
 import { Box, Stack, Typography } from "@mui/material";
 import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    // width: 200,
     backgroundColor: color.primaryOrange,
     color: theme.palette.common.white,
     borderBottomWidth: 0,
@@ -42,188 +46,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-// function totalIt() {
-//   var input = document.getElementsByName("product");
-//   var total = 0;
-//   for (var i = 0; i < input; i++) {
-//     if (input[i].checked) {
-//       total += parseFloat(input[i].value);
-//     }
-//   }
-//   document.getElementById("total").value = "$" + total.toFixed(2);
-// }
-
-// console.log("product", "total");
-
-// function createData(name, calories, product, carbs, protein, A4, Total) {
-//   return { name, calories, product, carbs, protein, A4, Total };
-// }
-
-// function EnhancedTableHead(props) {
-//   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-//     props;
-//   const createSortHandler = (property) => (event) => {
-//     onRequestSort(event, property);
-//   };
-// }
-
-// const rows = [
-//   createData(
-//     "กลุ่มที่1",
-//     "แตงโมง",
-//     <Checkbox
-//       input
-//       name="product"
-//       value="5.50"
-//       type="checkbox"
-//       onclick="totalIt()"
-//     />,
-//     <input value="$0.00" readonly="readonly" type="text" id="total" />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่2",
-//     "ไก่ย่าง",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่3",
-//     "กลัวยหอม",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่4",
-//     "ว๊าวซ่า",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่5",
-//     "แอปเปิ้ล",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่6",
-//     "แมส",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-//   createData(
-//     "กลุ่มที่7",
-//     "สายไฟ",
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     <Checkbox />,
-//     5
-//   ),
-// ];
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  background: "white",
+  border: "20px",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function MentorTable({ dummyData, setDummyData }) {
-  // const [dummyData, setDummyData] = React.useState({
-  //   createdAt: new Date(),
-  //   imageUrl:
-  //     "https://i.pinimg.com/originals/7d/bf/df/7dbfdf56a94c044e0684aba891816a37.jpg",
-  //   projectName: "Marvel",
-  //   mentors: [
-  //     {
-  //       index: 1,
-  //       fullName: "Stan Lee",
-  //     },
-  //     {
-  //       index: 2,
-  //       fullName: "Thanat Raktham",
-  //     },
-  //   ],
-  //   theme: {
-  //     top3: "#ff00ff",
-  //     hilight: "#ffffff",
-  //   },
-  //   learnerGroups: [
-  //     {
-  //       groupIndex: 0,
-  //       groupName: "Avengers",
-  //       avatar: "string",
-  //       totalPoint: -1,
-  //       points: [],
-  //     },
-  //     {
-  //       groupIndex: 1,
-  //       groupName: "Inhumans",
-  //       avatar: "string",
-  //       totalPoint: -1,
-  //       points: [],
-  //     },
-  //     {
-  //       groupIndex: 1,
-  //       groupName: "X-men",
-  //       avatar: "string",
-  //       totalPoint: -1,
-  //       points: [],
-  //     },
-  //   ],
-  //   tasks: [
-  //     {
-  //       taskName: "สู้ Alien บุกโลก",
-  //       subTasks: [
-  //         {
-  //           subTaskName: "ยืนล้อมวงเท่",
-  //           point: 2,
-  //           isHidden: false,
-  //         },
-  //         {
-  //           subTaskName: "จับ Loki",
-  //           point: 7,
-  //           isHidden: false,
-  //         },
-  //       ],
-  //       showSubTasks: false,
-  //       point: 9,
-  //       weight: 10,
-  //       isHidden: false,
-  //     },
-  //     {
-  //       taskName: "เอาชนะ Ultron",
-  //       subTasks: [
-  //         {
-  //           subTaskName: "ยกเมืองขึ้นฟ้า",
-  //           point: 1,
-  //           isHidden: false,
-  //         },
-  //         {
-  //           subTaskName: "เอาเมืองไปไว้ที่เดิม",
-  //           point: 1,
-  //           isHidden: true,
-  //         },
-  //       ],
-  //       showSubTasks: false,
-  //       point: 2,
-  //       weight: 20,
-  //       isHidden: false,
-  //     },
-  //   ],
-  // });
+  const [open, setOpen] = React.useState(false);
+  const [note, setNote] = React.useState("");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [learnerGroups, setLearnerGroups] = React.useState(
     dummyData?.learnerGroups
   );
@@ -236,6 +76,29 @@ export default function MentorTable({ dummyData, setDummyData }) {
         .collection("project")
         .doc(tempProject.id)
         .update(tempProject)
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddNewMessage = async (note) => {
+    try {
+      console.log("note ", note);
+      db.collection("messages")
+        .doc(dummyData.id)
+        .set({
+          id: dummyData.id,
+          mentors: [
+            {
+              mentorName: "test mentor name",
+              note: note,
+            },
+          ],
+          projectName: dummyData.projectName,
+        })
         .catch((error) => {
           console.log(error);
         });
@@ -359,6 +222,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
               // }
             })}
             <StyledTableCell>TOTAL</StyledTableCell>
+            <StyledTableCell></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -449,11 +313,57 @@ export default function MentorTable({ dummyData, setDummyData }) {
                 <StyledTableCell>
                   {group.totalPoint < 0 ? 0 : group.totalPoint}
                 </StyledTableCell>
+                <StyledTableCell style={{ cursor: "pointer" }}>
+                  <NoteAltIcon onClick={handleOpen}></NoteAltIcon>
+                </StyledTableCell>
               </StyledTableRow>
             );
           })}
         </TableBody>
       </Table>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Text in a modal
+          </Typography>
+          <Box
+            sx={{
+              backgroundColor: "white",
+              width: "100%",
+              height: "500px",
+            }}
+          >
+            <TextField
+              id="outlined-name"
+              label="Note"
+              onChange={(event) => {
+                setNote(event.target.value);
+              }}
+              sx={{ width: "100%", height: "500px" }}
+              multiline
+            />
+          </Box>
+          <Box
+            sx={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              display: "flex",
+            }}
+          >
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={() => handleAddNewMessage(note)}>Save</Button>
+          </Box>
+        </Box>
+      </Modal>
     </TableContainer>
   );
 }
