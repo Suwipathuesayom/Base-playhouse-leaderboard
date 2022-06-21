@@ -10,7 +10,6 @@ import {
   DialogTitle,
   InputLabel,
   Paper,
-  Stack,
   styled,
   Table,
   TableBody,
@@ -45,8 +44,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     flex: "none",
     order: 1,
     backgroundColor: "#242424",
-    // flexGrow: 0,
-    // height: 42,
   },
 }));
 
@@ -54,11 +51,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: "#242424",
   },
-  // hide last border
+
   "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  color: "#FF5B4A",
+  fontSize: 15,
+  fontFamily: "Raleway",
+  textTransform: "uppercase",
+  textDecoration: "none",
+}));
+
+const StyledDiv = styled("Div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  cursor: "pointer",
+}));
+
+const StyledStack = styled("Stack")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-evenly",
+}));
+
+const StyledInputProps = {
+  height: "1px",
+  display: "flex",
+};
 
 export default function AdminTable({ projectDashboard }) {
   const [open, setOpen] = useState(false);
@@ -161,23 +184,8 @@ export default function AdminTable({ projectDashboard }) {
                 <StyledTableCell align="center">
                   {project.totalPoint}
                 </StyledTableCell>
-                <StyledTableCell
-                  align="left"
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "left",
-                    height: "100%",
-                    padding: "5px",
-                  }}
-                >
-                  <Stack
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-evenly",
-                    }}
-                  >
+                <StyledTableCell align="left">
+                  <StyledStack>
                     <Button
                       variant="contained"
                       color="error"
@@ -191,30 +199,25 @@ export default function AdminTable({ projectDashboard }) {
                         justifyContent: "center",
                       }}
                     >
-                      <Typography
+                      <StyledTypography
                         component={Link}
                         to="/edit-project"
                         state={{ projectName: project.projectName }}
                         variant="p"
-                        style={{
-                          color: "#FF5B4A",
-                          fontSize: 15,
-                          fontFamily: "Raleway",
-                          textTransform: "uppercase",
-                          cursor: "pointer",
-                          textDecoration: "none",
-                        }}
                       >
                         Edit
-                      </Typography>
+                      </StyledTypography>
                     </Box>
-                  </Stack>
+                  </StyledStack>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Box Modal */}
+
       <Box>
         <Dialog
           open={open}
@@ -226,28 +229,12 @@ export default function AdminTable({ projectDashboard }) {
           <DialogContent>
             <DialogContentText className="popup-header">
               Project:{" "}
-              <Typography
-                variant="p"
-                style={{
-                  color: "#FF5B4A",
-                  fontSize: 15,
-                  fontFamily: "Raleway",
-                  textTransform: "uppercase",
-                }}
-              >
+              <StyledTypography variant="p">
                 {selectedProject.projectName}
-                {/* firefox */}
-                {/* {projectDashboard[0].projectName} */}
-              </Typography>
+              </StyledTypography>
             </DialogContentText>
             <InputLabel>Speaker</InputLabel>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
+            <StyledDiv>
               <TextField
                 disabled
                 fullWidth
@@ -255,23 +242,16 @@ export default function AdminTable({ projectDashboard }) {
                 defaultValue="https://speakerdeck.com/firefox"
                 inputProps={{
                   style: {
-                    height: "1px",
-                    display: "flex",
+                    StyledInputProps,
                   },
                 }}
               />
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
-            </div>
+            </StyledDiv>
             <InputLabel>Leaner</InputLabel>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
+            <StyledDiv>
               <TextField
                 disabled
                 fullWidth
@@ -279,23 +259,16 @@ export default function AdminTable({ projectDashboard }) {
                 defaultValue="https://learner.com"
                 inputProps={{
                   style: {
-                    height: "1px",
-                    display: "flex",
+                    StyledInputProps,
                   },
                 }}
               />
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
-            </div>
+            </StyledDiv>
             <InputLabel>Mentor/Judge</InputLabel>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
+            <StyledDiv>
               <TextField
                 disabled
                 fullWidth
@@ -303,15 +276,14 @@ export default function AdminTable({ projectDashboard }) {
                 defaultValue="https://mentor/judge"
                 inputProps={{
                   style: {
-                    height: "1px",
-                    display: "flex",
+                    StyledInputProps,
                   },
                 }}
               />
               <Button>
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
-            </div>
+            </StyledDiv>
             <div style={{ marginTop: 10 }}>
               <CSVLink
                 data={[selectedProject]}
