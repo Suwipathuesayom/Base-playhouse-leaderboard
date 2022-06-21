@@ -47,4 +47,13 @@ const StrongText = styled(Typography)(({ fontSize = 72 }) => ({
   marginRight: "30px",
 }));
 
-export { ContentText, HeaderText, NumberText, StrongText };
+const TableHeaderText = styled(Typography)(({ flex }) => ({
+  flex: flex,
+  textAlign: "center",
+  fontSize: 28,
+  fontWeight: 800,
+  color: color.primaryOrange,
+  fontFamily: "Raleway",
+}));
+
+export { ContentText, HeaderText, NumberText, StrongText, TableHeaderText };

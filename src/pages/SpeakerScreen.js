@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import color from "../constant/color";
 import { Box, Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
+import { TableHeaderText } from "../assets/styles/TypographyStyles";
+import limitStringLength from "../components/Functions/limitStringLength";
 
 function SpeakerScreen() {
   const [data, setData] = useState();
@@ -37,6 +39,10 @@ function SpeakerScreen() {
     } else {
       return "#88838355";
     }
+  };
+
+  const checkIfIntIsNotZero = (number, condition) => {
+    return condition ? number : 0;
   };
 
   if (data) {
@@ -122,64 +128,11 @@ function SpeakerScreen() {
               }}
             >
               <Stack direction={"row"}>
-                <Typography
-                  sx={{
-                    flex: 0.5,
-                    textAlign: "center",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    color: color.primaryOrange,
-                    fontFamily: "Raleway",
-                    // backgroundColor: "purple",
-                  }}
-                >
-                  RANK
-                </Typography>
-                <Typography
-                  sx={{
-                    flex: 0.5,
-                    // backgroundColor: "green",
-                  }}
-                />
-                <Typography
-                  sx={{
-                    flex: 0.75,
-                    textAlign: "center",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    color: color.primaryOrange,
-                    fontFamily: "Raleway",
-                    // backgroundColor: "purple",
-                  }}
-                >
-                  GROUP
-                </Typography>
-                <Typography
-                  sx={{
-                    flex: 3,
-                    textAlign: "center",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    color: color.primaryOrange,
-                    fontFamily: "Raleway",
-                    // backgroundColor: "yellow",
-                  }}
-                >
-                  NAME
-                </Typography>
-                <Typography
-                  sx={{
-                    flex: 1,
-                    textAlign: "center",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    color: color.primaryOrange,
-                    fontFamily: "Raleway",
-                    // backgroundColor: "green",
-                  }}
-                >
-                  TOTAL
-                </Typography>
+                <TableHeaderText flex={0.5}>RANK</TableHeaderText>
+                <Typography sx={{ flex: 0.5 }} />
+                <TableHeaderText flex={0.75}>GROUP</TableHeaderText>
+                <TableHeaderText flex={3}>NAME</TableHeaderText>
+                <TableHeaderText flex={1}>TOTAL</TableHeaderText>
               </Stack>
             </Stack>
             <Stack
@@ -328,9 +281,7 @@ function SpeakerScreen() {
                           // fontFamily: "Raleway",
                         }}
                       >
-                        {task.taskName.length > 19
-                          ? task.taskName.slice(0, 19) + "..."
-                          : task.taskName}
+                        {limitStringLength(task.taskName, 19)}
                       </Typography>
                     );
                   }
@@ -368,7 +319,11 @@ function SpeakerScreen() {
                             fontFamily: "Raleway",
                           }}
                         >
-                          {point.isChecked ? point.taskPoint : 0}
+                          {/* {point.isChecked ? point.taskPoint : 0} */}
+                          {checkIfIntIsNotZero(
+                            point.taskPoint,
+                            point.isChecked
+                          )}
                         </Typography>
                       );
                     }
@@ -403,7 +358,6 @@ function SpeakerScreen() {
       </Box>
     );
   } else {
-    // queryProject("Bruno Mars");
     queryProject(projectNameParams);
     return <SplashScreen />;
   }
