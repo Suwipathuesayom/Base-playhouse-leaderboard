@@ -1,15 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
-
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #ff0505;
-  width: 100%;
-  height: 100%;
-}
-
-.flex {
+/* .flex {
   display: flex;
   justify-content: space-between;
 }
@@ -49,6 +38,10 @@ body {
   top: 1.67%;
   bottom: 65.37%;
   transform: rotate(10.2deg);
+}
+
+.container h1 {
+
 }
 
 .image {
@@ -93,4 +86,76 @@ body {
   bottom: -85.37%;
 
   transform: matrix(0.93, 0.36, 0.36, -0.93, 0, 0);
+} */
+
+.container {
+  height: 100vh;
+  padding: 0 50px 0 50px;
+  /* background-color: brown; */
+}
+
+.upper__content {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  height: 50vh;
+  /* background-color: pink; */
+}
+
+.headerText {
+  flex-grow: 1;
+}
+
+.headerText > h1 {
+  justify-content: center;
+  font-family: "Russo One";
+  font-weight: 400;
+  font-size: 72px;
+  /* background-color: orange; */
+}
+
+.headerImage {
+  display: flex;
+  flex-shrink: 1;
+  justify-content: flex-end;
+  /* width: 100%; */
+  /* background-color: green; */
+}
+
+.lower__content {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  height: 50vh;
+  /* background-color: red; */
+}
+
+.inputContainer > Button {
+  height: 80px;
+  width: 240px;
+  border-radius: 40px;
+  border-width: 0;
+  font-size: 24px;
+  font-weight: 900;
+  color: white;
+  background-color: #ff5b4a;
+}
+
+.inputContainer > Button:hover {
+  background-color: #f18888;
+}
+
+.diceContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  /* background-color: yellow; */
+}
+
+.image {
+  /* width: 40vw; */
+  max-height: 40vh;
+  object-fit: contain;
+  /* background-color: lime; */
 }

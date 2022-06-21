@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../../assets/styles/NewProject.css";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
+import { StrongText } from "../../assets/styles/TypographyStyles";
 
 function NewProjectHeader({ project, setProject, header }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,18 +13,12 @@ function NewProjectHeader({ project, setProject, header }) {
     let tempProject = project;
     tempProject.imageUrl = selectedImage;
     setProject(tempProject);
-    console.log(tempProject);
   };
   return (
     <div className="header">
       <div className="header__upload">
         <img
-          src={
-            selectedImage ? selectedImage : project.imageUrl
-            // selectedImage
-            //   ? URL.createObjectURL(selectedImage)
-            //   : project.imageUrl
-          }
+          src={selectedImage ? selectedImage : project.imageUrl}
           alt="not found"
         />
         <div>
@@ -52,13 +47,12 @@ function NewProjectHeader({ project, setProject, header }) {
           flexDirection: "column",
           width: "100%",
           marginLeft: "20px",
-          // minWidth: 1200,
           justifyContent: "space-between",
           alignItems: "center",
           // backgroundColor: "pink",
         }}
       >
-        <Typography variant="h2">{header}</Typography>
+        <StrongText>{header}</StrongText>
         <Stack
           className="header__contentImport"
           width={"100%"}

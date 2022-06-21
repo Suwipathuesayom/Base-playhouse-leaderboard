@@ -1,19 +1,39 @@
 import React from "react";
 import "../assets/styles/Landing.css";
 import { Button } from "react-bootstrap";
-import ImageBoomSeen from "../assets/image/boomseen.png";
-import dice from "../assets/image/dice.png";
+import boomseen from "../assets/images/boomseen.png";
+import dice from "../assets/images/dice.png";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 function Landing() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  console.log(matches);
   return (
     <div className="container">
-      <img src={ImageBoomSeen} alt="ImageBoomSeen" className="ImageBoomSeen" />
-      <img src={dice} alt="dice" className="dice" />
-
-      <div className="head-body">
-      <h1> LEADER BOARD SCORE </h1>
+      <div
+        className="upper__content"
+        style={{ display: matches ? null : "flex" }}
+      >
+        <div className="headerText">
+          <h1>LEADER BOARD</h1>
+          <h1>SCORE</h1>
+        </div>
+        <div className="headerImage">
+          <img src={boomseen} alt="boomseen" className="image" />
+        </div>
       </div>
-      <Button className="leader-btn">LEADERBIARD</Button>
+      <div
+        className="lower__content"
+        style={{ display: matches ? null : "flex" }}
+      >
+        <div className="inputContainer">
+          <Button>VIEW LEADERBOARD</Button>
+        </div>
+        <div className="diceContainer">
+          <img src={dice} alt="dice" className="image" />
+        </div>
+      </div>
     </div>
   );
 }

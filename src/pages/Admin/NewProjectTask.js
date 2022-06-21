@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Box, InputBase, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { AddCircle, KeyboardArrowUp } from "@mui/icons-material";
 
 import color from "../../constant/color";
 import "../../assets/styles/NewProject.css";
 import TaskBox from "../../components/TaskBox";
+import { HeaderText } from "../../assets/styles/TypographyStyles";
+import { TextInput } from "../../assets/styles/InputStyles";
 
 function NewProjectTask({ project, setProject }) {
   const [newTask, setNewTask] = useState(
     !!project.tasks.length ? [...project.tasks] : []
   );
-  // console.log(newTask);
   const [newTaskName, setNewTaskName] = useState("");
 
   // State Handlers
@@ -37,7 +38,6 @@ function NewProjectTask({ project, setProject }) {
       isHidden: false,
     };
     setProject(tempProject);
-    console.log(tempProject);
 
     // clear TextInput
     setNewTaskName("");
@@ -72,41 +72,23 @@ function NewProjectTask({ project, setProject }) {
         height={"70px"}
         sx={[
           {
-            // minWidth: 1500,
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            padding: "0 20px",
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            padding: "0 10px 0 20px",
           },
 
           !!!newTask?.length && {
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 8,
+            borderBottomRightRadius: 8,
           },
         ]}
         flexDirection="row"
         alignItems={"center"}
         bgcolor={color.secondaryBlack}
       >
-        <Typography
-          sx={{
-            minWidth: 325,
-            fontSize: 32,
-            fontWeight: 600,
-            color: color.primaryOrange,
-          }}
-        >
-          เพิ่มเกณฑ์การให้คะแนน
-        </Typography>
-        <InputBase
-          sx={{
-            minWidth: 400,
-            width: 1500,
-            padding: "0 10px",
-            marginRight: "20px",
-            borderRadius: 2,
-            fontSize: 20,
-            backgroundColor: "white",
-          }}
+        <HeaderText width={325}>เพิ่มเกณฑ์การให้คะแนน</HeaderText>
+        <TextInput
+          width={"100%"}
           value={newTaskName}
           onKeyPress={(event) => {
             if (event.key === "Enter" && !!newTaskName.length)
@@ -114,7 +96,6 @@ function NewProjectTask({ project, setProject }) {
           }}
           onChange={(event) => {
             setNewTaskName(event.target.value);
-            // console.log(event.target.value);
           }}
         />
         <AddCircle
@@ -124,7 +105,7 @@ function NewProjectTask({ project, setProject }) {
             color: !!newTaskName.length
               ? color.primaryOrange
               : color.secondaryGrey,
-            marginRight: "20px",
+            marginRight: "10px",
           }}
           onClick={() => {
             if (!!newTaskName.length) handleAddNewTask(newTaskName);
@@ -138,24 +119,8 @@ function NewProjectTask({ project, setProject }) {
           }}
           onClick={() => handleCollapseAllTask()}
         />
-        {/* <Typography
-          sx={{
-            // minWidth: "20%",
-            minWidth: 200,
-            textAlign: "center",
-            fontSize: 28,
-            fontWeight: 600,
-            borderRadius: 20,
-            // marginRight: "20px",
-            color: color.primaryBlack,
-            backgroundColor: "white",
-          }}
-        >
-          คะแนนรวม: {9}
-        </Typography> */}
       </Stack>
       {newTask?.map((task, index) => {
-        // console.log(task);
         return (
           <TaskBox
             key={index}
