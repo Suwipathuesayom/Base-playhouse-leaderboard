@@ -193,7 +193,7 @@ function SpeakerScreen() {
                   width: 40,
                   height: 48,
                 }}
-                src={require("../assets/image/crown1.png")}
+                src={require("../assets/images/crown1.png")}
                 position={"absolute"}
               />
               {data?.learnerGroups.map((group, index) => (

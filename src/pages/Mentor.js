@@ -1,7 +1,7 @@
 import React from "react";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
-import MentorTable from "./MentorTable";
+import MentorTable from "../components/MentorTable";
 import Box from "@mui/material/Box";
 import { Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
@@ -9,8 +9,8 @@ import SplashScreen from "../components/SplashScreen";
 export default function Mentor() {
   const { projectNameParams } = useParams();
   console.log(projectNameParams);
-  const [dummyData, setDummyData] = React.useState();
-  const name = dummyData?.mentors[0].fullName;
+  const [project, setProject] = React.useState();
+  const name = project?.mentors[0].fullName;
 
   const queryProject = async (projectName) => {
     await db
@@ -21,17 +21,17 @@ export default function Mentor() {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          setDummyData(doc.data());
+          setProject(doc.data());
           console.log(doc.data());
         });
       })
       .catch((error) => {
         console.log(error);
-        setDummyData({});
+        setProject({});
       });
   };
 
-  if (dummyData) {
+  if (project) {
     return (
       <Box
         className="mentor"
@@ -77,13 +77,12 @@ export default function Mentor() {
               width: "100%",
               borderRadius: 10,
               minHeight: 650,
-              "& .mentor-header": {
-              },
+              "& .mentor-header": {},
             }}
           >
             <MentorTable
-              dummyData={dummyData}
-              setDummyData={setDummyData}
+              project={project}
+              setProject={setProject}
               sx={{ height: "100%" }}
             />
           </Box>

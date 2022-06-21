@@ -17,7 +17,6 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color.primaryOrange,
@@ -58,14 +57,14 @@ const style = {
   p: 4,
 };
 
-export default function MentorTable({ dummyData, setDummyData }) {
+export default function MentorTable({ project, setProject }) {
   const [open, setOpen] = React.useState(false);
   const [note, setNote] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [learnerGroups, setLearnerGroups] = React.useState(
-    dummyData?.learnerGroups
+    project?.learnerGroups
   );
 
   const handleUpdateProject = async (tempProject) => {
@@ -88,16 +87,16 @@ export default function MentorTable({ dummyData, setDummyData }) {
     try {
       console.log("note ", note);
       db.collection("messages")
-        .doc(dummyData.id)
+        .doc(project.id)
         .set({
-          id: dummyData.id,
+          id: project.id,
           mentors: [
             {
               mentorName: "test mentor name",
               note: note,
             },
           ],
-          projectName: dummyData.projectName,
+          projectName: project.projectName,
         })
         .catch((error) => {
           console.log(error);
@@ -109,9 +108,9 @@ export default function MentorTable({ dummyData, setDummyData }) {
 
   const handleCheckTaskByIndex = (index, subIndex) => {
     // handle UI State
-    const tempLearnerGroups = dummyData.learnerGroups;
+    const tempLearnerGroups = project.learnerGroups;
     if (tempLearnerGroups[index].points.length === 0) {
-      for (let i = 0; i < dummyData.tasks.length; i++) {
+      for (let i = 0; i < project.tasks.length; i++) {
         tempLearnerGroups[index].points.push({});
       }
     }
@@ -119,7 +118,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
       tempLearnerGroups[index].points[subIndex] = {
         isChecked: true,
         taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
+        taskPoint: project.tasks[subIndex].point,
       };
     } else {
       tempLearnerGroups[index].points[subIndex].isChecked =
@@ -132,31 +131,31 @@ export default function MentorTable({ dummyData, setDummyData }) {
     setLearnerGroups([...tempLearnerGroups]);
 
     // handle Data State
-    const tempDummyData = dummyData;
-    if (tempDummyData.learnerGroups[index].points.length === 0) {
-      for (let i = 0; i < dummyData.tasks.length; i++) {
-        tempDummyData.learnerGroups[index].points.push({});
+    const tempproject = project;
+    if (tempproject.learnerGroups[index].points.length === 0) {
+      for (let i = 0; i < project.tasks.length; i++) {
+        tempproject.learnerGroups[index].points.push({});
       }
     }
     if (
-      Object.keys(tempDummyData.learnerGroups[index].points[subIndex])
-        .length === 0
+      Object.keys(tempproject.learnerGroups[index].points[subIndex]).length ===
+      0
     ) {
-      tempDummyData.learnerGroups[index].points[subIndex] = {
+      tempproject.learnerGroups[index].points[subIndex] = {
         isChecked: true,
         taskIndex: subIndex,
-        taskPoint: dummyData.tasks[subIndex].point,
+        taskPoint: project.tasks[subIndex].point,
       };
     } else {
-      tempDummyData.learnerGroups[index].points[subIndex].isChecked =
+      tempproject.learnerGroups[index].points[subIndex].isChecked =
         tempLearnerGroups[index].points[subIndex].isChecked;
     }
-    tempDummyData.learnerGroups[index].totalPoint = calculateNewTotalPoint(
-      tempDummyData.learnerGroups,
+    tempproject.learnerGroups[index].totalPoint = calculateNewTotalPoint(
+      tempproject.learnerGroups,
       index
     );
-    setDummyData(tempDummyData);
-    handleUpdateProject(tempDummyData);
+    setProject(tempproject);
+    handleUpdateProject(tempproject);
   };
 
   const calculateNewTotalPoint = (arr, index) => {
@@ -196,7 +195,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
                 />
               </Stack>
             </StyledTableCell>
-            {dummyData?.tasks.map((task, subIndex) => {
+            {project?.tasks.map((task, subIndex) => {
               if (!task.isHidden) {
                 return (
                   <StyledTableCell key={subIndex}>
@@ -244,7 +243,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
                     />
                   </Stack>
                 </StyledTableCell>
-                {dummyData?.tasks.map((task, subIndex) => {
+                {project?.tasks.map((task, subIndex) => {
                   if (!task.isHidden) {
                     return (
                       <StyledTableCell key={subIndex}>
@@ -328,11 +327,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-          >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
           <Box
