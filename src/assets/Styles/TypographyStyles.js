@@ -56,4 +56,31 @@ const TableHeaderText = styled(Typography)(({ flex }) => ({
   fontFamily: "Raleway",
 }));
 
-export { ContentText, HeaderText, NumberText, StrongText, TableHeaderText };
+const TablePointHeader = styled(Typography)(({ flex }) => ({
+  flex: 1,
+  textAlign: "center",
+  fontSize: 28,
+  fontWeight: 800,
+  // color: "#FFFFFF",
+  fontFamily: "Raleway",
+  // backgroundColor: "red",
+}));
+
+const TableContent = styled(Typography)(({ flex }) => ({
+  flex: flex,
+  textAlign: "center",
+  fontSize: 28,
+  fontWeight: 800,
+  color: "#FFFFFF ",
+  fontFamily: "Raleway",
+}));
+
+export {
+  ContentText,
+  HeaderText,
+  NumberText,
+  StrongText,
+  TableHeaderText,
+  TableContent,
+  TablePointHeader,
+};

@@ -7,6 +7,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 import { TableHeaderText } from "../assets/styles/TypographyStyles";
 import limitStringLength from "../components/Functions/limitStringLength";
+import { TableContent } from "../assets/styles/TypographyStyles";
+import { TablePointHeader } from "../assets/styles/TypographyStyles";
 
 function SpeakerScreen() {
   const [data, setData] = useState();
@@ -162,19 +164,7 @@ function SpeakerScreen() {
                   // paddingX={"15px"}
                   backgroundColor={getRankColor(index, data.theme.top3)}
                 >
-                  <Typography
-                    sx={{
-                      flex: 0.5,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "red",
-                    }}
-                  >
-                    {index + 1}
-                  </Typography>
+                  <TableContent flex={0.5}> {index + 1}</TableContent>
                   <Box
                     sx={{
                       display: "flex",
@@ -198,43 +188,11 @@ function SpeakerScreen() {
                       alt={"not found"}
                     />
                   </Box>
-                  <Typography
-                    sx={{
-                      flex: 0.75,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF ",
-                      fontFamily: "Raleway",
-                      // backgroundColor: "orange",
-                    }}
-                  >
-                    {group.groupIndex}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 3,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                    }}
-                  >
-                    {group.groupName}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 1,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF",
-                      fontFamily: "Raleway",
-                    }}
-                  >
+                  <TableContent flex={0.75}>{group.groupIndex}</TableContent>
+                  <TableContent flex={3}>{group.groupName}</TableContent>
+                  <TableContent flex={1}>
                     {group.totalPoint > 0 ? group.totalPoint : 0}
-                  </Typography>
+                  </TableContent>
                 </Stack>
               ))}
             </Stack>
@@ -271,18 +229,9 @@ function SpeakerScreen() {
                 {data?.tasks.map((task, taskIndex) => {
                   if (!task?.isHidden) {
                     return (
-                      <Typography
-                        key={taskIndex}
-                        sx={{
-                          flex: 1,
-                          textAlign: "center",
-                          fontSize: 28,
-                          color: "#FFFFFF",
-                          // fontFamily: "Raleway",
-                        }}
-                      >
+                      <TableContent flex={1} key={taskIndex}>
                         {limitStringLength(task.taskName, 19)}
-                      </Typography>
+                      </TableContent>
                     );
                   }
                   return <div></div>;
@@ -308,23 +257,12 @@ function SpeakerScreen() {
                   group.points.map((point, pointIndex) => {
                     if (!data.tasks[pointIndex].isHidden) {
                       return (
-                        <Typography
-                          key={pointIndex}
-                          sx={{
-                            flex: 1,
-                            textAlign: "center",
-                            fontSize: 28,
-                            fontWeight: 800,
-                            // color: "#FFFFFF",
-                            fontFamily: "Raleway",
-                          }}
-                        >
-                          {/* {point.isChecked ? point.taskPoint : 0} */}
+                        <TablePointHeader flex={1} key={pointIndex}>
                           {checkIfIntIsNotZero(
                             point.taskPoint,
                             point.isChecked
                           )}
-                        </Typography>
+                        </TablePointHeader>
                       );
                     }
                     return <div></div>;
@@ -333,20 +271,9 @@ function SpeakerScreen() {
                   data?.tasks.map((task, taskIndex) => {
                     if (!task.isHidden) {
                       return (
-                        <Typography
-                          key={taskIndex}
-                          sx={{
-                            flex: 1,
-                            textAlign: "center",
-                            fontSize: 28,
-                            fontWeight: 800,
-                            // color: "#FFFFFF",
-                            fontFamily: "Raleway",
-                            // backgroundColor: "red",
-                          }}
-                        >
+                        <TablePointHeader flex={1} key={taskIndex}>
                           {0}
-                        </Typography>
+                        </TablePointHeader>
                       );
                     }
                     return <div></div>;
