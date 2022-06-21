@@ -3,7 +3,6 @@ import "../assets/styles/Landing.css";
 import LearnerTable from "../components/LeanerTable";
 import { Row, Col } from "react-bootstrap";
 import marvelSvg from "../assets/images/marvelImg.svg";
-import "../assets/styles/Leaner.css";
 
 function Learner() {
   return (
