@@ -66,7 +66,7 @@ const TablePointHeader = styled(Typography)(({ flex }) => ({
   // backgroundColor: "red",
 }));
 
-const TableContent = styled(Typography)(({ flex }) => ({
+const TableContentText = styled(Typography)(({ flex }) => ({
   flex: flex,
   textAlign: "center",
   fontSize: 28,
@@ -81,6 +81,6 @@ export {
   NumberText,
   StrongText,
   TableHeaderText,
-  TableContent,
+  TableContentText,
   TablePointHeader,
 };

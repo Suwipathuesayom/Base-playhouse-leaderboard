@@ -3,7 +3,7 @@ import "../assets/styles/Landing.css";
 import { Button } from "react-bootstrap";
 import boomseen from "../assets/images/boomseen.png";
 import dice from "../assets/images/dice.png";
-import { TextField, useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { TextInput } from "../assets/styles/InputStyles";
 
 function Landing() {

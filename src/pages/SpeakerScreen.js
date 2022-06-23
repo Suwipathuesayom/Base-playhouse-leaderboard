@@ -7,7 +7,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 import { TableHeaderText } from "../assets/styles/TypographyStyles";
 import limitStringLength from "../components/Functions/limitStringLength";
-import { TableContent } from "../assets/styles/TypographyStyles";
+import { TableContentText } from "../assets/styles/TypographyStyles";
 import { TablePointHeader } from "../assets/styles/TypographyStyles";
 
 function SpeakerScreen() {
@@ -164,7 +164,7 @@ function SpeakerScreen() {
                   // paddingX={"15px"}
                   backgroundColor={getRankColor(index, data.theme.top3)}
                 >
-                  <TableContent flex={0.5}> {index + 1}</TableContent>
+                  <TableContentText flex={0.5}> {index + 1}</TableContentText>
                   <Box
                     sx={{
                       display: "flex",
@@ -188,11 +188,15 @@ function SpeakerScreen() {
                       alt={"not found"}
                     />
                   </Box>
-                  <TableContent flex={0.75}>{group.groupIndex}</TableContent>
-                  <TableContent flex={3}>{group.groupName}</TableContent>
-                  <TableContent flex={1}>
+                  <TableContentText flex={0.75}>
+                    {group.groupIndex}
+                  </TableContentText>
+                  <TableContentText flex={3}>
+                    {group.groupName}
+                  </TableContentText>
+                  <TableContentText flex={1}>
                     {group.totalPoint > 0 ? group.totalPoint : 0}
-                  </TableContent>
+                  </TableContentText>
                 </Stack>
               ))}
             </Stack>
@@ -229,9 +233,9 @@ function SpeakerScreen() {
                 {data?.tasks.map((task, taskIndex) => {
                   if (!task?.isHidden) {
                     return (
-                      <TableContent flex={1} key={taskIndex}>
+                      <TableContentText flex={1} key={taskIndex}>
                         {limitStringLength(task.taskName, 19)}
-                      </TableContent>
+                      </TableContentText>
                     );
                   }
                   return <div></div>;

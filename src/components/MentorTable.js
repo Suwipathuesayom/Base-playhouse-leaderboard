@@ -57,16 +57,10 @@ const style = {
   p: 4,
 };
 
-<<<<<<< HEAD:src/components/MentorTable.js
 export default function MentorTable({ project, setProject }) {
-  const [open, setOpen] = React.useState(false);
-  const [note, setNote] = React.useState("");
-=======
-export default function MentorTable({ dummyData, setDummyData }) {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
   const [selectedGroup, setSelectedGroup] = useState();
->>>>>>> wat:src/pages/MentorTable.js
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -92,31 +86,13 @@ export default function MentorTable({ dummyData, setDummyData }) {
 
   const handleAddNewMessage = async (note, groupIndex) => {
     try {
-<<<<<<< HEAD:src/components/MentorTable.js
-      console.log("note ", note);
-      db.collection("messages")
-        .doc(project.id)
-        .set({
-          id: project.id,
-          mentors: [
-            {
-              mentorName: "test mentor name",
-              note: note,
-            },
-          ],
-          projectName: project.projectName,
-        })
-        .catch((error) => {
-          console.log(error);
-=======
       let message = {};
       await db
         .collection("messages")
-        .doc(dummyData.id)
+        .doc(project.id)
         .get()
         .then((snapshot) => {
           message = snapshot.data();
->>>>>>> wat:src/pages/MentorTable.js
         });
 
       if (message) {
@@ -137,7 +113,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
         }
         await db
           .collection("messages")
-          .doc(dummyData.id)
+          .doc(project.id)
           .update({
             id: message.id,
             mentors: message.mentors,
@@ -149,9 +125,9 @@ export default function MentorTable({ dummyData, setDummyData }) {
       } else if (!message) {
         await db
           .collection("messages")
-          .doc(dummyData.id)
+          .doc(project.id)
           .set({
-            id: dummyData.id,
+            id: project.id,
             mentors: [
               {
                 groupIndex: groupIndex,
@@ -159,7 +135,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
                 note: note,
               },
             ],
-            projectName: dummyData.projectName,
+            projectName: project.projectName,
           })
           .catch((error) => {
             console.log(error);
