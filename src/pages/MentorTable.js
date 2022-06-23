@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "../config/firebase";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -16,7 +16,6 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,8 +58,9 @@ const style = {
 };
 
 export default function MentorTable({ dummyData, setDummyData }) {
-  const [open, setOpen] = React.useState(false);
-  const [note, setNote] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [note, setNote] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -84,24 +84,63 @@ export default function MentorTable({ dummyData, setDummyData }) {
     }
   };
 
-  const handleAddNewMessage = async (note) => {
+  const handleAddNewMessage = async (note, groupIndex) => {
     try {
-      console.log("note ", note);
-      db.collection("messages")
+      let message = {};
+      await db
+        .collection("messages")
         .doc(dummyData.id)
-        .set({
-          id: dummyData.id,
-          mentors: [
-            {
-              mentorName: "test mentor name",
-              note: note,
-            },
-          ],
-          projectName: dummyData.projectName,
-        })
-        .catch((error) => {
-          console.log(error);
+        .get()
+        .then((snapshot) => {
+          message = snapshot.data();
         });
+
+      if (message) {
+        let tempMessage = message;
+        let foundGroupIndex = false;
+        tempMessage.mentors.forEach((mentor, mentorIndex) => {
+          if (mentor.groupIndex === groupIndex) {
+            message.mentors[mentorIndex].note = note;
+            foundGroupIndex = true;
+          }
+        });
+        if (!foundGroupIndex) {
+          message.mentors.push({
+            groupIndex: groupIndex,
+            mentorName: "test mentor name",
+            note: note,
+          });
+        }
+        await db
+          .collection("messages")
+          .doc(dummyData.id)
+          .update({
+            id: message.id,
+            mentors: message.mentors,
+            projectName: message.projectName,
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (!message) {
+        await db
+          .collection("messages")
+          .doc(dummyData.id)
+          .set({
+            id: dummyData.id,
+            mentors: [
+              {
+                groupIndex: groupIndex,
+                mentorName: "test mentor name",
+                note: note,
+              },
+            ],
+            projectName: dummyData.projectName,
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -314,7 +353,12 @@ export default function MentorTable({ dummyData, setDummyData }) {
                   {group.totalPoint < 0 ? 0 : group.totalPoint}
                 </StyledTableCell>
                 <StyledTableCell style={{ cursor: "pointer" }}>
-                  <NoteAltIcon onClick={handleOpen}></NoteAltIcon>
+                  <NoteAltIcon
+                    onClick={() => {
+                      handleOpen();
+                      setSelectedGroup(index);
+                    }}
+                  ></NoteAltIcon>
                 </StyledTableCell>
               </StyledTableRow>
             );
@@ -328,11 +372,7 @@ export default function MentorTable({ dummyData, setDummyData }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-          >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
           <Box
@@ -360,7 +400,9 @@ export default function MentorTable({ dummyData, setDummyData }) {
             }}
           >
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => handleAddNewMessage(note)}>Save</Button>
+            <Button onClick={() => handleAddNewMessage(note, selectedGroup)}>
+              Save
+            </Button>
           </Box>
         </Box>
       </Modal>
