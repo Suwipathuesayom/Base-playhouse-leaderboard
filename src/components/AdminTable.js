@@ -27,7 +27,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -78,21 +77,15 @@ const StyledStack = styled("Stack")(({ theme }) => ({
   justifyContent: "space-evenly",
 }));
 
-const StyledInputProps = {
-  height: "1px",
-  display: "flex",
-};
-
 export default function AdminTable({ projectDashboard }) {
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState([]);
 
   //copy to clipboard
-  const [copySpeaker, setCopySpeaker] = useState("");
-  const [copyLearner, setCopyLearner] = useState("");
-  const [copyMentor, setCopyMentor] = useState("");
+  const [copySpeaker, setCopySpeaker] = useState("Copy");
+  const [copyLearner, setCopyLearner] = useState("Copy");
 
-  //function to copy here
+  // function copy here
   const copyToClipBoard = async (copyMe, setCopyFunction) => {
     try {
       await navigator.clipboard.writeText(copyMe);
@@ -100,6 +93,18 @@ export default function AdminTable({ projectDashboard }) {
     } catch (err) {
       setCopyFunction("Failed to copy!");
     }
+  };
+
+  const resetCopyClick = (text) => {
+    if (text === "speaker") {
+      setCopySpeaker("Copied!");
+    } else if (text === "learner") {
+      setCopyLearner("Copied!");
+    }
+    setTimeout(() => {
+      setCopySpeaker("Copy");
+      setCopyLearner("Copy");
+    }, 1500);
   };
 
   const handleClickOpen = (project) => {
@@ -238,7 +243,7 @@ export default function AdminTable({ projectDashboard }) {
           open={open}
           onClose={() => handleClose()}
           fullWidth
-          maxWidth="md"
+          maxWidth="sm"
         >
           <DialogTitle>Export</DialogTitle>
           <DialogContent>
@@ -255,23 +260,20 @@ export default function AdminTable({ projectDashboard }) {
                 fullWidth
                 id="filled-disabled"
                 value={`localhost:3000/speaker/${selectedProject.projectName}`}
-                inputProps={{
-                  style: {
-                    StyledInputProps,
-                  },
-                }}
+                size={"small"}
               />
               <Button
-                onClick={() =>
+                onClick={() => {
                   copyToClipBoard(
-                    `localhost:3000/speaker/${selectedProject.projectName}`,
-                    setCopySpeaker
-                  )
-                }
+                    `localhost:3000/speaker/${selectedProject.projectName}`
+                    // setCopySpeaker("copied!")
+                  );
+                  resetCopyClick("speaker");
+                }}
+                style={{ marginLeft: "5px", textTransform: "unset" }}
               >
-                <ContentCopyIcon></ContentCopyIcon>
+                {copySpeaker}
               </Button>
-              {copySpeaker}
             </StyledDiv>
             <InputLabel>Learner</InputLabel>
             <StyledDiv>
@@ -280,36 +282,35 @@ export default function AdminTable({ projectDashboard }) {
                 fullWidth
                 id="filled-disabled"
                 value={`localhost:3000/learner/${selectedProject.projectName}`}
-                inputProps={{
-                  style: {
-                    StyledInputProps,
-                  },
-                }}
+                size={"small"}
               />
               <Button
-                onClick={() =>
+                onClick={() => {
                   copyToClipBoard(
                     `localhost:3000/learner/${selectedProject.projectName}`,
-                    setCopyLearner
-                  )
-                }
+                    setCopyLearner("copied!")
+                  );
+                  resetCopyClick("learner");
+                }}
+                style={{ marginLeft: "5px", textTransform: "unset" }}
               >
-                <ContentCopyIcon></ContentCopyIcon>
+                {copyLearner}
               </Button>
-              {copyLearner}
             </StyledDiv>
-            <InputLabel>Mentor/Judge</InputLabel>
+            {/* <InputLabel>Mentor/Judge</InputLabel>
             <StyledDiv>
               <TextField
                 disabled
                 fullWidth
                 id="filled-disabled"
                 value={`localhost:3000/mentor/${selectedProject.projectName}`}
-                inputProps={{
-                  style: {
-                    StyledInputProps,
-                  },
-                }}
+                // inputProps={{
+                //   style: {
+                //     StyledInputProps,
+                //   },
+                // }}
+                size={"small"}
+                sx={StyledInputProps}
               />
               <Button
                 onClick={() =>
@@ -322,7 +323,7 @@ export default function AdminTable({ projectDashboard }) {
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
               {copyMentor}
-            </StyledDiv>
+            </StyledDiv> */}
             <div style={{ marginTop: 10 }}>
               <CSVLink
                 data={[selectedProject]}
@@ -335,7 +336,11 @@ export default function AdminTable({ projectDashboard }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => handleClose()} variant="contained">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => handleClose()}
+            >
               Close
             </Button>
           </DialogActions>

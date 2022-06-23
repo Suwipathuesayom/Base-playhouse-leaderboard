@@ -14,7 +14,9 @@ function Landing() {
     <div className="container">
       <div
         className="upper__content"
-        style={{ display: matches ? null : "flex" }}
+        style={{
+          display: matches ? null : "flex",
+        }}
       >
         <div
           className="headerText"
