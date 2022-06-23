@@ -8,7 +8,7 @@ import SplashScreen from "../components/SplashScreen";
 import { TableHeaderText } from "../assets/styles/TypographyStyles";
 import limitStringLength from "../components/Functions/limitStringLength";
 import { TableContentText } from "../assets/styles/TypographyStyles";
-import { TablePointHeader } from "../assets/styles/TypographyStyles";
+import { TablePointHeaderText } from "../assets/styles/TypographyStyles";
 
 function SpeakerScreen() {
   const [data, setData] = useState();
@@ -261,12 +261,12 @@ function SpeakerScreen() {
                   group.points.map((point, pointIndex) => {
                     if (!data.tasks[pointIndex].isHidden) {
                       return (
-                        <TablePointHeader flex={1} key={pointIndex}>
+                        <TablePointHeaderText flex={1} key={pointIndex}>
                           {checkIfIntIsNotZero(
                             point.taskPoint,
                             point.isChecked
                           )}
-                        </TablePointHeader>
+                        </TablePointHeaderText>
                       );
                     }
                     return <div></div>;
@@ -275,9 +275,9 @@ function SpeakerScreen() {
                   data?.tasks.map((task, taskIndex) => {
                     if (!task.isHidden) {
                       return (
-                        <TablePointHeader flex={1} key={taskIndex}>
+                        <TablePointHeaderText flex={1} key={taskIndex}>
                           {0}
-                        </TablePointHeader>
+                        </TablePointHeaderText>
                       );
                     }
                     return <div></div>;

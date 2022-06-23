@@ -56,7 +56,7 @@ const TableHeaderText = styled(Typography)(({ flex }) => ({
   fontFamily: "Raleway",
 }));
 
-const TablePointHeader = styled(Typography)(({ flex }) => ({
+const TablePointHeaderText = styled(Typography)(({ flex }) => ({
   flex: 1,
   textAlign: "center",
   fontSize: 28,
@@ -82,5 +82,5 @@ export {
   StrongText,
   TableHeaderText,
   TableContentText,
-  TablePointHeader,
+  TablePointHeaderText,
 };
