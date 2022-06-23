@@ -23,7 +23,10 @@ function App() {
           <Route path="new-project" element={<NewProject />} />
           <Route path="edit-project" element={<EditProject />} />
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
-          <Route path="mentor/:projectNameParams" element={<Mentor />} />
+          <Route
+            path="mentor/:projectNameParams/:mentorNameParams"
+            element={<Mentor />}
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

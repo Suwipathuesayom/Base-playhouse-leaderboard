@@ -5,12 +5,12 @@ import MentorTable from "../components/MentorTable";
 import Box from "@mui/material/Box";
 import { Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
+import limitStringLength from "../components/Functions/limitStringLength";
 
 export default function Mentor() {
-  const { projectNameParams } = useParams();
-  console.log(projectNameParams);
+  const { projectNameParams, mentorNameParams } = useParams();
+  console.log(mentorNameParams);
   const [project, setProject] = React.useState();
-  const name = project?.mentors[0].fullName;
 
   const queryProject = async (projectName) => {
     await db
@@ -68,7 +68,7 @@ export default function Mentor() {
                 color: "white",
               }}
             >
-              {name?.length > 30 ? `${name.slice(0, 28)}...` : name}
+              {limitStringLength(mentorNameParams, 29)}
             </Typography>
           </Box>
           <Box
