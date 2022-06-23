@@ -68,6 +68,34 @@ export default function MentorTable({ project, setProject }) {
     project?.learnerGroups
   );
 
+  const queryGroupNote = async (selectedGroup) => {
+    const groupIndex = selectedGroup.groupIndex - 1;
+    try {
+      let message = {};
+      await db
+        .collection("messages")
+        .doc(project.id)
+        .get()
+        .then((snapshot) => {
+          message = snapshot.data();
+        });
+      if (message) {
+        let foundGroupIndex = false;
+        message.mentors.forEach((mentor) => {
+          if (mentor.groupIndex === groupIndex) {
+            setNote(mentor.note);
+            foundGroupIndex = true;
+          }
+        });
+        if (!foundGroupIndex) {
+          setNote("");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdateProject = async (tempProject) => {
     try {
       let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
@@ -84,7 +112,8 @@ export default function MentorTable({ project, setProject }) {
     }
   };
 
-  const handleAddNewMessage = async (note, groupIndex) => {
+  const handleAddNewMessage = async (note, selectedGroup) => {
+    const groupIndex = selectedGroup.groupIndex - 1;
     try {
       let message = {};
       await db
@@ -356,7 +385,8 @@ export default function MentorTable({ project, setProject }) {
                   <NoteAltIcon
                     onClick={() => {
                       handleOpen();
-                      setSelectedGroup(index);
+                      setSelectedGroup(group);
+                      queryGroupNote(group);
                     }}
                   ></NoteAltIcon>
                 </StyledTableCell>
@@ -384,7 +414,8 @@ export default function MentorTable({ project, setProject }) {
           >
             <TextField
               id="outlined-name"
-              label="Note"
+              // label="Note"
+              value={note}
               onChange={(event) => {
                 setNote(event.target.value);
               }}
@@ -399,8 +430,13 @@ export default function MentorTable({ project, setProject }) {
               display: "flex",
             }}
           >
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => handleAddNewMessage(note, selectedGroup)}>
+            <Button onClick={() => handleClose()}>Cancel</Button>
+            <Button
+              onClick={() => {
+                handleAddNewMessage(note, selectedGroup);
+                handleClose();
+              }}
+            >
               Save
             </Button>
           </Box>
