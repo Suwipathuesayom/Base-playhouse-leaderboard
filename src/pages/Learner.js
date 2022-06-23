@@ -4,10 +4,16 @@ import "../assets/styles/Learner.css";
 import { useParams } from "react-router-dom";
 import { db } from "../config/firebase";
 import { Box } from "@mui/material";
+import MoreVert from "@mui/icons-material/MoreVert";
 import color from "../constant/color";
 import SplashScreen from "../components/SplashScreen";
+import {
+  TableContentText,
+  TableHeaderText,
+} from "../assets/styles/TypographyStyles";
 
 function Learner() {
+  const DISPLAY_LIMIT = 5;
   const [data, setData] = useState();
   const { projectNameParams, groupNameParams } = useParams();
 
@@ -40,7 +46,75 @@ function Learner() {
     }
   };
 
+  const isParamGroupName = (groupName) => {
+    return groupNameParams === groupName;
+  };
+
+  const ThreeDotBox = () => (
+    <Box
+      display={"flex"}
+      flexDirection={"row"}
+      height={48}
+      justifyContent={"center"}
+      alignItems={"center"}
+      marginTop={"15px"}
+    >
+      <MoreVert
+        style={{
+          fontSize: 40,
+          color: "white",
+        }}
+      />
+    </Box>
+  );
+
+  const RankBox = ({ group, rankIndex }) => (
+    <Box
+      direction="row"
+      display={"flex"}
+      flexDirection={"row"}
+      height={48}
+      alignItems={"center"}
+      borderRadius={3}
+      marginTop={"15px"}
+      paddingX={"15px"}
+      sx={{
+        border: isParamGroupName(group.groupName) ? 3 : null,
+        borderColor: isParamGroupName(group.groupName) ? "lime" : null,
+      }}
+      backgroundColor={() => getRankColor(rankIndex, data.theme.top3)}
+      // backgroundColor={"blue"}
+    >
+      <TableContentText flex={0.5}> {rankIndex + 1}</TableContentText>
+      <Box
+        sx={{
+          display: "flex",
+          flex: 1,
+          justifyContent: "center",
+          // backgroundColor: "red",
+        }}
+      >
+        <Box
+          component={"img"}
+          sx={{
+            width: 36,
+            height: 36,
+            borderRadius: 36,
+          }}
+          src={`https://picsum.photos/200/300?random=${group.groupIndex}`}
+          alt={"not found"}
+        />
+      </Box>
+      <TableContentText flex={0.5}>{group.groupIndex}</TableContentText>
+      <TableContentText flex={5}>{group.groupName}</TableContentText>
+      <TableContentText flex={2}>
+        {group.totalPoint > 0 ? group.totalPoint : 0}
+      </TableContentText>
+    </Box>
+  );
+
   if (data) {
+    let foundGroupWithinDisplayLimit = false;
     return (
       <Box
         sx={{
@@ -100,214 +174,61 @@ function Learner() {
           backgroundColor={color.primaryBlack}
           direction={"row"}
           width={"100%"}
-          overflowX={"overlay"}
+          // overflowX={"overlay"}
           padding={"1%"}
         >
-          <Typography
-            sx={{
-              flex: 0.5,
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              fontFamily: "Raleway",
-            }}
-          >
-            RANK
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flex: 1,
-              justifyContent: "center",
-              // backgroundColor: "black",
-            }}
-          ></Box>
-          <Typography
-            sx={{
-              flex: 0.5,
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              fontFamily: "Raleway",
-            }}
-          >
-            GROUP
-          </Typography>
-          <Typography
-            sx={{
-              flex: 5,
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              fontFamily: "Raleway",
-            }}
-          >
-            NAME
-          </Typography>
-          <Typography
-            sx={{
-              flex: 2,
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              fontFamily: "Raleway",
-            }}
-          >
-            TOTAL
-          </Typography>
-          {/* <Typography
-            sx={{
-              flex: 2,
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              fontFamily: "Raleway",
-            }}
-          >
-            POINT
-          </Typography> */}
+          <TableHeaderText flex={0.5}>RANK</TableHeaderText>
+          <Typography sx={{ flex: 1 }} />
+          <TableHeaderText flex={0.5}>GROUP</TableHeaderText>
+          <TableHeaderText flex={5}>NAME</TableHeaderText>
+          <TableHeaderText flex={2}>TOTAL</TableHeaderText>
         </Stack>
         <Stack
+          flexGrow={1}
+          paddingX={"10px"}
           backgroundColor={color.primaryBlack}
-          height={"70%"}
-          width={"100%"}
-          minWidth={1000}
-          paddingBottom={"15px"}
-          sx={
-            {
-              // borderTopLeftRadius: "20px",
-              // borderBottomLeftRadius: "20px",
-            }
-          }
         >
-          <Stack
-            flexGrow={1}
-            paddingX={"10px"}
-            // backgroundColor={"blue"}
-          >
-            <Box
-              component={"img"}
-              sx={{
-                width: 40,
-                height: 48,
-              }}
-              src={require("../assets/images/crown1.png")}
-              position={"absolute"}
-            />
+          <Box
+            component={"img"}
+            sx={{
+              width: 40,
+              height: 48,
+            }}
+            src={require("../assets/images/crown1.png")}
+            position={"absolute"}
+          />
 
-            {data?.learnerGroups.map((group, groupIndex) => {
+          {data?.learnerGroups.map((group, rankIndex) => {
+            if (rankIndex <= DISPLAY_LIMIT - 1) {
+              if (isParamGroupName(group.groupName)) {
+                foundGroupWithinDisplayLimit = true;
+              }
               return (
-                <Box
-                  key={groupIndex}
-                  direction="row"
-                  display={"flex"}
-                  // flex={1}
-                  flexDirection={"row"}
-                  height={48}
-                  alignItems={"center"}
-                  borderRadius={3}
-                  marginTop={"15px"}
-                  paddingX={"15px"}
-                  sx={{
-                    border: groupNameParams === group.groupName ? 3 : null,
-                    borderColor:
-                      groupNameParams === group.groupName ? "lime" : null,
-                  }}
-                  backgroundColor={getRankColor(groupIndex, data.theme.top3)}
-                  // backgroundColor={"blue"}
-                >
-                  <Typography
-                    sx={{
-                      flex: 0.5,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF ",
-                      fontFamily: "Raleway",
-                    }}
-                  >
-                    {groupIndex + 1}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flex: 1,
-                      justifyContent: "center",
-                      // backgroundColor: "red",
-                    }}
-                  >
-                    {/* <AccountCircle sx={{ fontSize: 36, color: "white" }} /> */}
-                    <Box
-                      component={"img"}
-                      sx={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 36,
-                      }}
-                      // src={require(`../assets/image/avatar${
-                      //   (group.groupIndex % 3) + 1
-                      // }.png`)}
-                      src={`https://picsum.photos/200/300?random=${group.groupIndex}`}
-                      alt={"not found"}
-                    />
-                  </Box>
-                  <Typography
-                    sx={{
-                      flex: 0.5,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF ",
-                      fontFamily: "Raleway",
-                    }}
-                  >
-                    {group.groupIndex}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 5,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF ",
-                      fontFamily: "Raleway",
-                    }}
-                  >
-                    {group.groupName}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      flex: 2,
-                      textAlign: "center",
-                      fontSize: 28,
-                      fontWeight: 800,
-                      color: "#FFFFFF ",
-                      fontFamily: "Raleway",
-                    }}
-                  >
-                    {group.totalPoint > 0 ? group.totalPoint : 0}
-                  </Typography>
-                  {/* <Typography
-                  sx={{
-                    flex: 2,
-                    textAlign: "center",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    color: "#FFFFFF ",
-                    fontFamily: "Raleway",
-                  }}
-                >
-                  200
-                </Typography> */}
-                </Box>
+                <RankBox key={rankIndex} group={group} rankIndex={rankIndex} />
               );
-            })}
-          </Stack>
+            } else if (rankIndex > DISPLAY_LIMIT - 1) {
+              if (
+                !foundGroupWithinDisplayLimit &&
+                isParamGroupName(group.groupName)
+              ) {
+                return (
+                  <div>
+                    <ThreeDotBox />
+                    <RankBox
+                      key={rankIndex}
+                      group={group}
+                      rankIndex={rankIndex}
+                    />
+                    {rankIndex + 1 !== data.learnerGroups.length && (
+                      <ThreeDotBox />
+                    )}
+                  </div>
+                );
+              }
+            }
+            return <div></div>;
+          })}
+          {foundGroupWithinDisplayLimit && <ThreeDotBox />}
         </Stack>
       </Box>
     );
