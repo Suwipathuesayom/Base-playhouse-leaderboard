@@ -47,4 +47,5 @@ const StrongText = styled(Typography)(({ fontSize = 72 }) => ({
   marginRight: "30px",
 }));
 
+
 export { ContentText, HeaderText, NumberText, StrongText };
