@@ -87,6 +87,21 @@ export default function AdminTable({ projectDashboard }) {
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState([]);
 
+  //copy to clipboard
+  const [copySpeaker, setCopySpeaker] = useState("");
+  const [copyLearner, setCopyLearner] = useState("");
+  const [copyMentor, setCopyMentor] = useState("");
+
+  //function to copy here
+  const copyToClipBoard = async (copyMe, setCopyFunction) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopyFunction("Copied!");
+    } catch (err) {
+      setCopyFunction("Failed to copy!");
+    }
+  };
+
   const handleClickOpen = (project) => {
     setOpen(true);
     queryProject(project);
@@ -239,33 +254,49 @@ export default function AdminTable({ projectDashboard }) {
                 disabled
                 fullWidth
                 id="filled-disabled"
-                defaultValue="https://speakerdeck.com/firefox"
+                value={`localhost:3000/speaker/${selectedProject.projectName}`}
                 inputProps={{
                   style: {
                     StyledInputProps,
                   },
                 }}
               />
-              <Button>
+              <Button
+                onClick={() =>
+                  copyToClipBoard(
+                    `localhost:3000/speaker/${selectedProject.projectName}`,
+                    setCopySpeaker
+                  )
+                }
+              >
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
+              {copySpeaker}
             </StyledDiv>
-            <InputLabel>Leaner</InputLabel>
+            <InputLabel>Learner</InputLabel>
             <StyledDiv>
               <TextField
                 disabled
                 fullWidth
                 id="filled-disabled"
-                defaultValue="https://learner.com"
+                value={`localhost:3000/learner/${selectedProject.projectName}`}
                 inputProps={{
                   style: {
                     StyledInputProps,
                   },
                 }}
               />
-              <Button>
+              <Button
+                onClick={() =>
+                  copyToClipBoard(
+                    `localhost:3000/learner/${selectedProject.projectName}`,
+                    setCopyLearner
+                  )
+                }
+              >
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
+              {copyLearner}
             </StyledDiv>
             <InputLabel>Mentor/Judge</InputLabel>
             <StyledDiv>
@@ -273,16 +304,24 @@ export default function AdminTable({ projectDashboard }) {
                 disabled
                 fullWidth
                 id="filled-disabled"
-                defaultValue="https://mentor/judge"
+                value={`localhost:3000/mentor/${selectedProject.projectName}`}
                 inputProps={{
                   style: {
                     StyledInputProps,
                   },
                 }}
               />
-              <Button>
+              <Button
+                onClick={() =>
+                  copyToClipBoard(
+                    `localhost:3000/mentor/${selectedProject.projectName}`,
+                    setCopyMentor
+                  )
+                }
+              >
                 <ContentCopyIcon></ContentCopyIcon>
               </Button>
+              {copyMentor}
             </StyledDiv>
             <div style={{ marginTop: 10 }}>
               <CSVLink
