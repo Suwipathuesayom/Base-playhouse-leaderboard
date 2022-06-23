@@ -10,6 +10,7 @@ import {
   DialogTitle,
   InputLabel,
   Paper,
+  Stack,
   styled,
   Table,
   TableBody,
@@ -20,11 +21,12 @@ import {
   TableRow,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { db } from "../config/firebase";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
 
@@ -78,6 +80,9 @@ const StyledStack = styled("Stack")(({ theme }) => ({
 }));
 
 export default function AdminTable({ projectDashboard }) {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState([]);
 
@@ -168,19 +173,31 @@ export default function AdminTable({ projectDashboard }) {
   return (
     <div>
       <TableContainer component={Paper} style={{ marginTop: 30 }}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">
-                <StarBorderIcon></StarBorderIcon>
-                ชื่อโปรเจค (ทั้งหมด {projectDashboard?.length} โปรเจค)
+              <StyledTableCell>
+                <Stack
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <StarBorderIcon sx={{ mr: "10px" }} />
+                  ชื่อโปรเจค (ทั้งหมด {projectDashboard?.length} โปรเจค)
+                </Stack>
               </StyledTableCell>
-              <StyledTableCell align="center">
-                แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
-              </StyledTableCell>
+              {!smallScreen && (
+                <StyledTableCell>
+                  แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
+                </StyledTableCell>
+              )}
+              {!smallScreen && (
+                <StyledTableCell>
+                  คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
+                </StyledTableCell>
+              )}
               <StyledTableCell align="left"></StyledTableCell>
             </TableRow>
           </TableHead>
@@ -190,20 +207,28 @@ export default function AdminTable({ projectDashboard }) {
           >
             {projectDashboard.map((project, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell align="center" component="th" scope="row">
-                  <StarBorderIcon></StarBorderIcon>
-                  {project.projectName}
+                <StyledTableCell>
+                  <Stack
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <StarBorderIcon sx={{ mr: "10px" }} />
+                    {project.projectName}
+                  </Stack>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Moment fromNow>
-                    {project.createdAt.toDate().toISOString()}
-                  </Moment>
-
-                  {/* {5555} */}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {project.totalPoint}
-                </StyledTableCell>
+                {!smallScreen && (
+                  <StyledTableCell>
+                    <Moment fromNow>
+                      {project.createdAt.toDate().toISOString()}
+                    </Moment>
+                  </StyledTableCell>
+                )}
+                {!smallScreen && (
+                  <StyledTableCell>{project.totalPoint}</StyledTableCell>
+                )}
                 <StyledTableCell align="left">
                   <StyledStack>
                     <Button
@@ -215,6 +240,7 @@ export default function AdminTable({ projectDashboard }) {
                     </Button>
                     <Box
                       sx={{
+                        ml: "10px",
                         height: "100%",
                         justifyContent: "center",
                       }}

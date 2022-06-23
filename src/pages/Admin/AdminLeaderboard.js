@@ -6,8 +6,11 @@ import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
 import { Link } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 function AdminLeaderboard() {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [projectDashboard, setProjectDashboard] = useState([]);
   console.log(projectDashboard);
 
@@ -39,7 +42,7 @@ function AdminLeaderboard() {
       <div className="adminLeaderboard">
         <img src={circle1} alt="circle1" className="circle1" />
         <div className="admin-header">
-          <h1>LEADERBOARD</h1>
+          <h1 style={{ fontSize: smallScreen ? 60 : 72 }}>LEADERBOARD</h1>
           <div className="admin-header__newLeaderboard">
             <h2>New Leaderboard</h2>
             <Link to="/new-project">
