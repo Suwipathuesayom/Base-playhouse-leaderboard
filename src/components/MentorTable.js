@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "../config/firebase";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -57,9 +57,16 @@ const style = {
   p: 4,
 };
 
+<<<<<<< HEAD:src/components/MentorTable.js
 export default function MentorTable({ project, setProject }) {
   const [open, setOpen] = React.useState(false);
   const [note, setNote] = React.useState("");
+=======
+export default function MentorTable({ dummyData, setDummyData }) {
+  const [open, setOpen] = useState(false);
+  const [note, setNote] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState();
+>>>>>>> wat:src/pages/MentorTable.js
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -83,8 +90,9 @@ export default function MentorTable({ project, setProject }) {
     }
   };
 
-  const handleAddNewMessage = async (note) => {
+  const handleAddNewMessage = async (note, groupIndex) => {
     try {
+<<<<<<< HEAD:src/components/MentorTable.js
       console.log("note ", note);
       db.collection("messages")
         .doc(project.id)
@@ -100,7 +108,63 @@ export default function MentorTable({ project, setProject }) {
         })
         .catch((error) => {
           console.log(error);
+=======
+      let message = {};
+      await db
+        .collection("messages")
+        .doc(dummyData.id)
+        .get()
+        .then((snapshot) => {
+          message = snapshot.data();
+>>>>>>> wat:src/pages/MentorTable.js
         });
+
+      if (message) {
+        let tempMessage = message;
+        let foundGroupIndex = false;
+        tempMessage.mentors.forEach((mentor, mentorIndex) => {
+          if (mentor.groupIndex === groupIndex) {
+            message.mentors[mentorIndex].note = note;
+            foundGroupIndex = true;
+          }
+        });
+        if (!foundGroupIndex) {
+          message.mentors.push({
+            groupIndex: groupIndex,
+            mentorName: "test mentor name",
+            note: note,
+          });
+        }
+        await db
+          .collection("messages")
+          .doc(dummyData.id)
+          .update({
+            id: message.id,
+            mentors: message.mentors,
+            projectName: message.projectName,
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (!message) {
+        await db
+          .collection("messages")
+          .doc(dummyData.id)
+          .set({
+            id: dummyData.id,
+            mentors: [
+              {
+                groupIndex: groupIndex,
+                mentorName: "test mentor name",
+                note: note,
+              },
+            ],
+            projectName: dummyData.projectName,
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -313,7 +377,12 @@ export default function MentorTable({ project, setProject }) {
                   {group.totalPoint < 0 ? 0 : group.totalPoint}
                 </StyledTableCell>
                 <StyledTableCell style={{ cursor: "pointer" }}>
-                  <NoteAltIcon onClick={handleOpen}></NoteAltIcon>
+                  <NoteAltIcon
+                    onClick={() => {
+                      handleOpen();
+                      setSelectedGroup(index);
+                    }}
+                  ></NoteAltIcon>
                 </StyledTableCell>
               </StyledTableRow>
             );
@@ -355,7 +424,9 @@ export default function MentorTable({ project, setProject }) {
             }}
           >
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => handleAddNewMessage(note)}>Save</Button>
+            <Button onClick={() => handleAddNewMessage(note, selectedGroup)}>
+              Save
+            </Button>
           </Box>
         </Box>
       </Modal>
