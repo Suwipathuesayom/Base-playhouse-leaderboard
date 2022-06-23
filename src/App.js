@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import SpeakerScreen from "./pages/SpeakerScreen";
+import Speaker from "./pages/Speaker";
 import "./App.css";
 import NewProject from "./pages/Admin/NewProject";
 import theme from "./assets/theme/theme";
@@ -17,10 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route
-            path="speaker/:projectNameParams"
-            element={<SpeakerScreen />}
-          />
+          <Route path="speaker/:projectNameParams" element={<Speaker />} />
           <Route
             path="learner/:projectNameParams/:groupNameParams"
             element={<Learner />}
