@@ -9,6 +9,7 @@ import EditProject from "./pages/Admin/EditProject";
 import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 import Landing from "./pages/Landing";
 import Mentor from "./pages/Mentor";
+import Learner from "./pages/Learner";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
           <Route
             path="speaker/:projectNameParams"
             element={<SpeakerScreen />}
+          />
+          <Route
+            path="learner/:projectNameParams/:groupNameParams"
+            element={<Learner />}
           />
           <Route path="new-project" element={<NewProject />} />
           <Route path="edit-project" element={<EditProject />} />
