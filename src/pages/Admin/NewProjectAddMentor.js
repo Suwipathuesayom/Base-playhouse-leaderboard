@@ -1,4 +1,4 @@
-import { AddCircle, HighlightOff, Share } from "@mui/icons-material";
+import { AddCircle, HighlightOff } from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import React, { useState } from "react";
 import { TextInput } from "../../assets/styles/InputStyles";
@@ -12,10 +12,6 @@ function NewProjectAddMentor({ project, setProject }) {
     !!project.mentors.length ? [...project.mentors] : []
   );
   const [mentorName, setMentorName] = useState("");
-
-  //copy to clipboard
-
-  const [selectedProject, setSelectedProject] = useState([]);
 
   // function copy here
   const copyToClipBoard = async (copyMe, setCopyFunction) => {

@@ -5,11 +5,7 @@ import { useParams } from "react-router-dom";
 import { db } from "../config/firebase";
 import { Box } from "@mui/material";
 import color from "../constant/color";
-import { dark } from "@mui/material/styles/createPalette";
-import { TableContentText } from "../assets/styles/TypographyStyles";
 import SplashScreen from "../components/SplashScreen";
-import { borderColor } from "@mui/system";
-import { lime } from "@mui/material/colors";
 
 function Learner() {
   const [data, setData] = useState();
