@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../config/firebase";
 import "../../assets/styles/AdminDashboard.css";
-import plusIcon from "../../assets/images/PlusIcon.svg";
+import plusIcon from "../../assets/images/plusIcon.png";
 import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
 import { Link } from "react-router-dom";
@@ -40,20 +40,19 @@ function AdminLeaderboard() {
         <img src={circle1} alt="circle1" className="circle1" />
         <div className="admin-header">
           <h1>LEADERBOARD</h1>
-          <br />
-          <h2>New Leaderboard</h2>
-          <Link to="/new-project">
-            <img
-              src={plusIcon}
-              alt="logo-name"
-              onClick={() => console.log(projectDashboard)}
-            />
-          </Link>
+          <div className="admin-header__newLeaderboard">
+            <h2>New Leaderboard</h2>
+            <Link to="/new-project">
+              <img
+                src={plusIcon}
+                alt="logo-name"
+                onClick={() => console.log(projectDashboard)}
+              />
+            </Link>
+          </div>
         </div>
         <div className="admin-body">
-          <div className="admin-table">
-            <AdminTable projectDashboard={projectDashboard} />
-          </div>
+          <AdminTable projectDashboard={projectDashboard} />
         </div>
       </div>
     );
