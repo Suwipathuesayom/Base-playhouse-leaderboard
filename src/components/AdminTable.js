@@ -29,6 +29,8 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
+import ExportPlayer from "./Functions/exportCsv";
+import ExportCsv from "./Functions/exportCsv";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -356,7 +358,7 @@ export default function AdminTable({ projectDashboard }) {
                 style={{ textDecoration: "none" }}
               >
                 <Button variant="contained" color="success">
-                  Dowload Excel
+                  <ExportCsv />
                 </Button>
               </CSVLink>
             </div>
