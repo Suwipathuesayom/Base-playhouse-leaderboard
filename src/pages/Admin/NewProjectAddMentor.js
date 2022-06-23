@@ -5,12 +5,27 @@ import { TextInput } from "../../assets/styles/InputStyles";
 import { HeaderText } from "../../assets/styles/TypographyStyles";
 import MentorButton from "../../components/MentorButton";
 import color from "../../constant/color";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 function NewProjectAddMentor({ project, setProject }) {
   const [mentorList, setMentorList] = useState(
     !!project.mentors.length ? [...project.mentors] : []
   );
   const [mentorName, setMentorName] = useState("");
+
+  //copy to clipboard
+
+  const [selectedProject, setSelectedProject] = useState([]);
+
+  // function copy here
+  const copyToClipBoard = async (copyMe, setCopyFunction) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopyFunction("Copied!");
+    } catch (err) {
+      setCopyFunction("Failed to copy!");
+    }
+  };
 
   //   State Handler
   const handleAddMentor = (mentorName) => {
@@ -93,8 +108,13 @@ function NewProjectAddMentor({ project, setProject }) {
             />
           }
           endIcon={
-            <Share
-              style={{ fontSize: 32 }}
+            <ContentCopyIcon
+              onClick={() => {
+                copyToClipBoard(
+                  `localhost:3000/mentor/${project.projectName}/${mentor.fullName}`
+                );
+              }}
+              style={{ fontSize: 25 }}
               sx={{
                 ":hover": {
                   color: "blue",
