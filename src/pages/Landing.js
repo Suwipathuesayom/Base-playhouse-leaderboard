@@ -3,11 +3,12 @@ import "../assets/styles/Landing.css";
 import { Button } from "react-bootstrap";
 import boomseen from "../assets/images/boomseen.png";
 import dice from "../assets/images/dice.png";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { TextField, useMediaQuery, useTheme } from "@mui/material";
+import { TextInput } from "../assets/styles/InputStyles";
 
 function Landing() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const matches = useMediaQuery(theme.breakpoints.down("lg"));
   console.log(matches);
   return (
     <div className="container">
@@ -15,7 +16,10 @@ function Landing() {
         className="upper__content"
         style={{ display: matches ? null : "flex" }}
       >
-        <div className="headerText">
+        <div
+          className="headerText"
+          style={{ justifyContent: matches ? "center" : null }}
+        >
           <h1>LEADER BOARD</h1>
           <h1>SCORE</h1>
         </div>
@@ -25,14 +29,35 @@ function Landing() {
       </div>
       <div
         className="lower__content"
-        style={{ display: matches ? null : "flex" }}
+        style={{
+          display: matches ? null : "flex",
+        }}
       >
-        <div className="inputContainer">
+        <div
+          className="inputContainer"
+          style={{
+            justifyContent: matches ? "center" : "flex-start",
+            marginBottom: matches ? 10 : null,
+          }}
+        >
+          <TextInput placeholder="project name" />
           <Button>VIEW LEADERBOARD</Button>
         </div>
-        <div className="diceContainer">
-          <img src={dice} alt="dice" className="image" />
+        <div
+          className="inputContainer"
+          style={{
+            justifyContent: matches ? "center" : "flex-start",
+            marginBottom: matches ? 10 : null,
+          }}
+        >
+          <TextInput placeholder="group name" />
+          <Button>VIEW AS LEARNER</Button>
         </div>
+        {!matches && (
+          <div className="diceContainer">
+            <img src={dice} alt="dice" className="image" />
+          </div>
+        )}
       </div>
     </div>
   );
