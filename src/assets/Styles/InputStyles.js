@@ -4,7 +4,7 @@ const TextInput = styled(InputBase)(({ width, marginright = "20px" }) => ({
   width: width,
   padding: "0 10px",
   marginRight: marginright,
-  borderRadius: 2,
+  borderRadius: 5,
   fontSize: 20,
   backgroundColor: "white",
 }));
