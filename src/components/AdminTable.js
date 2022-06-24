@@ -27,7 +27,7 @@ import {
 import { db } from "../config/firebase";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { CSVLink } from "react-csv";
+import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
 
@@ -85,7 +85,7 @@ export default function AdminTable({ projectDashboard }) {
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [open, setOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState([]);
+  const [selectedProject, setSelectedProject] = useState();
 
   //copy to clipboard
   const [copySpeaker, setCopySpeaker] = useState("Copy");
@@ -101,12 +101,7 @@ export default function AdminTable({ projectDashboard }) {
     }
   };
 
-  const resetCopyClick = (text) => {
-    if (text === "speaker") {
-      setCopySpeaker("Copied!");
-    } else if (text === "learner") {
-      setCopyLearner("Copied!");
-    }
+  const resetCopyClick = () => {
     setTimeout(() => {
       setCopySpeaker("Copy");
       setCopyLearner("Copy");
@@ -120,7 +115,7 @@ export default function AdminTable({ projectDashboard }) {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedProject([]);
+    setSelectedProject();
   };
 
   const queryProject = async (project) => {
@@ -133,37 +128,38 @@ export default function AdminTable({ projectDashboard }) {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          const data = {
-            createdAt: doc.data().createdAt.toDate(),
-            id: doc.data().id,
-            imageUrl: doc.data().imageUrl,
-            learnerGroups: doc
-              .data()
-              .learnerGroups.map((group) => group.groupName),
-            mentors: doc.data().mentors.map((mentor) => mentor.fullName),
-            projectName: doc.data().projectName,
-            tasks: doc.data().tasks.map((task) => task.taskName),
-            points: doc.data().tasks.map((task) => task.point),
-            subTasks: doc
-              .data()
-              .tasks.map((task, index) =>
-                task.subTasks.map(
-                  (subTask, subIndex) =>
-                    `[${index},${subIndex},${subTask.subTaskName}]`
-                )
-              ),
-            subTasksPoints: doc
-              .data()
-              .tasks.map((task, index) =>
-                task.subTasks.map(
-                  (subTask, subIndex) =>
-                    `[${index},${subIndex},${subTask.point}]`
-                )
-              ),
-            theme: [doc.data().theme.top3, doc.data().theme.hilight],
-          };
-          console.log(data);
-          setSelectedProject(data);
+          // const data = {
+          //   createdAt: doc.data().createdAt.toDate(),
+          //   id: doc.data().id,
+          //   imageUrl: doc.data().imageUrl,
+          //   learnerGroups: doc
+          //     .data()
+          //     .learnerGroups.map((group) => group.groupName),
+          //   mentors: doc.data().mentors.map((mentor) => mentor.fullName),
+          //   projectName: doc.data().projectName,
+          //   tasks: doc.data().tasks.map((task) => task.taskName),
+          //   points: doc.data().tasks.map((task) => task.point),
+          //   subTasks: doc
+          //     .data()
+          //     .tasks.map((task, index) =>
+          //       task.subTasks.map(
+          //         (subTask, subIndex) =>
+          //           `[${index},${subIndex},${subTask.subTaskName}]`
+          //       )
+          //     ),
+          //   subTasksPoints: doc
+          //     .data()
+          //     .tasks.map((task, index) =>
+          //       task.subTasks.map(
+          //         (subTask, subIndex) =>
+          //           `[${index},${subIndex},${subTask.point}]`
+          //       )
+          //     ),
+          //   theme: [doc.data().theme.top3, doc.data().theme.hilight],
+          // };
+          // console.log(data);
+          // setSelectedProject(data);
+          setSelectedProject(doc.data());
         });
       })
       .catch((error) => {
@@ -277,89 +273,79 @@ export default function AdminTable({ projectDashboard }) {
             <DialogContentText className="popup-header">
               Project:{" "}
               <StyledTypography variant="p">
-                {selectedProject.projectName}
+                {selectedProject?.projectName}
               </StyledTypography>
             </DialogContentText>
             <InputLabel>Speaker</InputLabel>
             <StyledDiv>
-              <TextField
-                disabled
-                fullWidth
-                id="filled-disabled"
-                value={`localhost:3000/speaker/${selectedProject.projectName}`}
-                size={"small"}
-              />
-              <Button
-                onClick={() => {
-                  copyToClipBoard(
-                    `localhost:3000/speaker/${selectedProject.projectName}`
-                    // setCopySpeaker("copied!")
-                  );
-                  resetCopyClick("speaker");
-                }}
-                style={{ marginLeft: "5px", textTransform: "unset" }}
-              >
-                {copySpeaker}
-              </Button>
+              {selectedProject && (
+                <TextField
+                  disabled
+                  fullWidth
+                  id="filled-disabled"
+                  value={`localhost:3000/speaker/${selectedProject?.projectName}`}
+                  size={"small"}
+                />
+              )}
+              {!selectedProject && (
+                <LoadingButton
+                  disabled
+                  loading={!selectedProject}
+                  fullWidth
+                  size={"large"}
+                />
+              )}
+              {selectedProject && (
+                <Button
+                  onClick={() => {
+                    copyToClipBoard(
+                      `localhost:3000/speaker/${selectedProject?.projectName}`,
+                      setCopySpeaker("Copied!")
+                    );
+                    resetCopyClick("speaker");
+                  }}
+                  style={{ marginLeft: "5px", textTransform: "unset" }}
+                >
+                  {copySpeaker}
+                </Button>
+              )}
             </StyledDiv>
             <InputLabel>Learner</InputLabel>
             <StyledDiv>
-              <TextField
-                disabled
-                fullWidth
-                id="filled-disabled"
-                value={`localhost:3000/learner/${selectedProject.projectName}`}
-                size={"small"}
-              />
-              <Button
-                onClick={() => {
-                  copyToClipBoard(
-                    `localhost:3000/learner/${selectedProject.projectName}`,
-                    setCopyLearner("copied!")
-                  );
-                  resetCopyClick("learner");
-                }}
-                style={{ marginLeft: "5px", textTransform: "unset" }}
-              >
-                {copyLearner}
-              </Button>
-            </StyledDiv>
-            {/* <InputLabel>Mentor/Judge</InputLabel>
-            <StyledDiv>
-              <TextField
-                disabled
-                fullWidth
-                id="filled-disabled"
-                value={`localhost:3000/mentor/${selectedProject.projectName}`}
-                // inputProps={{
-                //   style: {
-                //     StyledInputProps,
-                //   },
-                // }}
-                size={"small"}
-                sx={StyledInputProps}
-              />
-              <Button
-                onClick={() =>
-                  copyToClipBoard(
-                    `localhost:3000/mentor/${selectedProject.projectName}`,
-                    setCopyMentor
-                  )
-                }
-              >
-                <ContentCopyIcon></ContentCopyIcon>
-              </Button>
-              {copyMentor}
-            </StyledDiv> */}
-            <div style={{ marginTop: 10 }}>
-              <CSVLink
-                data={[selectedProject]}
-                style={{ textDecoration: "none" }}
-              >
-                <Button variant="contained" color="success">
-                  <ExportCSV />
+              {selectedProject && (
+                <TextField
+                  disabled
+                  fullWidth
+                  id="filled-disabled"
+                  value={`localhost:3000/learner/${selectedProject?.projectName}`}
+                  size={"small"}
+                />
+              )}
+              {!selectedProject && (
+                <LoadingButton
+                  disabled
+                  loading={!selectedProject}
+                  fullWidth
+                  size={"large"}
+                />
+              )}
+              {selectedProject && (
+                <Button
+                  onClick={() => {
+                    copyToClipBoard(
+                      `localhost:3000/learner/${selectedProject?.projectName}`,
+                      setCopyLearner("Copied!")
+                    );
+                    resetCopyClick("learner");
+                  }}
+                  style={{ marginLeft: "5px", textTransform: "unset" }}
+                >
+                  {copyLearner}
                 </Button>
-              </CSVLink>
+              )}
+            </StyledDiv>
+            <div style={{ marginTop: 10 }}>
+              <ExportCSV selectedProject={selectedProject} />
             </div>
           </DialogContent>
           <DialogActions>

@@ -165,13 +165,9 @@ function Learner() {
                   isParamGroupName(group.groupName)
                 ) {
                   return (
-                    <div>
+                    <div key={rankIndex}>
                       <ThreeDotBox />
-                      <RankBox
-                        key={rankIndex}
-                        group={group}
-                        rankIndex={rankIndex}
-                      />
+                      <RankBox group={group} rankIndex={rankIndex} />
                       {rankIndex + 1 !== project.learnerGroups.length && (
                         <ThreeDotBox />
                       )}
@@ -179,7 +175,7 @@ function Learner() {
                   );
                 }
               }
-              return <div></div>;
+              return <div key={rankIndex}></div>;
             })}
             {foundGroupWithinDisplayLimit && <ThreeDotBox />}
           </Stack>

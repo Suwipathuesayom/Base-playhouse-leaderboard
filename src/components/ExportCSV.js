@@ -1,56 +1,62 @@
+import { LoadingButton } from "@mui/lab";
+import { Button } from "@mui/material";
 import { CSVLink } from "react-csv";
-const players = [
-  {
-    name: "Tom Latham",
-    age: 29,
-    team: "New Zealand",
-  },
-  {
-    name: "Devon Conway",
-    age: 30,
-    team: "New Zealand",
-  },
-  {
-    name: "Kane Williamson",
-    age: 31,
-    team: "New Zealand",
-  },
-  {
-    name: "Will Young",
-    age: 29,
-    team: "New Zealand",
-  },
-];
 
-const headers = [
-  {
-    label: "Name",
-    key: "name",
-  },
-  {
-    label: "Age",
-    key: "age",
-  },
-  {
-    label: "Team",
-    key: "team",
-  },
-];
-
-const csvLink = {
-  headers: headers,
-  data: players,
-  filename: "csvfile.csv",
-};
-
-function ExportCSV() {
-  return (
-    <div>
-      <CSVLink {...csvLink} style={{ textDecoration: "none", color: "white" }}>
+function ExportCSV({ selectedProject }) {
+  if (selectedProject) {
+    let headers = [
+      {
+        label: "Group Name",
+        key: "groupName",
+      },
+    ];
+    let learnerGroups = [];
+    selectedProject.tasks.forEach((task) => {
+      headers.push({
+        label: task.taskName,
+        key: task.taskName,
+      });
+    });
+    selectedProject.learnerGroups.forEach((group) => {
+      let tempObject = {
+        groupName: group.groupName,
+      };
+      selectedProject.tasks.forEach((task, taskIndex) => {
+        tempObject[task.taskName] = !!group.points.length
+          ? !!Object.keys(group.points[taskIndex]).length
+            ? group.points[taskIndex].taskPoint
+            : 0
+          : 0;
+      });
+      learnerGroups.push(tempObject);
+    });
+    return (
+      <Button
+        variant="contained"
+        sx={{
+          backgroundColor: "#1d6f42",
+        }}
+      >
+        <CSVLink
+          headers={headers}
+          data={learnerGroups}
+          filename={`${selectedProject.projectName}_points.csv`}
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          Download Excel
+        </CSVLink>
+      </Button>
+    );
+  } else {
+    return (
+      <LoadingButton loading variant="contained">
         Download Excel
-      </CSVLink>
-    </div>
-  );
+      </LoadingButton>
+    );
+  }
 }
 
 export default ExportCSV;

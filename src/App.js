@@ -22,6 +22,7 @@ function App() {
             path="learner/:projectNameParams/:groupNameParams"
             element={<Learner />}
           />
+          <Route path="learner/:projectNameParams" element={<Learner />} />
           <Route path="new-project" element={<NewProject />} />
           <Route path="edit-project" element={<EditProject />} />
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
