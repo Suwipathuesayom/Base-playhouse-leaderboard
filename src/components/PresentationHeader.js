@@ -14,11 +14,11 @@ const PresentationHeader = ({ project }) => (
       component={"img"}
       src={project?.imageUrl}
       alt={"not found"}
-      sx={{ width: 200, height: 200, marginRight: "30px" }}
+      sx={{ width: 90, height: 90, marginRight: "30px" }}
     />
     <Typography
       sx={{
-        fontSize: 72,
+        fontSize: 20,
         fontWeight: 200,
         fontFamily: "Russo One",
         marginRight: "30px",
@@ -36,9 +36,9 @@ const PresentationHeader = ({ project }) => (
     />
     <Typography
       sx={{
-        fontSize: 36,
-        fontWeight: 900,
-        marginRight: "30px",
+        fontSize: 22,
+        fontWeight: 500,
+        // marginRight: "10px",
         paddingTop: "30px",
         color: color.secondaryGrey,
       }}
