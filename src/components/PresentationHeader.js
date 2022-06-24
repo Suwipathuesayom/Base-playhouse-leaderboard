@@ -3,14 +3,14 @@ import color from "../constant/color";
 
 const PresentationHeader = ({ project }) => {
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Stack
       display={"flex"}
       flexDirection={"row"}
       height={smallScreen ? 100 : 200}
       alignItems={"center"}
-      paddingX={"1%"}
+      paddingX={"2%"}
       // backgroundColor={"red"}
     >
       <Box

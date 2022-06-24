@@ -18,7 +18,7 @@ function Learner() {
   const [project, setProject] = useState();
   const { projectNameParams, groupNameParams } = useParams();
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const queryProject = (projectName) => {
     db.collection("users")
