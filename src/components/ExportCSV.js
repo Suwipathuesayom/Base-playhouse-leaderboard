@@ -22,11 +22,21 @@ function ExportCSV({ selectedProject }) {
         groupName: group.groupName,
       };
       selectedProject.tasks.forEach((task, taskIndex) => {
-        tempObject[task.taskName] = !!group.points.length
-          ? !!Object.keys(group.points[taskIndex]).length
-            ? group.points[taskIndex].taskPoint
-            : 0
-          : 0;
+        let tempPoint = -1;
+        if (group.points.length !== 0) {
+          if (Object.keys(group.points[taskIndex]).length !== 0) {
+            if (group.points[taskIndex].isChecked) {
+              tempPoint = group.points[taskIndex].taskPoint;
+            } else {
+              tempPoint = 0;
+            }
+          } else {
+            tempPoint = 0;
+          }
+        } else {
+          tempPoint = 0;
+        }
+        tempObject[task.taskName] = tempPoint;
       });
       learnerGroups.push(tempObject);
     });
