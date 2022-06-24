@@ -27,7 +27,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "../assets/styles/AdminDashboard.css";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
-import ExportPlayer from "./Functions/exportCsv";
 import ExportCsv from "./Functions/exportCsv";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
