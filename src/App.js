@@ -10,6 +10,7 @@ import AdminLeaderboard from "./pages/Admin/AdminLeaderboard";
 import Landing from "./pages/Landing";
 import Mentor from "./pages/Mentor";
 import Learner from "./pages/Learner";
+import NotfoundPage from './pages/NotfoundPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="new-project" element={<NewProject />} />
           <Route path="edit-project" element={<EditProject />} />
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
+          <Route path="NotfoundPage" element={<NotfoundPage />} />
           <Route
             path="mentor/:projectNameParams/:mentorNameParams"
             element={<Mentor />}

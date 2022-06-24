@@ -14,6 +14,7 @@ function AdminLeaderboard() {
   const [projectDashboard, setProjectDashboard] = useState([]);
   console.log(projectDashboard);
 
+
   const queryProjectDashboard = async () => {
     let tempProjectDashboard = [];
     try {
