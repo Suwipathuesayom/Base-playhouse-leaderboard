@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -67,6 +67,10 @@ export default function MentorTable({ project, setProject }) {
   const [learnerGroups, setLearnerGroups] = React.useState(
     project?.learnerGroups
   );
+
+  useEffect(() => {
+    setLearnerGroups(project?.learnerGroups);
+  }, [project]);
 
   const queryGroupNote = async (selectedGroup) => {
     const groupIndex = selectedGroup.groupIndex - 1;
@@ -200,31 +204,31 @@ export default function MentorTable({ project, setProject }) {
     setLearnerGroups([...tempLearnerGroups]);
 
     // handle Data State
-    const tempproject = project;
-    if (tempproject.learnerGroups[index].points.length === 0) {
+    const tempProject = project;
+    if (tempProject.learnerGroups[index].points.length === 0) {
       for (let i = 0; i < project.tasks.length; i++) {
-        tempproject.learnerGroups[index].points.push({});
+        tempProject.learnerGroups[index].points.push({});
       }
     }
     if (
-      Object.keys(tempproject.learnerGroups[index].points[subIndex]).length ===
+      Object.keys(tempProject.learnerGroups[index].points[subIndex]).length ===
       0
     ) {
-      tempproject.learnerGroups[index].points[subIndex] = {
+      tempProject.learnerGroups[index].points[subIndex] = {
         isChecked: true,
         taskIndex: subIndex,
         taskPoint: project.tasks[subIndex].point,
       };
     } else {
-      tempproject.learnerGroups[index].points[subIndex].isChecked =
+      tempProject.learnerGroups[index].points[subIndex].isChecked =
         tempLearnerGroups[index].points[subIndex].isChecked;
     }
-    tempproject.learnerGroups[index].totalPoint = calculateNewTotalPoint(
-      tempproject.learnerGroups,
+    tempProject.learnerGroups[index].totalPoint = calculateNewTotalPoint(
+      tempProject.learnerGroups,
       index
     );
-    setProject(tempproject);
-    handleUpdateProject(tempproject);
+    setProject(tempProject);
+    handleUpdateProject(tempProject);
   };
 
   const calculateNewTotalPoint = (arr, index) => {
@@ -238,11 +242,11 @@ export default function MentorTable({ project, setProject }) {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 700, marginTop: 0, borderRadius: 20, minHeight: 650 }}
-        aria-label="customized table"
-      >
+    <TableContainer
+      sx={{ padding: "15px", backgroundColor: "#dcdfe1" }}
+      component={Paper}
+    >
+      <Table aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>GROUP</StyledTableCell>
@@ -379,7 +383,11 @@ export default function MentorTable({ project, setProject }) {
                   // }
                 })}
                 <StyledTableCell>
-                  {group.totalPoint < 0 ? 0 : group.totalPoint}
+                  {group.totalPoint
+                    ? group.totalPoint < 0
+                      ? 0
+                      : group.totalPoint
+                    : 0}
                 </StyledTableCell>
                 <StyledTableCell style={{ cursor: "pointer" }}>
                   <NoteAltIcon
