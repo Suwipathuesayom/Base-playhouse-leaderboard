@@ -20,7 +20,7 @@ const PresentationHeader = ({ project }) => {
         sx={{
           width: smallScreen ? 100 : 200,
           height: smallScreen ? 100 : 200,
-          marginRight: "30px",
+          marginRight: smallScreen ? "10px" : "30px",
         }}
       />
       <Stack
