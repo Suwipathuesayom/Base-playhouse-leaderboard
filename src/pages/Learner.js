@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MoreVert from "@mui/icons-material/MoreVert";
 import React, { useState } from "react";
 import "../assets/styles/Learner.css";
@@ -17,6 +17,8 @@ function Learner() {
   const DISPLAY_LIMIT = 5;
   const [project, setProject] = useState();
   const { projectNameParams, groupNameParams } = useParams();
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const queryProject = (projectName) => {
     db.collection("users")
@@ -67,7 +69,7 @@ function Learner() {
       alignItems={"center"}
       borderRadius={3}
       marginTop={"15px"}
-      paddingX={"15px"}
+      // paddingX={"15px"}
       sx={{
         border: isParamGroupName(group.groupName) ? 3 : null,
         borderColor: isParamGroupName(group.groupName) ? "lime" : null,
@@ -75,29 +77,38 @@ function Learner() {
       backgroundColor={() => getRankColor(rankIndex, project.theme.top3)}
       // backgroundColor={"blue"}
     >
-      <TableContentText flex={0.5}>{rankIndex + 1}</TableContentText>
-      <Box
-        sx={{
-          display: "flex",
-          flex: 1,
-          justifyContent: "center",
-          // backgroundColor: "red",
-        }}
-      >
+      <TableContentText flex={1} fontSize={smallScreen ? 18 : 28}>
+        {rankIndex + 1}
+      </TableContentText>
+      {!smallScreen && (
         <Box
-          component={"img"}
           sx={{
-            width: 36,
-            height: 36,
-            borderRadius: 36,
+            display: "flex",
+            flex: 0.5,
+            justifyContent: "center",
+            // backgroundColor: "red",
           }}
-          src={`https://picsum.photos/200/300?random=${group.groupIndex}`}
-          alt={"not found"}
-        />
-      </Box>
-      <TableContentText flex={0.5}>{group.groupIndex}</TableContentText>
-      <TableContentText flex={5}>{group.groupName}</TableContentText>
-      <TableContentText flex={2}>
+        >
+          <Box
+            component={"img"}
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: 36,
+            }}
+            src={`https://picsum.photos/200/300?random=${group.groupIndex}`}
+            alt={"not found"}
+          />
+        </Box>
+      )}
+      {!smallScreen && (
+        <TableContentText flex={0.5}>{group.groupIndex}</TableContentText>
+      )}
+      <TableContentText flex={5} fontSize={smallScreen ? 18 : 28}>
+        {group.groupName}
+      </TableContentText>
+      {!smallScreen && <TableContentText flex={1} />}
+      <TableContentText flex={1} fontSize={smallScreen ? 18 : 28}>
         {group.totalPoint > 0 ? group.totalPoint : 0}
       </TableContentText>
     </Box>
@@ -114,7 +125,7 @@ function Learner() {
         }}
       >
         <PresentationHeader project={project} />
-        <Stack padding={"1%"}>
+        <Stack padding={"2%"}>
           <Stack
             width={"100%"}
             height={"80px"}
@@ -124,11 +135,21 @@ function Learner() {
             backgroundColor={color.primaryBlack}
             sx={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
           >
-            <TableHeaderText flex={0.5}>RANK</TableHeaderText>
-            <Typography sx={{ flex: 1 }} />
-            <TableHeaderText flex={0.5}>GROUP</TableHeaderText>
-            <TableHeaderText flex={5}>NAME</TableHeaderText>
-            <TableHeaderText flex={2}>TOTAL</TableHeaderText>
+            <TableHeaderText flex={1} fontSize={smallScreen ? 18 : 28}>
+              RANK
+            </TableHeaderText>
+            {!smallScreen && <Typography sx={{ flex: 0.5 }} />}
+            {!smallScreen && (
+              <TableHeaderText flex={0.5}>GROUP</TableHeaderText>
+            )}
+            <TableHeaderText flex={5} fontSize={smallScreen ? 18 : 28}>
+              NAME
+            </TableHeaderText>
+            {!smallScreen && <TableHeaderText flex={1} />}
+
+            <TableHeaderText flex={1} fontSize={smallScreen ? 18 : 28}>
+              TOTAL
+            </TableHeaderText>
           </Stack>
           <Stack
             flexGrow={1}
