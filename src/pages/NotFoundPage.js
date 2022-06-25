@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const StylesError = styled("Div")(({ theme }) => ({
+const StylesError = styled("div")(({ theme }) => ({
   textAlign: "center",
   justifyContent: "center",
   height: "100vh",
@@ -14,7 +14,7 @@ const StylesError = styled("Div")(({ theme }) => ({
 function NotFoundPage() {
   return (
     <StylesError>
-      <Box sx={{}}>
+      <Box>
         <Box
           sx={{
             fontSize: 94,
@@ -36,7 +36,7 @@ function NotFoundPage() {
             variant="contained"
             color="error"
             sx={{
-              textDecoration: "underline",
+              textDecoration: "none",
               marginTop: "2%",
               width: "300px",
               height: "90px",
