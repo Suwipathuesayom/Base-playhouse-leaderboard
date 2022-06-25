@@ -29,7 +29,7 @@ function App() {
           <Route path="new-project" element={<NewProject />} />
           <Route path="edit-project" element={<EditProject />} />
           <Route path="admin-leaderboard" element={<AdminLeaderboard />} />
-          <Route path="notfound-page" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFoundPage />} />
           <Route
             path="mentor/:projectNameParams/:mentorNameParams"
             element={<Mentor />}
