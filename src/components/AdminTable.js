@@ -67,13 +67,13 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   textDecoration: "none",
 }));
 
-const StyledDiv = styled("Div")(({ theme }) => ({
+const StyledDiv = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
 }));
 
-const StyledStack = styled("Stack")(({ theme }) => ({
+const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",

@@ -10,7 +10,6 @@ const auth = getAuth();
 
 function LoginScreen() {
   const navigate = useNavigate();
-  // const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -20,8 +19,7 @@ function LoginScreen() {
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           setHasError(false);
-          navigate(-1);
-          // setLoggedIn(true);
+          navigate("/admin-leaderboard", { replace: true });
         })
         .catch((error) => {
           console.log(error);
@@ -34,17 +32,16 @@ function LoginScreen() {
   return (
     <div className="container">
       <div className="login__container">
-        {/* {loggedIn && <Navigate to="/" />} */}
         <Typography
           variant="h2"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
-          fontSize={36}
+          fontSize={48}
         >
           LEADERBOARD
         </Typography>
         <Typography
-          variant="h3"
+          variant="p"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
           fontSize={24}

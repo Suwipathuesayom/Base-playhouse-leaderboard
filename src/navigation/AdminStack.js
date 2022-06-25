@@ -6,13 +6,14 @@ import NewProject from "../pages/Admin/NewProject";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
+import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
 
 export default function AdminStack() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AdminLeaderboard />} />
+        <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
         <Route path="new-project" element={<NewProject />} />
         <Route path="edit-project" element={<EditProject />} />
         <Route path="speaker/:projectNameParams" element={<Speaker />} />
@@ -26,6 +27,7 @@ export default function AdminStack() {
           path="mentor/:projectNameParams/:mentorNameParams"
           element={<Mentor />}
         />
+        <Route path="notfound-page" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

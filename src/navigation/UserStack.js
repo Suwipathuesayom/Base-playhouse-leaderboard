@@ -4,6 +4,7 @@ import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
+import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
 
 export default function UserStack() {
@@ -22,6 +23,7 @@ export default function UserStack() {
           path="mentor/:projectNameParams/:mentorNameParams"
           element={<Mentor />}
         />
+        <Route path="notfound-page" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
