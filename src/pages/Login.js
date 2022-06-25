@@ -4,19 +4,24 @@ import { TextInput } from "../assets/styles/InputStyles";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "../assets/styles/login.css";
 import color from "../constant/color";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth();
 
 function LoginScreen() {
+  const navigate = useNavigate();
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setHasError] = useState(false);
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (event, email, password) => {
+    event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          console.log("Logged In");
           setHasError(false);
+          navigate(-1);
+          // setLoggedIn(true);
         })
         .catch((error) => {
           console.log(error);
@@ -29,6 +34,7 @@ function LoginScreen() {
   return (
     <div className="container">
       <div className="login__container">
+        {/* {loggedIn && <Navigate to="/" />} */}
         <Typography
           variant="h2"
           color={"#FF5B4A"}
@@ -38,7 +44,7 @@ function LoginScreen() {
           LEADERBOARD
         </Typography>
         <Typography
-          variant="h2"
+          variant="h3"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
           fontSize={24}
@@ -76,7 +82,7 @@ function LoginScreen() {
             fontSize: 20,
             backgroundColor: color.primaryOrange,
           }}
-          onClick={() => handleLogin(email, password)}
+          onClick={(event) => handleLogin(event, email, password)}
         >
           Login
         </Button>
