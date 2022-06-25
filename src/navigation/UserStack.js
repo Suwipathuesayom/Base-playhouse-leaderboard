@@ -23,7 +23,7 @@ export default function UserStack() {
           path="mentor/:projectNameParams/:mentorNameParams"
           element={<Mentor />}
         />
-        <Route path="notfound-page" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

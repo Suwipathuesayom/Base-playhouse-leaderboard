@@ -1,8 +1,10 @@
 import React from "react";
 import { Box } from "@mui/material";
+import { getAuth } from "firebase/auth";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const StylesError = styled("div")(({ theme }) => ({
   textAlign: "center",
   justifyContent: "center",
@@ -11,7 +13,19 @@ const StylesError = styled("div")(({ theme }) => ({
   flexDirection: "column",
 }));
 
+const auth = getAuth();
+
 function NotFoundPage() {
+  const navigate = useNavigate();
+
+  const goBackToLandingScreen = () => {
+    console.log(auth.currentUser);
+    if (auth.currentUser) {
+      navigate("/admin-leaderboard", { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+  };
   return (
     <StylesError>
       <Box>
@@ -31,21 +45,19 @@ function NotFoundPage() {
         >
           ขออภัย ไม่พบหน้าเว็บไซต์ที่คุณต้องการ
         </Box>
-        <Link to="/">
-          <Button
-            variant="contained"
-            color="error"
-            sx={{
-              textDecoration: "none",
-              marginTop: "2%",
-              width: "300px",
-              height: "90px",
-              fontSize: "30px",
-            }}
-          >
-            กลับไปหน้าแรก
-          </Button>
-        </Link>
+        <Button
+          variant="contained"
+          color="error"
+          sx={{
+            marginTop: "2%",
+            width: "300px",
+            height: "90px",
+            fontSize: "30px",
+          }}
+          onClick={() => goBackToLandingScreen()}
+        >
+          กลับไปหน้าแรก
+        </Button>
       </Box>
     </StylesError>
   );
