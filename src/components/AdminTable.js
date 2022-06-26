@@ -122,7 +122,7 @@ export default function AdminTable({ projectDashboard }) {
     console.log("in query project");
     await db
       .collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", project.projectName)
       .get()

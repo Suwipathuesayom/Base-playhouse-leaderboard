@@ -5,6 +5,8 @@ import "../../assets/styles/NewProject.css";
 
 import color from "../../constant/color";
 
+// const auth = firebase.auth();
+
 function NewProjectFooter({
   project,
   setProject,
@@ -21,7 +23,7 @@ function NewProjectFooter({
     try {
       let projectRef = db
         .collection("users")
-        .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+        .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
       // .doc(project.projectName)
       // .set(tempProject)
       let newProjectRef = await projectRef
@@ -63,7 +65,7 @@ function NewProjectFooter({
 
     setEditProjectStatus("info");
     try {
-      let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+      let userRef = db.collection("users").doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
 
       await userRef
         .collection("project")

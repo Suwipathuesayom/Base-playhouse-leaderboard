@@ -13,6 +13,8 @@ import {
 import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
 
+// const auth = firebase.auth();
+
 function Learner() {
   const DISPLAY_LIMIT = 5;
   const [project, setProject] = useState();
@@ -22,7 +24,7 @@ function Learner() {
 
   const queryProject = (projectName) => {
     db.collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", projectName)
       .onSnapshot((snapshot) => {

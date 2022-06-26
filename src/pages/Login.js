@@ -36,7 +36,7 @@ function LoginScreen() {
           variant="h2"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
-          fontSize={48}
+          fontSize={40}
         >
           LEADERBOARD
         </Typography>
@@ -74,10 +74,13 @@ function LoginScreen() {
           variant="contained"
           fontSize={32}
           sx={{
-            width: "75%",
+            width: "80%",
             height: "50px",
             fontSize: 20,
             backgroundColor: color.primaryOrange,
+            ":hover": {
+              backgroundColor: "#f18888",
+            },
           }}
           onClick={(event) => handleLogin(event, email, password)}
         >

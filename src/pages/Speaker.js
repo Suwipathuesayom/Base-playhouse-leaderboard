@@ -12,13 +12,16 @@ import { TablePointHeaderText } from "../assets/styles/TypographyStyles";
 import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
 
+// const auth = firebase.auth();
+
 function Speaker() {
   const [project, setProject] = useState();
   const { projectNameParams } = useParams();
 
   const queryProject = (projectName) => {
+    // let authUser = auth.currentUser;
     db.collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", projectName)
       .onSnapshot((snapshot) => {
@@ -30,6 +33,7 @@ function Speaker() {
             }
           );
           setProject(tempProject);
+          console.log(tempProject);
         });
       });
   };

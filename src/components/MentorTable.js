@@ -17,6 +17,8 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+// const auth = firebase.auth();
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: color.primaryOrange,
@@ -102,7 +104,7 @@ export default function MentorTable({ project, setProject }) {
 
   const handleUpdateProject = async (tempProject) => {
     try {
-      let userRef = db.collection("users").doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2");
+      let userRef = db.collection("users").doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
 
       await userRef
         .collection("project")

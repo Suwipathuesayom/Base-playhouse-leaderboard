@@ -9,6 +9,8 @@ import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 
+// const auth = firebase.auth();
+
 function EditProject() {
   const { projectName } = useLocation().state;
   const [project, setProject] = useState(null);
@@ -17,7 +19,7 @@ function EditProject() {
   const queryProject = async (projectName) => {
     await db
       .collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", projectName)
       .get()
