@@ -10,9 +10,9 @@ import { AddCircle } from "@mui/icons-material";
 import color from "../../constant/color";
 import Navbar from "./../../components/Navbar";
 
-const auth = firebase.auth();
+// const auth = firebase.auth();
 
-console.log(auth);
+// console.log(auth);
 
 function AdminLeaderboard() {
   const theme = useTheme();
@@ -23,10 +23,10 @@ function AdminLeaderboard() {
   const queryProjectDashboard = async () => {
     let tempProjectDashboard = [];
     try {
-      let authUser = auth.currentUser;
+      // let authUser = auth.currentUser;
       await db
         .collection("users")
-        .doc(authUser.uid)
+        .doc("U0dxoLaM6DuAWiRLC9QZ")
         .collection("projectDashboard")
         .get()
         .then((snapshot) => {

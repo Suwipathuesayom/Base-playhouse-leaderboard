@@ -4,6 +4,7 @@ import AdminLeaderboard from "../pages/Admin/AdminLeaderboard";
 import AdminProject from "../pages/Admin/AdminProject";
 import EditProject from "../pages/Admin/EditProject";
 import NewProject from "../pages/Admin/NewProject";
+import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
@@ -14,6 +15,7 @@ export default function AdminStack() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
         <Route path="new-project" element={<NewProject />} />
         <Route path="edit-project" element={<EditProject />} />
