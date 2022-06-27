@@ -4,7 +4,7 @@ import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
-import NotFoundPage from "../pages/NotfoundPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
 
 export default function UserStack() {
