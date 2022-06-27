@@ -8,6 +8,7 @@ import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle, Logout } from "@mui/icons-material";
 import color from "../../constant/color";
+import Navbar from './../../components/Navbar';
 
 function AdminLeaderboard() {
   const theme = useTheme();
@@ -52,6 +53,7 @@ function AdminLeaderboard() {
   if (!!projectDashboard.length) {
     return (
       <div className="adminLeaderboard">
+      <Navbar />
         <img src={circle1} alt="circle1" className="circle1" />
         <div className="admin-header">
           <h1 style={{ fontSize: smallScreen ? 60 : 72 }}>LEADERBOARD</h1>
