@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminLeaderboard from "../pages/Admin/AdminLeaderboard";
+import AdminProject from "../pages/Admin/AdminProject";
 import EditProject from "../pages/Admin/EditProject";
 import NewProject from "../pages/Admin/NewProject";
 import Learner from "../pages/Learner";
@@ -28,6 +29,7 @@ export default function AdminStack() {
           element={<Mentor />}
         />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="project" element={<AdminProject />} />
       </Routes>
     </BrowserRouter>
   );

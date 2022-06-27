@@ -14,6 +14,7 @@ import SubTaskBox from "./SubTaskBox";
 import { TextInput } from "../assets/styles/InputStyles";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
+import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
 
 const TaskBox = ({
   project,
@@ -87,7 +88,12 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].point = parseInt(newPointValue, 10);
+    tempProject.learnerGroups.forEach((group) => {
+      group.points[index].taskPoint = parseInt(newPointValue, 10);
+    });
+    recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
+    console.log(tempProject);
   };
   const handleWeightValueChange = (index, newWeightValue) => {
     // handle UI State
@@ -158,18 +164,6 @@ const TaskBox = ({
       if (!subTask.isHidden) sum += subTask.point;
     });
     return sum;
-  };
-
-  const recalculateLearnerGroupNewTotalPoint = (project) => {
-    project.learnerGroups.forEach((group, groupIndex) => {
-      let newTotalPoint = 0;
-      group.points.forEach((point, pointIndex) => {
-        if (Object.keys(point).length !== 0 && point.isChecked) {
-          newTotalPoint += point.taskPoint;
-        }
-      });
-      project.learnerGroups[groupIndex].totalPoint = newTotalPoint;
-    });
   };
 
   const resetEachLearnerGroupTaskPoint = (project, taskIndex) => {
