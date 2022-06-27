@@ -14,7 +14,7 @@ import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 function EditProject() {
   const { projectName } = useLocation().state;
   const [project, setProject] = useState(null);
-  const [editProjectStatus, setEditProjectStatus] = useState("success");
+  const [editProjectStatus, setEditProjectStatus] = useState("warning");
 
   const queryProject = async (projectName) => {
     await db
