@@ -166,9 +166,9 @@ const TaskBox = ({
     return sum;
   };
 
-  const resetEachLearnerGroupTaskPoint = (project, taskIndex) => {
+  const resetEachLearnerGroupTaskPoint = (project) => {
     project.learnerGroups.forEach((group) => {
-      group.points[taskIndex] = {};
+      group.points = [];
     });
   };
 
