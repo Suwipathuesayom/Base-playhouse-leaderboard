@@ -21,7 +21,9 @@ function NewProjectNameAndColor({ project, setProject }) {
   const [hilightColor] = useState(
     project.theme.hilight ? project.theme.hilight : "#000000"
   );
-  const [newProjectName, setNewProjectName] = useState("");
+  const [newProjectName, setNewProjectName] = useState(
+    project.projectName ? project.projectName : ""
+  );
 
   //   State Handler
   const handleRemaneProjectName = (newProjectName) => {
