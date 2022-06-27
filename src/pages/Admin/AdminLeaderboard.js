@@ -26,7 +26,7 @@ function AdminLeaderboard() {
       // let authUser = auth.currentUser;
       await db
         .collection("users")
-        .doc("U0dxoLaM6DuAWiRLC9QZ")
+        .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
         .collection("projectDashboard")
         .get()
         .then((snapshot) => {
