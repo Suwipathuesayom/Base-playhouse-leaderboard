@@ -8,6 +8,7 @@ import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
+import Navbar from "../../components/Navbar";
 
 // const auth = firebase.auth();
 
@@ -37,6 +38,8 @@ function EditProject() {
   if (project) {
     return (
       <div className="newProject">
+        <Navbar />
+
         <ProjectStatusAlert
           editProjectStatus={editProjectStatus}
           setEditProjectStatus={setEditProjectStatus}
