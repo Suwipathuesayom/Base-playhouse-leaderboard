@@ -14,7 +14,7 @@ import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 function EditProject() {
   const { projectName } = useLocation().state;
   const [project, setProject] = useState(null);
-  const [editProjectStatus, setEditProjectStatus] = useState("warning");
+  const [editProjectStatus, setEditProjectStatus] = useState("success");
 
   const queryProject = async (projectName) => {
     await db
@@ -37,11 +37,13 @@ function EditProject() {
   if (project) {
     return (
       <div className="newProject">
-        <ProjectStatusAlert
-          editProjectStatus={editProjectStatus}
-          setEditProjectStatus={setEditProjectStatus}
-          action={"edit"}
-        />
+        <div className="alert">
+          <ProjectStatusAlert
+            editProjectStatus={editProjectStatus}
+            setEditProjectStatus={setEditProjectStatus}
+            action={"edit"}
+          />
+        </div>
         <NewProjectHeader
           project={project}
           setProject={setProject}
