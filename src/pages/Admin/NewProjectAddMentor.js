@@ -107,7 +107,7 @@ function NewProjectAddMentor({ project, setProject }) {
             <ContentCopyIcon
               onClick={() => {
                 copyToClipBoard(
-                  `localhost:3000/mentor/${project.projectName}/${mentor.fullName}`
+                  `https://base-playhouse-leader-board.web.app/mentor/${project.projectName}/${mentor.fullName}`
                 );
               }}
               style={{ fontSize: 25 }}

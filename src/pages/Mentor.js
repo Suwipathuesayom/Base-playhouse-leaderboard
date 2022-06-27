@@ -8,12 +8,14 @@ import SplashScreen from "../components/SplashScreen";
 import limitStringLength from "../components/Functions/limitStringLength";
 import PresentationHeader from "../components/PresentationHeader";
 
+// const auth = firebase.auth();
+
 export default function Mentor() {
   const { projectNameParams, mentorNameParams } = useParams();
   const [project, setProject] = React.useState();
   const queryProject = async (projectName) => {
     db.collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", projectName)
       .onSnapshot((snapshot) => {

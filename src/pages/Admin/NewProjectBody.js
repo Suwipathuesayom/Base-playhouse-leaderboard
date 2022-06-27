@@ -10,9 +10,8 @@ function NewProjectBody({ project, setProject }) {
       minWidth={"1500px"}
       marginTop={"10px"}
       paddingX={"1%"}
-      marginBottom={"20%"}
+      marginBottom={"100px"}
       flexDirection={"row"}
-      height={"70vh"}
     >
       <NewProjectLearner project={project} setProject={setProject} />
       <NewProjectTask project={project} setProject={setProject} />

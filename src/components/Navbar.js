@@ -10,8 +10,7 @@ import { Link } from "react-router-dom";
 import color from "../constant/color";
 
 export default function Navbar() {
-
-    const navItems = ['Home', 'About', 'Contact'];
+  const navItems = ["Home", "About", "Contact"];
 
   const handleLogout = async () => {
     try {
@@ -40,7 +39,7 @@ export default function Navbar() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             LEADERBOARD
           </Typography>
-          <Typography variant="h6" component="div" sx={{ marginRight: 2}} >
+          <Typography variant="h6" component="div" sx={{ marginRight: 2 }}>
             หน้าแรก
           </Typography>
           <Link to="/">

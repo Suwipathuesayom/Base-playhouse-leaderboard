@@ -8,13 +8,12 @@ import { TextInput } from "../assets/styles/InputStyles";
 import { useNavigate } from "react-router-dom";
 
 function Landing() {
-  const theme = useTheme();
-  const [projectName, setProjectName] = useState("");
-  console.log(projectName);
-  const [groupName, setGroupName] = useState("");
-  const matches = useMediaQuery(theme.breakpoints.down("lg"));
   const navigate = useNavigate();
-  console.log(matches);
+  const [projectName, setProjectName] = useState("");
+  const [groupName, setGroupName] = useState("");
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <div className="container">
       <div
@@ -27,8 +26,8 @@ function Landing() {
           className="headerText"
           style={{ justifyContent: matches ? "center" : null }}
         >
-          <h1>LEADER BOARD</h1>
-          <h1>SCORE</h1>
+          <h1>LEADER BOARD SCORE</h1>
+          {/* <h1>SCORE</h1> */}
         </div>
         <div className="headerImage">
           <img src={boomseen} alt="boomseen" className="image" />
@@ -40,52 +39,41 @@ function Landing() {
           display: matches ? null : "flex",
         }}
       >
-        <div
-          className="inputContainer"
-          style={{
-            justifyContent: matches ? "center" : "flex-start",
-            marginBottom: matches ? 10 : null,
-          }}
-        >
-          <TextInput
-            placeholder="project name"
-            value={projectName}
-            onChange={(event) => {
-              setProjectName(event.target.value);
-            }}
-          />
-          <Button
-            onClick={() => {
-              navigate("/speaker/" + projectName, { replace: true });
-            }}
-          >
-            {" "}
-            VIEW LEADERBOARD{" "}
-          </Button>
-        </div>
-        <div
-          className="inputContainer"
-          style={{
-            justifyContent: matches ? "center" : "flex-start",
-            marginBottom: matches ? 10 : null,
-          }}
-        >
-          <TextInput
-            placeholder="group name"
-            value={groupName}
-            onChange={(event) => {
-              setGroupName(event.target.value);
-            }}
-          />
-          <Button
-            onClick={() => {
-              navigate("/learner/" + projectName + "/" + groupName, {
-                replace: true,
-              });
-            }}
-          >
-            VIEW AS LEARNER
-          </Button>
+        <div className="lower__content__input">
+          <div className="inputContainer">
+            <TextInput
+              placeholder="project name"
+              value={projectName}
+              onChange={(event) => {
+                setProjectName(event.target.value);
+              }}
+            />
+            <Button
+              onClick={() => {
+                navigate(`/speaker/${projectName}`, { replace: false });
+              }}
+            >
+              VIEW LEADERBOARD
+            </Button>
+          </div>
+          <div className="inputContainer">
+            <TextInput
+              placeholder="group name"
+              value={groupName}
+              onChange={(event) => {
+                setGroupName(event.target.value);
+              }}
+            />
+            <Button
+              onClick={() => {
+                navigate(`/learner/${projectName}/${groupName}`, {
+                  replace: false,
+                });
+              }}
+            >
+              VIEW AS LEARNER
+            </Button>
+          </div>
         </div>
         {!matches && (
           <div className="diceContainer">

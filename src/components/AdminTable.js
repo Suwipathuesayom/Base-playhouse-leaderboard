@@ -122,7 +122,7 @@ export default function AdminTable({ projectDashboard }) {
     console.log("in query project");
     await db
       .collection("users")
-      .doc("Nh6Zpe910nV0Osc2cBAEMP9CsjJ2")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
       .collection("project")
       .where("projectName", "==", project.projectName)
       .get()
@@ -283,7 +283,7 @@ export default function AdminTable({ projectDashboard }) {
                   disabled
                   fullWidth
                   id="filled-disabled"
-                  value={`localhost:3000/speaker/${selectedProject?.projectName}`}
+                  value={`https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`}
                   size={"small"}
                 />
               )}
@@ -299,7 +299,7 @@ export default function AdminTable({ projectDashboard }) {
                 <Button
                   onClick={() => {
                     copyToClipBoard(
-                      `localhost:3000/speaker/${selectedProject?.projectName}`,
+                      `https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`,
                       setCopySpeaker("Copied!")
                     );
                     resetCopyClick("speaker");
@@ -317,7 +317,7 @@ export default function AdminTable({ projectDashboard }) {
                   disabled
                   fullWidth
                   id="filled-disabled"
-                  value={`localhost:3000/learner/${selectedProject?.projectName}`}
+                  value={`https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`}
                   size={"small"}
                 />
               )}
@@ -333,7 +333,7 @@ export default function AdminTable({ projectDashboard }) {
                 <Button
                   onClick={() => {
                     copyToClipBoard(
-                      `localhost:3000/learner/${selectedProject?.projectName}`,
+                      `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
                       setCopyLearner("Copied!")
                     );
                     resetCopyClick("learner");
