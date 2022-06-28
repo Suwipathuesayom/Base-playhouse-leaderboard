@@ -16,11 +16,11 @@ import PresentationHeader from "../components/PresentationHeader";
 // const auth = firebase.auth();
 
 function Learner() {
-  const DISPLAY_LIMIT = 5;
   const [project, setProject] = useState();
   const { projectNameParams, groupNameParams } = useParams();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const DISPLAY_LIMIT = smallScreen ? 5 : 10;
 
   const queryProject = (projectName) => {
     db.collection("users")
