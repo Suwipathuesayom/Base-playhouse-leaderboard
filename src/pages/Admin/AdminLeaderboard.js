@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
-import color from "../../constant/color";
 import Navbar from "./../../components/Navbar";
 
 // const auth = firebase.auth();
