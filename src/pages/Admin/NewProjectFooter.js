@@ -5,6 +5,7 @@ import "../../assets/styles/NewProject.css";
 
 import color from "../../constant/color";
 import { useNavigate } from "react-router-dom";
+import calculateProjectTotalPoint from "../../components/Functions/calculateProjectTotalPoint";
 
 // const auth = firebase.auth();
 
@@ -21,14 +22,14 @@ function NewProjectFooter({
     let tempProject = project;
     tempProject.createdAt =
       firebase.firestore.Timestamp.fromDate(createdDateTime);
+    tempProject.totalPoint = calculateProjectTotalPoint(tempProject);
     setProject(tempProject);
     setEditProjectStatus("info");
     try {
       let projectRef = db
         .collection("users")
         .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
-      // .doc(project.projectName)
-      // .set(tempProject)
+
       let newProjectRef = await projectRef
         .collection("project")
         .add(tempProject);
@@ -46,7 +47,7 @@ function NewProjectFooter({
         .set({
           createdAt: firebase.firestore.Timestamp.fromDate(createdDateTime),
           projectName: tempProject.projectName,
-          totalPoint: 20,
+          totalPoint: tempProject.totalPoint,
         })
         .then(() => {
           setEditProjectStatus("success");
@@ -64,6 +65,7 @@ function NewProjectFooter({
     let tempProject = project;
     tempProject.createdAt =
       firebase.firestore.Timestamp.fromDate(updatedDateTime);
+    tempProject.totalPoint = calculateProjectTotalPoint(tempProject);
     setProject(tempProject);
 
     setEditProjectStatus("info");
@@ -84,6 +86,7 @@ function NewProjectFooter({
         .update({
           createdAt: firebase.firestore.Timestamp.fromDate(updatedDateTime),
           projectName: tempProject.projectName,
+          totalPoint: tempProject.totalPoint,
         })
         .then(() => {
           setEditProjectStatus("success");
