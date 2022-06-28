@@ -32,7 +32,6 @@ function NewProjectNameAndColor({ project, setProject }) {
     setProject(tempProject);
 
     setProjectName(newProjectName);
-    setIsEditing(false);
   };
   const handleTopThreeColorChange = (newColor) => {
     let tempProject = project;
@@ -46,7 +45,7 @@ function NewProjectNameAndColor({ project, setProject }) {
   };
   return (
     <Stack
-      width={"50%"}
+      width={"100%"}
       height={"70px"}
       sx={{ borderRadius: 2, padding: "0 20px" }}
       flexDirection="row"
@@ -56,12 +55,17 @@ function NewProjectNameAndColor({ project, setProject }) {
       <HeaderText width={180}>ชื่อโปรเจค</HeaderText>
       {isEditing && (
         <TextInput
-          width={200}
+          width={500}
           onKeyPress={(event) => {
-            if (event.key === "Enter")
+            if (event.key === "Enter") {
               handleRemaneProjectName(event.target.value);
+              setIsEditing(false);
+            }
           }}
-          onChange={(event) => setNewProjectName(event.target.value)}
+          onChange={(event) => {
+            setNewProjectName(event.target.value);
+            handleRemaneProjectName(event.target.value);
+          }}
           defaultValue={getProjectName()}
         />
       )}
@@ -78,8 +82,10 @@ function NewProjectNameAndColor({ project, setProject }) {
             // backgroundColor: "orange",
           }}
           onClick={() => {
-            if (!!newProjectName.length)
+            if (!!newProjectName.length) {
               handleRemaneProjectName(newProjectName);
+              setIsEditing(false);
+            }
           }}
         />
       )}
