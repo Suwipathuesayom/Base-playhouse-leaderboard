@@ -86,6 +86,13 @@ function LoginScreen() {
         >
           Login
         </Button>
+        <p
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          ย้อนกลับ
+        </p>
       </div>
     </div>
   );
