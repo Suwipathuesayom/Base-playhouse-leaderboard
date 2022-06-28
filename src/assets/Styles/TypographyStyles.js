@@ -54,6 +54,7 @@ const TableHeaderText = styled(Typography)(({ flex, fontSize = 28 }) => ({
   fontWeight: 800,
   color: color.primaryOrange,
   fontFamily: "Raleway",
+  
 }));
 
 const TablePointHeaderText = styled(Typography)(({ flex }) => ({

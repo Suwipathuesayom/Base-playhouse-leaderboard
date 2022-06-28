@@ -37,13 +37,20 @@ export default function Navbar() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             LEADERBOARD
           </Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ marginRight: 2, cursor: "pointer" }}
-          >
-            หน้าแรก
-          </Typography>
+          <Link style={{ textDecoration: "none" }} to="/">
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                marginRight: 2,
+                cursor: "pointer",
+                textDecoration: "none",
+                color: color.primaryOrange,
+              }}
+            >
+              หน้าแรก
+            </Typography>
+          </Link>
           <Link to="/">
             <Logout
               sx={{ fontSize: 40, color: color.primaryOrange }}

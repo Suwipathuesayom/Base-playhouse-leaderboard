@@ -4,6 +4,7 @@ import AdminLeaderboard from "../pages/Admin/AdminLeaderboard";
 import AdminProject from "../pages/Admin/AdminProject";
 import EditProject from "../pages/Admin/EditProject";
 import NewProject from "../pages/Admin/NewProject";
+import SmallEditProject from "../pages/Admin/SmallEditProject";
 import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
@@ -32,6 +33,7 @@ export default function AdminStack() {
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="project" element={<AdminProject />} />
+        <Route path="small-edit-project" element={<SmallEditProject />} />
       </Routes>
     </BrowserRouter>
   );
