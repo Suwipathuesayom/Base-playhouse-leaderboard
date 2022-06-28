@@ -7,6 +7,7 @@ import { Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 import limitStringLength from "../components/Functions/limitStringLength";
 import PresentationHeader from "../components/PresentationHeader";
+import color from "../constant/color";
 
 // const auth = firebase.auth();
 
@@ -47,18 +48,19 @@ export default function Mentor() {
         >
           <Stack
             sx={{
-              width: 450,
               height: 90,
-              backgroundColor: "white",
-              borderRadius: "30px",
+              backgroundColor: color.primaryBlack,
+              borderRadius: "10px",
               justifyContent: "center",
+              marginX: "2%",
             }}
           >
             <Typography
               sx={{
-                marginLeft: "20px",
+                marginX: "20px",
                 justifyContent: "center",
                 fontSize: 38,
+                color: "white",
               }}
             >
               Mentor : {limitStringLength(mentorNameParams, 29)}
