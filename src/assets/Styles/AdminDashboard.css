@@ -43,7 +43,7 @@
   font-family: "Raleway";
   font-style: normal;
   font-weight: 400;
-  font-size: 44px;
+  font-size: 48px;
   line-height: 52px;
   /* identical to box height */
 
@@ -52,25 +52,14 @@
   color: #000000;
 }
 
-.admin-header__newLeaderboard img {
-  width: 40px;
-  aspect-ratio: 1;
-  margin-left: 20px;
-  /* background-color: orange; */
-}
-.admin-header__newLeaderboard img:hover {
-  transform: scale(1.1);
-}
-
 .admin-body {
   padding: 0 3% 3% 3%;
   height: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box;
   background: rgba(32, 27, 27, 0.78);
   border: 10px solid rgba(255, 255, 255, 0.6);
-  border-radius: 40px;
+  border-radius: 40px; */
 }
-
 
 .circle1 {
   position: absolute;
@@ -80,37 +69,27 @@
   top: 0px;
   z-index: -1;
 }
-/* .circle2 {
-  position: absolute;
-  width: 662.6px;
-  height: 510.3px;
-  left: 890px;
-  top: 500px;
-} */
-
-/* .admin-table {
-  position: absolute;
-  min-width: 95%;
-  width: 240px;
-  margin-left: 20px;
-  margin-right: 20px;
-} */
 
 .custom-headCell {
   width: 584px;
   height: 42px;
-
   font-family: "Raleway";
   font-style: normal;
   font-weight: 800;
   font-size: 36px;
   line-height: 42px;
-
   color: #ff5b4a;
-
-  /* Inside auto layout */
-
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  color: #ff5b4a;
+}
+
+.icon:hover {
+  transform: scale(1.1);
 }
