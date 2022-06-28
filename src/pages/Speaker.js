@@ -143,6 +143,7 @@ function Speaker() {
             height={"100%"}
             flexGrow={1}
             paddingBottom={"15px"}
+            overflow={"scroll"}
             sx={{
               borderTopRightRadius: "20px",
               borderBottomRightRadius: "20px",

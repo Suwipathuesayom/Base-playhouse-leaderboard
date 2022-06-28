@@ -46,7 +46,7 @@ function NewProjectNameAndColor({ project, setProject }) {
   };
   return (
     <Stack
-      width={"100%"}
+      width={"50%"}
       height={"70px"}
       sx={{ borderRadius: 2, padding: "0 20px" }}
       flexDirection="row"
@@ -56,7 +56,7 @@ function NewProjectNameAndColor({ project, setProject }) {
       <HeaderText width={180}>ชื่อโปรเจค</HeaderText>
       {isEditing && (
         <TextInput
-          width={500}
+          width={200}
           onKeyPress={(event) => {
             if (event.key === "Enter")
               handleRemaneProjectName(event.target.value);
