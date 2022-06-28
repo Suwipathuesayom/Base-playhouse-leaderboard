@@ -11,6 +11,7 @@ import color from "../constant/color";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import { TextInput } from "../assets/styles/InputStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
+import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
 
 const SubTaskBox = ({
   project,
@@ -62,7 +63,12 @@ const SubTaskBox = ({
       project.tasks,
       index
     );
+    tempProject.learnerGroups.forEach((group) => {
+      group.points[index].taskPoint = tempProject.tasks[index].point;
+    });
+    recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
+    console.log(tempProject);
   };
   const handleRenameSubTask = (index, newSubTaskName) => {
     // handle UI State

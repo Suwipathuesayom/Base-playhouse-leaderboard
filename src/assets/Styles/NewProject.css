@@ -9,6 +9,16 @@
   overflow-y: hidden;
 }
 
+.alert {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  position: fixed;
+  top: 10px;
+  z-index: 10;
+}
+
 .newProject__icon:hover {
   transition: transform 0.2s ease-in-out;
   transform: scale(1.3) !important;

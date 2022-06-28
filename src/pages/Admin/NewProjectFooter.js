@@ -4,6 +4,7 @@ import React from "react";
 import "../../assets/styles/NewProject.css";
 
 import color from "../../constant/color";
+import { useNavigate } from "react-router-dom";
 
 // const auth = firebase.auth();
 
@@ -13,6 +14,8 @@ function NewProjectFooter({
   header,
   setEditProjectStatus,
 }) {
+  const navigate = useNavigate();
+
   const handleAddNewProject = async () => {
     let createdDateTime = new Date();
     let tempProject = project;
@@ -105,7 +108,9 @@ function NewProjectFooter({
         }}
         disableElevation
         variant="contained"
-        onClick={() => {}}
+        onClick={() => {
+          navigate("/admin-leaderboard");
+        }}
       >
         ย้อนกลับ
       </Button>

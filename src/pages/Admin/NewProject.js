@@ -23,11 +23,13 @@ const NewProject = () => {
 
   return (
     <div className="newProject">
-      <ProjectStatusAlert
-        editProjectStatus={editProjectStatus}
-        setEditProjectStatus={setEditProjectStatus}
-        action={"new"}
-      />
+      <div className="alert">
+        <ProjectStatusAlert
+          editProjectStatus={editProjectStatus}
+          setEditProjectStatus={setEditProjectStatus}
+          action={"edit"}
+        />
+      </div>
       <NewProjectHeader
         project={project}
         setProject={setProject}

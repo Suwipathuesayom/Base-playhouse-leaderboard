@@ -3,10 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
 import Login from "../pages/Login";
-<<<<<<< HEAD
-=======
-import Mentor from "../pages/Mentor";
->>>>>>> toey-frontend
 import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
 
