@@ -3,16 +3,9 @@ import "../assets/styles/Landing.css";
 import { db } from "../config/firebase";
 import boomseen from "../assets/images/boomseen.png";
 import dice from "../assets/images/dice.png";
-import {
-  Autocomplete,
-  Button,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Autocomplete, Button, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../components/SplashScreen";
-import color from "../constant/color";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 
 function Landing() {
@@ -117,7 +110,7 @@ function Landing() {
                 variant="contained"
                 disabled={projectName === "" || !projectName}
                 onClick={() => {
-                  navigate(`/speaker/${projectName}`, { replace: false });
+                  navigate(`/speaker/${projectName}`);
                 }}
               >
                 VIEW LEADERBOARD
@@ -151,12 +144,22 @@ function Landing() {
                   !projectName
                 }
                 onClick={() => {
-                  navigate(`/learner/${projectName}/${groupName}`, {
-                    replace: false,
-                  });
+                  navigate(`/learner/${projectName}/${groupName}`);
                 }}
               >
                 VIEW AS LEARNER
+              </Button>
+            </div>
+            <div className="admin">
+              <p>เข้าสู่ระบบสำหรับ Admin</p>
+              <Button
+                disableElevation
+                variant="contained"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
               </Button>
             </div>
           </div>

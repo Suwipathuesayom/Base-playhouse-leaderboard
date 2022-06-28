@@ -19,7 +19,7 @@ function NotFoundPage() {
   const navigate = useNavigate();
 
   const goBackToLandingScreen = () => {
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
     if (auth.currentUser) {
       navigate("/admin-leaderboard", { replace: true });
     } else {

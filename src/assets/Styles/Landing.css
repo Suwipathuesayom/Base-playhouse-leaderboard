@@ -79,6 +79,14 @@
   background-color: #f18888;
 }
 
+.admin > Button {
+  background-color: #ff5b4a;
+}
+
+.admin > Button:hover {
+  background-color: #f18888;
+}
+
 .diceContainer {
   display: flex;
   flex-shrink: 1;
