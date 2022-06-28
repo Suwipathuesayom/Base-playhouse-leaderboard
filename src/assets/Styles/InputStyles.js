@@ -1,4 +1,5 @@
-import { InputBase, styled } from "@mui/material";
+import { InputBase, styled, TextField } from "@mui/material";
+import color from "../../constant/color";
 
 const TextInput = styled(InputBase)(({ width, marginright = "20px" }) => ({
   width: width,
@@ -18,4 +19,13 @@ const ColorInput = styled(InputBase)(({ width, marginright = "20px" }) => ({
   backgroundColor: "white",
 }));
 
-export { TextInput, ColorInput };
+const DropDownTextInput = styled(TextField)(() => ({
+  "& .MuiOutlinedInput-root": {
+    "& > fieldset": {
+      border: "none",
+    },
+  },
+  "& .MuiInputLabel-root": { color: color.primaryOrange },
+}));
+
+export { DropDownTextInput, TextInput, ColorInput };

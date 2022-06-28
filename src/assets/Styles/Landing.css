@@ -1,3 +1,7 @@
+.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+  background: white;
+}
+
 .container {
   height: 100vh;
   padding: 2% 3% 0 3%;
@@ -57,16 +61,16 @@
 
 .inputContainer {
   display: flex;
+  align-items: center;
 }
 
 .inputContainer > Button {
   height: 60px;
-  width: 200px;
+  width: 225px;
   min-width: 150px;
   border-radius: 5px;
   border-width: 0;
   font-size: 18px;
-  font-weight: 900;
   color: white;
   background-color: #ff5b4a;
 }
