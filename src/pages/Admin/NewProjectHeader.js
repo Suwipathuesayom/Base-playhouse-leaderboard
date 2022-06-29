@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../assets/styles/NewProject.css";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { storage } from "../../config/firebase";
 import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
 import { StrongText } from "../../assets/styles/TypographyStyles";
-import { Button } from "@mui/material";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { SyncLoader } from "react-spinners";
+import color from "../../constant/color";
 
 function NewProjectHeader({ project, setProject, header }) {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [image, setImage] = useState(null);
-  const [imageList, setImageList] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const handleChangeImage = (e) => {
     if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+      uploadImage(e.target.files[0]);
     }
   };
 
-  const imageListRef = ref(storage, "images/");
-  const uploadImage = () => {
-    console.log("uploading image");
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+  const uploadImage = (image) => {
+    setUploading(true);
+    const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -35,7 +33,7 @@ function NewProjectHeader({ project, setProject, header }) {
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
+            setUploading(false);
             setSelectedImage(url);
           })
           .catch((error) => {
@@ -45,18 +43,6 @@ function NewProjectHeader({ project, setProject, header }) {
     );
   };
 
-  useEffect(() => {
-    listAll(imageListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList((prev) => [...prev, url]);
-        });
-      });
-    });
-  });
-
-  // console.log("image:", image);
-
   const handleSelectImage = (selectedImage) => {
     let tempProject = project;
     tempProject.imageUrl = selectedImage;
@@ -65,15 +51,27 @@ function NewProjectHeader({ project, setProject, header }) {
   return (
     <div className="header">
       <div className="header__upload">
-        <img
-          src={selectedImage ? selectedImage : project.imageUrl}
-          alt="not found"
-        />
-        {/* {imageList.map((url) => {
-          return <img src={url} alt="MyImage" />;
-        })} */}
-
-        <div>
+        {!uploading && (
+          <img
+            src={selectedImage ? selectedImage : project.imageUrl}
+            alt="not found"
+          />
+        )}
+        {uploading && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "300px",
+              height: "300px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <SyncLoader color={color.primaryOrange} size={50} />
+          </Box>
+        )}
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <input
             type={"text"}
             onChange={(event) => {
@@ -85,24 +83,10 @@ function NewProjectHeader({ project, setProject, header }) {
           <input
             style={{ marginTop: 5 }}
             type={"file"}
-            onChange={handleChangeImage}
-          />
-          <Button
-            style={{ marginTop: 5 }}
-            variant="contained"
-            color="error"
-            type={"submit"}
-            onClick={uploadImage}
-          >
-            Upload
-          </Button>
-          {/* <input
-            type={"file"}
             onChange={(event) => {
-              setSelectedImage(event.target.files[0]);
-              handleSelectImage(event.target.files[0]);
+              handleChangeImage(event);
             }}
-          /> */}
+          />
         </div>
       </div>
       <Box
@@ -113,12 +97,12 @@ function NewProjectHeader({ project, setProject, header }) {
           flexDirection: "column",
           width: "100%",
           marginLeft: "20px",
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
           // backgroundColor: "pink",
         }}
       >
         <StrongText>{header}</StrongText>
-        <Stack
+        {/* <Stack
           className="header__contentImport"
           width={"100%"}
           flexDirection={"row"}
@@ -126,7 +110,7 @@ function NewProjectHeader({ project, setProject, header }) {
           // bgcolor="red"
         >
           <p>เพิ่มเกณฑ์จากโปรเจคที่มีอยู่แล้ว ?</p>
-        </Stack>
+        </Stack> */}
         <NewProjectNameAndColor project={project} setProject={setProject} />
         <NewProjectAddMentor project={project} setProject={setProject} />
       </Box>

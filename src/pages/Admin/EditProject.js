@@ -38,7 +38,7 @@ function EditProject() {
   if (project) {
     return (
       <div>
-        <Navbar header="EDIT PROJECT" />
+        <Navbar />
         <div className="newProject">
           <div className="alert">
             <ProjectStatusAlert

@@ -86,7 +86,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [mentors, setMentors] = useState([0]);
+  const [mentors, setMentors] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
@@ -121,6 +121,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const handleClose = () => {
     setOpen(false);
     setSelectedProject();
+    setMentors([]);
   };
 
   const queryProject = async (project) => {

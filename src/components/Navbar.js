@@ -8,7 +8,7 @@ import { Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import color from "../constant/color";
 
-export default function Navbar({ header = "test header" }) {
+export default function Navbar({ header = "" }) {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();

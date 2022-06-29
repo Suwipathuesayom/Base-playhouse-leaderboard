@@ -24,7 +24,7 @@ const NewProject = () => {
 
   return (
     <div>
-      <Navbar header={"NEW PROJECT"} />
+      <Navbar />
       <div className="newProject">
         <div className="alert">
           <ProjectStatusAlert
