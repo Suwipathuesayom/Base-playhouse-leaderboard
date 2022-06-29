@@ -5,7 +5,7 @@ import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
-import NavbarNewproject from "./../../components/NavbarNewproject";
+import Navbar from "./../../components/Navbar";
 
 const NewProject = () => {
   const [project, setProject] = useState({
@@ -23,27 +23,29 @@ const NewProject = () => {
   const [editProjectStatus, setEditProjectStatus] = useState("warning");
 
   return (
-    <div className="newProject">
-      <div className="alert">
-        <ProjectStatusAlert
-          editProjectStatus={editProjectStatus}
+    <div>
+      <Navbar header={"NEW PROJECT"} />
+      <div className="newProject">
+        <div className="alert">
+          <ProjectStatusAlert
+            editProjectStatus={editProjectStatus}
+            setEditProjectStatus={setEditProjectStatus}
+            action={"new"}
+          />
+        </div>
+        <NewProjectHeader
+          project={project}
+          setProject={setProject}
+          header={"NEW PROJECT"}
+        />
+        <NewProjectBody project={project} setProject={setProject} />
+        <NewProjectFooter
+          project={project}
+          setProject={setProject}
+          header={"NEW PROJECT"}
           setEditProjectStatus={setEditProjectStatus}
-          action={"new"}
         />
       </div>
-      <NavbarNewproject />
-      <NewProjectHeader
-        project={project}
-        setProject={setProject}
-        header={"NEW PROJECT"}
-      />
-      <NewProjectBody project={project} setProject={setProject} />
-      <NewProjectFooter
-        project={project}
-        setProject={setProject}
-        header={"NEW PROJECT"}
-        setEditProjectStatus={setEditProjectStatus}
-      />
     </div>
   );
 };
