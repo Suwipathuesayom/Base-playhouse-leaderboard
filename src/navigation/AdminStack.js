@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SmallScreen from "../components/SmallScreen";
 import AdminLeaderboard from "../pages/Admin/AdminLeaderboard";
 import AdminProject from "../pages/Admin/AdminProject";
 import EditProject from "../pages/Admin/EditProject";
@@ -19,6 +20,7 @@ export default function AdminStack() {
         <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
         <Route path="new-project" element={<NewProject />} />
         <Route path="edit-project" element={<EditProject />} />
+        <Route path="smallscreen" element={<SmallScreen />} />
         <Route path="speaker/:projectNameParams" element={<Speaker />} />
         <Route
           path="learner/:projectNameParams/:groupNameParams"

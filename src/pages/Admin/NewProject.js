@@ -28,7 +28,7 @@ const NewProject = () => {
         <ProjectStatusAlert
           editProjectStatus={editProjectStatus}
           setEditProjectStatus={setEditProjectStatus}
-          action={"edit"}
+          action={"new"}
         />
       </div>
       <NavbarNewproject />

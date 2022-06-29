@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import "../assets/styles/Landing.css";
-import { db } from "../config/firebase";
+import { db, firebase } from "../config/firebase";
 import boomseen from "../assets/images/boomseen.png";
 import dice from "../assets/images/dice.png";
+<<<<<<< HEAD
 import {
   Autocomplete,
   Button,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+=======
+import { Autocomplete, Button, useMediaQuery, useTheme } from "@mui/material";
+>>>>>>> 4c0e0a8de2273f627a8912bd4de666d3dbc284e7
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../components/SplashScreen";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
@@ -35,7 +39,7 @@ function Landing() {
           snapshot.forEach((doc) => {
             tempProjectDashboard.push(doc.data());
           });
-          console.log(tempProjectDashboard);
+          // console.log(tempProjectDashboard);
           setProjectDashboard(tempProjectDashboard);
         })
         .catch((error) => {
@@ -115,7 +119,7 @@ function Landing() {
                 variant="contained"
                 disabled={projectName === "" || !projectName}
                 onClick={() => {
-                  navigate(`/speaker/${projectName}`, { replace: false });
+                  navigate(`/speaker/${projectName}`);
                 }}
               >
                 VIEW LEADERBOARD
@@ -142,20 +146,40 @@ function Landing() {
               <Button
                 disableElevation
                 variant="contained"
-                disabled={
-                  groupName === "" ||
-                  !groupName ||
-                  projectName === "" ||
-                  !projectName
-                }
+                disabled={projectName === "" || !projectName}
                 onClick={() => {
-                  navigate(`/learner/${projectName}/${groupName}`, {
-                    replace: false,
-                  });
+                  navigate(`/learner/${projectName}/${groupName}`);
                 }}
               >
                 VIEW AS LEARNER
               </Button>
+            </div>
+            <div className="admin">
+              {!firebase.auth().currentUser && (
+                <div className="admin">
+                  <p>เข้าสู่ระบบสำหรับ Admin</p>
+                  <Button
+                    disableElevation
+                    variant="contained"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Login
+                  </Button>
+                </div>
+              )}
+              {firebase.auth().currentUser && (
+                <Button
+                  disableElevation
+                  variant="contained"
+                  onClick={() => {
+                    navigate("/admin-leaderboard");
+                  }}
+                >
+                  กลับสู่หน้า ADMIN
+                </Button>
+              )}
             </div>
           </div>
           {!matches && (

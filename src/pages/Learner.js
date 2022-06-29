@@ -16,11 +16,14 @@ import PresentationHeader from "../components/PresentationHeader";
 // const auth = firebase.auth();
 
 function Learner() {
-  const DISPLAY_LIMIT = 5;
   const [project, setProject] = useState();
   const { projectNameParams, groupNameParams } = useParams();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  let DISPLAY_LIMIT = Number.MAX_SAFE_INTEGER;
+  if (groupNameParams) {
+    DISPLAY_LIMIT = smallScreen ? 5 : 10;
+  }
 
   const queryProject = (projectName) => {
     db.collection("users")
@@ -74,7 +77,11 @@ function Learner() {
       // paddingX={"15px"}
       sx={{
         border: isParamGroupName(group.groupName) ? 3 : null,
-        borderColor: isParamGroupName(group.groupName) ? "lime" : null,
+        borderColor: isParamGroupName(group.groupName)
+          ? project.theme.hilight === "#000000"
+            ? "lime"
+            : project.theme.hilight
+          : null,
       }}
       backgroundColor={() => getRankColor(rankIndex, project.theme.top3)}
       // backgroundColor={"blue"}

@@ -4,22 +4,18 @@ import { TextInput } from "../assets/styles/InputStyles";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "../assets/styles/login.css";
 import color from "../constant/color";
-import { useNavigate } from "react-router-dom";
 
 const auth = getAuth();
 
 function LoginScreen() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setHasError] = useState(false);
-  const handleLogin = async (event, email, password) => {
-    event.preventDefault();
+  const handleLogin = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           setHasError(false);
-          navigate("/admin-leaderboard", { replace: true });
         })
         .catch((error) => {
           console.log(error);
@@ -36,12 +32,12 @@ function LoginScreen() {
           variant="h2"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
-          fontSize={40}
+          fontSize={36}
         >
           LEADERBOARD
         </Typography>
         <Typography
-          variant="p"
+          variant="h2"
           color={"#FF5B4A"}
           fontFamily={"Russo One"}
           fontSize={24}
@@ -74,25 +70,15 @@ function LoginScreen() {
           variant="contained"
           fontSize={32}
           sx={{
-            width: "80%",
+            width: "75%",
             height: "50px",
             fontSize: 20,
             backgroundColor: color.primaryOrange,
-            ":hover": {
-              backgroundColor: "#f18888",
-            },
           }}
-          onClick={(event) => handleLogin(event, email, password)}
+          onClick={() => handleLogin(email, password)}
         >
           Login
         </Button>
-        <p
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          ย้อนกลับ
-        </p>
       </div>
     </div>
   );

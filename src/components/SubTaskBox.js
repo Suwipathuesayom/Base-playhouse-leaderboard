@@ -68,7 +68,7 @@ const SubTaskBox = ({
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
-    console.log(tempProject);
+    // console.log(tempProject);
   };
   const handleRenameSubTask = (index, newSubTaskName) => {
     // handle UI State

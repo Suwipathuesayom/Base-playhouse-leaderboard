@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -30,6 +29,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
+import { Delete } from "@mui/icons-material";
+import color from "../constant/color";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -80,12 +81,13 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   justifyContent: "space-evenly",
 }));
 
-export default function AdminTable({ projectDashboard }) {
+export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   //copy to clipboard
   const [copySpeaker, setCopySpeaker] = useState("Copy");
@@ -119,7 +121,6 @@ export default function AdminTable({ projectDashboard }) {
   };
 
   const queryProject = async (project) => {
-    console.log("in query project");
     await db
       .collection("users")
       .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
@@ -128,43 +129,46 @@ export default function AdminTable({ projectDashboard }) {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          // const data = {
-          //   createdAt: doc.data().createdAt.toDate(),
-          //   id: doc.data().id,
-          //   imageUrl: doc.data().imageUrl,
-          //   learnerGroups: doc
-          //     .data()
-          //     .learnerGroups.map((group) => group.groupName),
-          //   mentors: doc.data().mentors.map((mentor) => mentor.fullName),
-          //   projectName: doc.data().projectName,
-          //   tasks: doc.data().tasks.map((task) => task.taskName),
-          //   points: doc.data().tasks.map((task) => task.point),
-          //   subTasks: doc
-          //     .data()
-          //     .tasks.map((task, index) =>
-          //       task.subTasks.map(
-          //         (subTask, subIndex) =>
-          //           `[${index},${subIndex},${subTask.subTaskName}]`
-          //       )
-          //     ),
-          //   subTasksPoints: doc
-          //     .data()
-          //     .tasks.map((task, index) =>
-          //       task.subTasks.map(
-          //         (subTask, subIndex) =>
-          //           `[${index},${subIndex},${subTask.point}]`
-          //       )
-          //     ),
-          //   theme: [doc.data().theme.top3, doc.data().theme.hilight],
-          // };
-          // console.log(data);
-          // setSelectedProject(data);
+          // console.log(doc.data());
           setSelectedProject(doc.data());
         });
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleDeleteProject = async (project) => {
+    const collectionRef = db
+      .collection("users")
+      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
+
+    const projectRef = collectionRef
+      .collection("project")
+      .where("projectName", "==", project.projectName);
+
+    await projectRef
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+      })
+      .catch((error) => console.log(error));
+
+    const projectDashboardRef = collectionRef
+      .collection("projectDashboard")
+      .where("projectName", "==", project.projectName);
+
+    await projectDashboardRef
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+        setProjectDashboard([]);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -187,15 +191,15 @@ export default function AdminTable({ projectDashboard }) {
               </StyledTableCell>
               {!smallScreen && (
                 <StyledTableCell>
-                  แก้ไขล่าสุด <ArrowDropDownIcon></ArrowDropDownIcon>
+                  แก้ไขล่าสุด <ArrowDropDownIcon />
                 </StyledTableCell>
               )}
               {!smallScreen && (
                 <StyledTableCell>
-                  คะแนนรวม <ArrowDropDownIcon></ArrowDropDownIcon>
+                  คะแนนรวม <ArrowDropDownIcon />
                 </StyledTableCell>
               )}
-              <StyledTableCell align="left"></StyledTableCell>
+              <StyledTableCell align="left" />
             </TableRow>
           </TableHead>
           <TableBody
@@ -235,22 +239,25 @@ export default function AdminTable({ projectDashboard }) {
                     >
                       Export
                     </Button>
-                    <Box
-                      sx={{
-                        ml: "10px",
-                        height: "100%",
-                        justifyContent: "center",
+                    <Delete
+                      className="newProject__icon"
+                      style={{
+                        fontSize: 28,
+                        color: color.primaryOrange,
                       }}
+                      onClick={() => {
+                        setSelectedProject(project);
+                        setShowDeleteDialog(true);
+                      }}
+                    />
+                    <StyledTypography
+                      component={Link}
+                      to="/edit-project"
+                      state={{ projectName: project.projectName }}
+                      variant="p"
                     >
-                      <StyledTypography
-                        component={Link}
-                        to="/edit-project"
-                        state={{ projectName: project.projectName }}
-                        variant="p"
-                      >
-                        Edit
-                      </StyledTypography>
-                    </Box>
+                      Edit
+                    </StyledTypography>
                   </StyledStack>
                 </StyledTableCell>
               </StyledTableRow>
@@ -261,104 +268,133 @@ export default function AdminTable({ projectDashboard }) {
 
       {/* Box Modal */}
 
-      <Box>
-        <Dialog
-          open={open}
-          onClose={() => handleClose()}
-          fullWidth
-          maxWidth="sm"
-        >
-          <DialogTitle>Export</DialogTitle>
-          <DialogContent>
-            <DialogContentText className="popup-header">
-              Project:{" "}
-              <StyledTypography variant="p">
-                {selectedProject?.projectName}
-              </StyledTypography>
-            </DialogContentText>
-            <InputLabel>Speaker</InputLabel>
-            <StyledDiv>
-              {selectedProject && (
-                <TextField
-                  disabled
-                  fullWidth
-                  id="filled-disabled"
-                  value={`https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`}
-                  size={"small"}
-                />
-              )}
-              {!selectedProject && (
-                <LoadingButton
-                  disabled
-                  loading={!selectedProject}
-                  fullWidth
-                  size={"large"}
-                />
-              )}
-              {selectedProject && (
-                <Button
-                  onClick={() => {
-                    copyToClipBoard(
-                      `https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`,
-                      setCopySpeaker("Copied!")
-                    );
-                    resetCopyClick("speaker");
-                  }}
-                  style={{ marginLeft: "5px", textTransform: "unset" }}
-                >
-                  {copySpeaker}
-                </Button>
-              )}
-            </StyledDiv>
-            <InputLabel>Learner</InputLabel>
-            <StyledDiv>
-              {selectedProject && (
-                <TextField
-                  disabled
-                  fullWidth
-                  id="filled-disabled"
-                  value={`https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`}
-                  size={"small"}
-                />
-              )}
-              {!selectedProject && (
-                <LoadingButton
-                  disabled
-                  loading={!selectedProject}
-                  fullWidth
-                  size={"large"}
-                />
-              )}
-              {selectedProject && (
-                <Button
-                  onClick={() => {
-                    copyToClipBoard(
-                      `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
-                      setCopyLearner("Copied!")
-                    );
-                    resetCopyClick("learner");
-                  }}
-                  style={{ marginLeft: "5px", textTransform: "unset" }}
-                >
-                  {copyLearner}
-                </Button>
-              )}
-            </StyledDiv>
-            <div style={{ marginTop: 10 }}>
-              <ExportCSV selectedProject={selectedProject} />
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => handleClose()}
-            >
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
+      <Dialog open={open} onClose={() => handleClose()} fullWidth maxWidth="sm">
+        <DialogTitle>Export</DialogTitle>
+        <DialogContent>
+          <DialogContentText className="popup-header">
+            Project:{" "}
+            <StyledTypography variant="p">
+              {selectedProject?.projectName}
+            </StyledTypography>
+          </DialogContentText>
+          <InputLabel>Speaker</InputLabel>
+          <StyledDiv>
+            {selectedProject && (
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                value={`https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`}
+                size={"small"}
+              />
+            )}
+            {!selectedProject && (
+              <LoadingButton
+                disabled
+                loading={!selectedProject}
+                fullWidth
+                size={"large"}
+              />
+            )}
+            {selectedProject && (
+              <Button
+                onClick={() => {
+                  copyToClipBoard(
+                    `https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`,
+                    setCopySpeaker("Copied!")
+                  );
+                  resetCopyClick("speaker");
+                }}
+                style={{ marginLeft: "5px", textTransform: "unset" }}
+              >
+                {copySpeaker}
+              </Button>
+            )}
+          </StyledDiv>
+          <InputLabel>Learner</InputLabel>
+          <StyledDiv>
+            {selectedProject && (
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                value={`https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`}
+                size={"small"}
+              />
+            )}
+            {!selectedProject && (
+              <LoadingButton
+                disabled
+                loading={!selectedProject}
+                fullWidth
+                size={"large"}
+              />
+            )}
+            {selectedProject && (
+              <Button
+                onClick={() => {
+                  copyToClipBoard(
+                    `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
+                    setCopyLearner("Copied!")
+                  );
+                  resetCopyClick("learner");
+                }}
+                style={{ marginLeft: "5px", textTransform: "unset" }}
+              >
+                {copyLearner}
+              </Button>
+            )}
+          </StyledDiv>
+          <div style={{ marginTop: 10 }}>
+            <ExportCSV selectedProject={selectedProject} />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => handleClose()}
+          >
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={showDeleteDialog}
+        onClose={() => setShowDeleteDialog(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText className="popup-header">
+            Project:{" "}
+            <StyledTypography variant="p">
+              {selectedProject?.projectName}
+            </StyledTypography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="text"
+            color="error"
+            onClick={() => setShowDeleteDialog(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              setShowDeleteDialog(false);
+              handleDeleteProject(selectedProject);
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

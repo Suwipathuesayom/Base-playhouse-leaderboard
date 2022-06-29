@@ -53,7 +53,7 @@ function NewProjectLearner({ project, setProject }) {
     }
     setProject(tempProject);
     // callback
-
+    // console.log(tempProject);
     // clear TextInput
     setNewGroup("");
   };

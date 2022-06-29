@@ -66,7 +66,7 @@ function NewProjectAddMentor({ project, setProject }) {
         width={"30%"}
         value={mentorName}
         onKeyPress={(event) => {
-          if (event.key === "Enter") {
+          if (event.key === "Enter" && !!event.target.value) {
             handleAddMentor(event.target.value);
           }
         }}
@@ -81,7 +81,11 @@ function NewProjectAddMentor({ project, setProject }) {
             : color.secondaryGrey,
           marginRight: 20,
         }}
-        onClick={() => handleAddMentor(mentorName)}
+        onClick={() => {
+          if (!!mentorName) {
+            handleAddMentor(mentorName);
+          }
+        }}
       />
       {mentorList?.map((mentor, index) => (
         <MentorButton

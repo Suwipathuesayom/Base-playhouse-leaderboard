@@ -1,3 +1,4 @@
+import { ImageTwoTone } from "@mui/icons-material";
 import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import color from "../constant/color";
 
@@ -13,16 +14,26 @@ const PresentationHeader = ({ project }) => {
       paddingX={"2%"}
       // backgroundColor={"red"}
     >
-      <Box
-        component={"img"}
-        src={project?.imageUrl}
-        alt={"not found"}
-        sx={{
-          width: smallScreen ? 100 : 200,
-          height: smallScreen ? 100 : 200,
-          marginRight: smallScreen ? "10px" : "30px",
-        }}
-      />
+      {project.imageUrl !==
+        "/static/media/uploadImage.7f6e4102b5851897986b.png" && (
+        <Box
+          component={"img"}
+          src={project.imageUrl}
+          alt={"not found"}
+          sx={{
+            width: smallScreen ? 100 : 200,
+            height: smallScreen ? 100 : 200,
+            marginRight: smallScreen ? "10px" : "30px",
+          }}
+        />
+      )}
+      {project.imageUrl ===
+        "/static/media/uploadImage.7f6e4102b5851897986b.png" && (
+        <ImageTwoTone
+          sx={{ fontSize: smallScreen ? "100px" : "200px" }}
+          mr={smallScreen ? "10px" : "30px"}
+        />
+      )}
       <Stack
         display={"flex"}
         flexDirection={smallScreen ? "column" : "row"}

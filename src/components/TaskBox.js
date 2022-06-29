@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  AddCircle,
+  // AddCircle,
   Delete,
   Done,
   DriveFileRenameOutline,
@@ -8,13 +8,18 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
-import { Box, InputAdornment, Stack } from "@mui/material";
+import {
+  Box,
+  //  InputAdornment,
+  Stack,
+} from "@mui/material";
 import color from "../constant/color";
 import SubTaskBox from "./SubTaskBox";
 import { TextInput } from "../assets/styles/InputStyles";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
+import addLearnerGroupTaskPoint from "./Functions/addLearnerGroupTaskPoint";
 
 const TaskBox = ({
   project,
@@ -32,8 +37,8 @@ const TaskBox = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTaskName, setNewTaskName] = useState(taskName);
-  const minpercent = 0;
-  const maxpercent = 100;
+  // const minpercent = 0;
+  // const maxpercent = 100;
   const TEXTMAXSAFELENGTH = 85;
 
   // State Handlers
@@ -88,23 +93,26 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].point = parseInt(newPointValue, 10);
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      if (!!!group.points.length) {
+        tempProject = addLearnerGroupTaskPoint(tempProject, groupIndex);
+      }
       group.points[index].taskPoint = parseInt(newPointValue, 10);
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
-    console.log(tempProject);
+    // console.log(tempProject);
   };
-  const handleWeightValueChange = (index, newWeightValue) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].weight = parseInt(newWeightValue, 10);
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    tempProject.tasks[index].weight = parseInt(newWeightValue, 10);
-    setProject(tempProject);
-  };
+  // const handleWeightValueChange = (index, newWeightValue) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].weight = parseInt(newWeightValue, 10);
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   tempProject.tasks[index].weight = parseInt(newWeightValue, 10);
+  //   setProject(tempProject);
+  // };
   const handleRenameTask = (index, newTaskName) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -116,37 +124,37 @@ const TaskBox = ({
     tempProject.tasks[index].taskName = newTaskName;
     setProject(tempProject);
   };
-  const handleAddNewSubTask = (index) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].subTasks.push({
-      subTaskName: "",
-      point: 5,
-      isHidden: false,
-    });
-    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-    tempTask[index].showSubTasks = true;
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    if (
-      tempProject.tasks[index].subTasks[
-        tempProject.tasks[index].subTasks.length
-      ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
-    ) {
-      tempProject.tasks[index].subTasks.push({
-        subTaskName: "",
-        point: 5,
-        isHidden: false,
-      });
-    }
-    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-      tempProject.tasks,
-      index
-    );
-    tempProject.tasks[index].showSubTasks = true;
-    setProject(tempProject);
-  };
+  // const handleAddNewSubTask = (index) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].subTasks.push({
+  //     subTaskName: "",
+  //     point: 5,
+  //     isHidden: false,
+  //   });
+  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+  //   tempTask[index].showSubTasks = true;
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   if (
+  //     tempProject.tasks[index].subTasks[
+  //       tempProject.tasks[index].subTasks.length
+  //     ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
+  //   ) {
+  //     tempProject.tasks[index].subTasks.push({
+  //       subTaskName: "",
+  //       point: 5,
+  //       isHidden: false,
+  //     });
+  //   }
+  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+  //     tempProject.tasks,
+  //     index
+  //   );
+  //   tempProject.tasks[index].showSubTasks = true;
+  //   setProject(tempProject);
+  // };
   const handleRemoveTask = (index) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -246,14 +254,14 @@ const TaskBox = ({
             }}
           />
         )}
-        <AddCircle
+        {/* <AddCircle
           className="newProject__icon"
           style={{
             fontSize: 40,
             color: color.primaryOrange,
           }}
           onClick={() => handleAddNewSubTask(index)}
-        />
+        /> */}
 
         {!!!subTasks.length && !isHidden && (
           <TextInput
@@ -292,7 +300,7 @@ const TaskBox = ({
             }
           />
         )}
-        <TextInput
+        {/* <TextInput
           width={100}
           marginright={"10px"}
           type={"number"}
@@ -314,7 +322,7 @@ const TaskBox = ({
           onBlur={(event) => handleWeightValueChange(index, event.target.value)}
           defaultValue={weight}
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
-        />
+        /> */}
         <Delete
           className="newProject__icon"
           style={{

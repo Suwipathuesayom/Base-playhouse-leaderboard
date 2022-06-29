@@ -3,22 +3,27 @@ import { db } from "../../config/firebase";
 import "../../assets/styles/AdminDashboard.css";
 import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
+<<<<<<< HEAD
 import color from "../../constant/color";
 import Navbar from "../../components/NavbarAdmin";
+=======
+import Navbar from "./../../components/Navbar";
+>>>>>>> 4c0e0a8de2273f627a8912bd4de666d3dbc284e7
 
 // const auth = firebase.auth();
 
 // console.log(auth);
 
 function AdminLeaderboard() {
+  const navigate = useNavigate();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [projectDashboard, setProjectDashboard] = useState([]);
-  console.log(projectDashboard);
+  // console.log(projectDashboard);
 
   const queryProjectDashboard = async () => {
     let tempProjectDashboard = [];
@@ -33,7 +38,7 @@ function AdminLeaderboard() {
           snapshot.forEach((doc) => {
             tempProjectDashboard.push(doc.data());
           });
-          console.log(tempProjectDashboard);
+          // console.log(tempProjectDashboard);
           setProjectDashboard(tempProjectDashboard);
         })
         .catch((error) => {
@@ -50,16 +55,23 @@ function AdminLeaderboard() {
         <Navbar />
         <img src={circle1} alt="circle1" className="circle1" />
         <div className="admin-header">
-          <h1 style={{ fontSize: smallScreen ? 60 : 72 }}>LEADERBOARD</h1>
+          <h1 style={{ fontSize: smallScreen ? 48 : 72 }}>LEADERBOARD</h1>
           <div className="admin-header__newLeaderboard">
-            <Link to="/new-project">
-              <AddCircle sx={{ fontSize: 40, color: color.primaryOrange }} />
-            </Link>
-            <h2>New Leaderboard</h2>
+            <AddCircle
+              className="icon"
+              fontSize="large"
+              onClick={() => {
+                navigate("/new-project");
+              }}
+            />
+            <h2 style={{ fontSize: smallScreen ? 36 : 48 }}>New Leaderboard</h2>
           </div>
         </div>
         <div className="admin-body">
-          <AdminTable projectDashboard={projectDashboard} />
+          <AdminTable
+            projectDashboard={projectDashboard}
+            setProjectDashboard={setProjectDashboard}
+          />
         </div>
       </div>
     );
