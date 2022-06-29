@@ -35,6 +35,7 @@ function NewProjectHeader({ project, setProject, header }) {
           .then((url) => {
             setUploading(false);
             setSelectedImage(url);
+            handleSelectImage(url);
           })
           .catch((error) => {
             console.log(error);
