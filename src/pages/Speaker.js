@@ -191,15 +191,29 @@ function Speaker() {
               >
                 {!!group.points.length &&
                   group.points.map((point, pointIndex) => {
-                    if (!project.tasks[pointIndex].isHidden) {
+                    if (point.subTasks) {
+                      let sum = 0;
+                      point.subTasks.forEach((subTask) => {
+                        if (subTask.isChecked) {
+                          sum += subTask.subTaskPoint;
+                        }
+                      });
                       return (
                         <TablePointHeaderText flex={1} key={pointIndex}>
-                          {checkIfIntIsNotZero(
-                            point.taskPoint,
-                            point.isChecked
-                          )}
+                          {sum}
                         </TablePointHeaderText>
                       );
+                    } else {
+                      if (!project.tasks[pointIndex].isHidden) {
+                        return (
+                          <TablePointHeaderText flex={1} key={pointIndex}>
+                            {checkIfIntIsNotZero(
+                              point.taskPoint,
+                              point.isChecked
+                            )}
+                          </TablePointHeaderText>
+                        );
+                      }
                     }
                     return <div></div>;
                   })}

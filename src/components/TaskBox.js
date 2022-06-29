@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  // AddCircle,
+  AddCircle,
   Delete,
   Done,
   DriveFileRenameOutline,
@@ -124,37 +124,37 @@ const TaskBox = ({
     tempProject.tasks[index].taskName = newTaskName;
     setProject(tempProject);
   };
-  // const handleAddNewSubTask = (index) => {
-  //   // handle UI State
-  //   let tempTask = [...newTask];
-  //   tempTask[index].subTasks.push({
-  //     subTaskName: "",
-  //     point: 5,
-  //     isHidden: false,
-  //   });
-  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-  //   tempTask[index].showSubTasks = true;
-  //   setNewTask(tempTask);
-  //   // handle Data State
-  //   let tempProject = project;
-  //   if (
-  //     tempProject.tasks[index].subTasks[
-  //       tempProject.tasks[index].subTasks.length
-  //     ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
-  //   ) {
-  //     tempProject.tasks[index].subTasks.push({
-  //       subTaskName: "",
-  //       point: 5,
-  //       isHidden: false,
-  //     });
-  //   }
-  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-  //     tempProject.tasks,
-  //     index
-  //   );
-  //   tempProject.tasks[index].showSubTasks = true;
-  //   setProject(tempProject);
-  // };
+  const handleAddNewSubTask = (index) => {
+    // handle UI State
+    let tempTask = [...newTask];
+    tempTask[index].subTasks.push({
+      subTaskName: "",
+      point: 5,
+      isHidden: false,
+    });
+    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+    tempTask[index].showSubTasks = true;
+    setNewTask(tempTask);
+    // handle Data State
+    let tempProject = project;
+    if (
+      tempProject.tasks[index].subTasks[
+        tempProject.tasks[index].subTasks.length
+      ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
+    ) {
+      tempProject.tasks[index].subTasks.push({
+        subTaskName: "",
+        point: 5,
+        isHidden: false,
+      });
+    }
+    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+      tempProject.tasks,
+      index
+    );
+    tempProject.tasks[index].showSubTasks = true;
+    setProject(tempProject);
+  };
   const handleRemoveTask = (index) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -254,14 +254,14 @@ const TaskBox = ({
             }}
           />
         )}
-        {/* <AddCircle
+        <AddCircle
           className="newProject__icon"
           style={{
             fontSize: 40,
             color: color.primaryOrange,
           }}
           onClick={() => handleAddNewSubTask(index)}
-        /> */}
+        />
 
         {!!!subTasks.length && !isHidden && (
           <TextInput
