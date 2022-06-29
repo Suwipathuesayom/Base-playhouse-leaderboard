@@ -7,12 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
-<<<<<<< HEAD
-import color from "../../constant/color";
-import Navbar from "../../components/NavbarAdmin";
-=======
-import Navbar from "./../../components/Navbar";
->>>>>>> 4c0e0a8de2273f627a8912bd4de666d3dbc284e7
+import NavbarAdmin from "../../components/NavbarAdmin";
 
 // const auth = firebase.auth();
 
@@ -52,7 +47,7 @@ function AdminLeaderboard() {
   if (!!projectDashboard.length) {
     return (
       <div className="adminLeaderboard">
-        <Navbar />
+        <NavbarAdmin />
         <img src={circle1} alt="circle1" className="circle1" />
         <div className="admin-header">
           <h1 style={{ fontSize: smallScreen ? 48 : 72 }}>LEADERBOARD</h1>

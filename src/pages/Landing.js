@@ -3,16 +3,7 @@ import "../assets/styles/Landing.css";
 import { db, firebase } from "../config/firebase";
 import boomseen from "../assets/images/boomseen.png";
 import dice from "../assets/images/dice.png";
-<<<<<<< HEAD
-import {
-  Autocomplete,
-  Button,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-=======
 import { Autocomplete, Button, useMediaQuery, useTheme } from "@mui/material";
->>>>>>> 4c0e0a8de2273f627a8912bd4de666d3dbc284e7
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../components/SplashScreen";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
