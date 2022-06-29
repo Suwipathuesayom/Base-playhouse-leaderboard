@@ -5,20 +5,39 @@ import { storage } from "../../config/firebase";
 import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
 import { StrongText } from "../../assets/styles/TypographyStyles";
-import { ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
 import { Button } from "@mui/material";
 
 function NewProjectHeader({ project, setProject, header }) {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null);
-  const uploadImage = () => {
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4}`);
-    uploadBytes(imageRef, imageUpload).then(() => {
-      alert(" Image Uploaded");
-    });
+  const [image, setImage] = useState(null);
+
+  const handleChangeImage = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
+
+  const uploadImage = () => {
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            console.log(url);
+          });
+      }
+    );
+  };
+
+  console.log("image:", image);
 
   const handleSelectImage = (selectedImage) => {
     let tempProject = project;
@@ -44,15 +63,13 @@ function NewProjectHeader({ project, setProject, header }) {
           <input
             style={{ marginTop: 5 }}
             type={"file"}
-            onChange={(event) => {
-              setImageUpload(event.target.files[0]);
-            }}
-            placeholder={"Up load image..."}
+            onChange={handleChangeImage}
           />
           <Button
             style={{ marginTop: 5 }}
             variant="contained"
             color="error"
+            type={"submit"}
             onClick={uploadImage}
           >
             Upload
