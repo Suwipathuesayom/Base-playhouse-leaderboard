@@ -202,7 +202,7 @@ const SubTaskBox = ({
         }
         defaultValue={point}
       />
-      <Box width={110} />
+      {/* <Box width={110} /> */}
       <Delete
         className="newProject__icon"
         style={{

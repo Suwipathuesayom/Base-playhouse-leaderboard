@@ -14,11 +14,7 @@ function SplashScreen() {
         height: "100vh",
       }}
     >
-      <SyncLoader
-        color={color.primaryOrange}
-        backgroundColor={"pink"}
-        size={25}
-      />
+      <SyncLoader color={color.primaryOrange} size={25} />
       <Typography
         variant={"h2"}
         sx={{

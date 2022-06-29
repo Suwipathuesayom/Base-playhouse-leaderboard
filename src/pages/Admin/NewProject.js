@@ -23,27 +23,29 @@ const NewProject = () => {
   const [editProjectStatus, setEditProjectStatus] = useState("warning");
 
   return (
-    <div className="newProject">
-      <div className="alert">
-        <ProjectStatusAlert
-          editProjectStatus={editProjectStatus}
+    <div>
+      <Navbar />
+      <div className="newProject">
+        <div className="alert">
+          <ProjectStatusAlert
+            editProjectStatus={editProjectStatus}
+            setEditProjectStatus={setEditProjectStatus}
+            action={"new"}
+          />
+        </div>
+        <NewProjectHeader
+          project={project}
+          setProject={setProject}
+          header={"NEW PROJECT"}
+        />
+        <NewProjectBody project={project} setProject={setProject} />
+        <NewProjectFooter
+          project={project}
+          setProject={setProject}
+          header={"NEW PROJECT"}
           setEditProjectStatus={setEditProjectStatus}
-          action={"new"}
         />
       </div>
-      <NavbarNewproject />
-      <NewProjectHeader
-        project={project}
-        setProject={setProject}
-        header={"NEW PROJECT"}
-      />
-      <NewProjectBody project={project} setProject={setProject} />
-      <NewProjectFooter
-        project={project}
-        setProject={setProject}
-        header={"NEW PROJECT"}
-        setEditProjectStatus={setEditProjectStatus}
-      />
     </div>
   );
 };

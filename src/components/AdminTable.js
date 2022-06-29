@@ -31,6 +31,7 @@ import { Link } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
 import { Delete } from "@mui/icons-material";
 import color from "../constant/color";
+import queryNoteFromId from "./Functions/queryNoteFromId";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -85,6 +86,8 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  const [mentors, setMentors] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -118,6 +121,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const handleClose = () => {
     setOpen(false);
     setSelectedProject();
+    setMentors([]);
   };
 
   const queryProject = async (project) => {
@@ -128,10 +132,13 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       .where("projectName", "==", project.projectName)
       .get()
       .then((snapshot) => {
+        let project;
         snapshot.forEach((doc) => {
           // console.log(doc.data());
-          setSelectedProject(doc.data());
+          project = doc.data();
+          setSelectedProject(project);
         });
+        queryNoteFromId(project.id, setMentors);
       })
       .catch((error) => {
         console.log(error);
@@ -346,7 +353,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
             )}
           </StyledDiv>
           <div style={{ marginTop: 10 }}>
-            <ExportCSV selectedProject={selectedProject} />
+            <ExportCSV selectedProject={selectedProject} mentors={mentors} />
           </div>
         </DialogContent>
         <DialogActions>

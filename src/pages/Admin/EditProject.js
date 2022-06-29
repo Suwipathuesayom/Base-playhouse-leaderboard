@@ -8,6 +8,7 @@ import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
+import Navbar from "../../components/Navbar";
 
 // const auth = firebase.auth();
 
@@ -36,26 +37,29 @@ function EditProject() {
 
   if (project) {
     return (
-      <div className="newProject">
-        <div className="alert">
-          <ProjectStatusAlert
-            editProjectStatus={editProjectStatus}
+      <div>
+        <Navbar />
+        <div className="newProject">
+          <div className="alert">
+            <ProjectStatusAlert
+              editProjectStatus={editProjectStatus}
+              setEditProjectStatus={setEditProjectStatus}
+              action={"edit"}
+            />
+          </div>
+          <NewProjectHeader
+            project={project}
+            setProject={setProject}
+            header={"EDIT PROJECT"}
+          />
+          <NewProjectBody project={project} setProject={setProject} />
+          <NewProjectFooter
+            project={project}
+            setProject={setProject}
+            header={"EDIT PROJECT"}
             setEditProjectStatus={setEditProjectStatus}
-            action={"edit"}
           />
         </div>
-        <NewProjectHeader
-          project={project}
-          setProject={setProject}
-          header={"EDIT PROJECT"}
-        />
-        <NewProjectBody project={project} setProject={setProject} />
-        <NewProjectFooter
-          project={project}
-          setProject={setProject}
-          header={"EDIT PROJECT"}
-          setEditProjectStatus={setEditProjectStatus}
-        />
       </div>
     );
   } else {

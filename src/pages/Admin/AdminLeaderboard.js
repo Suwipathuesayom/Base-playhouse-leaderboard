@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { db } from "../../config/firebase";
 import "../../assets/styles/AdminDashboard.css";
-import circle1 from "../../assets/images/circle1.png";
+// import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
-import NavbarAdmin from "../../components/NavbarAdmin";
+import Navbar from "../../components/Navbar";
 
 // const auth = firebase.auth();
 
@@ -47,14 +47,13 @@ function AdminLeaderboard() {
   if (!!projectDashboard.length) {
     return (
       <div className="adminLeaderboard">
-        <NavbarAdmin />
-        <img src={circle1} alt="circle1" className="circle1" />
+        <Navbar header={"ADMIN LEADERBOARD"} />
+        {/* <img src={circle1} alt="circle1" className="circle1" /> */}
         <div className="admin-header">
-          <h1 style={{ fontSize: smallScreen ? 48 : 72 }}>LEADERBOARD</h1>
+          {/* <h1 style={{ fontSize: smallScreen ? 48 : 72 }}>LEADERBOARD</h1> */}
           <div className="admin-header__newLeaderboard">
             <AddCircle
               className="icon"
-              fontSize="large"
               onClick={() => {
                 navigate("/new-project");
               }}
