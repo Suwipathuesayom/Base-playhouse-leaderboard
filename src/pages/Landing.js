@@ -6,13 +6,11 @@ import dice from "../assets/images/dice.png";
 import {
   Autocomplete,
   Button,
-  TextField,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../components/SplashScreen";
-import color from "../constant/color";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 
 function Landing() {

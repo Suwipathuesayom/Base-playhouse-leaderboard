@@ -54,6 +54,7 @@ function Speaker() {
         <PresentationHeader project={project} />
         <Stack direction={"row"} padding={"1%"}>
           <Stack
+            className="fixed_header"
             backgroundColor={color.primaryBlack}
             height={"100%"}
             width={"50%"}
@@ -73,7 +74,7 @@ function Speaker() {
                 borderTopLeftRadius: 20,
               }}
             >
-              <Stack direction={"row"} >
+              <Stack direction={"row"}>
                 <TableHeaderText flex={0.5}>RANK</TableHeaderText>
                 <Typography sx={{ flex: 0.5 }} />
                 <TableHeaderText flex={0.75}>GROUP</TableHeaderText>
