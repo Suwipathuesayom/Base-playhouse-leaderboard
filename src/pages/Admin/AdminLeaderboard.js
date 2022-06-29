@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../config/firebase";
 import "../../assets/styles/AdminDashboard.css";
-import circle1 from "../../assets/images/circle1.png";
+// import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import SplashScreen from "../../components/SplashScreen";

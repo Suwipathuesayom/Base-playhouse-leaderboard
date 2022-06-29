@@ -61,7 +61,7 @@ const style = {
   p: 4,
 };
 
-export default function MentorTable({ project, setProject }) {
+export default function MentorTable({ project, setProject, mentorName }) {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
   const [selectedGroup, setSelectedGroup] = useState();
@@ -144,7 +144,7 @@ export default function MentorTable({ project, setProject }) {
         if (!foundGroupIndex) {
           message.mentors.push({
             groupIndex: groupIndex,
-            mentorName: "test mentor name",
+            mentorName: mentorName,
             note: note,
           });
         }
@@ -168,7 +168,7 @@ export default function MentorTable({ project, setProject }) {
             mentors: [
               {
                 groupIndex: groupIndex,
-                mentorName: "test mentor name",
+                mentorName: mentorName,
                 note: note,
               },
             ],
@@ -349,7 +349,7 @@ export default function MentorTable({ project, setProject }) {
               if (!task.isHidden) {
                 return (
                   <StyledTableCell key={subIndex}>
-                    {task.taskName}
+                    {`${task.taskName}`}
                     {!!task.subTasks.length && (
                       <Divider
                         sx={{ borderBottomWidth: 2, borderColor: "white" }}
@@ -358,7 +358,7 @@ export default function MentorTable({ project, setProject }) {
                     <Stack direction="row" justifyContent="space-around">
                       {!!task.subTasks.length &&
                         task.subTasks.map((subTask) => (
-                          <div>{subTask.subTaskName}</div>
+                          <div>{`${subTask.subTaskName}`}</div>
                         ))}
                     </Stack>
                   </StyledTableCell>

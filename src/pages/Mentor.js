@@ -67,7 +67,11 @@ export default function Mentor() {
             </Typography>
           </Stack>
         </Stack>
-        <MentorTable project={project} setProject={setProject} />
+        <MentorTable
+          project={project}
+          setProject={setProject}
+          mentorName={mentorNameParams}
+        />
       </Box>
     );
   } else {
