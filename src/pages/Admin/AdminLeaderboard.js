@@ -54,6 +54,7 @@ function AdminLeaderboard() {
           <div className="admin-header__newLeaderboard">
             <AddCircle
               className="icon"
+              sx={{ width: "50px", height: "50px", color: "#ff5b4a" }}
               onClick={() => {
                 navigate("/new-project");
               }}
