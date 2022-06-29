@@ -20,7 +20,10 @@ function Learner() {
   const { projectNameParams, groupNameParams } = useParams();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const DISPLAY_LIMIT = smallScreen ? 5 : 10;
+  let DISPLAY_LIMIT = Number.MAX_SAFE_INTEGER;
+  if (groupNameParams) {
+    DISPLAY_LIMIT = smallScreen ? 5 : 10;
+  }
 
   const queryProject = (projectName) => {
     db.collection("users")

@@ -130,6 +130,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
+          console.log(doc.data());
           setSelectedProject(doc.data());
         });
       })
@@ -147,7 +148,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       .collection("project")
       .where("projectName", "==", project.projectName);
 
-    projectRef
+    await projectRef
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
@@ -160,7 +161,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       .collection("projectDashboard")
       .where("projectName", "==", project.projectName);
 
-    projectDashboardRef
+    await projectDashboardRef
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {

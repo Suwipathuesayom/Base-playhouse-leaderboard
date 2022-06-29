@@ -57,7 +57,7 @@ function NewProjectNameAndColor({ project, setProject }) {
         <TextInput
           width={500}
           onKeyPress={(event) => {
-            if (event.key === "Enter") {
+            if (event.key === "Enter" && !!event.target.value) {
               handleRemaneProjectName(event.target.value);
               setIsEditing(false);
             }

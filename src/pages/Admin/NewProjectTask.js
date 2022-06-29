@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
-import { AddCircle, KeyboardArrowUp } from "@mui/icons-material";
+import {
+  AddCircle,
+  // KeyboardArrowUp
+} from "@mui/icons-material";
 
 import color from "../../constant/color";
 import "../../assets/styles/NewProject.css";
@@ -38,24 +41,26 @@ function NewProjectTask({ project, setProject }) {
       isHidden: false,
     };
     setProject(tempProject);
+    // callback
+    console.log(tempProject);
 
     // clear TextInput
     setNewTaskName("");
   };
-  const handleCollapseAllTask = () => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask.forEach((task) => {
-      task.showSubTasks = false;
-    });
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    tempProject.tasks.forEach((task) => {
-      task.showSubTasks = false;
-    });
-    setProject(tempProject);
-  };
+  // const handleCollapseAllTask = () => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask.forEach((task) => {
+  //     task.showSubTasks = false;
+  //   });
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   tempProject.tasks.forEach((task) => {
+  //     task.showSubTasks = false;
+  //   });
+  //   setProject(tempProject);
+  // };
 
   return (
     <Box
@@ -111,14 +116,14 @@ function NewProjectTask({ project, setProject }) {
             if (!!newTaskName.length) handleAddNewTask(newTaskName);
           }}
         />
-        <KeyboardArrowUp
+        {/* <KeyboardArrowUp
           className="newProject__icon"
           style={{
             fontSize: 28,
             color: color.primaryOrange,
           }}
           onClick={() => handleCollapseAllTask()}
-        />
+        /> */}
       </Stack>
       {newTask?.map((task, index) => {
         return (
