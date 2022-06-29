@@ -9,7 +9,7 @@ import { Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import color from "../constant/color";
 
-export default function Navbar() {
+export default function NavbarNewproject() {
   const handleLogout = async () => {
     try {
       await firebase
@@ -35,7 +35,7 @@ export default function Navbar() {
             sx={{ mr: 3 }}
           ></IconButton>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            LEADERBOARD
+            NEWPROJECT
           </Typography>
           <Link style={{ textDecoration: "none" }} to="/">
             <Typography

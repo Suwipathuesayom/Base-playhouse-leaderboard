@@ -8,7 +8,7 @@ import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import color from "../../constant/color";
-import Navbar from "./../../components/Navbar";
+import Navbar from "../../components/NavbarAdmin";
 
 // const auth = firebase.auth();
 

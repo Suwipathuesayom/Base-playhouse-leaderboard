@@ -51,7 +51,7 @@ function NewProjectHeader({ project, setProject, header }) {
           // backgroundColor: "pink",
         }}
       >
-          alignItems: "center",
+          
         <StrongText>{header}</StrongText>
         <Stack
           className="header__contentImport"
