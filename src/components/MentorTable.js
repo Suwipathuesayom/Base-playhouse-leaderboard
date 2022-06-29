@@ -442,9 +442,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
                                   !!group.points.length
                                     ? !!Object.keys(group.points[taskIndex])
                                         .length
-                                      ? group.points[taskIndex].subTasks[
-                                          subTaskIndex
-                                        ]?.isChecked
+                                      ? group.points[taskIndex].subTasks
                                         ? group.points[taskIndex].subTasks[
                                             subTaskIndex
                                           ].isChecked
