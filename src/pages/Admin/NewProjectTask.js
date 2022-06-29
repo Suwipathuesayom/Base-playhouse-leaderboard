@@ -42,7 +42,7 @@ function NewProjectTask({ project, setProject }) {
     };
     setProject(tempProject);
     // callback
-    console.log(tempProject);
+    // console.log(tempProject);
 
     // clear TextInput
     setNewTaskName("");

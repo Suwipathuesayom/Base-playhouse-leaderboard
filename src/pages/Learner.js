@@ -77,7 +77,11 @@ function Learner() {
       // paddingX={"15px"}
       sx={{
         border: isParamGroupName(group.groupName) ? 3 : null,
-        borderColor: isParamGroupName(group.groupName) ? "lime" : null,
+        borderColor: isParamGroupName(group.groupName)
+          ? project.theme.hilight === "#000000"
+            ? "lime"
+            : project.theme.hilight
+          : null,
       }}
       backgroundColor={() => getRankColor(rankIndex, project.theme.top3)}
       // backgroundColor={"blue"}

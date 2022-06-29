@@ -121,7 +121,6 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   };
 
   const queryProject = async (project) => {
-    console.log("in query project");
     await db
       .collection("users")
       .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
@@ -130,7 +129,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          console.log(doc.data());
+          // console.log(doc.data());
           setSelectedProject(doc.data());
         });
       })

@@ -12,10 +12,7 @@ import color from "../constant/color";
 export default function Navbar() {
   const handleLogout = async () => {
     try {
-      await firebase
-        .auth()
-        .signOut()
-        .then(() => console.log("Singed Out"));
+      await firebase.auth().signOut();
     } catch (error) {
       console.log(error);
     }

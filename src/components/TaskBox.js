@@ -101,7 +101,7 @@ const TaskBox = ({
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
-    console.log(tempProject);
+    // console.log(tempProject);
   };
   // const handleWeightValueChange = (index, newWeightValue) => {
   //   // handle UI State
