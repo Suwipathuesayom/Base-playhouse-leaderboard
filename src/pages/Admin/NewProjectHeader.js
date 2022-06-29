@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/styles/NewProject.css";
 import { Box, Stack } from "@mui/material";
 import { storage } from "../../config/firebase";
@@ -6,10 +6,12 @@ import NewProjectAddMentor from "./NewProjectAddMentor";
 import NewProjectNameAndColor from "./NewProjectNameAndColor";
 import { StrongText } from "../../assets/styles/TypographyStyles";
 import { Button } from "@mui/material";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 function NewProjectHeader({ project, setProject, header }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [imageList, setImageList] = useState([]);
 
   const handleChangeImage = (e) => {
     if (e.target.files[0]) {
@@ -17,7 +19,9 @@ function NewProjectHeader({ project, setProject, header }) {
     }
   };
 
+  const imageListRef = ref(storage, "images/");
   const uploadImage = () => {
+    console.log("uploading image");
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -32,12 +36,26 @@ function NewProjectHeader({ project, setProject, header }) {
           .getDownloadURL()
           .then((url) => {
             console.log(url);
+            setSelectedImage(url);
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
     );
   };
 
-  console.log("image:", image);
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  });
+
+  // console.log("image:", image);
 
   const handleSelectImage = (selectedImage) => {
     let tempProject = project;
@@ -51,6 +69,10 @@ function NewProjectHeader({ project, setProject, header }) {
           src={selectedImage ? selectedImage : project.imageUrl}
           alt="not found"
         />
+        {/* {imageList.map((url) => {
+          return <img src={url} alt="MyImage" />;
+        })} */}
+
         <div>
           <input
             type={"text"}
