@@ -5,7 +5,7 @@ import NewProjectHeader from "./NewProjectHeader";
 import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
-import NavbarNewproject from "../../components/NavbarNewproject";
+import Navbar from "../../components/Navbar";
 
 const NewProject = () => {
   const [project, setProject] = useState({
