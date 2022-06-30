@@ -51,6 +51,11 @@ function NewProjectLearner({ project, setProject }) {
     for (let i = 0; i < tempProject.learnerGroups.length; i++) {
       tempProject.learnerGroups[i].groupIndex = i + 1;
     }
+    tempProject.tasks.forEach(() => {
+      tempProject.learnerGroups[
+        tempProject.learnerGroups.length - 1
+      ].points.push({});
+    });
     setProject(tempProject);
     // callback
     console.log(tempProject);

@@ -97,6 +97,11 @@ const TaskBox = ({
       if (!!!group.points.length) {
         tempProject = addLearnerGroupTaskPoint(tempProject, groupIndex);
       }
+      if (!!!Object.keys(group.points[index]).length) {
+        group.points[index].isChecked = false;
+        group.points[index].subTasks = [];
+        group.points[index].taskIndex = index;
+      }
       group.points[index].taskPoint = parseInt(newPointValue, 10);
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
@@ -153,23 +158,40 @@ const TaskBox = ({
       index
     );
     tempProject.learnerGroups.forEach((group, groupIndex) => {
-      group.points[index].subTasks.push({
-        isChecked: false,
-        subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
-        subTaskPoint: 5,
-      });
+      if (!!Object.keys(group.points[index]).length) {
+        group.points[index].subTasks.push({
+          isChecked: false,
+          subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
+          subTaskPoint: 5,
+        });
+      } else {
+        group.points[index].isChecked = false;
+        group.points[index].subTasks = [
+          {
+            isChecked: false,
+            subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
+            subTaskPoint: 5,
+          },
+        ];
+        group.points[index].taskIndex = index;
+        group.points[index].taskPoint = 5;
+      }
     });
     tempProject.tasks[index].showSubTasks = true;
     setProject(tempProject);
   };
-  const handleRemoveTask = (index) => {
+  const handleRemoveTask = (taskIndex) => {
     // handle UI State
     let tempTask = [...newTask];
-    tempTask.splice(index, 1);
+    tempTask.splice(taskIndex, 1);
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    tempProject.tasks.splice(index, 1);
+    tempProject.tasks.splice(taskIndex, 1);
+    tempProject.learnerGroups.forEach((group) => {
+      group.points.splice(taskIndex, 1);
+    });
+    recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
   };
 
