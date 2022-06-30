@@ -64,6 +64,12 @@ const SubTaskBox = ({
       index
     );
     tempProject.learnerGroups.forEach((group) => {
+      if (!!group.points[index].subTasks.length) {
+        group.points[index].subTasks.forEach((subTask, subTaskIndex) => {
+          subTask.subTaskPoint =
+            tempProject.tasks[index].subTasks[subTaskIndex].point;
+        });
+      }
       group.points[index].taskPoint = tempProject.tasks[index].point;
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
@@ -99,8 +105,8 @@ const SubTaskBox = ({
       );
       tempProject.tasks[index].showSubTasks =
         !!tempProject.tasks[index].subTasks.length;
-      setProject(tempProject);
     }
+    setProject(tempProject);
   };
 
   const calculateNewTaskPointFromSubTasks = (arr, index) => {

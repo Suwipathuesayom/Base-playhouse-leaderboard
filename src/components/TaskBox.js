@@ -152,6 +152,13 @@ const TaskBox = ({
       tempProject.tasks,
       index
     );
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.points[index].subTasks.push({
+        isChecked: false,
+        subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
+        subTaskPoint: 5,
+      });
+    });
     tempProject.tasks[index].showSubTasks = true;
     setProject(tempProject);
   };

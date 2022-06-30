@@ -201,6 +201,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
           isChecked: true,
           taskIndex: taskIndex,
           taskPoint: project.tasks[taskIndex].point,
+          subTasks: [],
         };
       } else {
         tempLearnerGroups[groupIndex].points[taskIndex].isChecked =
@@ -300,10 +301,10 @@ export default function MentorTable({ project, setProject, mentorName }) {
     handleUpdateProject(tempProject);
   };
 
-  const calculateNewTotalPoint = (arr, groupIndex) => {
+  const calculateNewTotalPoint = (learnerGroup, groupIndex) => {
     let sum = 0;
-    arr[groupIndex].points.forEach((point) => {
-      if (!!point.subTasks) {
+    learnerGroup[groupIndex].points.forEach((point) => {
+      if (!!point.subTasks.length) {
         point.subTasks.forEach((subTask) => {
           if (subTask.isChecked) {
             sum += subTask.subTaskPoint;
@@ -311,11 +312,24 @@ export default function MentorTable({ project, setProject, mentorName }) {
         });
       } else {
         if (point.isChecked) {
-          sum = sum + point.taskPoint;
+          sum += point.taskPoint;
         }
       }
     });
     return sum;
+  };
+
+  const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
+    console.log(group);
+    if (
+      !!group.points.length &&
+      !!Object.keys(group.points[taskIndex]).length &&
+      group.points[taskIndex].subTasks &&
+      group.points[taskIndex].subTasks[subTaskIndex]
+    ) {
+      return group.points[taskIndex].subTasks[subTaskIndex].isChecked;
+    }
+    return false;
   };
 
   return (
@@ -345,10 +359,10 @@ export default function MentorTable({ project, setProject, mentorName }) {
                 />
               </Stack> */}
             </StyledTableCell>
-            {project?.tasks.map((task, subIndex) => {
+            {project?.tasks.map((task, taskIndex) => {
               if (!task.isHidden) {
                 return (
-                  <StyledTableCell key={subIndex}>
+                  <StyledTableCell key={taskIndex}>
                     {`${task.taskName}`}
                     {!!task.subTasks.length && (
                       <Divider
@@ -357,14 +371,16 @@ export default function MentorTable({ project, setProject, mentorName }) {
                     )}
                     <Stack direction="row" justifyContent="space-around">
                       {!!task.subTasks.length &&
-                        task.subTasks.map((subTask) => (
-                          <div>{`${subTask.subTaskName}`}</div>
+                        task.subTasks.map((subTask, subTaskIndex) => (
+                          <div
+                            key={subTaskIndex}
+                          >{`${subTask.subTaskName}`}</div>
                         ))}
                     </Stack>
                   </StyledTableCell>
                 );
               }
-              return <div></div>;
+              return <StyledTableCell key={taskIndex} />;
               // if (!task.isHidden) {
               //   return (
               //     <StyledTableCell key={subIndex}>
@@ -436,20 +452,14 @@ export default function MentorTable({ project, setProject, mentorName }) {
                           {!!task.subTasks.length &&
                             task.subTasks.map((subTask, subTaskIndex) => (
                               <Checkbox
+                                key={subTaskIndex}
                                 icon={<RadioButtonUnchecked />}
                                 checkedIcon={<RadioButtonChecked />}
-                                checked={
-                                  !!group.points.length
-                                    ? !!Object.keys(group.points[taskIndex])
-                                        .length
-                                      ? group.points[taskIndex].subTasks
-                                        ? group.points[taskIndex].subTasks[
-                                            subTaskIndex
-                                          ].isChecked
-                                        : false
-                                      : false
-                                    : false
-                                }
+                                checked={checkIfIsChecked(
+                                  group,
+                                  taskIndex,
+                                  subTaskIndex
+                                )}
                                 onChange={() =>
                                   handleCheckTaskByIndex(
                                     index,
@@ -467,6 +477,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
                             ))}
                           {!!!task.subTasks.length && (
                             <Checkbox
+                              key={taskIndex}
                               icon={<RadioButtonUnchecked />}
                               checkedIcon={<RadioButtonChecked />}
                               checked={

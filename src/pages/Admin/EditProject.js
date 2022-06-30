@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { db } from "../../config/firebase";
@@ -9,6 +9,7 @@ import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 import Navbar from "../../components/Navbar";
+import { Button } from "@mui/material";
 
 // const auth = firebase.auth();
 
@@ -35,11 +36,16 @@ function EditProject() {
       });
   };
 
+  useEffect(() => {
+    console.log(project);
+  }, [project]);
+
   if (project) {
     return (
       <div>
         <Navbar />
         <div className="newProject">
+          <Button onClick={() => console.log(project)}>ดู project</Button>
           <div className="alert">
             <ProjectStatusAlert
               editProjectStatus={editProjectStatus}
