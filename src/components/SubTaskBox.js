@@ -3,8 +3,8 @@ import {
   Delete,
   Done,
   DriveFileRenameOutline,
-  Visibility,
-  VisibilityOff,
+  // Visibility,
+  // VisibilityOff,
 } from "@mui/icons-material";
 import { Box, Stack } from "@mui/material";
 import color from "../constant/color";
@@ -30,23 +30,23 @@ const SubTaskBox = ({
   const TEXTMAXSAFELENGTH = 85;
 
   // State Handlers
-  const handleSubTaskVisibilityClicked = (index, subIndex) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].subTasks[subIndex].isHidden =
-      !tempTask[index].subTasks[subIndex].isHidden;
-    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    tempProject.tasks[index].subTasks[subIndex].isHidden =
-      tempTask[index].subTasks[subIndex].isHidden;
-    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-      project.tasks,
-      index
-    );
-    setProject(tempProject);
-  };
+  // const handleSubTaskVisibilityClicked = (index, subIndex) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].subTasks[subIndex].isHidden =
+  //     !tempTask[index].subTasks[subIndex].isHidden;
+  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   tempProject.tasks[index].subTasks[subIndex].isHidden =
+  //     tempTask[index].subTasks[subIndex].isHidden;
+  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+  //     project.tasks,
+  //     index
+  //   );
+  //   setProject(tempProject);
+  // };
   const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -227,7 +227,7 @@ const SubTaskBox = ({
         }}
         onClick={() => handleRemoveSubTask(index, subIndex)}
       />
-      {!isHidden && (
+      {/* {!isHidden && (
         <Visibility
           className="newProject__icon"
           onClick={() => handleSubTaskVisibilityClicked(index, subIndex)}
@@ -246,7 +246,11 @@ const SubTaskBox = ({
             color: color.secondaryGrey,
           }}
         />
-      )}
+      )} */}
+      <Delete
+        size={"large"}
+        sx={{ color: getBackgroundColorFromIndex(index) }}
+      />
       <Box width={28} />
     </Stack>
   );

@@ -173,7 +173,7 @@ function Speaker() {
                       </TableContentText>
                     );
                   }
-                  return <div></div>;
+                  return <div key={taskIndex}></div>;
                 })}
               </Stack>
             </Stack>
@@ -224,7 +224,7 @@ function Speaker() {
                         </TablePointHeaderText>
                       );
                     }
-                    return <div></div>;
+                    return <div key={pointIndex}></div>;
                   })}
                 {!!!group.points.length &&
                   project?.tasks.map((task, taskIndex) => {
@@ -235,7 +235,7 @@ function Speaker() {
                         </TablePointHeaderText>
                       );
                     }
-                    return <div></div>;
+                    return <div key={taskIndex}></div>;
                   })}
               </Stack>
             ))}

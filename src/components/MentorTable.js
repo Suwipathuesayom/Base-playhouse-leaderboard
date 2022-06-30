@@ -66,7 +66,10 @@ export default function MentorTable({ project, setProject, mentorName }) {
   const [note, setNote] = useState("");
   const [selectedGroup, setSelectedGroup] = useState();
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setNote("");
+  };
 
   const [learnerGroups, setLearnerGroups] = React.useState(
     project?.learnerGroups
