@@ -193,7 +193,7 @@ function Speaker() {
                 {!!group.points.length &&
                   group.points.map((point, pointIndex) => {
                     if (!!Object.keys(point).length) {
-                      if (!!point.subTasks.length) {
+                      if (!!point.subTasks.length && !point.isHidden) {
                         let sum = 0;
                         point.subTasks.forEach((subTask) => {
                           if (subTask.isChecked) {
