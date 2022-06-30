@@ -236,6 +236,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
           ].isChecked;
       }
     }
+    console.log(tempLearnerGroups);
     tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
       tempLearnerGroups,
       groupIndex
@@ -258,6 +259,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
           isChecked: true,
           taskIndex: taskIndex,
           taskPoint: project.tasks[taskIndex].point,
+          subTasks: [],
         };
       } else {
         tempProject.learnerGroups[groupIndex].points[taskIndex].isChecked =
@@ -304,15 +306,17 @@ export default function MentorTable({ project, setProject, mentorName }) {
   const calculateNewTotalPoint = (learnerGroup, groupIndex) => {
     let sum = 0;
     learnerGroup[groupIndex].points.forEach((point) => {
-      if (!!point.subTasks.length) {
-        point.subTasks.forEach((subTask) => {
-          if (subTask.isChecked) {
-            sum += subTask.subTaskPoint;
+      if (!!Object.keys(point).length) {
+        if (!!point.subTasks.length) {
+          point.subTasks.forEach((subTask) => {
+            if (subTask.isChecked) {
+              sum += subTask.subTaskPoint;
+            }
+          });
+        } else {
+          if (point.isChecked) {
+            sum += point.taskPoint;
           }
-        });
-      } else {
-        if (point.isChecked) {
-          sum += point.taskPoint;
         }
       }
     });
