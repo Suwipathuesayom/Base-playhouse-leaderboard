@@ -320,7 +320,6 @@ export default function MentorTable({ project, setProject, mentorName }) {
   };
 
   const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
-    console.log(group);
     if (
       !!group.points.length &&
       !!Object.keys(group.points[taskIndex]).length &&

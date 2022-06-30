@@ -87,25 +87,35 @@ const SubTaskBox = ({
     tempProject.tasks[index].subTasks[subIndex].subTaskName = newSubTaskName;
     setProject(tempProject);
   };
-  const handleRemoveSubTask = (index, subIndex) => {
+  const handleRemoveSubTask = (taskIndex, subTaskIndex) => {
     // handle UI State
     let tempTask = [...newTask];
-    let subTaskLength = tempTask[index].subTasks.length;
-    tempTask[index].subTasks.splice(subIndex, 1);
-    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-    tempTask[index].showSubTasks = !!tempTask[index].subTasks.length;
+    let subTaskLength = tempTask[taskIndex].subTasks.length;
+    tempTask[taskIndex].subTasks.splice(subTaskIndex, 1);
+    tempTask[taskIndex].showSubTasks = !!tempTask[taskIndex].subTasks.length;
+    if (tempTask[taskIndex].showSubTasks) {
+      tempTask[taskIndex].point = calculateNewTaskPointFromSubTasks(
+        newTask,
+        taskIndex
+      );
+    }
     setNewTask(tempTask);
     // handle Data State
     let tempProject = project;
-    if (tempProject.tasks[index].subTasks.length === subTaskLength) {
-      tempProject.tasks[index].subTasks.splice(subIndex, 1);
-      tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-        project.tasks,
-        index
-      );
-      tempProject.tasks[index].showSubTasks =
-        !!tempProject.tasks[index].subTasks.length;
+    if (tempProject.tasks[taskIndex].subTasks.length === subTaskLength) {
+      tempProject.tasks[taskIndex].subTasks.splice(subTaskIndex, 1);
+      if (!!tempProject.tasks[taskIndex].subTasks.length) {
+        tempProject.tasks[taskIndex].point = calculateNewTaskPointFromSubTasks(
+          project.tasks,
+          taskIndex
+        );
+      }
+      tempProject.tasks[taskIndex].showSubTasks =
+        !!tempProject.tasks[taskIndex].subTasks.length;
     }
+    tempProject.learnerGroups.forEach((group) => {
+      group.points[taskIndex].subTasks.splice(subTaskIndex, 1);
+    });
     setProject(tempProject);
   };
 

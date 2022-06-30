@@ -40,6 +40,9 @@ function NewProjectTask({ project, setProject }) {
       weight: 10,
       isHidden: false,
     };
+    tempProject.learnerGroups.forEach((group) => {
+      group.points.push({});
+    });
     setProject(tempProject);
     // callback
     // console.log(tempProject);
