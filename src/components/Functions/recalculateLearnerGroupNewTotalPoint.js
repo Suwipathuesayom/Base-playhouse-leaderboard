@@ -5,10 +5,13 @@ const recalculateLearnerGroupNewTotalPoint = (project) => {
       if (!!Object.keys(point).length) {
         if (!!point.subTasks.length) {
           point.subTasks.forEach((subTask) => {
-            if (subTask.isChecked) newTotalPoint += subTask.subTaskPoint;
+            if (!subTask.isHidden && subTask.isChecked)
+              newTotalPoint += subTask.subTaskPoint;
+            console.log(newTotalPoint);
           });
-        } else if (point.isChecked) {
+        } else if (!point.isHidden && point.isChecked) {
           newTotalPoint += point.taskPoint;
+          console.log(newTotalPoint);
         }
       }
     });

@@ -3,8 +3,8 @@ import {
   Delete,
   Done,
   DriveFileRenameOutline,
-  // Visibility,
-  // VisibilityOff,
+  Visibility,
+  VisibilityOff,
 } from "@mui/icons-material";
 import { Box, Stack } from "@mui/material";
 import color from "../constant/color";
@@ -30,23 +30,28 @@ const SubTaskBox = ({
   const TEXTMAXSAFELENGTH = 85;
 
   // State Handlers
-  // const handleSubTaskVisibilityClicked = (index, subIndex) => {
-  //   // handle UI State
-  //   let tempTask = [...newTask];
-  //   tempTask[index].subTasks[subIndex].isHidden =
-  //     !tempTask[index].subTasks[subIndex].isHidden;
-  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-  //   setNewTask(tempTask);
-  //   // handle Data State
-  //   let tempProject = project;
-  //   tempProject.tasks[index].subTasks[subIndex].isHidden =
-  //     tempTask[index].subTasks[subIndex].isHidden;
-  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-  //     project.tasks,
-  //     index
-  //   );
-  //   setProject(tempProject);
-  // };
+  const handleSubTaskVisibilityClicked = (index, subIndex) => {
+    // handle UI State
+    let tempTask = [...newTask];
+    tempTask[index].subTasks[subIndex].isHidden =
+      !tempTask[index].subTasks[subIndex].isHidden;
+    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+    setNewTask(tempTask);
+    // handle Data State
+    let tempProject = project;
+    tempProject.tasks[index].subTasks[subIndex].isHidden =
+      tempTask[index].subTasks[subIndex].isHidden;
+    tempProject.learnerGroups.forEach((group) => {
+      group.points[index].subTasks[subIndex].isHidden =
+        tempTask[index].subTasks[subIndex].isHidden;
+    });
+    recalculateLearnerGroupNewTotalPoint(tempProject);
+    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+      project.tasks,
+      index
+    );
+    setProject(tempProject);
+  };
   const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -64,13 +69,15 @@ const SubTaskBox = ({
       index
     );
     tempProject.learnerGroups.forEach((group) => {
-      if (!!group.points[index].subTasks.length) {
-        group.points[index].subTasks.forEach((subTask, subTaskIndex) => {
-          subTask.subTaskPoint =
-            tempProject.tasks[index].subTasks[subTaskIndex].point;
-        });
+      if (!!Object.keys(group.points[index]).length) {
+        if (!!group.points[index].subTasks.length) {
+          group.points[index].subTasks.forEach((subTask, subTaskIndex) => {
+            subTask.subTaskPoint =
+              tempProject.tasks[index].subTasks[subTaskIndex].point;
+          });
+        }
+        group.points[index].taskPoint = tempProject.tasks[index].point;
       }
-      group.points[index].taskPoint = tempProject.tasks[index].point;
     });
     recalculateLearnerGroupNewTotalPoint(tempProject);
     setProject(tempProject);
@@ -227,7 +234,7 @@ const SubTaskBox = ({
         }}
         onClick={() => handleRemoveSubTask(index, subIndex)}
       />
-      {/* {!isHidden && (
+      {!isHidden && (
         <Visibility
           className="newProject__icon"
           onClick={() => handleSubTaskVisibilityClicked(index, subIndex)}
@@ -246,11 +253,11 @@ const SubTaskBox = ({
             color: color.secondaryGrey,
           }}
         />
-      )} */}
-      <Delete
+      )}
+      {/* <Delete
         size={"large"}
         sx={{ color: getBackgroundColorFromIndex(index) }}
-      />
+      /> */}
       <Box width={28} />
     </Stack>
   );
