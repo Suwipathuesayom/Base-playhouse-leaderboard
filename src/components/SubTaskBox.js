@@ -52,37 +52,37 @@ const SubTaskBox = ({
     );
     setProject(tempProject);
   };
-  const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].subTasks[subIndex].point = parseInt(newSubTaskPoint, 10);
-    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    tempProject.tasks[index].subTasks[subIndex].point = parseInt(
-      newSubTaskPoint,
-      10
-    );
-    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-      project.tasks,
-      index
-    );
-    tempProject.learnerGroups.forEach((group) => {
-      if (!!Object.keys(group.points[index]).length) {
-        if (!!group.points[index].subTasks.length) {
-          group.points[index].subTasks.forEach((subTask, subTaskIndex) => {
-            subTask.subTaskPoint =
-              tempProject.tasks[index].subTasks[subTaskIndex].point;
-          });
-        }
-        group.points[index].taskPoint = tempProject.tasks[index].point;
-      }
-    });
-    recalculateLearnerGroupNewTotalPoint(tempProject);
-    setProject(tempProject);
-    // console.log(tempProject);
-  };
+  // const handleSubTaskPointChange = (index, subIndex, newSubTaskPoint) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].subTasks[subIndex].point = parseInt(newSubTaskPoint, 10);
+  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   tempProject.tasks[index].subTasks[subIndex].point = parseInt(
+  //     newSubTaskPoint,
+  //     10
+  //   );
+  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+  //     project.tasks,
+  //     index
+  //   );
+  //   tempProject.learnerGroups.forEach((group) => {
+  //     if (!!Object.keys(group.points[index]).length) {
+  //       if (!!group.points[index].subTasks.length) {
+  //         group.points[index].subTasks.forEach((subTask, subTaskIndex) => {
+  //           subTask.subTaskPoint =
+  //             tempProject.tasks[index].subTasks[subTaskIndex].point;
+  //         });
+  //       }
+  //       group.points[index].taskPoint = tempProject.tasks[index].point;
+  //     }
+  //   });
+  //   recalculateLearnerGroupNewTotalPoint(tempProject);
+  //   setProject(tempProject);
+  //   // console.log(tempProject);
+  // };
   const handleRenameSubTask = (index, newSubTaskName) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -208,7 +208,7 @@ const SubTaskBox = ({
         />
       )}
       <Box width={40} />
-      <TextInput
+      {/* <TextInput
         type={"number"}
         disabled={isHidden}
         width={100}
@@ -224,7 +224,7 @@ const SubTaskBox = ({
           handleSubTaskPointChange(index, subIndex, event.target.value)
         }
         defaultValue={point}
-      />
+      /> */}
       {/* <Box width={110} /> */}
       <Delete
         className="newProject__icon"

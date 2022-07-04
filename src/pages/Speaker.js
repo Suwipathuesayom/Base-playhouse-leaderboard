@@ -78,11 +78,31 @@ function Speaker() {
               }}
             >
               <Stack direction={"row"}>
-                <TableHeaderText flex={0.5}>RANK</TableHeaderText>
+                <TableHeaderText
+                  color={getRankColor(0, project.theme.top3)}
+                  flex={0.5}
+                >
+                  RANK
+                </TableHeaderText>
                 <Typography sx={{ flex: 0.5 }} />
-                <TableHeaderText flex={0.75}>GROUP</TableHeaderText>
-                <TableHeaderText flex={3}>NAME</TableHeaderText>
-                <TableHeaderText flex={1}>TOTAL</TableHeaderText>
+                <TableHeaderText
+                  color={getRankColor(0, project.theme.top3)}
+                  flex={0.75}
+                >
+                  GROUP
+                </TableHeaderText>
+                <TableHeaderText
+                  color={getRankColor(0, project.theme.top3)}
+                  flex={3}
+                >
+                  NAME
+                </TableHeaderText>
+                <TableHeaderText
+                  color={getRankColor(0, project.theme.top3)}
+                  flex={1}
+                >
+                  TOTAL
+                </TableHeaderText>
               </Stack>
             </Stack>
             <Stack
@@ -137,7 +157,7 @@ function Speaker() {
                     {group.groupName}
                   </TableContentText>
                   <TableContentText flex={1}>
-                    {group.totalPoint > 0 ? group.totalPoint : 0}
+                    {group.totalPoint}
                   </TableContentText>
                 </Stack>
               ))}
@@ -196,37 +216,20 @@ function Speaker() {
               >
                 {!!group.points.length &&
                   group.points.map((point, pointIndex) => {
-                    if (!!Object.keys(point).length) {
-                      if (!!point.subTasks.length && !point.isHidden) {
-                        let sum = 0;
-                        point.subTasks.forEach((subTask) => {
-                          if (subTask.isChecked) {
-                            sum += subTask.subTaskPoint;
-                          }
-                        });
+                    if (!project.tasks[pointIndex].isHidden) {
+                      if (!!Object.keys(point).length) {
                         return (
                           <TablePointHeaderText flex={1} key={pointIndex}>
-                            {sum}
+                            {point.currentPoint}
                           </TablePointHeaderText>
                         );
                       } else {
-                        if (!project.tasks[pointIndex].isHidden) {
-                          return (
-                            <TablePointHeaderText flex={1} key={pointIndex}>
-                              {checkIfIntIsNotZero(
-                                point.taskPoint,
-                                point.isChecked
-                              )}
-                            </TablePointHeaderText>
-                          );
-                        }
+                        return (
+                          <TablePointHeaderText flex={1} key={pointIndex}>
+                            {0}
+                          </TablePointHeaderText>
+                        );
                       }
-                    } else if (!project.tasks[pointIndex].isHidden) {
-                      return (
-                        <TablePointHeaderText flex={1} key={pointIndex}>
-                          {0}
-                        </TablePointHeaderText>
-                      );
                     }
                     return <div key={pointIndex}></div>;
                   })}

@@ -8,14 +8,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
+// import Checkbox from "@mui/material/Checkbox";
 import color from "../constant/color";
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
+// import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { TextInput } from "../assets/styles/InputStyles";
 
 // const auth = firebase.auth();
 
@@ -186,162 +187,203 @@ export default function MentorTable({ project, setProject, mentorName }) {
     }
   };
 
-  const handleCheckTaskByIndex = (groupIndex, taskIndex, subTaskIndex = -1) => {
+  // const handleCheckTaskByIndex = (groupIndex, taskIndex, subTaskIndex = -1) => {
+  //   // handle UI State
+  //   const tempLearnerGroups = project.learnerGroups;
+  //   // console.log(tempLearnerGroups);
+  //   if (tempLearnerGroups[groupIndex].points.length === 0) {
+  //     for (let i = 0; i < project.tasks.length; i++) {
+  //       tempLearnerGroups[groupIndex].points.push({});
+  //     }
+  //   }
+  //   if (subTaskIndex === -1) {
+  //     if (
+  //       Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
+  //       0
+  //     ) {
+  //       tempLearnerGroups[groupIndex].points[taskIndex] = {
+  //         isChecked: true,
+  //         // taskIndex: taskIndex,
+  //         taskPoint: project.tasks[taskIndex].point,
+  //         subTasks: [],
+  //         isHidden: false,
+  //       };
+  //     } else {
+  //       tempLearnerGroups[groupIndex].points[taskIndex].isChecked =
+  //         !tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
+  //     }
+  //   } else {
+  //     if (
+  //       Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
+  //       0
+  //     ) {
+  //       let tempSubTask = [];
+  //       project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
+  //         tempSubTask.push({
+  //           isChecked: false,
+  //           // subTaskIndex: subTaskIndex,
+  //           subTaskPoint: subTask.point,
+  //           isHidden: false,
+  //         });
+  //       });
+  //       tempSubTask[subTaskIndex].isChecked = true;
+  //       tempLearnerGroups[groupIndex].points[taskIndex] = {
+  //         isChecked: true,
+  //         // taskIndex: taskIndex,
+  //         taskPoint: project.tasks[taskIndex].point,
+  //         subTasks: tempSubTask,
+  //         isHidden: false,
+  //       };
+  //     } else {
+  //       tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
+  //         subTaskIndex
+  //       ].isChecked =
+  //         !tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
+  //           subTaskIndex
+  //         ].isChecked;
+  //     }
+  //   }
+  //   tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
+  //     tempLearnerGroups,
+  //     groupIndex
+  //   );
+  //   setLearnerGroups([...tempLearnerGroups]);
+
+  //   // handle Data State
+  //   const tempProject = project;
+  //   if (tempProject.learnerGroups[groupIndex].points.length === 0) {
+  //     for (let i = 0; i < project.tasks.length; i++) {
+  //       tempProject.learnerGroups[groupIndex].points.push({});
+  //     }
+  //   }
+  //   if (subTaskIndex === -1) {
+  //     if (
+  //       Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
+  //         .length === 0
+  //     ) {
+  //       tempProject.learnerGroups[groupIndex].points[taskIndex] = {
+  //         isChecked: true,
+  //         // taskIndex: taskIndex,
+  //         taskPoint: project.tasks[taskIndex].point,
+  //         subTasks: [],
+  //         isHidden: false,
+  //       };
+  //     } else {
+  //       tempProject.learnerGroups[groupIndex].points[taskIndex].isChecked =
+  //         tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
+  //     }
+  //   } else {
+  //     if (
+  //       Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
+  //         .length === 0
+  //     ) {
+  //       let tempSubTask = [];
+  //       project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
+  //         tempSubTask.push({
+  //           isChecked: false,
+  //           // subTaskIndex: subTaskIndex,
+  //           subTaskPoint: subTask.point,
+  //           isHidden: false,
+  //         });
+  //       });
+  //       tempSubTask[subTaskIndex].isChecked = true;
+  //       tempProject.learnerGroups[groupIndex].points[taskIndex] = {
+  //         isChecked: true,
+  //         // taskIndex: taskIndex,
+  //         taskPoint: project.tasks[taskIndex].point,
+  //         subTasks: tempSubTask,
+  //         isHidden: false,
+  //       };
+  //     } else {
+  //       tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
+  //         subTaskIndex
+  //       ].isChecked =
+  //         tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
+  //           subTaskIndex
+  //         ].isChecked;
+  //     }
+  //   }
+  //   tempProject.learnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
+  //     tempProject.learnerGroups,
+  //     groupIndex
+  //   );
+  //   setProject(tempProject);
+  //   // console.log(tempProject);
+  //   handleUpdateProject(tempProject);
+  // };
+
+  const handlePointValueChange = (groupIndex, taskIndex, newPointValue) => {
+    console.log(groupIndex, taskIndex);
     // handle UI State
-    const tempLearnerGroups = project.learnerGroups;
-    // console.log(tempLearnerGroups);
-    if (tempLearnerGroups[groupIndex].points.length === 0) {
-      for (let i = 0; i < project.tasks.length; i++) {
-        tempLearnerGroups[groupIndex].points.push({});
-      }
-    }
-    if (subTaskIndex === -1) {
-      if (
-        Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
-        0
-      ) {
-        tempLearnerGroups[groupIndex].points[taskIndex] = {
-          isChecked: true,
-          // taskIndex: taskIndex,
-          taskPoint: project.tasks[taskIndex].point,
-          subTasks: [],
-          isHidden: false,
-        };
-      } else {
-        tempLearnerGroups[groupIndex].points[taskIndex].isChecked =
-          !tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
-      }
+    let tempLearnerGroups = project.learnerGroups;
+    if (!!Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length) {
+      tempLearnerGroups[groupIndex].points[taskIndex].currentPoint = parseInt(
+        newPointValue,
+        10
+      );
     } else {
-      if (
-        Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
-        0
-      ) {
-        let tempSubTask = [];
-        project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
-          tempSubTask.push({
-            isChecked: false,
-            // subTaskIndex: subTaskIndex,
-            subTaskPoint: subTask.point,
-            isHidden: false,
-          });
-        });
-        tempSubTask[subTaskIndex].isChecked = true;
-        tempLearnerGroups[groupIndex].points[taskIndex] = {
-          isChecked: true,
-          // taskIndex: taskIndex,
-          taskPoint: project.tasks[taskIndex].point,
-          subTasks: tempSubTask,
-          isHidden: false,
-        };
-      } else {
-        tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-          subTaskIndex
-        ].isChecked =
-          !tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-            subTaskIndex
-          ].isChecked;
-      }
+      tempLearnerGroups[groupIndex].points[taskIndex].isHidden = false;
+      tempLearnerGroups[groupIndex].points[taskIndex].currentPoint = parseInt(
+        newPointValue,
+        10
+      );
     }
+    setLearnerGroups([...tempLearnerGroups]);
+    // handle Data State
+    let tempProject = project;
+    if (
+      !!Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
+    ) {
+      tempProject.learnerGroups[groupIndex].points[taskIndex].currentPoint =
+        parseInt(newPointValue, 10);
+    } else {
+      tempProject.learnerGroups[groupIndex].points[taskIndex].isHidden = false;
+      tempProject.learnerGroups[groupIndex].points[taskIndex].currentPoint =
+        parseInt(newPointValue, 10);
+    }
+    tempProject.learnerGroups[groupIndex].totalPoint =
+      tempLearnerGroups[groupIndex].totalPoint;
+    setProject(tempProject);
+  };
+
+  const handleUpdateTotalPoint = (groupIndex) => {
+    // handle UI State
+    let tempLearnerGroups = project.learnerGroups;
     tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
       tempLearnerGroups,
       groupIndex
     );
     setLearnerGroups([...tempLearnerGroups]);
-
     // handle Data State
-    const tempProject = project;
-    if (tempProject.learnerGroups[groupIndex].points.length === 0) {
-      for (let i = 0; i < project.tasks.length; i++) {
-        tempProject.learnerGroups[groupIndex].points.push({});
-      }
-    }
-    if (subTaskIndex === -1) {
-      if (
-        Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
-          .length === 0
-      ) {
-        tempProject.learnerGroups[groupIndex].points[taskIndex] = {
-          isChecked: true,
-          // taskIndex: taskIndex,
-          taskPoint: project.tasks[taskIndex].point,
-          subTasks: [],
-          isHidden: false,
-        };
-      } else {
-        tempProject.learnerGroups[groupIndex].points[taskIndex].isChecked =
-          tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
-      }
-    } else {
-      if (
-        Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
-          .length === 0
-      ) {
-        let tempSubTask = [];
-        project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
-          tempSubTask.push({
-            isChecked: false,
-            // subTaskIndex: subTaskIndex,
-            subTaskPoint: subTask.point,
-            isHidden: false,
-          });
-        });
-        tempSubTask[subTaskIndex].isChecked = true;
-        tempProject.learnerGroups[groupIndex].points[taskIndex] = {
-          isChecked: true,
-          // taskIndex: taskIndex,
-          taskPoint: project.tasks[taskIndex].point,
-          subTasks: tempSubTask,
-          isHidden: false,
-        };
-      } else {
-        tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
-          subTaskIndex
-        ].isChecked =
-          tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-            subTaskIndex
-          ].isChecked;
-      }
-    }
-    tempProject.learnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
-      tempProject.learnerGroups,
-      groupIndex
-    );
+    let tempProject = project;
+    tempProject.learnerGroups[groupIndex].totalPoint =
+      tempLearnerGroups[groupIndex].totalPoint;
     setProject(tempProject);
-    // console.log(tempProject);
-    handleUpdateProject(tempProject);
   };
 
   const calculateNewTotalPoint = (learnerGroup, groupIndex) => {
     let sum = 0;
     learnerGroup[groupIndex].points.forEach((point) => {
       if (!!Object.keys(point).length) {
-        if (!!point.subTasks.length) {
-          point.subTasks.forEach((subTask) => {
-            if (!subTask.isHidden && subTask.isChecked) {
-              sum += subTask.subTaskPoint;
-            }
-          });
-        } else {
-          if (!point.isHidden && point.isChecked) {
-            sum += point.taskPoint;
-          }
+        if (!point.isHidden) {
+          sum += point.currentPoint;
         }
       }
     });
     return sum;
   };
 
-  const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
-    if (
-      !!group.points.length &&
-      !!Object.keys(group.points[taskIndex]).length &&
-      group.points[taskIndex].subTasks &&
-      group.points[taskIndex].subTasks[subTaskIndex]
-    ) {
-      return group.points[taskIndex].subTasks[subTaskIndex].isChecked;
-    }
-    return false;
-  };
+  // const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
+  //   if (
+  //     !!group.points.length &&
+  //     !!Object.keys(group.points[taskIndex]).length &&
+  //     group.points[taskIndex].subTasks &&
+  //     group.points[taskIndex].subTasks[subTaskIndex]
+  //   ) {
+  //     return group.points[taskIndex].subTasks[subTaskIndex].isChecked;
+  //   }
+  //   return false;
+  // };
 
   return (
     <TableContainer
@@ -380,7 +422,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
                         sx={{ borderBottomWidth: 2, borderColor: "white" }}
                       />
                     )}
-                    <Stack direction="row" justifyContent="space-around">
+                    <Stack direction="row" justifyContent="center">
                       {!!task.subTasks.length &&
                         task.subTasks.map((subTask, subTaskIndex) => {
                           if (!subTask.isHidden) {
@@ -448,80 +490,58 @@ export default function MentorTable({ project, setProject, mentorName }) {
                 <StyledTableCell component="th" scope="row">
                   {group.groupIndex}
                 </StyledTableCell>
-                <StyledTableCell>
-                  {group.groupName}
-                  {/* <Stack direction="row" justifyContent={"space-between"}>
-                    <Box
-                      sx={{
-                        width: "2px",
-                        height: "50px",
-                        backgroundColor: "white",
-                      }}
-                    />
-                  </Stack> */}
-                </StyledTableCell>
+                <StyledTableCell>{group.groupName}</StyledTableCell>
                 {project?.tasks.map((task, taskIndex) => {
                   if (!task.isHidden) {
                     return (
                       <StyledTableCell key={taskIndex}>
                         <Stack direction="row" justifyContent="space-around">
-                          {!!task.subTasks.length &&
-                            task.subTasks.map((subTask, subTaskIndex) => {
-                              if (!subTask.isHidden) {
-                                return (
-                                  <Checkbox
-                                    key={subTaskIndex}
-                                    icon={<RadioButtonUnchecked />}
-                                    checkedIcon={<RadioButtonChecked />}
-                                    checked={checkIfIsChecked(
-                                      group,
-                                      taskIndex,
-                                      subTaskIndex
-                                    )}
-                                    onChange={() =>
-                                      handleCheckTaskByIndex(
-                                        index,
-                                        taskIndex,
-                                        subTaskIndex
-                                      )
-                                    }
-                                    sx={{
-                                      color: "white",
-                                      "&.Mui-checked": {
-                                        color: color.primaryOrange,
-                                      },
-                                    }}
-                                  />
-                                );
+                          <TextInput
+                            type="number"
+                            width={"100px"}
+                            marginright={0}
+                            onKeyPress={(event) => {
+                              if (event?.key === "-" || event?.key === "+") {
+                                event.preventDefault();
                               }
-                              return <React.Fragment key={subTaskIndex} />;
-                            })}
-                          {!!!task.subTasks.length && (
-                            <Checkbox
-                              key={taskIndex}
-                              icon={<RadioButtonUnchecked />}
-                              checkedIcon={<RadioButtonChecked />}
-                              checked={
-                                group.points[taskIndex]
-                                  ? group.points[taskIndex]?.isChecked
-                                    ? group.points[taskIndex].isChecked
-                                    : false
-                                  : false
+                              if (event.key === "Enter") {
+                                handleUpdateTotalPoint(index);
+                                handleUpdateProject(project);
                               }
-                              onChange={() =>
-                                handleCheckTaskByIndex(index, taskIndex)
-                              }
-                              sx={{
-                                color: "white",
-                                "&.Mui-checked": {
-                                  color: color.primaryOrange,
-                                },
-                              }}
-                            />
-                          )}
+                            }}
+                            onChange={(event) =>
+                              handlePointValueChange(
+                                index,
+                                taskIndex,
+                                event.target.value
+                              )
+                            }
+                            onBlur={() => {
+                              handleUpdateTotalPoint(index);
+                              handleUpdateProject(project);
+                            }}
+                            defaultValue={group.points[taskIndex].currentPoint}
+                          />
                         </Stack>
                       </StyledTableCell>
                     );
+                    // if (!!Object.keys(group.points[taskIndex]).length) {
+                    // }
+                    //  else {
+                    //   return (
+                    //     <StyledTableCell key={taskIndex}>
+                    //       <Stack direction="row" justifyContent="space-around">
+                    //         {!!!task.subTasks.length && (
+                    //           <TextInput
+                    //             type="number"
+                    //             width={"100px"}
+                    //             value={0}
+                    //           />
+                    //         )}
+                    //       </Stack>
+                    //     </StyledTableCell>
+                    //   );
+                    // }
                   }
                   return <StyledTableCell key={taskIndex}></StyledTableCell>;
                   // ** DO NOT DELETE !!! Later for handling subTask

@@ -47,14 +47,16 @@ const StrongText = styled(Typography)(({ fontSize = 72 }) => ({
   marginRight: "30px",
 }));
 
-const TableHeaderText = styled(Typography)(({ flex, fontSize = 28 }) => ({
-  flex: flex,
-  textAlign: "center",
-  fontSize: fontSize,
-  fontWeight: 800,
-  color: color.primaryOrange,
-  fontFamily: "Raleway",
-}));
+const TableHeaderText = styled(Typography)(
+  ({ flex, fontSize = 28, color = "white" }) => ({
+    flex: flex,
+    textAlign: "center",
+    fontSize: fontSize,
+    fontWeight: 800,
+    color: color,
+    fontFamily: "Raleway",
+  })
+);
 
 const TablePointHeaderText = styled(Typography)(({ flex }) => ({
   flex: 1,

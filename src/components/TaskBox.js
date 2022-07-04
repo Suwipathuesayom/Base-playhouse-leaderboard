@@ -19,7 +19,7 @@ import { TextInput } from "../assets/styles/InputStyles";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
-import addLearnerGroupTaskPoint from "./Functions/addLearnerGroupTaskPoint";
+// import addLearnerGroupTaskPoint from "./Functions/addLearnerGroupTaskPoint";
 
 const TaskBox = ({
   project,
@@ -101,30 +101,30 @@ const TaskBox = ({
     tempProject.tasks[index].showSubTasks = tempTask[index].showSubTasks;
     setProject(tempProject);
   };
-  const handlePointValueChange = (index, newPointValue) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].point = parseInt(newPointValue, 10);
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    tempProject.tasks[index].point = parseInt(newPointValue, 10);
-    tempProject.learnerGroups.forEach((group, groupIndex) => {
-      if (!!!group.points.length) {
-        tempProject = addLearnerGroupTaskPoint(tempProject, groupIndex);
-      }
-      if (!!!Object.keys(group.points[index]).length) {
-        group.points[index].isChecked = false;
-        group.points[index].subTasks = [];
-        // group.points[index].taskIndex = index;
-        group.points[index].isHidden = false;
-      }
-      group.points[index].taskPoint = parseInt(newPointValue, 10);
-    });
-    recalculateLearnerGroupNewTotalPoint(tempProject);
-    setProject(tempProject);
-    // console.log(tempProject);
-  };
+  // const handlePointValueChange = (index, newPointValue) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].point = parseInt(newPointValue, 10);
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   tempProject.tasks[index].point = parseInt(newPointValue, 10);
+  //   tempProject.learnerGroups.forEach((group, groupIndex) => {
+  //     if (!!!group.points.length) {
+  //       tempProject = addLearnerGroupTaskPoint(tempProject, groupIndex);
+  //     }
+  //     if (!!!Object.keys(group.points[index]).length) {
+  //       group.points[index].isChecked = false;
+  //       group.points[index].subTasks = [];
+  //       // group.points[index].taskIndex = index;
+  //       group.points[index].isHidden = false;
+  //     }
+  //     group.points[index].taskPoint = parseInt(newPointValue, 10);
+  //   });
+  //   recalculateLearnerGroupNewTotalPoint(tempProject);
+  //   setProject(tempProject);
+  //   // console.log(tempProject);
+  // };
   // const handleWeightValueChange = (index, newWeightValue) => {
   //   // handle UI State
   //   let tempTask = [...newTask];
@@ -303,16 +303,16 @@ const TaskBox = ({
             }}
           />
         )}
-        <AddCircle
+        {/* <AddCircle
           className="newProject__icon"
           style={{
             fontSize: 40,
             color: color.primaryOrange,
           }}
           onClick={() => handleAddNewSubTask(index)}
-        />
+        /> */}
 
-        {!!!subTasks.length && !isHidden && (
+        {/* {!!!subTasks.length && !isHidden && (
           <TextInput
             width={100}
             marginright={"10px"}
@@ -348,7 +348,7 @@ const TaskBox = ({
               handlePointValueChange(index, event.target.value)
             }
           />
-        )}
+        )} */}
         {/* <TextInput
           width={100}
           marginright={"10px"}
