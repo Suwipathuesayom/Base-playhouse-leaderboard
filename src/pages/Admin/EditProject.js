@@ -9,7 +9,7 @@ import NewProjectBody from "./NewProjectBody";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 import Navbar from "../../components/Navbar";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 
 // const auth = firebase.auth();
 
@@ -40,7 +40,7 @@ function EditProject() {
       <div>
         <Navbar />
         <div className="newProject">
-          <Button onClick={() => console.log(project)}>ดู project</Button>
+          {/* <Button onClick={() => console.log(project)}>ดู project</Button> */}
           <div className="alert">
             <ProjectStatusAlert
               editProjectStatus={editProjectStatus}
