@@ -7,11 +7,9 @@ const recalculateLearnerGroupNewTotalPoint = (project) => {
           point.subTasks.forEach((subTask) => {
             if (!subTask.isHidden && subTask.isChecked)
               newTotalPoint += subTask.subTaskPoint;
-            console.log(newTotalPoint);
           });
         } else if (!point.isHidden && point.isChecked) {
           newTotalPoint += point.taskPoint;
-          console.log(newTotalPoint);
         }
       }
     });

@@ -20,21 +20,25 @@ function Speaker() {
 
   const queryProject = (projectName) => {
     // let authUser = auth.currentUser;
-    db.collection("users")
-      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
-      .collection("project")
-      .where("projectName", "==", projectName)
-      .onSnapshot((snapshot) => {
-        snapshot.forEach((doc) => {
-          let tempProject = doc.data();
-          tempProject.learnerGroups = tempProject.learnerGroups.sort(
-            (lhs, rhs) => {
-              return rhs.totalPoint - lhs.totalPoint;
-            }
-          );
-          setProject(tempProject);
+    try {
+      db.collection("users")
+        .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
+        .collection("project")
+        .where("projectName", "==", projectName)
+        .onSnapshot((snapshot) => {
+          snapshot.forEach((doc) => {
+            let tempProject = doc.data();
+            tempProject.learnerGroups = tempProject.learnerGroups.sort(
+              (lhs, rhs) => {
+                return rhs.totalPoint - lhs.totalPoint;
+              }
+            );
+            setProject(tempProject);
+          });
         });
-      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const checkIfIntIsNotZero = (number, condition) => {
@@ -217,7 +221,7 @@ function Speaker() {
                           );
                         }
                       }
-                    } else {
+                    } else if (!project.tasks[pointIndex].isHidden) {
                       return (
                         <TablePointHeaderText flex={1} key={pointIndex}>
                           {0}

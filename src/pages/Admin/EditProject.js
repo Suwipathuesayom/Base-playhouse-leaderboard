@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { db } from "../../config/firebase";
@@ -18,27 +18,22 @@ function EditProject() {
   const [project, setProject] = useState(null);
   const [editProjectStatus, setEditProjectStatus] = useState("warning");
 
-  const queryProject = async (projectName) => {
-    await db
-      .collection("users")
-      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
-      .collection("project")
-      .where("projectName", "==", projectName)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          setProject(doc.data());
+  const queryProject = (projectName) => {
+    try {
+      db.collection("users")
+        .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
+        .collection("project")
+        .where("projectName", "==", projectName)
+        .onSnapshot((snapshot) => {
+          snapshot.forEach((doc) => {
+            setProject(doc.data());
+          });
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        setProject({});
-      });
+    } catch (error) {
+      console.log(error);
+      setProject({});
+    }
   };
-
-  useEffect(() => {
-    console.log(project);
-  }, [project]);
 
   if (project) {
     return (

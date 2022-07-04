@@ -28,7 +28,6 @@ function ExportCSV({ selectedProject, mentors }) {
       selectedProject.tasks.forEach((task, taskIndex) => {
         let tempPoint = 0;
         if (group.points.length !== 0) {
-          console.log(group.groupName);
           if (Object.keys(group.points[taskIndex]).length !== 0) {
             if (group.points[taskIndex].subTasks) {
               group.points[taskIndex].subTasks.forEach((subTask) => {

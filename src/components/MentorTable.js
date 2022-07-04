@@ -242,7 +242,6 @@ export default function MentorTable({ project, setProject, mentorName }) {
           ].isChecked;
       }
     }
-    console.log(tempLearnerGroups);
     tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
       tempLearnerGroups,
       groupIndex
