@@ -17,6 +17,7 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { TextInput } from "../assets/styles/InputStyles";
+import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
 
 // const auth = firebase.auth();
 
@@ -243,7 +244,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
   //         ].isChecked;
   //     }
   //   }
-  //   tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
+  //   tempLearnerGroups[groupIndex].totalPoint = calculateLearnerGroupNewTotalPoint(
   //     tempLearnerGroups,
   //     groupIndex
   //   );
@@ -303,7 +304,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
   //         ].isChecked;
   //     }
   //   }
-  //   tempProject.learnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
+  //   tempProject.learnerGroups[groupIndex].totalPoint = calculateLearnerGroupNewTotalPoint(
   //     tempProject.learnerGroups,
   //     groupIndex
   //   );
@@ -349,28 +350,14 @@ export default function MentorTable({ project, setProject, mentorName }) {
   const handleUpdateTotalPoint = (groupIndex) => {
     // handle UI State
     let tempLearnerGroups = project.learnerGroups;
-    tempLearnerGroups[groupIndex].totalPoint = calculateNewTotalPoint(
-      tempLearnerGroups,
-      groupIndex
-    );
+    tempLearnerGroups[groupIndex].totalPoint =
+      calculateLearnerGroupNewTotalPoint(tempLearnerGroups, groupIndex);
     setLearnerGroups([...tempLearnerGroups]);
     // handle Data State
     let tempProject = project;
     tempProject.learnerGroups[groupIndex].totalPoint =
       tempLearnerGroups[groupIndex].totalPoint;
     setProject(tempProject);
-  };
-
-  const calculateNewTotalPoint = (learnerGroup, groupIndex) => {
-    let sum = 0;
-    learnerGroup[groupIndex].points.forEach((point) => {
-      if (!!Object.keys(point).length) {
-        if (!point.isHidden) {
-          sum += point.currentPoint;
-        }
-      }
-    });
-    return sum;
   };
 
   // const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
@@ -520,7 +507,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
                               handleUpdateTotalPoint(index);
                               handleUpdateProject(project);
                             }}
-                            defaultValue={group.points[taskIndex].currentPoint}
+                            defaultValue={
+                              group.points[taskIndex].currentPoint
+                                ? group.points[taskIndex].currentPoint
+                                : 0
+                            }
                           />
                         </Stack>
                       </StyledTableCell>

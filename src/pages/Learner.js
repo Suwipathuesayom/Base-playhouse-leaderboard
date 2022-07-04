@@ -144,19 +144,41 @@ function Learner() {
             backgroundColor={color.primaryBlack}
             sx={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
           >
-            <TableHeaderText flex={1} fontSize={smallScreen ? 18 : 28}>
+            <TableHeaderText
+              color={getRankColor(0, project.theme.top3)}
+              flex={1}
+              fontSize={smallScreen ? 18 : 28}
+            >
               RANK
             </TableHeaderText>
             {!smallScreen && <Typography sx={{ flex: 0.5 }} />}
             {!smallScreen && (
-              <TableHeaderText flex={0.5}>GROUP</TableHeaderText>
+              <TableHeaderText
+                color={getRankColor(0, project.theme.top3)}
+                flex={0.5}
+              >
+                GROUP
+              </TableHeaderText>
             )}
-            <TableHeaderText flex={5} fontSize={smallScreen ? 18 : 28}>
+            <TableHeaderText
+              color={getRankColor(0, project.theme.top3)}
+              flex={5}
+              fontSize={smallScreen ? 18 : 28}
+            >
               NAME
             </TableHeaderText>
-            {!smallScreen && <TableHeaderText flex={1} />}
+            {!smallScreen && (
+              <TableHeaderText
+                color={getRankColor(0, project.theme.top3)}
+                flex={1}
+              />
+            )}
 
-            <TableHeaderText flex={1} fontSize={smallScreen ? 18 : 28}>
+            <TableHeaderText
+              color={getRankColor(0, project.theme.top3)}
+              flex={1}
+              fontSize={smallScreen ? 18 : 28}
+            >
               TOTAL
             </TableHeaderText>
           </Stack>

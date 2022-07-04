@@ -19,6 +19,7 @@ import { TextInput } from "../assets/styles/InputStyles";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
+import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
 // import addLearnerGroupTaskPoint from "./Functions/addLearnerGroupTaskPoint";
 
 const TaskBox = ({
@@ -62,22 +63,20 @@ const TaskBox = ({
       if (!!Object.keys(group.points[index]).length) {
         group.points[index].isHidden = tempTask[index].isHidden;
       } else {
-        group.points[index].isChecked = false;
+        group.points[index].currentPoint = 0;
         group.points[index].isHidden = tempTask[index].isHidden;
-        group.points[index].subTasks = [];
-        // group.points[index].taskIndex = index;
         group.points[index].taskPoint = tempProject.tasks[index].point;
-      }
-      if (!!group.points[index].subTasks.length) {
-        group.points[index].subTasks.forEach((subTask) => {
-          subTask.isHidden = tempTask[index].isHidden;
-        });
       }
     });
 
     // if (tempTask[index].isHidden)
     //   resetEachLearnerGroupTaskPoint(tempProject, index);
-    recalculateLearnerGroupNewTotalPoint(tempProject);
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.totalPoint = calculateLearnerGroupNewTotalPoint(
+        tempProject.learnerGroups,
+        groupIndex
+      );
+    });
 
     tempProject.tasks[index].subTasks.forEach((subTask) => {
       subTask.isHidden = tempProject.tasks[index].isHidden;
