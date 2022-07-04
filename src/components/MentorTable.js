@@ -360,6 +360,19 @@ export default function MentorTable({ project, setProject, mentorName }) {
     setProject(tempProject);
   };
 
+  const displayGroupCurrentPoint = (group, taskIndex) => {
+    console.log(taskIndex);
+    if (
+      group.points[taskIndex] &&
+      !!Object.keys(group.points[taskIndex]).length
+    ) {
+      // console.log(group.points[taskIndex].currentPoint);
+      return group.points[taskIndex].currentPoint;
+    }
+    // console.log(0);
+    return 0;
+  };
+
   // const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
   //   if (
   //     !!group.points.length &&
@@ -507,11 +520,10 @@ export default function MentorTable({ project, setProject, mentorName }) {
                               handleUpdateTotalPoint(index);
                               handleUpdateProject(project);
                             }}
-                            defaultValue={
-                              group.points[taskIndex].currentPoint
-                                ? group.points[taskIndex].currentPoint
-                                : 0
-                            }
+                            defaultValue={displayGroupCurrentPoint(
+                              group,
+                              taskIndex
+                            )}
                           />
                         </Stack>
                       </StyledTableCell>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  AddCircle,
+  // AddCircle,
   Delete,
   Done,
   DriveFileRenameOutline,
@@ -18,7 +18,7 @@ import SubTaskBox from "./SubTaskBox";
 import { TextInput } from "../assets/styles/InputStyles";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
-import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
+// import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
 // import addLearnerGroupTaskPoint from "./Functions/addLearnerGroupTaskPoint";
 
@@ -145,60 +145,60 @@ const TaskBox = ({
     tempProject.tasks[index].taskName = newTaskName;
     setProject(tempProject);
   };
-  const handleAddNewSubTask = (index) => {
-    // handle UI State
-    let tempTask = [...newTask];
-    tempTask[index].subTasks.push({
-      subTaskName: "",
-      point: 5,
-      isHidden: false,
-    });
-    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-    tempTask[index].showSubTasks = true;
-    setNewTask(tempTask);
-    // handle Data State
-    let tempProject = project;
-    if (
-      tempProject.tasks[index].subTasks[
-        tempProject.tasks[index].subTasks.length
-      ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
-    ) {
-      tempProject.tasks[index].subTasks.push({
-        subTaskName: "",
-        point: 5,
-        isHidden: false,
-      });
-    }
-    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-      tempProject.tasks,
-      index
-    );
-    tempProject.learnerGroups.forEach((group, groupIndex) => {
-      if (!!Object.keys(group.points[index]).length) {
-        group.points[index].subTasks.push({
-          isChecked: false,
-          // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
-          subTaskPoint: 5,
-          isHidden: false,
-        });
-      } else {
-        group.points[index].isChecked = false;
-        group.points[index].subTasks = [
-          {
-            isChecked: false,
-            // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
-            subTaskPoint: 5,
-            isHidden: false,
-          },
-        ];
-        // group.points[index].taskIndex = index;
-        group.points[index].taskPoint = 5;
-        group.points[index].isHidden = false;
-      }
-    });
-    tempProject.tasks[index].showSubTasks = true;
-    setProject(tempProject);
-  };
+  // const handleAddNewSubTask = (index) => {
+  //   // handle UI State
+  //   let tempTask = [...newTask];
+  //   tempTask[index].subTasks.push({
+  //     subTaskName: "",
+  //     point: 5,
+  //     isHidden: false,
+  //   });
+  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+  //   tempTask[index].showSubTasks = true;
+  //   setNewTask(tempTask);
+  //   // handle Data State
+  //   let tempProject = project;
+  //   if (
+  //     tempProject.tasks[index].subTasks[
+  //       tempProject.tasks[index].subTasks.length
+  //     ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
+  //   ) {
+  //     tempProject.tasks[index].subTasks.push({
+  //       subTaskName: "",
+  //       point: 5,
+  //       isHidden: false,
+  //     });
+  //   }
+  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+  //     tempProject.tasks,
+  //     index
+  //   );
+  //   tempProject.learnerGroups.forEach((group, groupIndex) => {
+  //     if (!!Object.keys(group.points[index]).length) {
+  //       group.points[index].subTasks.push({
+  //         isChecked: false,
+  //         // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
+  //         subTaskPoint: 5,
+  //         isHidden: false,
+  //       });
+  //     } else {
+  //       group.points[index].isChecked = false;
+  //       group.points[index].subTasks = [
+  //         {
+  //           isChecked: false,
+  //           // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
+  //           subTaskPoint: 5,
+  //           isHidden: false,
+  //         },
+  //       ];
+  //       // group.points[index].taskIndex = index;
+  //       group.points[index].taskPoint = 5;
+  //       group.points[index].isHidden = false;
+  //     }
+  //   });
+  //   tempProject.tasks[index].showSubTasks = true;
+  //   setProject(tempProject);
+  // };
   const handleRemoveTask = (taskIndex) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -210,7 +210,12 @@ const TaskBox = ({
     tempProject.learnerGroups.forEach((group) => {
       group.points.splice(taskIndex, 1);
     });
-    recalculateLearnerGroupNewTotalPoint(tempProject);
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.totalPoint = calculateLearnerGroupNewTotalPoint(
+        tempProject.learnerGroups,
+        groupIndex
+      );
+    });
     setProject(tempProject);
   };
 
