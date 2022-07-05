@@ -42,7 +42,7 @@ export default function Navbar({ header = "" }) {
             </Typography>
           </Link>
           <Typography
-            variant="h4"
+            variant="h5"
             component="div"
             display={"flex"}
             flexDirection={"row"}
