@@ -11,7 +11,7 @@ import color from "../constant/color";
 import { ContentText, NumberText } from "../assets/styles/TypographyStyles";
 import { TextInput } from "../assets/styles/InputStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
-import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
+// import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
 
 const SubTaskBox = ({
