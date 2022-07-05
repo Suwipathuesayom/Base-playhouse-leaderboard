@@ -10,14 +10,17 @@ const TextInput = styled(InputBase)(({ width, marginright = "20px" }) => ({
   backgroundColor: "white",
 }));
 
-const ColorInput = styled(InputBase)(({ width, marginright = "20px" }) => ({
-  width: width,
-  padding: "0 10px",
-  marginRight: marginright,
-  borderRadius: "3px",
-  fontSize: 20,
-  backgroundColor: "white",
-}));
+const ColorInput = styled(InputBase)(
+  ({ width, marginright = "20px", marginleft = 0 }) => ({
+    width: width,
+    padding: "0 10px",
+    marginRight: marginright,
+    marginLeft: marginleft,
+    borderRadius: "3px",
+    fontSize: 20,
+    backgroundColor: "white",
+  })
+);
 
 const DropDownTextInput = styled(TextField)(() => ({
   "& .MuiOutlinedInput-root": {

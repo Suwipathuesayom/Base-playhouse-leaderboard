@@ -37,13 +37,13 @@ export default function Mentor() {
           paddingY: "1%",
         }}
       >
-        <Button
+        {/* <Button
           onClick={() => {
             console.log(project);
           }}
         >
           ดู project
-        </Button>
+        </Button> */}
         <PresentationHeader project={project} />
         <Stack
           sx={{

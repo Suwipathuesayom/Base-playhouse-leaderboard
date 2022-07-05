@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  // AddCircle,
+  AddCircle,
   Delete,
   Done,
   DriveFileRenameOutline,
@@ -63,7 +63,7 @@ const TaskBox = ({
       if (!!Object.keys(group.points[index]).length) {
         group.points[index].isHidden = tempTask[index].isHidden;
       } else {
-        group.points[index].currentPoint = 0;
+        group.points[index].taskPoint = 0;
         group.points[index].isHidden = tempTask[index].isHidden;
         group.points[index].taskPoint = tempProject.tasks[index].point;
       }
@@ -145,60 +145,57 @@ const TaskBox = ({
     tempProject.tasks[index].taskName = newTaskName;
     setProject(tempProject);
   };
-  // const handleAddNewSubTask = (index) => {
-  //   // handle UI State
-  //   let tempTask = [...newTask];
-  //   tempTask[index].subTasks.push({
-  //     subTaskName: "",
-  //     point: 5,
-  //     isHidden: false,
-  //   });
-  //   tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
-  //   tempTask[index].showSubTasks = true;
-  //   setNewTask(tempTask);
-  //   // handle Data State
-  //   let tempProject = project;
-  //   if (
-  //     tempProject.tasks[index].subTasks[
-  //       tempProject.tasks[index].subTasks.length
-  //     ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
-  //   ) {
-  //     tempProject.tasks[index].subTasks.push({
-  //       subTaskName: "",
-  //       point: 5,
-  //       isHidden: false,
-  //     });
-  //   }
-  //   tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
-  //     tempProject.tasks,
-  //     index
-  //   );
-  //   tempProject.learnerGroups.forEach((group, groupIndex) => {
-  //     if (!!Object.keys(group.points[index]).length) {
-  //       group.points[index].subTasks.push({
-  //         isChecked: false,
-  //         // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
-  //         subTaskPoint: 5,
-  //         isHidden: false,
-  //       });
-  //     } else {
-  //       group.points[index].isChecked = false;
-  //       group.points[index].subTasks = [
-  //         {
-  //           isChecked: false,
-  //           // subTaskIndex: tempProject.tasks[index].subTasks.length - 1,
-  //           subTaskPoint: 5,
-  //           isHidden: false,
-  //         },
-  //       ];
-  //       // group.points[index].taskIndex = index;
-  //       group.points[index].taskPoint = 5;
-  //       group.points[index].isHidden = false;
-  //     }
-  //   });
-  //   tempProject.tasks[index].showSubTasks = true;
-  //   setProject(tempProject);
-  // };
+  const handleAddNewSubTask = (index) => {
+    // handle UI State
+    let tempTask = [...newTask];
+    tempTask[index].subTasks.push({
+      subTaskName: "",
+      point: 5,
+      isHidden: false,
+    });
+    tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
+    tempTask[index].showSubTasks = true;
+    setNewTask(tempTask);
+    // handle Data State
+    let tempProject = project;
+    if (
+      tempProject.tasks[index].subTasks[
+        tempProject.tasks[index].subTasks.length
+      ] !== tempTask[index].subTasks[tempProject.tasks[index].subTasks.length]
+    ) {
+      tempProject.tasks[index].subTasks.push({
+        subTaskName: "",
+        point: 5,
+        isHidden: false,
+      });
+    }
+    tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
+      tempProject.tasks,
+      index
+    );
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      if (!!Object.keys(group.points[index]).length) {
+        group.points[index].subTasks.push({
+          subTaskPoint: 0,
+          isHidden: false,
+        });
+      } else {
+        group.points[index].subTasks = [
+          {
+            subTaskPoint: 0,
+            isHidden: false,
+          },
+        ];
+        group.points[index].isHidden = false;
+      }
+      group.totalPoint = calculateLearnerGroupNewTotalPoint(
+        tempProject.learnerGroups,
+        groupIndex
+      );
+    });
+    tempProject.tasks[index].showSubTasks = true;
+    setProject(tempProject);
+  };
   const handleRemoveTask = (taskIndex) => {
     // handle UI State
     let tempTask = [...newTask];
@@ -307,14 +304,14 @@ const TaskBox = ({
             }}
           />
         )}
-        {/* <AddCircle
+        <AddCircle
           className="newProject__icon"
           style={{
             fontSize: 40,
             color: color.primaryOrange,
           }}
           onClick={() => handleAddNewSubTask(index)}
-        /> */}
+        />
 
         {/* {!!!subTasks.length && !isHidden && (
           <TextInput

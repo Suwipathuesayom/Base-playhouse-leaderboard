@@ -27,9 +27,6 @@ export default function Navbar({ header = "" }) {
         }}
       >
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            {header}
-          </Typography>
           <Link style={{ textDecoration: "none" }} to="/">
             <Typography
               variant="h6"
@@ -44,6 +41,17 @@ export default function Navbar({ header = "" }) {
               หน้าแรก
             </Typography>
           </Link>
+          <Typography
+            variant="h4"
+            component="div"
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"flex-end"}
+            mr={"20px"}
+            sx={{ flexGrow: 1 }}
+          >
+            {header}
+          </Typography>
           <Link to="/">
             <Logout
               sx={{ fontSize: 40, color: color.primaryOrange }}

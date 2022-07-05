@@ -41,10 +41,6 @@ function Speaker() {
     }
   };
 
-  const checkIfIntIsNotZero = (number, condition) => {
-    return condition ? number : 0;
-  };
-
   if (project) {
     return (
       <Box
@@ -220,7 +216,7 @@ function Speaker() {
                       if (!!Object.keys(point).length) {
                         return (
                           <TablePointHeaderText flex={1} key={pointIndex}>
-                            {point.currentPoint}
+                            {point.taskPoint}
                           </TablePointHeaderText>
                         );
                       } else {
