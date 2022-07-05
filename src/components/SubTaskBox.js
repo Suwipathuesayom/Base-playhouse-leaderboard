@@ -13,6 +13,7 @@ import { TextInput } from "../assets/styles/InputStyles";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 // import recalculateLearnerGroupNewTotalPoint from "./Functions/recalculateLearnerGroupNewTotalPoint";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
+import calculateNewTaskPointFromSubTasks from "./Functions/calculateNewTaskPointFromSubTasks";
 
 const SubTaskBox = ({
   project,
@@ -136,14 +137,6 @@ const SubTaskBox = ({
     });
 
     setProject(tempProject);
-  };
-
-  const calculateNewTaskPointFromSubTasks = (arr, index) => {
-    let sum = 0;
-    arr[index].subTasks.forEach((subTask) => {
-      if (!subTask.isHidden) sum += subTask.point;
-    });
-    return sum;
   };
 
   return (

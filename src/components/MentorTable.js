@@ -18,6 +18,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { TextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
+import calculateNewTaskPointFromSubTasks from "./Functions/calculateNewTaskPointFromSubTasks";
 
 // const auth = firebase.auth();
 
@@ -339,7 +340,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
             subTaskIndex
           ] = parseInt(newPointValue, 10);
         }
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = -1;
+        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
+          calculateNewTaskPointFromSubTasks(
+            tempLearnerGroups[groupIndex].points,
+            taskIndex
+          );
       } else {
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
           newPointValue,
@@ -359,7 +364,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
         tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
           subTaskIndex
         ].subTaskPoint = parseInt(newPointValue, 10);
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = -1;
+        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
+          calculateNewTaskPointFromSubTasks(
+            tempLearnerGroups[groupIndex].points,
+            taskIndex
+          );
       } else {
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
           newPointValue,
