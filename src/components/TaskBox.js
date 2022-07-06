@@ -207,6 +207,15 @@ const TaskBox = ({
           if (!subTask.isHidden) subTaskSum += subTask.subTaskPoint;
         });
         group.points[index].taskPoint = subTaskSum;
+      } else {
+        group.points[index].isHidden = false;
+        group.points[index].subTasks = [
+          {
+            subTaskPoint: 0,
+            isHidden: false,
+          },
+        ];
+        group.points[index].taskPoint = 0;
       }
       group.points[index].isHidden = false;
       group.totalPoint = calculateLearnerGroupNewTotalPoint(
