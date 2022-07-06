@@ -31,10 +31,10 @@ function ExportCSV({ selectedProject, mentors }) {
           if (Object.keys(group.points[taskIndex]).length !== 0) {
             if (group.points[taskIndex].subTasks) {
               group.points[taskIndex].subTasks.forEach((subTask) => {
-                if (subTask.isChecked) tempPoint += subTask.subTaskPoint;
+                if (!subTask.isHidden) tempPoint += subTask.subTaskPoint;
               });
             } else {
-              if (group.points[taskIndex].isChecked) {
+              if (!group.points[taskIndex].isHidden) {
                 tempPoint = group.points[taskIndex].taskPoint;
               } else {
                 tempPoint = 0;

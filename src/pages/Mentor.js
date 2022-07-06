@@ -35,7 +35,7 @@ export default function Mentor() {
         sx={{
           width: "100%",
           height: "100vh",
-          // paddingY: "1%",
+          paddingY: "1%",
         }}
       >
         {/* <Button
