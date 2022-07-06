@@ -201,11 +201,11 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                   แก้ไขล่าสุด <ArrowDropDownIcon />
                 </StyledTableCell>
               )}
-              {!smallScreen && (
+              {/* {!smallScreen && (
                 <StyledTableCell>
                   คะแนนรวม <ArrowDropDownIcon />
                 </StyledTableCell>
-              )}
+              )} */}
               <StyledTableCell align="left" />
             </TableRow>
           </TableHead>
@@ -234,9 +234,9 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                     </Moment>
                   </StyledTableCell>
                 )}
-                {!smallScreen && (
+                {/* {!smallScreen && (
                   <StyledTableCell>{project.totalPoint}</StyledTableCell>
-                )}
+                )} */}
                 <StyledTableCell align="left">
                   <StyledStack>
                     <Button
