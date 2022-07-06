@@ -413,7 +413,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
     } else {
       if (group.points[taskIndex]) {
         if (!!Object.keys(group.points[taskIndex]).length) {
-          if (group.points[taskIndex].subTasks[subTaskIndex]) {
+          if (!!group.points[taskIndex].subTasks.length) {
             return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
           }
         }
