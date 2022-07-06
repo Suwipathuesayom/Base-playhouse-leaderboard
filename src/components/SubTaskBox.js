@@ -41,6 +41,7 @@ const SubTaskBox = ({
     tempTask[index].subTasks.forEach((subTask) => {
       visibility += !subTask.isHidden;
     });
+    console.log("is hidden: " + !!!visibility);
     tempTask[index].isHidden = !!!visibility;
     tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
     setNewTask(tempTask);
@@ -117,6 +118,7 @@ const SubTaskBox = ({
     tempTask[index].subTasks.forEach((subTask) => {
       visibility += !subTask.isHidden;
     });
+    console.log("is hidden: " + !!!visibility);
     tempTask[index].isHidden = !!!visibility;
     tempTask[taskIndex].showSubTasks = !!tempTask[taskIndex].subTasks.length;
     if (tempTask[taskIndex].showSubTasks) {
