@@ -59,6 +59,9 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].isHidden = tempTask[index].isHidden;
+    tempProject.tasks[index].subTasks.forEach((subTask) => {
+      subTask.isHidden = tempTask[index].isHidden;
+    });
     tempProject.learnerGroups.forEach((group) => {
       if (!!Object.keys(group.points[index]).length) {
         group.points[index].isHidden = tempTask[index].isHidden;
@@ -84,7 +87,7 @@ const TaskBox = ({
     }
     tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points.forEach((task, taskIndex) => {
-        task.subTasks?.forEach((subTask) => {
+        task.subTasks?.forEach((subTask, subTaskIndex) => {
           subTask.isHidden = tempProject.tasks[taskIndex].isHidden;
         });
       });
@@ -234,6 +237,12 @@ const TaskBox = ({
     });
     return sum;
   };
+
+  // const resetEachLearnerGroupTaskPoint = (project) => {
+  //   project.learnerGroups.forEach((group) => {
+  //     group.points = [];
+  //   });
+  // };
 
   return (
     <div>
