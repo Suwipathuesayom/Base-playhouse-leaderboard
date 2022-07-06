@@ -342,7 +342,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
           });
           tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
             subTaskIndex
-          ] = parseInt(newPointValue, 10);
+          ].subTaskPoint = parseInt(newPointValue, 10);
         }
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
           calculateNewTaskPointFromSubTasks(
@@ -384,8 +384,10 @@ export default function MentorTable({ project, setProject, mentorName }) {
     //   calculateLearnerGroupNewTotalPoint(tempLearnerGroups, groupIndex);
     setLearnerGroups([...tempLearnerGroups]);
     // handle Data State
+    let tempProject = project.learnerGroups;
+    tempProject.learnerGroups = [...tempLearnerGroups];
 
-    // setProject(tempProject);
+    setProject(tempProject);
   };
 
   const handleUpdateTotalPoint = (groupIndex) => {
