@@ -411,20 +411,12 @@ export default function MentorTable({ project, setProject, mentorName }) {
       }
       // console.log(0);
     } else {
-<<<<<<< HEAD
-      if (
-        !!Object.keys(group.points[taskIndex]).length &&
-        group.points[taskIndex].subTasks
-      ) {
-        return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
-=======
       if (group.points[taskIndex]) {
         if (!!Object.keys(group.points[taskIndex]).length) {
           if (group.points[taskIndex].subTasks[subTaskIndex]) {
             return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
           }
         }
->>>>>>> main2
       }
     }
     return 0;
