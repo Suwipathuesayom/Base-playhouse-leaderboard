@@ -115,11 +115,11 @@ const TaskBox = ({
   // const handlePointValueChange = (index, newPointValue) => {
   //   // handle UI State
   //   let tempTask = [...newTask];
-  //   tempTask[index].point = parseInt(newPointValue, 10);
+  //   tempTask[index].point = checkIfNumberIsEmpty(newPointValue);
   //   setNewTask(tempTask);
   //   // handle Data State
   //   let tempProject = project;
-  //   tempProject.tasks[index].point = parseInt(newPointValue, 10);
+  //   tempProject.tasks[index].point = checkIfNumberIsEmpty(newPointValue);
   //   tempProject.learnerGroups.forEach((group, groupIndex) => {
   //     if (!!!group.points.length) {
   //       tempProject = addLearnerGroupTaskPoint(tempProject, groupIndex);
@@ -130,7 +130,7 @@ const TaskBox = ({
   //       // group.points[index].taskIndex = index;
   //       group.points[index].isHidden = false;
   //     }
-  //     group.points[index].taskPoint = parseInt(newPointValue, 10);
+  //     group.points[index].taskPoint = checkIfNumberIsEmpty(newPointValue);
   //   });
   //   recalculateLearnerGroupNewTotalPoint(tempProject);
   //   setProject(tempProject);
