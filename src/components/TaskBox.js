@@ -84,7 +84,7 @@ const TaskBox = ({
     }
     tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points.forEach((task, taskIndex) => {
-        task.subTasks?.forEach((subTask, subTaskIndex) => {
+        task.subTasks?.forEach((subTask) => {
           subTask.isHidden = tempProject.tasks[taskIndex].isHidden;
         });
       });
@@ -234,12 +234,6 @@ const TaskBox = ({
     });
     return sum;
   };
-
-  // const resetEachLearnerGroupTaskPoint = (project) => {
-  //   project.learnerGroups.forEach((group) => {
-  //     group.points = [];
-  //   });
-  // };
 
   return (
     <div>
