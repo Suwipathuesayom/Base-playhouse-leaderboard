@@ -321,7 +321,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
     subTaskIndex = -1
   ) => {
     // handle UI State
+    if (newPointValue === "") {
+      newPointValue = 0;
+    }
     // console.log(groupIndex, taskIndex, subTaskIndex);
+    console.log(project.learnerGroups);
     let tempLearnerGroups = project.learnerGroups;
     if (!!Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length) {
       if (subTaskIndex >= 0) {
@@ -409,7 +413,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
     } else {
       if (
         !!Object.keys(group.points[taskIndex]).length &&
-        group.points[taskIndex].subTasks[subTaskIndex]
+        group.points[taskIndex].subTasks
       ) {
         return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
       }

@@ -59,6 +59,9 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].isHidden = tempTask[index].isHidden;
+    tempProject.tasks[index].subTasks.forEach((subTask) => {
+      subTask.isHidden = tempTask[index].isHidden;
+    });
     tempProject.learnerGroups.forEach((group) => {
       if (!!Object.keys(group.points[index]).length) {
         group.points[index].isHidden = tempTask[index].isHidden;
