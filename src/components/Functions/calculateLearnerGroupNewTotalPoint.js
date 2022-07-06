@@ -15,8 +15,7 @@ const calculateLearnerGroupNewTotalPoint = (learnerGroup, groupIndex) => {
       }
     }
   });
-  console.log(sum);
-  return sum;
+  return isNaN(sum) ? 0 : sum;
 };
 
 export default calculateLearnerGroupNewTotalPoint;
