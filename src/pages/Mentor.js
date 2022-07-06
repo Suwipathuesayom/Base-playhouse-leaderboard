@@ -8,6 +8,7 @@ import SplashScreen from "../components/SplashScreen";
 import limitStringLength from "../components/Functions/limitStringLength";
 import PresentationHeader from "../components/PresentationHeader";
 import color from "../constant/color";
+import Navbar from "../components/Navbar";
 
 // const auth = firebase.auth();
 
@@ -34,16 +35,17 @@ export default function Mentor() {
         sx={{
           width: "100%",
           height: "100vh",
-          paddingY: "1%",
+          // paddingY: "1%",
         }}
       >
-        <Button
+        {/* <Button
           onClick={() => {
             console.log(project);
           }}
         >
           ดู project
-        </Button>
+        </Button> */}
+        <Navbar />
         <PresentationHeader project={project} />
         <Stack
           sx={{
