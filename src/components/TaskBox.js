@@ -160,6 +160,7 @@ const TaskBox = ({
   const handleAddNewSubTask = (index) => {
     // handle UI State
     let tempTask = [...newTask];
+    tempTask[index].isHidden = false;
     tempTask[index].subTasks.push({
       subTaskName: "",
       isHidden: false,
@@ -179,6 +180,7 @@ const TaskBox = ({
         isHidden: false,
       });
     }
+    tempProject.tasks[index].isHidden = false;
     tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
       tempProject.tasks,
       index
@@ -206,6 +208,7 @@ const TaskBox = ({
         });
         group.points[index].taskPoint = subTaskSum;
       }
+      group.points[index].isHidden = false;
       group.totalPoint = calculateLearnerGroupNewTotalPoint(
         tempProject.learnerGroups,
         groupIndex
