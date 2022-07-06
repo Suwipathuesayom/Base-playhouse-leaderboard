@@ -103,3 +103,7 @@
   object-fit: contain;
   /* background-color: lime; */
 }
+
+#select-project {
+  cursor: pointer;
+}
