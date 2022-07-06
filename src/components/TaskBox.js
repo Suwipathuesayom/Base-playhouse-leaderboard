@@ -59,28 +59,25 @@ const TaskBox = ({
     // handle Data State
     let tempProject = project;
     tempProject.tasks[index].isHidden = tempTask[index].isHidden;
+    tempProject.tasks[index].subTasks.forEach((subTask) => {
+      subTask.isHidden = tempTask[index].isHidden;
+    });
     tempProject.learnerGroups.forEach((group) => {
       if (!!Object.keys(group.points[index]).length) {
         group.points[index].isHidden = tempTask[index].isHidden;
       } else {
         group.points[index].taskPoint = 0;
         group.points[index].isHidden = tempTask[index].isHidden;
-        group.points[index].taskPoint = tempProject.tasks[index].point;
+        group.points[index].subTasks = tempProject.tasks[index].subTasks;
       }
     });
 
     // if (tempTask[index].isHidden)
     //   resetEachLearnerGroupTaskPoint(tempProject, index);
-    tempProject.learnerGroups.forEach((group, groupIndex) => {
-      group.totalPoint = calculateLearnerGroupNewTotalPoint(
-        tempProject.learnerGroups,
-        groupIndex
-      );
-    });
 
-    tempProject.tasks[index].subTasks.forEach((subTask) => {
-      subTask.isHidden = tempProject.tasks[index].isHidden;
-    });
+    // tempProject.tasks[index].subTasks.forEach((subTask, subTaskIndex) => {
+    //   subTask.isHidden = tempTask[index].subTasks[subTaskIndex].isHidden;
+    // });
 
     if (!!tempProject.tasks[index].subTasks.length) {
       tempProject.tasks[index].point = calculateNewTaskPointFromSubTasks(
@@ -88,6 +85,17 @@ const TaskBox = ({
         index
       );
     }
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.points.forEach((task, taskIndex) => {
+        task.subTasks?.forEach((subTask) => {
+          subTask.isHidden = tempProject.tasks[taskIndex].isHidden;
+        });
+      });
+      group.totalPoint = calculateLearnerGroupNewTotalPoint(
+        tempProject.learnerGroups,
+        groupIndex
+      );
+    });
     setProject(tempProject);
   };
   const handleShowSubTasksClicked = (index) => {
@@ -150,7 +158,6 @@ const TaskBox = ({
     let tempTask = [...newTask];
     tempTask[index].subTasks.push({
       subTaskName: "",
-      point: 5,
       isHidden: false,
     });
     tempTask[index].point = calculateNewTaskPointFromSubTasks(newTask, index);
@@ -165,7 +172,6 @@ const TaskBox = ({
     ) {
       tempProject.tasks[index].subTasks.push({
         subTaskName: "",
-        point: 5,
         isHidden: false,
       });
     }
@@ -173,20 +179,28 @@ const TaskBox = ({
       tempProject.tasks,
       index
     );
+
     tempProject.learnerGroups.forEach((group, groupIndex) => {
       if (!!Object.keys(group.points[index]).length) {
-        group.points[index].subTasks.push({
-          subTaskPoint: 0,
-          isHidden: false,
-        });
-      } else {
-        group.points[index].subTasks = [
-          {
+        if (!!Object.keys(group.points[index].subTasks).length) {
+          group.points[index].subTasks.push({
             subTaskPoint: 0,
             isHidden: false,
-          },
-        ];
-        group.points[index].isHidden = false;
+          });
+        } else {
+          group.points[index].subTasks = [
+            {
+              subTaskPoint: 0,
+              isHidden: false,
+            },
+          ];
+          group.points[index].isHidden = false;
+        }
+        let subTaskSum = 0;
+        group.points[index].subTasks.forEach((subTask) => {
+          if (!subTask.isHidden) subTaskSum += subTask.subTaskPoint;
+        });
+        group.points[index].taskPoint = subTaskSum;
       }
       group.totalPoint = calculateLearnerGroupNewTotalPoint(
         tempProject.learnerGroups,
@@ -223,12 +237,6 @@ const TaskBox = ({
     });
     return sum;
   };
-
-  // const resetEachLearnerGroupTaskPoint = (project) => {
-  //   project.learnerGroups.forEach((group) => {
-  //     group.points = [];
-  //   });
-  // };
 
   return (
     <div>

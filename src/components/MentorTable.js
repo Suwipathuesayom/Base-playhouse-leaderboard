@@ -18,6 +18,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { TextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
+import calculateNewTaskPointFromSubTasks from "./Functions/calculateNewTaskPointFromSubTasks";
 
 // const auth = firebase.auth();
 
@@ -320,7 +321,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
     subTaskIndex = -1
   ) => {
     // handle UI State
+    if (newPointValue === "") {
+      newPointValue = 0;
+    }
     // console.log(groupIndex, taskIndex, subTaskIndex);
+    console.log(project.learnerGroups);
     let tempLearnerGroups = project.learnerGroups;
     if (!!Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length) {
       if (subTaskIndex >= 0) {
@@ -339,7 +344,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
             subTaskIndex
           ] = parseInt(newPointValue, 10);
         }
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = -1;
+        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
+          calculateNewTaskPointFromSubTasks(
+            tempLearnerGroups[groupIndex].points,
+            taskIndex
+          );
       } else {
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
           newPointValue,
@@ -359,7 +368,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
         tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
           subTaskIndex
         ].subTaskPoint = parseInt(newPointValue, 10);
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = -1;
+        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
+          calculateNewTaskPointFromSubTasks(
+            tempLearnerGroups[groupIndex].points,
+            taskIndex
+          );
       } else {
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
           newPointValue,
@@ -400,7 +413,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
     } else {
       if (
         !!Object.keys(group.points[taskIndex]).length &&
-        group.points[taskIndex].subTasks[subTaskIndex]
+        group.points[taskIndex].subTasks
       ) {
         return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
       }

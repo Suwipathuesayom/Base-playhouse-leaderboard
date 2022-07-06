@@ -85,7 +85,7 @@ function NewProjectTask({ project, setProject }) {
             padding: "0 10px 0 20px",
           },
 
-          !!!newTask?.length && {
+          !!!project.tasks?.length && {
             borderBottomLeftRadius: 8,
             borderBottomRightRadius: 8,
           },
@@ -128,7 +128,7 @@ function NewProjectTask({ project, setProject }) {
           onClick={() => handleCollapseAllTask()}
         /> */}
       </Stack>
-      {newTask?.map((task, index) => {
+      {project?.tasks?.map((task, index) => {
         return (
           <TaskBox
             key={index}
@@ -143,7 +143,7 @@ function NewProjectTask({ project, setProject }) {
             isHidden={task.isHidden}
             point={task.point}
             weight={task.weight}
-            lastTask={newTask.length === index + 1}
+            lastTask={project?.tasks?.length === index + 1}
           />
         );
       })}

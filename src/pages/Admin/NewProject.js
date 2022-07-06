@@ -6,6 +6,7 @@ import NewProjectFooter from "./NewProjectFooter";
 import NewProjectBody from "./NewProjectBody";
 import ProjectStatusAlert from "../../components/ProjectStatusAlert";
 import Navbar from "../../components/Navbar";
+import { Button } from "@mui/material";
 
 const NewProject = () => {
   const [project, setProject] = useState({
@@ -26,6 +27,7 @@ const NewProject = () => {
     <div>
       <Navbar />
       <div className="newProject">
+        <Button onClick={() => console.log(project)}>ดู project</Button>
         <div className="alert">
           <ProjectStatusAlert
             editProjectStatus={editProjectStatus}
