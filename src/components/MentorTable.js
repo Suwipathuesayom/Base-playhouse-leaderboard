@@ -19,6 +19,7 @@ import Button from "@mui/material/Button";
 import { TextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
 import calculateNewTaskPointFromSubTasks from "./Functions/calculateNewTaskPointFromSubTasks";
+import checkIfNumberIsEmpty from "./Functions/checkIfNumberIsEmpty";
 
 // const auth = firebase.auth();
 
@@ -328,7 +329,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
         if (!!tempLearnerGroups[groupIndex].points[taskIndex].subTasks.length) {
           tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
             subTaskIndex
-          ].subTaskPoint = parseInt(newPointValue, 10);
+          ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
         } else {
           project.tasks[taskIndex].subTasks.forEach((subTask) => {
             tempLearnerGroups[groupIndex].points[taskIndex].subTasks.push({
@@ -338,7 +339,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
           });
           tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
             subTaskIndex
-          ] = parseInt(newPointValue, 10);
+          ] = checkIfNumberIsEmpty(newPointValue);
         }
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
           calculateNewTaskPointFromSubTasks(
@@ -363,7 +364,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
         });
         tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
           subTaskIndex
-        ].subTaskPoint = parseInt(newPointValue, 10);
+        ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
         tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
           calculateNewTaskPointFromSubTasks(
             tempLearnerGroups[groupIndex].points,
@@ -403,14 +404,16 @@ export default function MentorTable({ project, setProject, mentorName }) {
         group.points[taskIndex] &&
         !!Object.keys(group.points[taskIndex]).length
       ) {
-        return group.points[taskIndex].taskPoint;
+        return checkIfNumberIsEmpty(group.points[taskIndex].taskPoint);
       }
       // console.log(0);
     } else {
       if (group.points[taskIndex]) {
         if (!!Object.keys(group.points[taskIndex]).length) {
           if (!!group.points[taskIndex].subTasks.length) {
-            return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
+            return checkIfNumberIsEmpty(
+              group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint
+            );
           }
         }
       }

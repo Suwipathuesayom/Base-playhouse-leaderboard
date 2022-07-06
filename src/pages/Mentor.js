@@ -3,7 +3,7 @@ import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import MentorTable from "../components/MentorTable";
 import Box from "@mui/material/Box";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 import limitStringLength from "../components/Functions/limitStringLength";
 import PresentationHeader from "../components/PresentationHeader";
