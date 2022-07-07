@@ -406,14 +406,15 @@ export default function MentorTable({ project, setProject, mentorName }) {
       ) {
         return checkIfNumberIsEmpty(group.points[taskIndex].taskPoint);
       }
-      // console.log(0);
     } else {
       if (group.points[taskIndex]) {
         if (!!Object.keys(group.points[taskIndex]).length) {
           if (!!group.points[taskIndex].subTasks.length) {
-            return checkIfNumberIsEmpty(
-              group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint
-            );
+            if (group.points[taskIndex].subTasks[subTaskIndex]) {
+              return checkIfNumberIsEmpty(
+                group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint
+              );
+            }
           }
         }
       }
