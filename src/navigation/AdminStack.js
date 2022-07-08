@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SmallScreen from "../components/SmallScreen";
 import AdminLeaderboard from "../pages/Admin/AdminLeaderboard";
 import AdminProject from "../pages/Admin/AdminProject";
-import EditProject from "../pages/Admin/EditProject";
 import NewProject from "../pages/Admin/NewProject";
 import Landing from "../pages/Landing";
 import Learner from "../pages/Learner";
@@ -11,6 +10,7 @@ import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
 import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
+import EditProjectRes from "../pages/Admin/EditProjectRes/EditProjectRes";
 
 export default function AdminStack() {
   return (
@@ -19,7 +19,7 @@ export default function AdminStack() {
         <Route path="/" element={<Landing />} />
         <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
         <Route path="new-project" element={<NewProject />} />
-        <Route path="edit-project" element={<EditProject />} />
+        {/* <Route path="edit-project" element={<EditProject />} /> */}
         <Route path="smallscreen" element={<SmallScreen />} />
         <Route path="speaker/:projectNameParams" element={<Speaker />} />
         <Route
@@ -34,6 +34,7 @@ export default function AdminStack() {
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="project" element={<AdminProject />} />
+        <Route path="edit-project" element={<EditProjectRes />} />
       </Routes>
     </BrowserRouter>
   );
