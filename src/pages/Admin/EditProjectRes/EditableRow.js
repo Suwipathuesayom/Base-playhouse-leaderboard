@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { TextInput } from "../../../assets/styles/InputStyles";
 
 function EditableRow({ name }) {
+  const [value, setValue] = useState(name);
 
   return (
     <>
       <TextInput
-        value={name}
+        value={value}
         type="text"
         sx={{ flex: 1, bgcolor: "#ffffff", width: "100%", color: "black" }}
         // onKeyPress={(event) => {
@@ -14,7 +15,9 @@ function EditableRow({ name }) {
         //     event.preventDefault();
         //   }
         // }}
-        
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
       />
     </>
   );
