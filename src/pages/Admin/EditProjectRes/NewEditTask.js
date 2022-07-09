@@ -37,8 +37,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
 function createData(name, calories, fat, carbs) {
   return { name, calories, fat, carbs };
 }
@@ -75,16 +73,14 @@ export default function NewEditTask() {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledColorCell align="right">  
-              </StyledColorCell>
+              <StyledColorCell align="right"></StyledColorCell>
               <StyledColorCell align="right">
-              <EditIcon />
+                <EditIcon />
                 <DeleteIcon />
-                <ArrowDropDownIcon />
               </StyledColorCell>
               <StyledColorCell align="right">Hide</StyledColorCell>
               <StyledColorCell align="left">
-              
+                <ArrowDropDownIcon />
               </StyledColorCell>
             </StyledTableRow>
           ))}

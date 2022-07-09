@@ -44,51 +44,124 @@ const defaultList = [
   { name: "ItemThree" },
 ];
 
-export default function NewMentor() {
+export default function NewMentor({ saveTodo }) {
   const [selectedProject, setSelectedProject] = useState(defaultList);
   // const [deletedProject, setDeletedProject] = useState(false);
 
-  // const [editing, setEditing] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [todoText, setTodoText] = useState("");
+  const [todoList, setTodoList] = useState([]);
+
+  //copy to clipboard
+  const [copyLearner, setCopyLearner] = useState("Copy clipboard");
+
+  // function copy here
+  const copyToClipBoard = async (copyMe, setCopyFunction) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopyFunction("Copied!");
+    } catch (err) {
+      setCopyFunction("Failed to copy!");
+    }
+  };
+
+  const resetCopyClick = () => {
+    setTimeout(() => {
+      setCopyLearner("Copy clipboard");
+    }, 1500);
+  };
+
+  const handleAddTasks = () => {
+    let tempTodoList = [...todoList];
+    tempTodoList.push({
+      task: todoText,
+      isDone: false,
+    });
+    setTodoList(tempTodoList);
+    setTodoText("");
+  };
+
+  const handleChange = (e) => {
+    setTodoText(e.target.value);
+  };
 
   const handleRemoveItem = (e) => {
     const name = e.target.getAttribute("name");
     setSelectedProject(selectedProject.filter((item) => item.name !== name));
   };
 
+  const handleReName = (e) => {
+    setIsEditing(true);
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell sx={{ fontSize: 24 }}>Mentor</StyledTableCell>
-            <StyledTableCell align="left" width="500px">
-              <InputBase sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }} />
-            </StyledTableCell>
-            <StyledTableCell align="left"></StyledTableCell>
-            {/* <StyledTableCell align="left"></StyledTableCell> */}
-            <StyledTableCell align="left">
-              <AddCircleIcon />
-              <ArrowDropDownIcon />
-            </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {selectedProject.map((item) => (
-            <StyledTableRow key={item.name}>
-              <StyledTableCell component="th" scope="row">
-                {item.name}
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="customized table" onSubmit={handleAddTasks}>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell sx={{ fontSize: 24 }}>Mentor</StyledTableCell>
+              <StyledTableCell align="left" width="500px">
+                <InputBase
+                  value={todoText}
+                  sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }}
+                  onChange={handleChange}
+                />
               </StyledTableCell>
-              <StyledColorCell align="right"></StyledColorCell>
-              <StyledColorCell align="right" sx={{ paddingRight: "5px" }}>
-                <EditIcon />
-                <DeleteIcon name={item.name} onClick={handleRemoveItem} />
-                {/* <ShareIcon /> */}
-              </StyledColorCell>
-              <StyledColorCell align="left">Copy Clipboard</StyledColorCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+
+              <StyledTableCell align="left">
+                <AddCircleIcon
+                  onClick={() => {
+                    setSelectedProject([
+                      ...selectedProject,
+                      { name: "ItemThree" },
+                    ]);
+                  }}
+                />
+                <ArrowDropDownIcon />
+              </StyledTableCell>
+              <StyledTableCell align="left"></StyledTableCell>
+              <StyledTableCell align="left"></StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {selectedProject.map((item) => (
+              <StyledTableRow key={item.name}>
+                <StyledTableCell
+                  component="th"
+                  scope="row"
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") handleReName(event);
+                  }}
+                >
+                  {item.name}
+                </StyledTableCell>
+                <StyledColorCell align="right"></StyledColorCell>
+                <StyledColorCell align="right" sx={{ paddingRight: "5px" }}>
+                  <EditIcon onClick={handleReName} />
+                  {/* <ShareIcon /> */}
+                </StyledColorCell>
+                <StyledColorCell>
+                  <DeleteIcon name={item.name} onClick={handleRemoveItem} />
+                </StyledColorCell>
+                <StyledColorCell
+                  align="left"
+                  onClick={() => {
+                    copyToClipBoard(
+                      `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
+                      setCopyLearner("Copied!")
+                    );
+                    resetCopyClick("learner");
+                  }}
+                >
+                  {copyLearner}
+                </StyledColorCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
