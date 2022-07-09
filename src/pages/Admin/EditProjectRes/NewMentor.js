@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,6 +13,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShareIcon from "@mui/icons-material/Share";
+import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
+import { db } from "../../../config/firebase";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,16 +38,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs) {
-  return { name, calories, fat, carbs };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24),
-  createData("Ice cream sandwich", 237, 9.0, 37),
+const defaultList = [
+  { name: "Frozen yoghurt" },
+  { name: "Ice cream sandwich" },
+  { name: "ItemThree" },
 ];
 
 export default function NewMentor() {
+  const [selectedProject, setSelectedProject] = useState(defaultList);
+  // const [deletedProject, setDeletedProject] = useState(false);
+
+  // const [editing, setEditing] = useState(null);
+
+  const handleRemoveItem = (e) => {
+    const name = e.target.getAttribute("name");
+    setSelectedProject(selectedProject.filter((item) => item.name !== name));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="customized table">
@@ -55,31 +64,27 @@ export default function NewMentor() {
             <StyledTableCell align="left" width="500px">
               <InputBase sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }} />
             </StyledTableCell>
+            <StyledTableCell align="left"></StyledTableCell>
+            {/* <StyledTableCell align="left"></StyledTableCell> */}
             <StyledTableCell align="left">
               <AddCircleIcon />
-            </StyledTableCell>
-            <StyledTableCell align="left">
               <ArrowDropDownIcon />
             </StyledTableCell>
-            <StyledTableCell align="left"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {selectedProject.map((item) => (
+            <StyledTableRow key={item.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {item.name}
               </StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledColorCell align="right"></StyledColorCell>
+              <StyledColorCell align="right" sx={{ paddingRight: "5px" }}>
                 <EditIcon />
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                <DeleteIcon />
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                <ShareIcon />
-              </StyledTableCell>
-              <StyledTableCell align="left">Copy Clipboard</StyledTableCell>
+                <DeleteIcon name={item.name} onClick={handleRemoveItem} />
+                {/* <ShareIcon /> */}
+              </StyledColorCell>
+              <StyledColorCell align="left">Copy Clipboard</StyledColorCell>
             </StyledTableRow>
           ))}
         </TableBody>

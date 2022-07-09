@@ -12,6 +12,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -51,7 +52,9 @@ export default function NewLearner() {
           <TableRow>
             <StyledTableCell sx={{ fontSize: 24 }}>Learner</StyledTableCell>
             <StyledTableCell align="left" width="500px">
-              <InputBase sx={{ ml: 1, flex: 1, bgcolor: "#ffffff", width: "100%" }} />
+              <InputBase
+                sx={{ ml: 1, flex: 1, bgcolor: "#ffffff", width: "100%" }}
+              />
             </StyledTableCell>
             <StyledTableCell align="left">
               <AddCircleIcon />
@@ -68,14 +71,13 @@ export default function NewLearner() {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="left"></StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledColorCell align="right"></StyledColorCell>
+              <StyledColorCell align="left"></StyledColorCell>
+              <StyledColorCell align="right">
                 <EditIcon />
-              </StyledTableCell>
-              <StyledTableCell align="right">
                 <DeleteIcon />
-              </StyledTableCell>
+              </StyledColorCell>
+              <StyledColorCell align="right"></StyledColorCell>
             </StyledTableRow>
           ))}
         </TableBody>

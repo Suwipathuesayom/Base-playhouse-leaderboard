@@ -7,7 +7,12 @@ import NewEditTask from "./NewEditTask";
 
 function EditProjectBody({ project, setProject }) {
   return (
-    <Stack marginTop={"4%"} alignItems="center" flexDirection={"columns"}>
+    <Stack
+      width="70%"
+      marginTop={"3%"}
+      alignItems="center"
+      flexDirection={"columns"}
+    >
       <NewMentor />
       <NewLearner />
       <NewEditTask />

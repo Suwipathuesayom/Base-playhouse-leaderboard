@@ -4,15 +4,8 @@ import TextField from "@mui/material/TextField";
 
 const EditProjectNameAndColor = () => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        // maxWidth: "50%",
-        marginTop: 3,
-        marginLeft: 2,
-      }}
-    >
-      <TextField label="ชื่อโปรเจค" sx={{ bgcolor: "white" }} />
+    <Box marginTop={5}>
+      <TextField label="ชื่อโปรเจค" size="small" sx={{ bgcolor: "white" }} />
       {/* <NewProjectNameAndColor /> */}
     </Box>
   );

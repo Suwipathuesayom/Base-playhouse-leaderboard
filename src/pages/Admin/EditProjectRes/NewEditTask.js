@@ -12,6 +12,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import color from "./../../../constant/color";
+import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +36,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+
 
 function createData(name, calories, fat, carbs) {
   return { name, calories, fat, carbs };
@@ -71,16 +75,17 @@ export default function NewEditTask() {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">
-                <EditIcon />
-              </StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledColorCell align="right">  
+              </StyledColorCell>
+              <StyledColorCell align="right">
+              <EditIcon />
                 <DeleteIcon />
-              </StyledTableCell>
-              <StyledTableCell align="right">Hide</StyledTableCell>
-              <StyledTableCell align="left">
                 <ArrowDropDownIcon />
-              </StyledTableCell>
+              </StyledColorCell>
+              <StyledColorCell align="right">Hide</StyledColorCell>
+              <StyledColorCell align="left">
+              
+              </StyledColorCell>
             </StyledTableRow>
           ))}
         </TableBody>
