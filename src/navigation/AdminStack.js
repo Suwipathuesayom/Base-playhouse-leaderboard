@@ -10,7 +10,7 @@ import Login from "../pages/Login";
 import Mentor from "../pages/Mentor";
 import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
-import EditProjectRes from "../pages/Admin/EditProjectRes/EditProjectRes";
+import EditProjectRes from "../pages/Admin/EditProjectRes/EditNewProject";
 
 export default function AdminStack() {
   return (

@@ -6,13 +6,13 @@ const EditProjectNameAndColor = () => {
   return (
     <Box
       sx={{
-        width: 500,
-        maxWidth: "50%",
+        width: "100%",
+        // maxWidth: "50%",
         marginTop: 3,
         marginLeft: 2,
       }}
     >
-      <TextField label="ชื่อโปรเจค" id="fullWidth" sx={{ bgcolor: "white" }} />
+      <TextField label="ชื่อโปรเจค" sx={{ bgcolor: "white" }} />
       {/* <NewProjectNameAndColor /> */}
     </Box>
   );

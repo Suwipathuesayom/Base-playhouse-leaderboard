@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { db, firebase } from "../../../config/firebase";
 import React from "react";
-import "./../../../assets/styles/NewProject.css";
+import "../../../assets/styles/EditNewProject.css";
 import color from "../../../constant/color";
 import { useNavigate } from "react-router-dom";
 import calculateProjectTotalPoint from "../../../components/Functions/calculateProjectTotalPoint";

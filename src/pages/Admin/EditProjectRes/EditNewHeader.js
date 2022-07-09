@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { storage } from "../../../config/firebase";
-import "../../../assets/styles/EditNewProject.css";
 import { SyncLoader } from "react-spinners";
 import color from "../../../constant/color";
 import { Box } from "@mui/material";
 import { StrongText } from "../../../assets/styles/TypographyStyles";
-import EditProjectNameAndColor from "./EditProjectNameAndColor";
+import "../../../assets/styles/./EditNewProject.css";
+// import EditProjectNameAndColor from "./EditProjectNameAndColor";
 
 function EditNewHeader(project, setProject, header) {
   const [selectedImage, setSelectedImage] = useState(
@@ -67,8 +67,6 @@ function EditNewHeader(project, setProject, header) {
               flexDirection: "column",
               width: "300px",
               height: "300px",
-              justifyContent: "center",
-              alignItems: "center",
             }}
           >
             <SyncLoader color={color.primaryOrange} size={50} />
