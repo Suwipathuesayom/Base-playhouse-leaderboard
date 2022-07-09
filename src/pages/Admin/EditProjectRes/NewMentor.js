@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ShareIcon from "@mui/icons-material/Share";
 import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
 import { db } from "../../../config/firebase";
+import EditableRow from "./EditableRow";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,17 +45,20 @@ const defaultList = [
   { name: "ItemThree" },
 ];
 
-export default function NewMentor({ saveTodo }) {
+export default function NewMentor() {
   const [selectedProject, setSelectedProject] = useState(defaultList);
   // const [deletedProject, setDeletedProject] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const [editContactId, setEditContactId] = useState(null);
+
   const [todoText, setTodoText] = useState("");
-  const [todoList, setTodoList] = useState([]);
+
+  const [inputValue, setInputValue] = useState("");
 
   //copy to clipboard
-  const [copyLearner, setCopyLearner] = useState("Copy clipboard");
+  const [copyMentor, setCopyMentor] = useState("Copy clipboard");
 
   // function copy here
   const copyToClipBoard = async (copyMe, setCopyFunction) => {
@@ -68,18 +72,8 @@ export default function NewMentor({ saveTodo }) {
 
   const resetCopyClick = () => {
     setTimeout(() => {
-      setCopyLearner("Copy clipboard");
+      setCopyMentor("Copy clipboard");
     }, 1500);
-  };
-
-  const handleAddTasks = () => {
-    let tempTodoList = [...todoList];
-    tempTodoList.push({
-      task: todoText,
-      isDone: false,
-    });
-    setTodoList(tempTodoList);
-    setTodoText("");
   };
 
   const handleChange = (e) => {
@@ -91,14 +85,10 @@ export default function NewMentor({ saveTodo }) {
     setSelectedProject(selectedProject.filter((item) => item.name !== name));
   };
 
-  const handleReName = (e) => {
-    setIsEditing(true);
-  };
-
   return (
     <>
       <TableContainer component={Paper}>
-        <Table aria-label="customized table" onSubmit={handleAddTasks}>
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell sx={{ fontSize: 24 }}>Mentor</StyledTableCell>
@@ -128,18 +118,22 @@ export default function NewMentor({ saveTodo }) {
           <TableBody>
             {selectedProject.map((item) => (
               <StyledTableRow key={item.name}>
-                <StyledTableCell
-                  component="th"
-                  scope="row"
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter") handleReName(event);
-                  }}
-                >
-                  {item.name}
+                <StyledTableCell component="th" scope="row">
+                  {/* {item.name} */}
+                  {editContactId === item.name ? (
+                    <EditableRow name={item.name} />
+                  ) : (
+                    item.name
+                  )}
                 </StyledTableCell>
                 <StyledColorCell align="right"></StyledColorCell>
-                <StyledColorCell align="right" sx={{ paddingRight: "5px" }}>
-                  <EditIcon onClick={handleReName} />
+                <StyledColorCell align="right">
+                  <EditIcon
+                    onClick={(e) => {
+                      setEditContactId(item.name);
+                      setIsEditing(true);
+                    }}
+                  />
                   {/* <ShareIcon /> */}
                 </StyledColorCell>
                 <StyledColorCell>
@@ -150,12 +144,12 @@ export default function NewMentor({ saveTodo }) {
                   onClick={() => {
                     copyToClipBoard(
                       `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
-                      setCopyLearner("Copied!")
+                      setCopyMentor("Copied!")
                     );
                     resetCopyClick("learner");
                   }}
                 >
-                  {copyLearner}
+                  {copyMentor}
                 </StyledColorCell>
               </StyledTableRow>
             ))}
