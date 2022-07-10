@@ -105,7 +105,7 @@ export default function NewMentor() {
                   onClick={() => {
                     setSelectedProject([
                       ...selectedProject,
-                      { name: "ItemThree" },
+                      { name: todoText },
                     ]);
                   }}
                 />
