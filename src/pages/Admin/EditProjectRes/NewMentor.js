@@ -14,7 +14,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShareIcon from "@mui/icons-material/Share";
 import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
-import { db } from "../../../config/firebase";
 import EditableRow from "./EditableRow";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -54,8 +53,6 @@ export default function NewMentor() {
   const [editContactId, setEditContactId] = useState(null);
 
   const [todoText, setTodoText] = useState("");
-
-  const [inputValue, setInputValue] = useState("");
 
   //copy to clipboard
   const [copyMentor, setCopyMentor] = useState("Copy clipboard");
@@ -97,6 +94,15 @@ export default function NewMentor() {
                   value={todoText}
                   sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }}
                   onChange={handleChange}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter" || event.key === "Return") {
+                      setSelectedProject([
+                        ...selectedProject,
+                        { name: todoText },
+                      ]);
+                      setTodoText("");
+                    }
+                  }}
                 />
               </StyledTableCell>
 
@@ -134,7 +140,7 @@ export default function NewMentor() {
                       setIsEditing(true);
                     }}
                   />
-                  {/* <ShareIcon /> */}
+                  <ShareIcon />
                 </StyledColorCell>
                 <StyledColorCell>
                   <DeleteIcon name={item.name} onClick={handleRemoveItem} />
