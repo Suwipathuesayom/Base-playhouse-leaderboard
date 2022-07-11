@@ -44,15 +44,12 @@ const defaultList = [
   { name: "ItemThree" },
 ];
 
-export default function NewMentor() {
+export default function NewMentor({}) {
   const [selectedProject, setSelectedProject] = useState(defaultList);
-  // const [deletedProject, setDeletedProject] = useState(false);
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [editContactId, setEditContactId] = useState(false);
 
-  const [editContactId, setEditContactId] = useState(null);
-
-  const [todoText, setTodoText] = useState("");
+  const [mentorName, setMentorName] = useState("");
 
   //copy to clipboard
   const [copyMentor, setCopyMentor] = useState("Copy clipboard");
@@ -74,14 +71,15 @@ export default function NewMentor() {
   };
 
   const handleChange = (e) => {
-    setTodoText(e.target.value);
+    setMentorName(e.target.value);
   };
 
-  const handleRemoveItem = (e) => {
-    const name = e.target.getAttribute("name");
-    setSelectedProject(selectedProject.filter((item) => item.name !== name));
+  // Remove mentorName
+  const handleRemoveMentor = (index) => {
+    let tempMentorList = [...selectedProject];
+    tempMentorList.splice(index, 1);
+    setSelectedProject(tempMentorList);
   };
-
   return (
     <>
       <TableContainer component={Paper}>
@@ -91,16 +89,16 @@ export default function NewMentor() {
               <StyledTableCell sx={{ fontSize: 24 }}>Mentor</StyledTableCell>
               <StyledTableCell align="left" width="500px">
                 <InputBase
-                  value={todoText}
+                  value={mentorName}
                   sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }}
                   onChange={handleChange}
                   onKeyPress={(event) => {
                     if (event.key === "Enter" || event.key === "Return") {
                       setSelectedProject([
                         ...selectedProject,
-                        { name: todoText },
+                        { name: mentorName },
                       ]);
-                      setTodoText("");
+                      setMentorName("");
                     }
                   }}
                 />
@@ -111,7 +109,7 @@ export default function NewMentor() {
                   onClick={() => {
                     setSelectedProject([
                       ...selectedProject,
-                      { name: todoText },
+                      { name: mentorName },
                     ]);
                   }}
                 />
@@ -137,13 +135,15 @@ export default function NewMentor() {
                   <EditIcon
                     onClick={(e) => {
                       setEditContactId(item.name);
-                      setIsEditing(true);
                     }}
                   />
                   <ShareIcon />
                 </StyledColorCell>
                 <StyledColorCell>
-                  <DeleteIcon name={item.name} onClick={handleRemoveItem} />
+                  <DeleteIcon
+                    name={item.name}
+                    onClick={() => handleRemoveMentor(item.name)}
+                  />
                 </StyledColorCell>
                 <StyledColorCell
                   align="left"
