@@ -12,6 +12,7 @@ const PresentationHeader = ({ project }) => {
       height={smallScreen ? 100 : 200}
       alignItems={"center"}
       paddingX={"2%"}
+      marginTop={"2%"}
       // backgroundColor={"red"}
     >
       {project.imageUrl !==

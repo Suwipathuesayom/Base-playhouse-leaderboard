@@ -12,14 +12,11 @@ import { TablePointHeaderText } from "../assets/styles/TypographyStyles";
 import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
 
-// const auth = firebase.auth();
-
 function Speaker() {
   const [project, setProject] = useState();
   const { projectNameParams } = useParams();
 
   const queryProject = (projectName) => {
-    // let authUser = auth.currentUser;
     try {
       db.collection("users")
         .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
@@ -56,8 +53,8 @@ function Speaker() {
             className="fixed_header"
             backgroundColor={color.primaryBlack}
             height={"100%"}
-            width={"50%"}
-            minWidth={1000}
+            width={"50vw"}
+            minWidth={600}
             paddingBottom={"15px"}
             sx={{
               borderTopLeftRadius: "20px",
@@ -185,16 +182,15 @@ function Speaker() {
                 alignItems={"center"}
                 width={200 * project?.tasks.length}
               >
-                {project?.tasks.map((task, taskIndex) => {
-                  if (!task?.isHidden) {
+                {project?.tasks
+                  .filter((task) => !task.isHidden)
+                  .map((task, taskIndex) => {
                     return (
                       <TableContentText flex={1} key={taskIndex}>
                         {limitStringLength(task.taskName, 19)}
                       </TableContentText>
                     );
-                  }
-                  return <div key={taskIndex}></div>;
-                })}
+                  })}
               </Stack>
             </Stack>
 
@@ -210,36 +206,11 @@ function Speaker() {
                 marginTop={"15px"}
                 backgroundColor={"#ccc"}
               >
-                {!!group.points.length &&
-                  group.points.map((point, pointIndex) => {
-                    if (!project.tasks[pointIndex].isHidden) {
-                      if (!!Object.keys(point).length) {
-                        return (
-                          <TablePointHeaderText flex={1} key={pointIndex}>
-                            {point.taskPoint}
-                          </TablePointHeaderText>
-                        );
-                      } else {
-                        return (
-                          <TablePointHeaderText flex={1} key={pointIndex}>
-                            {0}
-                          </TablePointHeaderText>
-                        );
-                      }
-                    }
-                    return <div key={pointIndex}></div>;
-                  })}
-                {!!!group.points.length &&
-                  project?.tasks.map((task, taskIndex) => {
-                    if (!task.isHidden) {
-                      return (
-                        <TablePointHeaderText flex={1} key={taskIndex}>
-                          {0}
-                        </TablePointHeaderText>
-                      );
-                    }
-                    return <div key={taskIndex}></div>;
-                  })}
+                {group.points.map((point, pointIndex) => (
+                  <TablePointHeaderText flex={1} key={pointIndex}>
+                    {point.taskPoint}
+                  </TablePointHeaderText>
+                ))}
               </Stack>
             ))}
           </Stack>

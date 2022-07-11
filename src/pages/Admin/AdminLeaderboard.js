@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { db } from "../../config/firebase";
 import "../../assets/styles/AdminDashboard.css";
 // import circle1 from "../../assets/images/circle1.png";
 import AdminTable from "../../components/AdminTable";
@@ -8,41 +7,13 @@ import SplashScreen from "../../components/SplashScreen";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import Navbar from "../../components/Navbar";
-
-// const auth = firebase.auth();
-
-// console.log(auth);
+import queryProjectDashboard from "../../components/Functions/queryProjectDashboard";
 
 function AdminLeaderboard() {
   const navigate = useNavigate();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [projectDashboard, setProjectDashboard] = useState([]);
-  // console.log(projectDashboard);
-
-  const queryProjectDashboard = async () => {
-    let tempProjectDashboard = [];
-    try {
-      // let authUser = auth.currentUser;
-      await db
-        .collection("users")
-        .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
-        .collection("projectDashboard")
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            tempProjectDashboard.push(doc.data());
-          });
-          // console.log(tempProjectDashboard);
-          setProjectDashboard(tempProjectDashboard);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   if (!!projectDashboard.length) {
     return (
@@ -56,7 +27,7 @@ function AdminLeaderboard() {
               className="icon"
               sx={{ width: "50px", height: "50px", color: "#ff5b4a" }}
               onClick={() => {
-                navigate("/new-project");
+                navigate("/project");
               }}
             />
             <h2 style={{ fontSize: smallScreen ? 36 : 48 }}>New Leaderboard</h2>
@@ -71,7 +42,7 @@ function AdminLeaderboard() {
       </div>
     );
   } else {
-    queryProjectDashboard();
+    queryProjectDashboard(setProjectDashboard);
     return <SplashScreen />;
   }
 }

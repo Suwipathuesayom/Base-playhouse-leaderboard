@@ -102,7 +102,7 @@ function Landing() {
                   (project) => project.projectName
                 )}
                 renderInput={(params) => (
-                  <DropDownTextInput {...params} label="Select Project" />
+                  <DropDownTextInput {...params} placeholder="Select Project" />
                 )}
               />
               <Button
@@ -131,10 +131,7 @@ function Landing() {
                 }}
                 options={learnerGroups?.map((project) => project.groupName)}
                 renderInput={(params) => (
-                  <DropDownTextInput
-                    {...params}
-                    label="Select Group"
-                  />
+                  <DropDownTextInput {...params} placeholder="Select Group" />
                 )}
               />
               <Button

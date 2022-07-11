@@ -1,0 +1,59 @@
+.newMentor__container,
+.newLearner__container,
+.newTask__container {
+  width: 100%;
+  background-color: pink;
+}
+
+.newLearner__container,
+.newTask__container {
+  margin-top: 3%;
+}
+
+.newMentor__header,
+.newLearner__header,
+.newTask__header {
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #151515;
+}
+.newMentor__header > h3,
+.newLearner__header > h3,
+.newTask__header > h3 {
+  margin-right: 10px;
+  color: #ff5b4a;
+}
+
+.newMentor__header > input,
+.newLearner__header > input,
+.newTask__header > input {
+  margin-right: 10px;
+}
+
+.newMentor__body,
+.newLearner__body,
+.newTask__body {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  background-color: #242424;
+}
+.newMentor__body > p,
+.newLearner__body > p,
+.newTask__body > p {
+  flex-grow: 1;
+  color: white;
+  margin-left: 10px;
+}
+
+.newMentor__icon,
+.newLearner__icon,
+.newTask__icon {
+  margin-right: 10px;
+  color: #ff5b4a;
+}

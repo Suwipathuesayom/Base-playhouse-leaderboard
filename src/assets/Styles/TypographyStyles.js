@@ -1,4 +1,5 @@
 import { styled, Typography } from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import color from "../../constant/color";
 
 const ContentText = styled(Typography)(
@@ -77,6 +78,15 @@ const TableContentText = styled(Typography)(({ flex, fontSize = 28 }) => ({
   fontFamily: "Raleway",
 }));
 
+const StyledColorCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    color: "#FF5B4A",
+    backgroundColor: "#242424",
+    cursor: "pointer",
+    justifyContent: "space-between",
+  },
+}));
+
 export {
   ContentText,
   HeaderText,
@@ -85,4 +95,5 @@ export {
   TableHeaderText,
   TableContentText,
   TablePointHeaderText,
+  StyledColorCell,
 };
