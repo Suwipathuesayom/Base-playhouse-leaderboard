@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import InputBase from "@mui/material/InputBase";
 import { AddCircle, ArrowDropDown, Edit, Delete } from "@mui/icons-material";
+import { Divider } from "@mui/material";
 import EditableRow from "./EditableRow";
 import "./NewMentor.css";
-import { Divider } from "@mui/material";
 
-export default function NewEditTask({ project, setProject }) {
+export default function NewLearner({ project, setProject }) {
   const [selectedProject, setSelectedProject] = useState(project.mentors);
 
   const [editContactId, setEditContactId] = useState(false);
 
-  const [taskName, setTaskName] = useState("");
+  const [learnerName, setLearnerName] = useState("");
 
   // State Handler
-  const handleAddLearner = (taskName) => {
+  const handleAddMentor = (learnerName) => {
     // handle UI State
     let tempMentorList = [...selectedProject];
     tempMentorList.push({
-      fullName: taskName,
+      fullName: learnerName,
       index: selectedProject.length,
     });
     setSelectedProject(tempMentorList);
 
     // clear TextInput
-    setTaskName("");
+    setLearnerName("");
   };
 
   const handleChange = (e) => {
-    setTaskName(e.target.value);
+    setLearnerName(e.target.value);
   };
 
   // Remove learnerName
@@ -36,13 +36,12 @@ export default function NewEditTask({ project, setProject }) {
     tempMentorList.splice(index, 1);
     setSelectedProject(tempMentorList);
   };
-
   return (
-    <div className="newTask__container">
-      <div className="newTask__header">
-        <h3>Task</h3>
+    <div className="newLearner__container">
+      <div className="newLearner__header">
+        <h3>Learner</h3>
         <InputBase
-          value={taskName}
+          value={learnerName}
           sx={{ flexGrow: 1, bgcolor: "#ffffff", mr: "10px" }}
           onChange={handleChange}
           onKeyPress={(event) => {
@@ -50,30 +49,31 @@ export default function NewEditTask({ project, setProject }) {
               if (event.target.value !== "") {
                 setSelectedProject([
                   ...selectedProject,
-                  { fullName: taskName, index: selectedProject.length },
+                  { fullName: learnerName, index: selectedProject.length },
                 ]);
-                setTaskName("");
+                setLearnerName("");
               }
             }
           }}
         />
         <AddCircle
-          className="newTask__icon"
+          className="newLearner__icon"
           onClick={() => {
-            if (taskName !== "") {
-              handleAddLearner(taskName);
+            if (learnerName !== "") {
+              handleAddMentor(learnerName);
             }
           }}
         />
-        <ArrowDropDown className="newTask__icon" />
+        <ArrowDropDown className="newLearner__icon" />
       </div>
       <Divider sx={{ bgcolor: "white" }} />
       {selectedProject.map((item, index) => (
         <>
-          <div className="newTask__body">
+          <div className="newLearner__body">
             <p>
               {editContactId === item.fullName ? (
                 <EditableRow
+                  className="newLearner__icon"
                   name={item.fullName}
                   setSelectedProject={setSelectedProject}
                   index={index}
@@ -85,13 +85,14 @@ export default function NewEditTask({ project, setProject }) {
               )}
             </p>
             <Edit
-              className="newTask__icon"
+              className="newLearner__icon"
               onClick={(e) => {
                 setEditContactId(item.fullName);
               }}
             />
+
             <Delete
-              className="newTask__icon"
+              className="newLearner__icon"
               onClick={() => handleRemoveLearner(index)}
             />
           </div>

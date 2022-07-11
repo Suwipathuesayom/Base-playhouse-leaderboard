@@ -1,51 +1,19 @@
-import React, { Fragment, useState } from "react";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import React, { useState } from "react";
 import InputBase from "@mui/material/InputBase";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ShareIcon from "@mui/icons-material/Share";
-import { StyledColorCell } from "../../../assets/styles/TypographyStyles";
+import {
+  AddCircle,
+  ArrowDropDown,
+  Edit,
+  Delete,
+  Share,
+  ContentCopy,
+} from "@mui/icons-material";
 import EditableRow from "./EditableRow";
+import "./NewMentor.css";
+import { Divider } from "@mui/material";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: "#FF5B4A",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    backgroundColor: "#242424",
-    color: "#ffffff",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-const defaultList = [
-  { name: "Frozen yoghurt" },
-  { name: "Ice cream sandwich" },
-  { name: "ItemThree" },
-];
-
-export default function NewMentor() {
-  const [selectedProject, setSelectedProject] = useState(defaultList);
+export default function NewMentor({ project, setProject }) {
+  const [selectedProject, setSelectedProject] = useState(project.mentors);
 
   const [editContactId, setEditContactId] = useState(false);
 
@@ -69,7 +37,8 @@ export default function NewMentor() {
     // handle UI State
     let tempMentorList = [...selectedProject];
     tempMentorList.push({
-      name: mentorName,
+      fullName: mentorName,
+      index: selectedProject.length,
     });
     setSelectedProject(tempMentorList);
 
@@ -93,9 +62,76 @@ export default function NewMentor() {
     tempMentorList.splice(index, 1);
     setSelectedProject(tempMentorList);
   };
+
   return (
-    <>
-      <TableContainer component={Paper}>
+    <div className="newMentor__container">
+      <div className="newMentor__header">
+        <h3>Mentor</h3>
+        <InputBase
+          value={mentorName}
+          sx={{ flexGrow: 1, bgcolor: "#ffffff", mr: "10px" }}
+          onChange={handleChange}
+          onKeyPress={(event) => {
+            if (event.key === "Enter" || event.key === "Return") {
+              if (event.target.value !== "") {
+                setSelectedProject([
+                  ...selectedProject,
+                  { fullName: mentorName, index: selectedProject.length },
+                ]);
+                setMentorName("");
+              }
+            }
+          }}
+        />
+        <AddCircle
+          className="newMentor__icon"
+          onClick={() => {
+            if (mentorName !== "") {
+              handleAddMentor(mentorName);
+            }
+          }}
+        />
+        <ArrowDropDown className="newMentor__icon" />
+      </div>
+      <Divider sx={{ bgcolor: "white" }} />
+      {selectedProject.map((item, index) => (
+        <>
+          <div className="newMentor__body">
+            <p>
+              {editContactId === item.fullName ? (
+                <EditableRow
+                  name={item.fullName}
+                  setSelectedProject={setSelectedProject}
+                  index={index}
+                  selectedProject={selectedProject}
+                  setEditContactId={setEditContactId}
+                />
+              ) : (
+                item.fullName
+              )}
+            </p>
+            <Edit
+              className="newMentor__icon"
+              onClick={(e) => {
+                setEditContactId(item.fullName);
+              }}
+            />
+            <Share className="newMentor__icon" />
+            <Delete
+              className="newMentor__icon"
+              onClick={() => handleRemoveMentor(index)}
+            />
+            <ContentCopy className="newMentor__icon" />
+          </div>
+          <Divider sx={{ bgcolor: "white" }} />
+        </>
+      ))}
+    </div>
+  );
+}
+
+{
+  /* <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -130,12 +166,17 @@ export default function NewMentor() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {selectedProject.map((item) => (
-              <StyledTableRow key={item.name}>
+            {selectedProject.map((item, index) => (
+              <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  {/* {item.name} */}
                   {editContactId === item.name ? (
-                    <EditableRow name={item.name} />
+                    <EditableRow
+                      name={item.name}
+                      setSelectedProject={setSelectedProject}
+                      index={index}
+                      selectedProject={selectedProject}
+                      setEditContactId={setEditContactId}
+                    />
                   ) : (
                     item.name
                   )}
@@ -171,7 +212,5 @@ export default function NewMentor() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
-    </>
-  );
+      </TableContainer> */
 }

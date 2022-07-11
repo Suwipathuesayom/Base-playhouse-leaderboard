@@ -2,7 +2,7 @@ import React from "react";
 import { Stack } from "@mui/material";
 import "../../../assets/styles/EditNewProject.css";
 import NewMentor from "./NewMentor";
-import NewLearner from "./NewLeaner";
+import NewLearner from "./NewLearner";
 import NewEditTask from "./NewEditTask";
 
 function EditProjectBody({ project, setProject }) {
@@ -13,9 +13,9 @@ function EditProjectBody({ project, setProject }) {
       alignItems="center"
       flexDirection={"columns"}
     >
-      <NewMentor />
-      <NewLearner />
-      <NewEditTask />
+      <NewMentor project={project} setProject={setProject} />
+      <NewLearner project={project} setProject={setProject} />
+      <NewEditTask project={project} setProject={setProject} />
     </Stack>
   );
 }
