@@ -17,7 +17,9 @@ const ProjectStatusAlert = ({
       }
     >
       <Alert
-        severity={editProjectStatus}
+        severity={
+          editProjectStatus === "warning" ? "success" : editProjectStatus
+        }
         action={
           <IconButton
             aria-label="close"

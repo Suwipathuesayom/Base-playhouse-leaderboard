@@ -26,27 +26,7 @@ function ExportCSV({ selectedProject, mentors }) {
         groupName: group.groupName,
       };
       selectedProject.tasks.forEach((task, taskIndex) => {
-        let tempPoint = 0;
-        if (group.points.length !== 0) {
-          if (Object.keys(group.points[taskIndex]).length !== 0) {
-            if (group.points[taskIndex].subTasks) {
-              group.points[taskIndex].subTasks.forEach((subTask) => {
-                if (!subTask.isHidden) tempPoint += subTask.subTaskPoint;
-              });
-            } else {
-              if (!group.points[taskIndex].isHidden) {
-                tempPoint = group.points[taskIndex].taskPoint;
-              } else {
-                tempPoint = 0;
-              }
-            }
-          } else {
-            tempPoint = 0;
-          }
-        } else {
-          tempPoint = 0;
-        }
-        tempObject[task.taskName] = tempPoint;
+        tempObject[task.taskName] = group.points[taskIndex].taskPoint;
       });
       tempObject["totalPoint"] = group.totalPoint;
       let foundNote = false;

@@ -8,20 +8,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import Checkbox from "@mui/material/Checkbox";
 import color from "../constant/color";
 import { Box, Divider, Stack, Typography } from "@mui/material";
-// import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { TextInput } from "../assets/styles/InputStyles";
-import calculateLearnerGroupNewTotalPoint from "./Functions/calculateLearnerGroupNewTotalPoint";
-import calculateNewTaskPointFromSubTasks from "./Functions/calculateNewTaskPointFromSubTasks";
+import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTotalPoint";
+import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTaskPoint";
 import checkIfNumberIsEmpty from "./Functions/checkIfNumberIsEmpty";
-
-// const auth = firebase.auth();
+import handleUpdateProjectPoint from "./Functions/handleUpdateProjectPoint";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -111,22 +108,6 @@ export default function MentorTable({ project, setProject, mentorName }) {
     }
   };
 
-  const handleUpdateProject = async (tempProject) => {
-    try {
-      let userRef = db.collection("users").doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
-
-      await userRef
-        .collection("project")
-        .doc(tempProject.id)
-        .update(tempProject)
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleAddNewMessage = async (note, selectedGroup) => {
     const groupIndex = selectedGroup.groupIndex - 1;
     try {
@@ -190,249 +171,47 @@ export default function MentorTable({ project, setProject, mentorName }) {
     }
   };
 
-  // const handleCheckTaskByIndex = (groupIndex, taskIndex, subTaskIndex = -1) => {
-  //   // handle UI State
-  //   const tempLearnerGroups = project.learnerGroups;
-  //   // console.log(tempLearnerGroups);
-  //   if (tempLearnerGroups[groupIndex].points.length === 0) {
-  //     for (let i = 0; i < project.tasks.length; i++) {
-  //       tempLearnerGroups[groupIndex].points.push({});
-  //     }
-  //   }
-  //   if (subTaskIndex === -1) {
-  //     if (
-  //       Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
-  //       0
-  //     ) {
-  //       tempLearnerGroups[groupIndex].points[taskIndex] = {
-  //         isChecked: true,
-  //         // taskIndex: taskIndex,
-  //         taskPoint: project.tasks[taskIndex].point,
-  //         subTasks: [],
-  //         isHidden: false,
-  //       };
-  //     } else {
-  //       tempLearnerGroups[groupIndex].points[taskIndex].isChecked =
-  //         !tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
-  //     }
-  //   } else {
-  //     if (
-  //       Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length ===
-  //       0
-  //     ) {
-  //       let tempSubTask = [];
-  //       project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
-  //         tempSubTask.push({
-  //           isChecked: false,
-  //           // subTaskIndex: subTaskIndex,
-  //           subTaskPoint: subTask.point,
-  //           isHidden: false,
-  //         });
-  //       });
-  //       tempSubTask[subTaskIndex].isChecked = true;
-  //       tempLearnerGroups[groupIndex].points[taskIndex] = {
-  //         isChecked: true,
-  //         // taskIndex: taskIndex,
-  //         taskPoint: project.tasks[taskIndex].point,
-  //         subTasks: tempSubTask,
-  //         isHidden: false,
-  //       };
-  //     } else {
-  //       tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-  //         subTaskIndex
-  //       ].isChecked =
-  //         !tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-  //           subTaskIndex
-  //         ].isChecked;
-  //     }
-  //   }
-  //   tempLearnerGroups[groupIndex].totalPoint = calculateLearnerGroupNewTotalPoint(
-  //     tempLearnerGroups,
-  //     groupIndex
-  //   );
-  //   setLearnerGroups([...tempLearnerGroups]);
-
-  //   // handle Data State
-  //   const tempProject = project;
-  //   if (tempProject.learnerGroups[groupIndex].points.length === 0) {
-  //     for (let i = 0; i < project.tasks.length; i++) {
-  //       tempProject.learnerGroups[groupIndex].points.push({});
-  //     }
-  //   }
-  //   if (subTaskIndex === -1) {
-  //     if (
-  //       Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
-  //         .length === 0
-  //     ) {
-  //       tempProject.learnerGroups[groupIndex].points[taskIndex] = {
-  //         isChecked: true,
-  //         // taskIndex: taskIndex,
-  //         taskPoint: project.tasks[taskIndex].point,
-  //         subTasks: [],
-  //         isHidden: false,
-  //       };
-  //     } else {
-  //       tempProject.learnerGroups[groupIndex].points[taskIndex].isChecked =
-  //         tempLearnerGroups[groupIndex].points[taskIndex].isChecked;
-  //     }
-  //   } else {
-  //     if (
-  //       Object.keys(tempProject.learnerGroups[groupIndex].points[taskIndex])
-  //         .length === 0
-  //     ) {
-  //       let tempSubTask = [];
-  //       project.tasks[taskIndex].subTasks.forEach((subTask, subTaskIndex) => {
-  //         tempSubTask.push({
-  //           isChecked: false,
-  //           // subTaskIndex: subTaskIndex,
-  //           subTaskPoint: subTask.point,
-  //           isHidden: false,
-  //         });
-  //       });
-  //       tempSubTask[subTaskIndex].isChecked = true;
-  //       tempProject.learnerGroups[groupIndex].points[taskIndex] = {
-  //         isChecked: true,
-  //         // taskIndex: taskIndex,
-  //         taskPoint: project.tasks[taskIndex].point,
-  //         subTasks: tempSubTask,
-  //         isHidden: false,
-  //       };
-  //     } else {
-  //       tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
-  //         subTaskIndex
-  //       ].isChecked =
-  //         tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-  //           subTaskIndex
-  //         ].isChecked;
-  //     }
-  //   }
-  //   tempProject.learnerGroups[groupIndex].totalPoint = calculateLearnerGroupNewTotalPoint(
-  //     tempProject.learnerGroups,
-  //     groupIndex
-  //   );
-  //   setProject(tempProject);
-  //   // console.log(tempProject);
-  //   handleUpdateProject(tempProject);
-  // };
-
   const handlePointValueChange = (
     newPointValue,
     groupIndex,
     taskIndex,
     subTaskIndex = -1
   ) => {
-    // handle UI State
-    // console.log(groupIndex, taskIndex, subTaskIndex);
-    let tempLearnerGroups = project.learnerGroups;
-    if (!!Object.keys(tempLearnerGroups[groupIndex].points[taskIndex]).length) {
-      if (subTaskIndex >= 0) {
-        if (!!tempLearnerGroups[groupIndex].points[taskIndex].subTasks.length) {
-          tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-            subTaskIndex
-          ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
-        } else {
-          project.tasks[taskIndex].subTasks.forEach((subTask) => {
-            tempLearnerGroups[groupIndex].points[taskIndex].subTasks.push({
-              isHidden: false,
-              subTaskPoint: 0,
-            });
-          });
-          tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-            subTaskIndex
-          ] = checkIfNumberIsEmpty(newPointValue);
-        }
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
-          calculateNewTaskPointFromSubTasks(
-            tempLearnerGroups[groupIndex].points,
-            taskIndex
-          );
-      } else {
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
-          newPointValue,
-          10
-        );
-      }
+    let tempProject = project;
+    if (subTaskIndex < 0) {
+      tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
+        checkIfNumberIsEmpty(newPointValue);
     } else {
-      tempLearnerGroups[groupIndex].points[taskIndex].isHidden = false;
-      tempLearnerGroups[groupIndex].points[taskIndex].subTasks = [];
-      if (subTaskIndex >= 0) {
-        project.tasks[taskIndex].subTasks.forEach((subTask) => {
-          tempLearnerGroups[groupIndex].points[taskIndex].subTasks.push({
-            isHidden: false,
-            subTaskPoint: 0,
-          });
-        });
-        tempLearnerGroups[groupIndex].points[taskIndex].subTasks[
-          subTaskIndex
-        ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint =
-          calculateNewTaskPointFromSubTasks(
-            tempLearnerGroups[groupIndex].points,
-            taskIndex
-          );
-      } else {
-        tempLearnerGroups[groupIndex].points[taskIndex].taskPoint = parseInt(
-          newPointValue,
-          10
+      tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
+        subTaskIndex
+      ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
+      tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
+        calculateLearnerGroupTaskPoint(
+          tempProject.learnerGroups[groupIndex],
+          taskIndex
         );
-      }
     }
-    // tempLearnerGroups[groupIndex].totalPoint =
-    //   calculateLearnerGroupNewTotalPoint(tempLearnerGroups, groupIndex);
-    setLearnerGroups([...tempLearnerGroups]);
-    // handle Data State
-
-    // setProject(tempProject);
+    setProject(tempProject);
   };
-
-  const handleUpdateTotalPoint = (groupIndex) => {
-    // handle UI State
-    let tempLearnerGroups = project.learnerGroups;
-    tempLearnerGroups[groupIndex].totalPoint =
-      calculateLearnerGroupNewTotalPoint(tempLearnerGroups, groupIndex);
-    setLearnerGroups([...tempLearnerGroups]);
-    // handle Data State
+  const handleUpdateGroupTotalPoint = (groupIndex) => {
     let tempProject = project;
     tempProject.learnerGroups[groupIndex].totalPoint =
-      tempLearnerGroups[groupIndex].totalPoint;
+      calculateLearnerGroupTotalPoint(tempProject.learnerGroups[groupIndex]);
     setProject(tempProject);
   };
 
-  const displayGrouptaskPoint = (group, taskIndex, subTaskIndex = -1) => {
+  const displayGroupPoint = (group, taskIndex, subTaskIndex = -1) => {
     if (subTaskIndex < 0) {
+      if (group.points[taskIndex]) return group.points[taskIndex].taskPoint;
+    } else {
       if (
         group.points[taskIndex] &&
-        !!Object.keys(group.points[taskIndex]).length
-      ) {
-        return checkIfNumberIsEmpty(group.points[taskIndex].taskPoint);
-      }
-    } else {
-      if (group.points[taskIndex]) {
-        if (!!Object.keys(group.points[taskIndex]).length) {
-          if (!!group.points[taskIndex].subTasks.length) {
-            if (group.points[taskIndex].subTasks[subTaskIndex]) {
-              return checkIfNumberIsEmpty(
-                group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint
-              );
-            }
-          }
-        }
-      }
+        group.points[taskIndex].subTasks[subTaskIndex]
+      )
+        return group.points[taskIndex].subTasks[subTaskIndex].subTaskPoint;
     }
     return 0;
   };
-
-  // const checkIfIsChecked = (group, taskIndex, subTaskIndex) => {
-  //   if (
-  //     !!group.points.length &&
-  //     !!Object.keys(group.points[taskIndex]).length &&
-  //     group.points[taskIndex].subTasks &&
-  //     group.points[taskIndex].subTasks[subTaskIndex]
-  //   ) {
-  //     return group.points[taskIndex].subTasks[subTaskIndex].isChecked;
-  //   }
-  //   return false;
-  // };
 
   return (
     <TableContainer
@@ -443,215 +222,178 @@ export default function MentorTable({ project, setProject, mentorName }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>GROUP</StyledTableCell>
-            <StyledTableCell>
-              <Typography fontWeight={600} fontSize={20}>
-                NAME
-              </Typography>
-              {/* <Stack
-                direction="row"
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
-                <Box
-                  sx={{
-                    width: "2px",
-                    height: "50px",
-                    backgroundColor: "white",
-                  }}
-                />
-              </Stack> */}
-            </StyledTableCell>
-            {project?.tasks.map((task, taskIndex) => {
-              if (!task.isHidden) {
+            <StyledTableCell>NAME</StyledTableCell>
+            {project?.tasks
+              .filter((task) => !task.isHidden)
+              .map((task, taskIndex) => {
                 return (
                   <StyledTableCell key={taskIndex}>
                     {`${task.taskName}`}
                     {!!task.subTasks.length && (
                       <Divider
-                        sx={{ borderBottomWidth: 2, borderColor: "white" }}
+                        sx={{
+                          borderBottomWidth: 2,
+                          my: "5px",
+                          borderColor: "white",
+                        }}
                       />
                     )}
-                    <Stack direction="row" justifyContent="space-around">
+                    <Stack direction="row" justifyContent="space-evenly">
                       {!!task.subTasks.length &&
-                        task.subTasks.map((subTask, subTaskIndex) => {
-                          if (!subTask.isHidden) {
+                        task.subTasks
+                          .filter((subTask) => !subTask.isHidden)
+                          .map((subTask, subTaskIndex) => {
                             return (
-                              <div key={subTaskIndex}>
+                              <div
+                                style={{
+                                  width: 250,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                                key={subTaskIndex}
+                              >
                                 {`${subTask.subTaskName}`}
                               </div>
                             );
-                          }
-                          return <React.Fragment key={subTaskIndex} />;
-                        })}
+                          })}
                     </Stack>
                   </StyledTableCell>
                 );
-              }
-              return <StyledTableCell key={taskIndex} />;
-              // if (!task.isHidden) {
-              //   return (
-              //     <StyledTableCell key={subIndex}>
-              //       {task.taskName}
-              //     </StyledTableCell>
-              //   );
-              // }
-              // return <div></div>;
-              // ** DO NOT DELETE !!! Later for handling subTask
-              // if (!task.isHidden) {
-              //   if (!!!task.subTasks.length) {
-              //     return (
-              //       <StyledTableCell key={subIndex}>
-              //         {task.taskName}
-              //       </StyledTableCell>
-              //     );
-              //   } else {
-              //     return task.subTasks.map((subTask, subTaskIndex) => (
-              //       <StyledTableCell key={subIndex}>
-              //         {subTask.subTaskName}
-              //       </StyledTableCell>
-              //     ));
-              //   }
-              // }
-              // return <div></div>;
-
-              // if (!!!task.subTasks.length) {
-              //   return (
-              //     <StyledTableCell key={subIndex}>
-              //       {task.taskName}
-              //     </StyledTableCell>
-              //   );
-              // } else {
-              //   return task.subTasks.map((subTask, subTaskIndex) => (
-              //     <StyledTableCell key={subIndex}>
-              //       {subTask.subTaskName}
-              //     </StyledTableCell>
-              //   ));
-              // }
-            })}
+              })}
             <StyledTableCell>TOTAL</StyledTableCell>
             <StyledTableCell></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {learnerGroups.map((group, index) => {
-            return (
-              <StyledTableRow key={index}>
-                <StyledTableCell component="th" scope="row">
-                  {group.groupIndex}
-                </StyledTableCell>
-                <StyledTableCell>{group.groupName}</StyledTableCell>
-                {project?.tasks.map((task, taskIndex) => {
-                  if (!task.isHidden) {
-                    if (!!task.subTasks.length) {
-                      return (
-                        <StyledTableCell key={taskIndex}>
-                          <Stack direction="row" justifyContent="space-around">
-                            {task.subTasks.map((subTask, subTaskIndex) => {
-                              if (!subTask.isHidden) {
-                                return (
-                                  <TextInput
-                                    key={subTaskIndex}
-                                    type="number"
-                                    width={"100px"}
-                                    marginright={"5px"}
-                                    marginleft={"5px"}
-                                    onKeyPress={(event) => {
-                                      if (
-                                        event?.key === "-" ||
-                                        event?.key === "+"
-                                      ) {
-                                        event.preventDefault();
+          {learnerGroups
+            .filter((group) => group.assignedMentor === mentorName)
+            .map((group, groupIndex) => {
+              return (
+                <StyledTableRow key={groupIndex}>
+                  <StyledTableCell component="th" scope="row">
+                    {group.groupIndex}
+                  </StyledTableCell>
+                  <StyledTableCell>{group.groupName}</StyledTableCell>
+                  {project?.tasks
+                    .filter((task) => !task.isHidden)
+                    .map((task, taskIndex) => {
+                      if (!!task.subTasks.length) {
+                        return (
+                          <StyledTableCell key={taskIndex}>
+                            <Stack
+                              direction="row"
+                              justifyContent="space-evenly"
+                            >
+                              {task.subTasks
+                                .filter((subTask) => !subTask.isHidden)
+                                .map((subTask, subTaskIndex) => {
+                                  return (
+                                    <TextInput
+                                      key={subTaskIndex}
+                                      type="number"
+                                      sx={{ width: 100, mx: "75px" }}
+                                      onKeyPress={(event) => {
+                                        if (
+                                          event?.key === "-" ||
+                                          event?.key === "+"
+                                        ) {
+                                          event.preventDefault();
+                                        }
+                                        if (event.key === "Enter") {
+                                          handleUpdateGroupTotalPoint(
+                                            group.groupIndex - 1
+                                          );
+                                          handleUpdateProjectPoint(project);
+                                        }
+                                      }}
+                                      onChange={(event) =>
+                                        handlePointValueChange(
+                                          event.target.value,
+                                          group.groupIndex - 1,
+                                          taskIndex,
+                                          subTaskIndex
+                                        )
                                       }
-                                      if (event.key === "Enter") {
-                                        handleUpdateTotalPoint(index);
-                                        handleUpdateProject(project);
-                                      }
-                                    }}
-                                    onChange={(event) =>
-                                      handlePointValueChange(
-                                        event.target.value,
-                                        index,
+                                      onBlur={() => {
+                                        handleUpdateGroupTotalPoint(
+                                          group.groupIndex - 1
+                                        );
+                                        handleUpdateProjectPoint(project);
+                                      }}
+                                      defaultValue={displayGroupPoint(
+                                        group,
                                         taskIndex,
                                         subTaskIndex
-                                      )
-                                    }
-                                    onBlur={() => {
-                                      handleUpdateTotalPoint(index);
-                                      handleUpdateProject(project);
-                                    }}
-                                    defaultValue={displayGrouptaskPoint(
-                                      group,
-                                      taskIndex,
-                                      subTaskIndex
-                                    )}
-                                  />
-                                );
-                              }
-                              return <React.Fragment key={subTaskIndex} />;
-                            })}
-                          </Stack>
-                        </StyledTableCell>
-                      );
-                    } else {
-                      return (
-                        <StyledTableCell key={taskIndex}>
-                          <Stack direction="row" justifyContent="space-around">
-                            <TextInput
-                              type="number"
-                              width={"100px"}
-                              marginright={"5px"}
-                              marginleft={"5px"}
-                              onKeyPress={(event) => {
-                                if (event?.key === "-" || event?.key === "+") {
-                                  event.preventDefault();
+                                      )}
+                                    />
+                                  );
+                                })}
+                            </Stack>
+                          </StyledTableCell>
+                        );
+                      } else {
+                        return (
+                          <StyledTableCell key={taskIndex}>
+                            <Stack
+                              direction="row"
+                              justifyContent="space-around"
+                            >
+                              <TextInput
+                                type="number"
+                                width={"100px"}
+                                marginright={"5px"}
+                                marginleft={"5px"}
+                                onKeyPress={(event) => {
+                                  if (
+                                    event?.key === "-" ||
+                                    event?.key === "+"
+                                  ) {
+                                    event.preventDefault();
+                                  }
+                                  if (event.key === "Enter") {
+                                    handleUpdateGroupTotalPoint(
+                                      group.groupIndex - 1
+                                    );
+                                    handleUpdateProjectPoint(project);
+                                  }
+                                }}
+                                onChange={(event) =>
+                                  handlePointValueChange(
+                                    event.target.value,
+                                    group.groupIndex - 1,
+                                    taskIndex
+                                  )
                                 }
-                                if (event.key === "Enter") {
-                                  handleUpdateTotalPoint(index);
-                                  handleUpdateProject(project);
-                                }
-                              }}
-                              onChange={(event) =>
-                                handlePointValueChange(
-                                  event.target.value,
-                                  index,
+                                onBlur={() => {
+                                  handleUpdateGroupTotalPoint(
+                                    group.groupIndex - 1
+                                  );
+                                  handleUpdateProjectPoint(project);
+                                }}
+                                defaultValue={displayGroupPoint(
+                                  group,
                                   taskIndex
-                                )
-                              }
-                              onBlur={() => {
-                                handleUpdateTotalPoint(index);
-                                handleUpdateProject(project);
-                              }}
-                              defaultValue={displayGrouptaskPoint(
-                                group,
-                                taskIndex
-                              )}
-                            />
-                          </Stack>
-                        </StyledTableCell>
-                      );
-                    }
-                  }
-                  return <StyledTableCell key={taskIndex}></StyledTableCell>;
-                })}
-                <StyledTableCell>
-                  {group.totalPoint
-                    ? group.totalPoint < 0
-                      ? 0
-                      : group.totalPoint
-                    : 0}
-                </StyledTableCell>
-                <StyledTableCell style={{ cursor: "pointer" }}>
-                  <NoteAltIcon
-                    onClick={() => {
-                      handleOpen();
-                      setSelectedGroup(group);
-                      queryGroupNote(group);
-                    }}
-                  ></NoteAltIcon>
-                </StyledTableCell>
-              </StyledTableRow>
-            );
-          })}
+                                )}
+                              />
+                            </Stack>
+                          </StyledTableCell>
+                        );
+                      }
+                    })}
+                  <StyledTableCell>{group.totalPoint}</StyledTableCell>
+                  <StyledTableCell style={{ cursor: "pointer" }}>
+                    <NoteAltIcon
+                      onClick={() => {
+                        handleOpen();
+                        setSelectedGroup(group);
+                        queryGroupNote(group);
+                      }}
+                    ></NoteAltIcon>
+                  </StyledTableCell>
+                </StyledTableRow>
+              );
+            })}
         </TableBody>
       </Table>
       <Modal

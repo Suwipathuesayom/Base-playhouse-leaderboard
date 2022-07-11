@@ -34,6 +34,7 @@ export default function AdminStack() {
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="project" element={<AdminProject />} />
+        <Route path="project/:projectNameParams" element={<AdminProject />} />
       </Routes>
     </BrowserRouter>
   );

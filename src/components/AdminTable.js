@@ -24,14 +24,15 @@ import {
   useTheme,
 } from "@mui/material";
 import { db } from "../config/firebase";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
-import { Delete } from "@mui/icons-material";
+import { ArrowDropDown, Delete } from "@mui/icons-material";
 import color from "../constant/color";
 import queryNoteFromId from "./Functions/queryNoteFromId";
+import copyToClipBoard from "./Functions/copyToClipBoard";
+import queryProjectDashboard from "./Functions/queryProjectDashboard";
+import { arrowIconStyle } from "../assets/styles/IconStyles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -83,6 +84,8 @@ const StyledStack = styled(Stack)(({ theme }) => ({
 }));
 
 export default function AdminTable({ projectDashboard, setProjectDashboard }) {
+  const [sortProjectNameOrder, setSortProjectNameOrder] = useState(false);
+  const [sortCreatedAtOrder, setSortCreatedAtOrder] = useState(false);
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -95,23 +98,6 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   //copy to clipboard
   const [copySpeaker, setCopySpeaker] = useState("Copy");
   const [copyLearner, setCopyLearner] = useState("Copy");
-
-  // function copy here
-  const copyToClipBoard = async (copyMe, setCopyFunction) => {
-    try {
-      await navigator.clipboard.writeText(copyMe);
-      setCopyFunction("Copied!");
-    } catch (err) {
-      setCopyFunction("Failed to copy!");
-    }
-  };
-
-  const resetCopyClick = () => {
-    setTimeout(() => {
-      setCopySpeaker("Copy");
-      setCopyLearner("Copy");
-    }, 1500);
-  };
 
   const handleClickOpen = (project) => {
     setOpen(true);
@@ -192,21 +178,48 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                     alignItems: "center",
                   }}
                 >
-                  <StarBorderIcon sx={{ mr: "10px" }} />
-                  ชื่อโปรเจค (ทั้งหมด {projectDashboard?.length} โปรเจค)
+                  {/* <StarBorderIcon sx={{ mr: "10px" }} /> */}
+                  ชื่อโปรเจค{" "}
+                  <ArrowDropDown
+                    sx={arrowIconStyle(sortProjectNameOrder)}
+                    onClick={() => {
+                      queryProjectDashboard(
+                        setProjectDashboard,
+                        "projectName",
+                        sortProjectNameOrder ? "asc" : "desc"
+                      );
+                      setSortProjectNameOrder(!sortProjectNameOrder);
+                    }}
+                  />
                 </Stack>
               </StyledTableCell>
               {!smallScreen && (
                 <StyledTableCell>
-                  แก้ไขล่าสุด <ArrowDropDownIcon />
+                  <Stack
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    แก้ไขล่าสุด{" "}
+                    <ArrowDropDown
+                      sx={arrowIconStyle(!sortCreatedAtOrder)}
+                      onClick={() => {
+                        queryProjectDashboard(
+                          setProjectDashboard,
+                          "createdAt",
+                          sortCreatedAtOrder ? "asc" : "desc"
+                        );
+                        setSortCreatedAtOrder(!sortCreatedAtOrder);
+                      }}
+                    />
+                  </Stack>
                 </StyledTableCell>
               )}
-              {/* {!smallScreen && (
-                <StyledTableCell>
-                  คะแนนรวม <ArrowDropDownIcon />
-                </StyledTableCell>
-              )} */}
-              <StyledTableCell align="left" />
+              <StyledTableCell align="center">
+                ทั้งหมด {projectDashboard?.length} โปรเจค
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody
@@ -223,7 +236,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                       alignItems: "center",
                     }}
                   >
-                    <StarBorderIcon sx={{ mr: "10px" }} />
+                    {/* <StarBorderIcon sx={{ mr: "10px" }} /> */}
                     {project.projectName}
                   </Stack>
                 </StyledTableCell>
@@ -259,8 +272,8 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                     />
                     <StyledTypography
                       component={Link}
-                      to="/edit-project"
-                      state={{ projectName: project.projectName }}
+                      to={`/project/${project.projectName}`}
+                      // state={{ projectName: project.projectName }}
                       variant="p"
                     >
                       Edit
@@ -291,7 +304,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                 disabled
                 fullWidth
                 id="filled-disabled"
-                value={`https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`}
+                value={`${window.location.host}/speaker/${selectedProject?.projectName}`}
                 size={"small"}
               />
             )}
@@ -307,10 +320,9 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               <Button
                 onClick={() => {
                   copyToClipBoard(
-                    `https://base-playhouse-leader-board.web.app/speaker/${selectedProject?.projectName}`,
-                    setCopySpeaker("Copied!")
+                    `${window.location.host}/speaker/${selectedProject?.projectName}`,
+                    setCopySpeaker
                   );
-                  resetCopyClick("speaker");
                 }}
                 style={{ marginLeft: "5px", textTransform: "unset" }}
               >
@@ -325,7 +337,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                 disabled
                 fullWidth
                 id="filled-disabled"
-                value={`https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`}
+                value={`${window.location.host}/learner/${selectedProject?.projectName}`}
                 size={"small"}
               />
             )}
@@ -341,10 +353,10 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               <Button
                 onClick={() => {
                   copyToClipBoard(
-                    `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
-                    setCopyLearner("Copied!")
+                    `${window.location.host}/learner/${selectedProject?.projectName}`,
+                    setCopyLearner
                   );
-                  resetCopyClick("learner");
+                  // resetCopyClick("learner");
                 }}
                 style={{ marginLeft: "5px", textTransform: "unset" }}
               >

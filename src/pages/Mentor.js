@@ -1,5 +1,4 @@
 import React from "react";
-import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import MentorTable from "../components/MentorTable";
 import Box from "@mui/material/Box";
@@ -9,33 +8,19 @@ import limitStringLength from "../components/Functions/limitStringLength";
 import PresentationHeader from "../components/PresentationHeader";
 import color from "../constant/color";
 import Navbar from "../components/Navbar";
-
-// const auth = firebase.auth();
+import queryProjectFromProjectName from "../components/Functions/queryProjectFromProjectName";
 
 export default function Mentor() {
   const { projectNameParams, mentorNameParams } = useParams();
-  const [project, setProject] = React.useState();
-  const queryProject = async (projectName) => {
-    db.collection("users")
-      .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3")
-      .collection("project")
-      .where("projectName", "==", projectName)
-      .onSnapshot((snapshot) => {
-        snapshot.forEach((doc) => {
-          setProject(doc.data());
-          // console.log(doc.data());
-        });
-      });
-  };
+  const [project, setProject] = React.useState({});
 
-  if (project) {
+  if (!!Object.keys(project).length) {
     return (
       <Box
         className="mentor"
         sx={{
           width: "100%",
           height: "100vh",
-          // paddingY: "1%",
         }}
       >
         {/* <Button
@@ -45,7 +30,7 @@ export default function Mentor() {
         >
           ดู project
         </Button> */}
-        <Navbar />
+        <Navbar header="MENTOR" />
         <PresentationHeader project={project} />
         <Stack
           sx={{
@@ -57,22 +42,22 @@ export default function Mentor() {
         >
           <Stack
             sx={{
-              height: 90,
+              height: 70,
               backgroundColor: color.primaryBlack,
               borderRadius: "10px",
               justifyContent: "center",
-              marginX: "2%",
+              mx: "2%",
             }}
           >
             <Typography
               sx={{
                 marginX: "20px",
                 justifyContent: "center",
-                fontSize: 38,
+                fontSize: 24,
                 color: "white",
               }}
             >
-              Mentor : {limitStringLength(mentorNameParams, 29)}
+              {limitStringLength(mentorNameParams, 29)}
             </Typography>
           </Stack>
         </Stack>
@@ -84,7 +69,7 @@ export default function Mentor() {
       </Box>
     );
   } else {
-    queryProject(projectNameParams);
+    queryProjectFromProjectName(projectNameParams, setProject);
     return <SplashScreen />;
   }
 }
