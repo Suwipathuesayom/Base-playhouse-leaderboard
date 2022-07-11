@@ -19,19 +19,6 @@ export default function NewMentor({ project, setProject }) {
 
   const [mentorName, setMentorName] = useState("");
 
-  //copy to clipboard
-  const [copyMentor, setCopyMentor] = useState("Copy clipboard");
-
-  // function copy here
-  const copyToClipBoard = async (copyMe, setCopyFunction) => {
-    try {
-      await navigator.clipboard.writeText(copyMe);
-      setCopyFunction("Copied!");
-    } catch (err) {
-      setCopyFunction("Failed to copy!");
-    }
-  };
-
   // State Handler
   const handleAddMentor = (mentorName) => {
     // handle UI State
@@ -44,12 +31,6 @@ export default function NewMentor({ project, setProject }) {
 
     // clear TextInput
     setMentorName("");
-  };
-
-  const resetCopyClick = () => {
-    setTimeout(() => {
-      setCopyMentor("Copy clipboard");
-    }, 1500);
   };
 
   const handleChange = (e) => {

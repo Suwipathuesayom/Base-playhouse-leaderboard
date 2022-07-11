@@ -1,4 +1,4 @@
-import { Collapse, TextField, Tooltip } from "@mui/material";
+import { Collapse, Tooltip } from "@mui/material";
 import {
   AddCircle,
   ArrowDropDown,
@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import "../pages/Admin/AdminProject.css";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
-import { TextInput } from "../assets/styles/InputStyles";
+import { DropDownTextInput } from "../assets/styles/InputStyles";
 import copyToClipBoard from "./Functions/copyToClipBoard";
 import { TransitionGroup } from "react-transition-group";
 import {
@@ -64,7 +64,10 @@ const ProjectMentor = ({ project, setProject }) => {
         <h6>{mentorIndex + 1}</h6>
         {!isEditing && <div>{mentor.fullName}</div>}
         {isEditing && (
-          <TextInput
+          <DropDownTextInput
+            sx={{ bgcolor: "white", borderRadius: "5px" }}
+            fullWidth
+            size="small"
             inputRef={(input) => input?.focus()}
             value={newMentorName}
             onKeyPress={(event) => {
@@ -73,6 +76,7 @@ const ProjectMentor = ({ project, setProject }) => {
                 handleRenameMentor(mentorIndex, newMentorName);
               }
             }}
+            onBlur={() => setIsEditing(false)}
             onChange={(event) => {
               setNewMentorName(event.target.value);
             }}
@@ -132,11 +136,11 @@ const ProjectMentor = ({ project, setProject }) => {
       <ProjectHeader>Mentor</ProjectHeader>
       <div className="adminProject__boxInput">
         {/* <strong>Mentor</strong> */}
-        <TextField
+        <DropDownTextInput
           sx={{
             flexGrow: 1,
-            marginRight: "10px",
             bgcolor: "white",
+            mr: "10px",
             borderRadius: "5px",
           }}
           size="small"

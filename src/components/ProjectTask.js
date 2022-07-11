@@ -1,4 +1,4 @@
-import { Collapse, TextField } from "@mui/material";
+import { Collapse } from "@mui/material";
 import { AddCircle, ArrowDropDown } from "@mui/icons-material";
 import { TransitionGroup } from "react-transition-group";
 
@@ -10,6 +10,7 @@ import {
 } from "../assets/styles/IconStyles";
 import ProjectHeader from "./ProjectHeader";
 import "../pages/Admin/AdminProject.css";
+import { DropDownTextInput } from "../assets/styles/InputStyles";
 
 const ProjectTask = ({ project, setProject }) => {
   const [reload, setReload] = useState(false);
@@ -45,11 +46,11 @@ const ProjectTask = ({ project, setProject }) => {
       <ProjectHeader>Task</ProjectHeader>
       <div className="adminProject__boxInput">
         {/* <strong>Task</strong> */}
-        <TextField
+        <DropDownTextInput
           sx={{
             flexGrow: 1,
-            marginRight: "10px",
             bgcolor: "white",
+            mr: "10px",
             borderRadius: "5px",
           }}
           size="small"

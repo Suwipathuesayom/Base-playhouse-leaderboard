@@ -275,9 +275,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
                     {group.groupIndex}
                   </StyledTableCell>
                   <StyledTableCell>{group.groupName}</StyledTableCell>
-                  {project?.tasks
-                    .filter((task) => !task.isHidden)
-                    .map((task, taskIndex) => {
+                  {project?.tasks.map((task, taskIndex) => {
+                    console.log(taskIndex);
+                    if (!task.isHidden) {
                       if (!!task.subTasks.length) {
                         return (
                           <StyledTableCell key={taskIndex}>
@@ -285,9 +285,8 @@ export default function MentorTable({ project, setProject, mentorName }) {
                               direction="row"
                               justifyContent="space-evenly"
                             >
-                              {task.subTasks
-                                .filter((subTask) => !subTask.isHidden)
-                                .map((subTask, subTaskIndex) => {
+                              {task.subTasks.map((subTask, subTaskIndex) => {
+                                if (!subTask.isHidden) {
                                   return (
                                     <TextInput
                                       key={subTaskIndex}
@@ -328,7 +327,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
                                       )}
                                     />
                                   );
-                                })}
+                                }
+                                return <div key={subTaskIndex} />;
+                              })}
                             </Stack>
                           </StyledTableCell>
                         );
@@ -380,7 +381,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
                           </StyledTableCell>
                         );
                       }
-                    })}
+                    }
+                    return <StyledTableCell key={taskIndex} />;
+                  })}
                   <StyledTableCell>{group.totalPoint}</StyledTableCell>
                   <StyledTableCell style={{ cursor: "pointer" }}>
                     <NoteAltIcon

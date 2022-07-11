@@ -1,8 +1,7 @@
-import { TextField } from "@mui/material";
 import React from "react";
 import ProjectHeader from "./ProjectHeader";
-// import "./ProjectName.css";
 import "../pages/Admin/AdminProject.css";
+import { DropDownTextInput } from "../assets/styles/InputStyles";
 
 const ProjectName = ({ project, setProject }) => {
   const handleChangeProjectName = (newValue) => {
@@ -14,7 +13,7 @@ const ProjectName = ({ project, setProject }) => {
   return (
     <div className="adminProject__boxContainer">
       <ProjectHeader>Project Name</ProjectHeader>
-      <TextField
+      <DropDownTextInput
         sx={{ bgcolor: "white", borderRadius: "5px" }}
         fullWidth
         size="small"

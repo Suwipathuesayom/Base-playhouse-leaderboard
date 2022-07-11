@@ -26,9 +26,16 @@ const DropDownTextInput = styled(TextField)(() => ({
   "& .MuiOutlinedInput-root": {
     "& > fieldset": {
       border: "none",
+      borderColor: "red",
     },
   },
   "& .MuiInputLabel-root": { color: color.primaryOrange },
+  input: {
+    "&::placeholder": {
+      // textOverflow: "ellipsis !important",
+      // color: color.primaryOrange,
+    },
+  },
 }));
 
 export { DropDownTextInput, TextInput, ColorInput };

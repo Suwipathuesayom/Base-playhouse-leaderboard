@@ -86,14 +86,14 @@
 }
 .adminProject__boxItem > h6 {
     margin-right: 10px;
-    font-size: max(2.5vh, 20px);
+    font-size: max(2.2vh, 20px);
     color: #FF5B4A;
 }
 .adminProject__boxItem > div {
     display: flex;
     flex-grow: 1;
     margin-right: 10px;
-    font-size: max(2vh, 18px);
+    font-size: max(1.8vh, 18px);
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

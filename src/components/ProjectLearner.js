@@ -1,4 +1,4 @@
-import { Autocomplete, Collapse, TextField, Tooltip } from "@mui/material";
+import { Autocomplete, Collapse, Tooltip } from "@mui/material";
 import {
   AddCircle,
   ArrowDropDown,
@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import React, { useState } from "react";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
-import { DropDownTextInput, TextInput } from "../assets/styles/InputStyles";
+import { DropDownTextInput } from "../assets/styles/InputStyles";
 import copyToClipBoard from "./Functions/copyToClipBoard";
 import { TransitionGroup } from "react-transition-group";
 import {
@@ -94,7 +94,10 @@ const ProjectLearner = ({ project, setProject }) => {
         <h6>{groupIndex + 1}</h6>
         {!isEditing && <div>{group.groupName}</div>}
         {isEditing && (
-          <TextInput
+          <DropDownTextInput
+            sx={{ bgcolor: "white", borderRadius: "5px" }}
+            fullWidth
+            size="small"
             value={newGroupName}
             inputRef={(input) => input?.focus()}
             onKeyPress={(event) => {
@@ -185,11 +188,11 @@ const ProjectLearner = ({ project, setProject }) => {
       <ProjectHeader>Learner Group</ProjectHeader>
       <div className="adminProject__boxInput">
         {/* <strong>Learner</strong> */}
-        <TextField
+        <DropDownTextInput
           sx={{
             flexGrow: 1,
-            marginRight: "10px",
             bgcolor: "white",
+            mr: "10px",
             borderRadius: "5px",
           }}
           size="small"
