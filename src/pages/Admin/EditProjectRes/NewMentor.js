@@ -95,7 +95,7 @@ export default function NewMentor({ project, setProject }) {
       </div>
       <Divider sx={{ bgcolor: "white" }} />
       {selectedProject.map((item, index) => (
-        <>
+        <React.Fragment key={index}>
           <div className="newMentor__body">
             <p>
               {editContactId === item.fullName ? (
@@ -124,93 +124,8 @@ export default function NewMentor({ project, setProject }) {
             <ContentCopy className="newMentor__icon" />
           </div>
           <Divider sx={{ bgcolor: "white" }} />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
-}
-
-{
-  /* <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ fontSize: 24 }}>Mentor</StyledTableCell>
-              <StyledTableCell align="left" width="500px">
-                <InputBase
-                  value={mentorName}
-                  sx={{ flex: 1, bgcolor: "#ffffff", width: "100%" }}
-                  onChange={handleChange}
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter" || event.key === "Return") {
-                      setSelectedProject([
-                        ...selectedProject,
-                        { name: mentorName },
-                      ]);
-                      setMentorName("");
-                    }
-                  }}
-                />
-              </StyledTableCell>
-
-              <StyledTableCell align="left">
-                <AddCircleIcon
-                  onClick={() => {
-                    handleAddMentor(mentorName);
-                  }}
-                />
-                <ArrowDropDownIcon />
-              </StyledTableCell>
-              <StyledTableCell align="left"></StyledTableCell>
-              <StyledTableCell align="left"></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {selectedProject.map((item, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell component="th" scope="row">
-                  {editContactId === item.name ? (
-                    <EditableRow
-                      name={item.name}
-                      setSelectedProject={setSelectedProject}
-                      index={index}
-                      selectedProject={selectedProject}
-                      setEditContactId={setEditContactId}
-                    />
-                  ) : (
-                    item.name
-                  )}
-                </StyledTableCell>
-                <StyledColorCell align="right"></StyledColorCell>
-                <StyledColorCell align="right">
-                  <EditIcon
-                    onClick={(e) => {
-                      setEditContactId(item.name);
-                    }}
-                  />
-                  <ShareIcon />
-                </StyledColorCell>
-                <StyledColorCell>
-                  <DeleteIcon
-                    name={item.name}
-                    onClick={() => handleRemoveMentor(item.name)}
-                  />
-                </StyledColorCell>
-                <StyledColorCell
-                  align="left"
-                  onClick={() => {
-                    copyToClipBoard(
-                      `https://base-playhouse-leader-board.web.app/learner/${selectedProject?.projectName}`,
-                      setCopyMentor("Copied!")
-                    );
-                    resetCopyClick("learner");
-                  }}
-                >
-                  {copyMentor}
-                </StyledColorCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */
 }

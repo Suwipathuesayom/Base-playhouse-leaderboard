@@ -69,7 +69,7 @@ export default function NewEditTask({ project, setProject }) {
       </div>
       <Divider sx={{ bgcolor: "white" }} />
       {selectedProject.map((item, index) => (
-        <>
+        <React.Fragment key={index}>
           <div className="newTask__body">
             <p>
               {editContactId === item.fullName ? (
@@ -96,7 +96,7 @@ export default function NewEditTask({ project, setProject }) {
             />
           </div>
           <Divider sx={{ bgcolor: "white" }} />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
