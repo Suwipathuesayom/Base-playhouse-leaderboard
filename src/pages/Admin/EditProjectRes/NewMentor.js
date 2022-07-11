@@ -44,7 +44,7 @@ const defaultList = [
   { name: "ItemThree" },
 ];
 
-export default function NewMentor({}) {
+export default function NewMentor() {
   const [selectedProject, setSelectedProject] = useState(defaultList);
 
   const [editContactId, setEditContactId] = useState(false);
@@ -62,6 +62,19 @@ export default function NewMentor({}) {
     } catch (err) {
       setCopyFunction("Failed to copy!");
     }
+  };
+
+  // State Handler
+  const handleAddMentor = (mentorName) => {
+    // handle UI State
+    let tempMentorList = [...selectedProject];
+    tempMentorList.push({
+      name: mentorName,
+    });
+    setSelectedProject(tempMentorList);
+
+    // clear TextInput
+    setMentorName("");
   };
 
   const resetCopyClick = () => {
@@ -107,10 +120,7 @@ export default function NewMentor({}) {
               <StyledTableCell align="left">
                 <AddCircleIcon
                   onClick={() => {
-                    setSelectedProject([
-                      ...selectedProject,
-                      { name: mentorName },
-                    ]);
+                    handleAddMentor(mentorName);
                   }}
                 />
                 <ArrowDropDownIcon />
