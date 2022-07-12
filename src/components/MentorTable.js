@@ -276,7 +276,6 @@ export default function MentorTable({ project, setProject, mentorName }) {
                   </StyledTableCell>
                   <StyledTableCell>{group.groupName}</StyledTableCell>
                   {project?.tasks.map((task, taskIndex) => {
-                    console.log(taskIndex);
                     if (!task.isHidden) {
                       if (!!task.subTasks.length) {
                         return (

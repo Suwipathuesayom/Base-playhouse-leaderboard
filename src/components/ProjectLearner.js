@@ -106,9 +106,9 @@ const ProjectLearner = ({ project, setProject }) => {
                 handleRenameLearnerGroup(groupIndex, newGroupName);
               }
             }}
-            onBlur={() => {
-              setIsEditing(false);
-            }}
+            // onBlur={() => {
+            //   setIsEditing(false);
+            // }}
             onChange={(event) => {
               setNewGroupName(event.target.value);
             }}
@@ -124,6 +124,9 @@ const ProjectLearner = ({ project, setProject }) => {
               handleChangeAssignedMentor(groupIndex, newValue);
             }}
             options={project.mentors?.map((mentor) => mentor.fullName)}
+            isOptionEqualToValue={(option, value) =>
+              option.fullName === value.fullName
+            }
             renderInput={(params) => (
               <DropDownTextInput
                 {...params}
