@@ -30,24 +30,25 @@ const AdminProject = () => {
   //         {
   //           isHidden: false,
   //           subTasks: [],
-  //           taskPoint: 1,
+  //           taskPoint: 1, // 0.8
   //         },
   //         {
   //           isHidden: false,
   //           subTasks: [
   //             {
   //               isHidden: false,
-  //               subTaskPoint: 2,
+  //               subTaskPoint: 2, // 0.3
   //             },
   //             {
   //               isHidden: true,
-  //               subTaskPoint: 3,
+  //               subTaskPoint: 3, // 0.15
   //             },
   //           ],
   //           taskPoint: 2,
   //         },
   //       ],
   //       totalPoint: 3,
+  //       totalWeightPoint: 1.25,
   //     },
   //   ],
   //   mentors: [
@@ -67,6 +68,7 @@ const AdminProject = () => {
   //       showSubTasks: true,
   //       subTasks: [],
   //       taskName: "Bannish Loki",
+  //       weight: 80,
   //     },
   //     {
   //       isHidden: false,
@@ -75,13 +77,16 @@ const AdminProject = () => {
   //         {
   //           isHidden: false,
   //           subTaskName: "Lift Sokovia",
+  //           weight: 15,
   //         },
   //         {
   //           isHidden: true,
   //           subTaskName: "Vision is born",
+  //           weight: 5,
   //         },
   //       ],
   //       taskName: "Defeat Ultron",
+  //       weight: 15,
   //     },
   //   ],
   //   theme: {
@@ -91,6 +96,7 @@ const AdminProject = () => {
   // });
   const [project, setProject] = useState({});
   const [editProjectStatus, setEditProjectStatus] = useState("warning");
+  const [editProjectStatusText, setEditProjectStatusText] = useState("");
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -112,6 +118,7 @@ const AdminProject = () => {
             <ProjectStatusAlert
               editProjectStatus={editProjectStatus}
               setEditProjectStatus={setEditProjectStatus}
+              editProjectStatusText={editProjectStatusText}
               action={project.id ? "edit" : "new"}
             />
           </div>
@@ -140,6 +147,7 @@ const AdminProject = () => {
           project={project}
           setProject={setProject}
           setEditProjectStatus={setEditProjectStatus}
+          setEditProjectStatusText={setEditProjectStatusText}
         />
       </div>
     );

@@ -36,6 +36,10 @@ const DropDownTextInput = styled(TextField)(() => ({
       // color: color.primaryOrange,
     },
   },
+  "& .MuiInputAdornment-root": {
+    padding: "0px",
+    marginRight: "0px",
+  },
 }));
 
 export { DropDownTextInput, TextInput, ColorInput };

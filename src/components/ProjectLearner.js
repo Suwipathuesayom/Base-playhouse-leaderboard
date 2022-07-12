@@ -23,7 +23,7 @@ import "../pages/Admin/AdminProject.css";
 
 const ProjectLearner = ({ project, setProject }) => {
   const [reload, setReload] = useState(false);
-  const [showLearnerGroup, setShowLearnerGroup] = useState(false);
+  const [showLearnerGroup, setShowLearnerGroup] = useState(true);
   const [newGroupName, setNewGroupName] = useState("");
 
   const addPointToNewLearner = () => {
@@ -60,6 +60,7 @@ const ProjectLearner = ({ project, setProject }) => {
       groupName: newGroupName,
       points: addPointToNewLearner(),
       totalPoint: 0,
+      totalWeightPoint: 0,
     });
     setProject(tempProject);
     setNewGroupName("");

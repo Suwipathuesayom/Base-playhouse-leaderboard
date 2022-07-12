@@ -4,11 +4,13 @@ import {
   Done,
   DriveFileRenameOutline,
 } from "@mui/icons-material";
+import { InputAdornment, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { iconStyle } from "../assets/styles/IconStyles";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTaskPoint";
 import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTotalPoint";
+import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 import checkTaskVisibility from "./Functions/checkTaskVisibility";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import VisibilityEye from "./VisibilityEye";
@@ -18,6 +20,7 @@ const SubsubTaskBox = ({
   setProject,
   task,
   taskIndex,
+  setTaskWeight,
   subTask,
   subTaskIndex,
   parentReload,
@@ -25,8 +28,31 @@ const SubsubTaskBox = ({
 }) => {
   const [reload, setReload] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingWeight, setIsEditingWeight] = useState(false);
   const [newSubTaskName, setNewSubTaskName] = useState(subTask.subTaskName);
+  const [subTaskWeight, setSubTaskWeight] = useState(subTask.weight);
 
+  const handleSubTaskWeightChange = (
+    taskIndex,
+    subTaskIndex,
+    newWeightValue
+  ) => {
+    let tempProject = project;
+    tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight = parseInt(
+      newWeightValue ? newWeightValue : 0,
+      10
+    );
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex
+    );
+    setTaskWeight(tempProject.tasks[taskIndex].weight);
+    setSubTaskWeight(
+      tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight
+    );
+    setProject(tempProject);
+    setParentReload(!parentReload);
+  };
   const handleRenameSubTask = (subTaskIndex, newSubTaskName) => {
     let tempProject = project;
     tempProject.tasks[taskIndex].subTasks[subTaskIndex].subTaskName =
@@ -50,8 +76,15 @@ const SubsubTaskBox = ({
       );
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
     });
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex,
+      subTaskIndex
+    );
+    setTaskWeight(tempProject.tasks[taskIndex].weight);
+    console.log(tempProject.tasks[taskIndex].weight);
+    // setSubTaskWeight(tempProject.task[taskIndex].subtasks[subTaskIndex].weight);
     setProject(tempProject);
-    setReload(!reload);
     setParentReload(!parentReload);
   };
   const handleSubTaskVisibilityClick = (taskIndex, subTaskIndex) => {
@@ -74,6 +107,12 @@ const SubsubTaskBox = ({
       }
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
     });
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex,
+      subTaskIndex
+    );
+    setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -92,11 +131,12 @@ const SubsubTaskBox = ({
       {isEditing && (
         <DropDownTextInput
           sx={{ bgcolor: "white", borderRadius: "5px" }}
-          fullWidth
+          // fullWidth
           size="small"
           defaultValue={subTask.subTaskName}
           inputRef={(input) => {
             input?.focus();
+            setIsEditingWeight(false);
           }}
           onKeyPress={(event) => {
             if (event.key === "Enter" && !!event.target.value) {
@@ -104,23 +144,78 @@ const SubsubTaskBox = ({
               handleRenameSubTask(subTaskIndex, event.target.value);
             }
           }}
-          // onBlur={(event) => {
-          //   setIsEditing(false);
-          //   // handleRenameSubTask(subTaskIndex, event.target.value);
-          // }}
+          onBlur={(event) => {
+            setIsEditing(false);
+            handleRenameSubTask(subTaskIndex, event.target.value);
+          }}
           onChange={(event) => {
             setNewSubTaskName(event.target.value);
           }}
         />
       )}
-      <div style={{ width: 38 }} />
-      {!isEditing && (
-        <DriveFileRenameOutline
-          sx={iconStyle}
-          onClick={() => {
-            setIsEditing(true);
+      {!isEditingWeight && (
+        <strong onClick={() => setIsEditingWeight(true)}>
+          <div>{subTask.weight}</div>
+          <div>{" %"}</div>
+        </strong>
+      )}
+      {isEditingWeight && (
+        <DropDownTextInput
+          type="number"
+          defaultValue={subTask.weight}
+          // width={25}
+          // fullWidth
+          inputRef={(input) => {
+            input?.focus();
+            setIsEditing(false);
+          }}
+          sx={{
+            bgcolor: "white",
+            borderRadius: "5px",
+          }}
+          style={{ flexGrow: 0, width: 100 }}
+          size="small"
+          InputProps={{
+            endAdornment: <InputAdornment position="start">%</InputAdornment>,
+            // inputProps: {
+            //   style: {
+            //     textAlign: "right",
+            //   },
+            // },
+          }}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              setIsEditingWeight(false);
+              handleSubTaskWeightChange(
+                taskIndex,
+                subTaskIndex,
+                event.target.value
+              );
+            }
+          }}
+          onBlur={(event) => {
+            setIsEditingWeight(false);
+            handleSubTaskWeightChange(
+              taskIndex,
+              subTaskIndex,
+              event.target.value
+            );
+          }}
+          onChange={(event) => {
+            setSubTaskWeight(event.target.value);
           }}
         />
+      )}
+      <div style={{ flexGrow: 0, width: 28 }} />
+      {!isEditing && (
+        <Tooltip title="Rename SubTask">
+          <DriveFileRenameOutline
+            sx={iconStyle}
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          />
+        </Tooltip>
       )}
       {isEditing && (
         <Done
@@ -128,6 +223,7 @@ const SubsubTaskBox = ({
           onClick={() => {
             setIsEditing(false);
             handleRenameSubTask(subTaskIndex, newSubTaskName);
+            handleSubTaskWeightChange(taskIndex, subTaskIndex, subTaskWeight);
           }}
         />
       )}

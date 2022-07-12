@@ -5,7 +5,7 @@ import {
   Done,
   DriveFileRenameOutline,
 } from "@mui/icons-material";
-import { Collapse } from "@mui/material";
+import { Collapse, InputAdornment, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTaskPoint";
@@ -15,6 +15,7 @@ import SubTaskBox from "./SubTaskBox";
 import VisibilityEye from "./VisibilityEye";
 import { TransitionGroup } from "react-transition-group";
 import { arrowIconStyle, iconStyle } from "../assets/styles/IconStyles";
+import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 
 const TaskBox = ({
   project,
@@ -26,8 +27,20 @@ const TaskBox = ({
 }) => {
   const [reload, setReload] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingWeight, setIsEditingWeight] = useState(false);
   const [newTaskName, setNewTaskName] = useState(task.taskName);
+  const [taskWeight, setTaskWeight] = useState(task.weight);
 
+  const handleTaskWeightChange = (taskIndex, newWeightValue) => {
+    let tempProject = project;
+    tempProject.tasks[taskIndex].weight = parseInt(
+      newWeightValue ? newWeightValue : 0,
+      10
+    );
+    setTaskWeight(tempProject.tasks[taskIndex].weight);
+    setProject(tempProject);
+    setParentReload(!parentReload);
+  };
   const handleAddSubTask = (taskIndex) => {
     let tempProject = project;
     tempProject.tasks[taskIndex].isHidden = false;
@@ -35,6 +48,7 @@ const TaskBox = ({
     tempProject.tasks[taskIndex].subTasks.push({
       isHidden: false,
       subTaskName: "",
+      weight: "",
     });
     tempProject.learnerGroups.forEach((group) => {
       group.points[taskIndex].isHidden = false;
@@ -87,6 +101,11 @@ const TaskBox = ({
       }
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
     });
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex
+    );
+    setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -95,6 +114,7 @@ const TaskBox = ({
     tempProject.tasks[taskIndex].showSubTasks =
       !tempProject.tasks[taskIndex].showSubTasks;
     setProject(tempProject);
+    setParentReload(!parentReload);
     setReload(!reload);
   };
 
@@ -111,10 +131,13 @@ const TaskBox = ({
         {isEditing && (
           <DropDownTextInput
             sx={{ bgcolor: "white", borderRadius: "5px" }}
-            fullWidth
+            // fullWidth
             size="small"
+            inputRef={(input) => {
+              input?.focus();
+              setIsEditingWeight(false);
+            }}
             defaultValue={task.taskName}
-            inputRef={(input) => input?.focus()}
             onKeyPress={(event) => {
               if (event.key === "Enter" && !!event.target.value) {
                 setIsEditing(false);
@@ -127,6 +150,47 @@ const TaskBox = ({
             }}
           />
         )}
+        {isEditingWeight && (
+          <DropDownTextInput
+            // disabled={!!task.subTasks.length}
+            defaultValue={task.weight}
+            type="number"
+            sx={{ bgcolor: "white", borderRadius: "5px" }}
+            inputRef={(input) => {
+              input?.focus();
+              setIsEditing(false);
+            }}
+            style={{ flexGrow: 0, width: 100 }}
+            size="small"
+            InputProps={{
+              endAdornment: <InputAdornment position="start">%</InputAdornment>,
+            }}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleTaskWeightChange(taskIndex, event.target.value);
+              }
+            }}
+            onBlur={(event) => {
+              setIsEditingWeight(false);
+              handleTaskWeightChange(taskIndex, event.target.value);
+            }}
+            onChange={(event) => {
+              setTaskWeight(event.target.value);
+            }}
+          />
+        )}
+        {!isEditingWeight && (
+          <strong
+            onClick={() => {
+              if (!!!task.subTasks.length) {
+                setIsEditingWeight(true);
+              }
+            }}
+          >
+            <div>{task.weight}</div>
+            <div>{" %"}</div>
+          </strong>
+        )}
         <AddCircle
           sx={iconStyle}
           onClick={() => {
@@ -134,12 +198,14 @@ const TaskBox = ({
           }}
         />
         {!isEditing && (
-          <DriveFileRenameOutline
-            sx={iconStyle}
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          />
+          <Tooltip title="Rename Task">
+            <DriveFileRenameOutline
+              sx={iconStyle}
+              onClick={() => {
+                setIsEditing(true);
+              }}
+            />
+          </Tooltip>
         )}
         {isEditing && (
           <Done
@@ -186,6 +252,7 @@ const TaskBox = ({
                 setProject={setProject}
                 task={task}
                 taskIndex={taskIndex}
+                setTaskWeight={setTaskWeight}
                 subTask={subTask}
                 subTaskIndex={subTaskIndex}
                 parentReload={parentReload}

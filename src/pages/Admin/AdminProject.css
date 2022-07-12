@@ -77,6 +77,10 @@
     background-color: #151515;
     /* margin-bottom: 10px; */
 }
+.adminProject__boxInput > strong {
+    color: #969696;
+    /* margin-right: 10px; */
+}
 .adminProject__boxItem {
     display: flex;
     height: 60px;
@@ -100,6 +104,18 @@
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
     color: #969696;
+}
+.adminProject__boxItem > strong {
+    display: flex;
+    width: 100px;
+    height: 40px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
+    background-color: white;
 }
 .adminProject__boxItem > span {
     width: 160px;

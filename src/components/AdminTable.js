@@ -131,7 +131,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       });
   };
 
-  const handleDeleteProject = async (project) => {
+  const handleDeleteProject = async (projectDashboard, project) => {
     const collectionRef = db
       .collection("users")
       .doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
@@ -159,7 +159,10 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
         snapshot.forEach((doc) => {
           doc.ref.delete();
         });
-        setProjectDashboard([]);
+        let tempProjectDashboard = projectDashboard.filter(
+          (dashboard) => dashboard.projectName !== project.projectName
+        );
+        setProjectDashboard(tempProjectDashboard);
       })
       .catch((error) => console.log(error));
   };
@@ -407,7 +410,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
             color="error"
             onClick={() => {
               setShowDeleteDialog(false);
-              handleDeleteProject(selectedProject);
+              handleDeleteProject(projectDashboard, selectedProject);
             }}
           >
             Delete
