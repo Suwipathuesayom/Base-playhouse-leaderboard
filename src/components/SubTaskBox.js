@@ -104,10 +104,10 @@ const SubsubTaskBox = ({
               handleRenameSubTask(subTaskIndex, event.target.value);
             }
           }}
-          onBlur={(event) => {
-            setIsEditing(false);
-            // handleRenameSubTask(subTaskIndex, event.target.value);
-          }}
+          // onBlur={(event) => {
+          //   setIsEditing(false);
+          //   // handleRenameSubTask(subTaskIndex, event.target.value);
+          // }}
           onChange={(event) => {
             setNewSubTaskName(event.target.value);
           }}
@@ -126,6 +126,7 @@ const SubsubTaskBox = ({
         <Done
           sx={iconStyle}
           onClick={() => {
+            setIsEditing(false);
             handleRenameSubTask(subTaskIndex, newSubTaskName);
           }}
         />

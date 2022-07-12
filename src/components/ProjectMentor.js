@@ -76,7 +76,7 @@ const ProjectMentor = ({ project, setProject }) => {
                 handleRenameMentor(mentorIndex, newMentorName);
               }
             }}
-            onBlur={() => setIsEditing(false)}
+            // onBlur={() => setIsEditing(false)}
             onChange={(event) => {
               setNewMentorName(event.target.value);
             }}

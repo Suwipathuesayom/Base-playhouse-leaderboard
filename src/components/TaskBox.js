@@ -121,7 +121,7 @@ const TaskBox = ({
                 handleRenameTask(taskIndex, newTaskName);
               }
             }}
-            onBlur={() => setIsEditing(false)}
+            // onBlur={() => setIsEditing(false)}
             onChange={(event) => {
               setNewTaskName(event.target.value);
             }}
