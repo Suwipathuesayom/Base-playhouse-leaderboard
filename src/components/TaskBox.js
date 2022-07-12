@@ -101,10 +101,12 @@ const TaskBox = ({
       }
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
     });
-    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-      tempProject,
-      taskIndex
-    );
+    if (!!tempProject.tasks[taskIndex].subTasks.length) {
+      tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+        tempProject,
+        taskIndex
+      );
+    }
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
