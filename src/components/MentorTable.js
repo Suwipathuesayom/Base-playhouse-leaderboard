@@ -19,6 +19,8 @@ import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTo
 import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTaskPoint";
 import checkIfNumberIsEmpty from "./Functions/checkIfNumberIsEmpty";
 import handleUpdateProjectPoint from "./Functions/handleUpdateProjectPoint";
+import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
+import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -178,16 +180,31 @@ export default function MentorTable({ project, setProject, mentorName }) {
     subTaskIndex = -1
   ) => {
     let tempProject = project;
+    let tempNewPointValue = checkIfNumberIsEmpty(newPointValue);
     if (subTaskIndex < 0) {
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
-        checkIfNumberIsEmpty(newPointValue);
+        tempNewPointValue;
+      tempProject.learnerGroups[groupIndex].points[taskIndex].taskWeightPoint =
+        (tempNewPointValue * tempProject.tasks[taskIndex].weight) / 100.0;
     } else {
       tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
         subTaskIndex
-      ].subTaskPoint = checkIfNumberIsEmpty(newPointValue);
+      ].subTaskPoint = tempNewPointValue;
+      tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
+        subTaskIndex
+      ].subTaskWeightPoint =
+        (tempNewPointValue *
+          tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight) /
+        100.0;
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
         calculateLearnerGroupTaskPoint(
           tempProject.learnerGroups[groupIndex],
+          taskIndex
+        );
+      tempProject.learnerGroups[groupIndex].points[taskIndex].taskWeightPoint =
+        calculateLearnerGroupTaskWeightPoint(
+          tempProject,
+          groupIndex,
           taskIndex
         );
     }
@@ -197,6 +214,8 @@ export default function MentorTable({ project, setProject, mentorName }) {
     let tempProject = project;
     tempProject.learnerGroups[groupIndex].totalPoint =
       calculateLearnerGroupTotalPoint(tempProject.learnerGroups[groupIndex]);
+    tempProject.learnerGroups[groupIndex].totalWeightPoint =
+      calculateLearnerGroupTotalWeightPoint(tempProject, groupIndex);
     setProject(tempProject);
   };
 

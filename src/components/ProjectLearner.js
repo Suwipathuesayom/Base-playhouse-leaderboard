@@ -34,12 +34,14 @@ const ProjectLearner = ({ project, setProject }) => {
         tempSubTask.push({
           isHidden: subTask.isHidden,
           subTaskPoint: 0,
+          subTaskWeightPoint: 0,
         });
       });
       tempPoint.push({
         isHidden: task.isHidden,
         subTasks: tempSubTask,
         taskPoint: 0,
+        taskWeightPoint: 0,
       });
     });
     return tempPoint;
