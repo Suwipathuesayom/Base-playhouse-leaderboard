@@ -6,6 +6,7 @@ const ProjectStatusAlert = ({
   editProjectStatus = "info",
   setEditProjectStatus,
   action,
+  alertText = "",
 }) => {
   return (
     <Collapse
@@ -32,17 +33,22 @@ const ProjectStatusAlert = ({
             <Close fontSize="inherit" />
           </IconButton>
         }
-        sx={{ mb: 2, fontSize: 20, alignItems: "center" }}
+        // sx={{ mb: 2, fontSize: 20, alignItems: "center" }}
       >
-        {`${editProjectStatus === "info" ? "กำลัง" : ""}${
-          action === "new" ? "สร้าง" : "แก้ไข"
-        }โปรเจค${
-          editProjectStatus === "success"
-            ? "สำเร็จ"
-            : editProjectStatus === "error"
-            ? "ล้มเหลว"
-            : " . . ."
-        }`}
+        {/* <AlertTitle>
+        </AlertTitle> */}
+        <strong>
+          {`${editProjectStatus === "info" ? "กำลัง" : ""}${
+            action === "new" ? "สร้าง" : "แก้ไข"
+          }โปรเจค${
+            editProjectStatus === "success"
+              ? "สำเร็จ"
+              : editProjectStatus === "error"
+              ? "ล้มเหลว"
+              : " . . ."
+          }`}
+        </strong>
+        {!!alertText.length && <p>• {alertText}</p>}
       </Alert>
     </Collapse>
   );

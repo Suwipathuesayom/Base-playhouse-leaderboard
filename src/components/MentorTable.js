@@ -223,9 +223,8 @@ export default function MentorTable({ project, setProject, mentorName }) {
           <TableRow>
             <StyledTableCell>GROUP</StyledTableCell>
             <StyledTableCell>NAME</StyledTableCell>
-            {project?.tasks
-              .filter((task) => !task.isHidden)
-              .map((task, taskIndex) => {
+            {project?.tasks.map((task, taskIndex) => {
+              if (!task.isHidden) {
                 return (
                   <StyledTableCell key={taskIndex}>
                     {`${task.taskName}`}
@@ -260,7 +259,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
                     </Stack>
                   </StyledTableCell>
                 );
-              })}
+              }
+              return <StyledTableCell key={taskIndex} />;
+            })}
             <StyledTableCell>TOTAL</StyledTableCell>
             <StyledTableCell></StyledTableCell>
           </TableRow>
