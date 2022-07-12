@@ -5,7 +5,7 @@ function calculateLearnerGroupTotalWeightPoint(project, groupIndex) {
     .forEach((point) => {
       tempTotalWeightPoint += parseFloat(point.taskWeightPoint);
     });
-  return tempTotalWeightPoint.toFixed(2);
+  return parseFloat(tempTotalWeightPoint.toFixed(1));
 }
 
 export default calculateLearnerGroupTotalWeightPoint;

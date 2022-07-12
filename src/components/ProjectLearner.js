@@ -72,6 +72,9 @@ const ProjectLearner = ({ project, setProject }) => {
   const handleDeleteLearnerGroup = (groupIndex) => {
     let tempProject = project;
     tempProject.learnerGroups.splice(groupIndex, 1);
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.groupIndex = groupIndex + 1;
+    });
     setProject(tempProject);
     setReload(!reload);
   };

@@ -27,7 +27,10 @@ function Speaker() {
             let tempProject = doc.data();
             tempProject.learnerGroups = tempProject.learnerGroups.sort(
               (lhs, rhs) => {
-                return rhs.totalWeightPoint - lhs.totalWeightPoint;
+                return (
+                  parseFloat(rhs.totalWeightPoint) -
+                  parseFloat(lhs.totalWeightPoint)
+                );
               }
             );
             setProject(tempProject);

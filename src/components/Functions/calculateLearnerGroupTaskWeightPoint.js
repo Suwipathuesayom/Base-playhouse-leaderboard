@@ -9,7 +9,7 @@ function calculateLearnerGroupTaskWeightPoint(project, groupIndex, taskIndex) {
           100.0;
     }
   );
-  return tempTaskWeightPoint.toFixed(2);
+  return parseFloat(tempTaskWeightPoint.toFixed(1));
 }
 
 export default calculateLearnerGroupTaskWeightPoint;
