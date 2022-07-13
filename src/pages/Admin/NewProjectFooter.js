@@ -9,12 +9,7 @@ import calculateProjectTotalPoint from "../../components/Functions/calculateProj
 
 // const auth = firebase.auth();
 
-function NewProjectFooter({
-  project,
-  setProject,
-  header,
-  setEditProjectStatus,
-}) {
+function NewProjectFooter({ project, setProject, header, setProjectStatus }) {
   const navigate = useNavigate();
 
   const handleAddNewProject = async () => {
@@ -24,7 +19,7 @@ function NewProjectFooter({
       firebase.firestore.Timestamp.fromDate(createdDateTime);
     tempProject.totalPoint = calculateProjectTotalPoint(tempProject);
     setProject(tempProject);
-    setEditProjectStatus("info");
+    setProjectStatus("info");
     try {
       let projectRef = db
         .collection("users")
@@ -50,14 +45,14 @@ function NewProjectFooter({
           totalPoint: tempProject.totalPoint,
         })
         .then(() => {
-          setEditProjectStatus("success");
+          setProjectStatus("success");
           setTimeout(() => {
-            setEditProjectStatus("warning");
+            setProjectStatus("warning");
           }, 2000);
         })
         .catch((error) => {
           console.log(error);
-          setEditProjectStatus("error");
+          setProjectStatus("error");
         });
     } catch (error) {
       console.log(error);
@@ -71,7 +66,7 @@ function NewProjectFooter({
     tempProject.totalPoint = calculateProjectTotalPoint(tempProject);
     setProject(tempProject);
 
-    setEditProjectStatus("info");
+    setProjectStatus("info");
     try {
       let userRef = db.collection("users").doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
 
@@ -80,7 +75,7 @@ function NewProjectFooter({
         .doc(tempProject.id)
         .update(tempProject)
         .catch((error) => {
-          setEditProjectStatus("error");
+          setProjectStatus("error");
         });
 
       await userRef
@@ -92,13 +87,13 @@ function NewProjectFooter({
           totalPoint: tempProject.totalPoint,
         })
         .then(() => {
-          setEditProjectStatus("success");
+          setProjectStatus("success");
           setTimeout(() => {
-            setEditProjectStatus("warning");
+            setProjectStatus("warning");
           }, 2000);
         })
         .catch((error) => {
-          setEditProjectStatus("error");
+          setProjectStatus("error");
         });
     } catch (error) {
       console.log(error);

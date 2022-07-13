@@ -133,7 +133,7 @@ const TaskBox = ({
         {isEditing && (
           <DropDownTextInput
             sx={{ bgcolor: "white", borderRadius: "5px" }}
-            // fullWidth
+            fullWidth
             size="small"
             inputRef={(input) => {
               input?.focus();
@@ -157,7 +157,7 @@ const TaskBox = ({
             // disabled={!!task.subTasks.length}
             defaultValue={task.weight}
             type="number"
-            sx={{ bgcolor: "white", borderRadius: "5px" }}
+            sx={{ minWidth: 100, bgcolor: "white", borderRadius: "5px" }}
             inputRef={(input) => {
               input?.focus();
               setIsEditing(false);

@@ -138,7 +138,7 @@ const ProjectLearner = ({ project, setProject }) => {
                 {...params}
                 fullWidth
                 size="small"
-                placeholder="assign mentor"
+                placeholder="mentor"
               />
             )}
           />

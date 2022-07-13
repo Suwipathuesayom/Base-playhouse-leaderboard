@@ -95,8 +95,9 @@ const AdminProject = () => {
   //   },
   // });
   const [project, setProject] = useState({});
-  const [editProjectStatus, setEditProjectStatus] = useState("warning");
-  const [editProjectStatusText, setEditProjectStatusText] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [projectStatus, setProjectStatus] = useState("warning");
+  const [projectAlertText, setProjectAlertText] = useState("");
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -116,9 +117,11 @@ const AdminProject = () => {
         >
           <div className="adminProject__alert">
             <ProjectStatusAlert
-              editProjectStatus={editProjectStatus}
-              setEditProjectStatus={setEditProjectStatus}
-              editProjectStatusText={editProjectStatusText}
+              showAlert={showAlert}
+              setShowAlert={setShowAlert}
+              projectStatus={projectStatus}
+              setProjectStatus={setProjectStatus}
+              projectAlertText={projectAlertText}
               action={project.id ? "edit" : "new"}
             />
           </div>
@@ -139,15 +142,17 @@ const AdminProject = () => {
             <ProjectTask
               project={project}
               setProject={setProject}
-              setEditProjectStatus={setEditProjectStatus}
+              setProjectStatus={setProjectStatus}
             />
           </div>
         </div>
         <ProjectFooter
           project={project}
           setProject={setProject}
-          setEditProjectStatus={setEditProjectStatus}
-          setEditProjectStatusText={setEditProjectStatusText}
+          showAlert={showAlert}
+          setShowAlert={setShowAlert}
+          setProjectStatus={setProjectStatus}
+          setProjectAlertText={setProjectAlertText}
         />
       </div>
     );

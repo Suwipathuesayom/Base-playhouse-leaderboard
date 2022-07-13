@@ -107,7 +107,7 @@
 }
 .adminProject__boxItem > strong {
     display: flex;
-    width: 100px;
+    min-width: 100px;
     height: 40px;
     padding-right: 15px;
     padding-left: 15px;
@@ -118,7 +118,7 @@
     background-color: white;
 }
 .adminProject__boxItem > span {
-    width: 160px;
+    min-width: 140px;
     height: 70%;
     margin-right: 10px;
     /* background-color: pink; */

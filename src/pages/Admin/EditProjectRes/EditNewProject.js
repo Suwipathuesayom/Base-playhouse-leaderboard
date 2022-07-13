@@ -39,7 +39,7 @@ function EditProjectRes() {
   //   tasks: [],
   // });
   const [project, setProject] = useState({});
-  const [editProjectStatus, setEditProjectStatus] = useState("warning");
+  const [projectStatus, setProjectStatus] = useState("warning");
 
   if (!!Object.keys(project).length) {
     return (
@@ -49,8 +49,8 @@ function EditProjectRes() {
           <Stack flexDirection={"row"}>
             <div className="alert">
               <ProjectStatusAlert
-                editProjectStatus={editProjectStatus}
-                setEditProjectStatus={setEditProjectStatus}
+                projectStatus={projectStatus}
+                setProjectStatus={setProjectStatus}
                 action={"edit"}
               />
             </div>
@@ -65,7 +65,7 @@ function EditProjectRes() {
           project={project}
           setProject={setProject}
           header={"NEW PROJECT"}
-          setEditProjectStatus={setEditProjectStatus}
+          setProjectStatus={setProjectStatus}
         />
       </div>
     );

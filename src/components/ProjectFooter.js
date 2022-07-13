@@ -8,8 +8,10 @@ import handleUpdateProject from "./Functions/handleUpdateProject";
 const ProjectFooter = ({
   project,
   setProject,
-  setEditProjectStatus,
-  setEditProjectStatusText,
+  showAlert,
+  setShowAlert,
+  setProjectStatus,
+  setProjectAlertText,
 }) => {
   const navigate = useNavigate();
   const buttonStyle = {
@@ -48,10 +50,19 @@ const ProjectFooter = ({
               handleAddNewProject(
                 project,
                 setProject,
-                setEditProjectStatus,
-                setEditProjectStatusText
+                showAlert,
+                setShowAlert,
+                setProjectStatus,
+                setProjectAlertText
               );
-            else handleUpdateProject(project, setProject, setEditProjectStatus);
+            else
+              handleUpdateProject(
+                project,
+                setProject,
+                setShowAlert,
+                setProjectStatus,
+                setProjectAlertText
+              );
           }}
         >
           {project.id ? "บันทึก" : "สร้าง"}

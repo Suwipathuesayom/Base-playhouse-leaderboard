@@ -1,13 +1,33 @@
 import { db, firebase } from "../../config/firebase";
+import checkIfProjectExisted from "./checkIfProjectExisted";
 
-async function handleUpdateProject(project, setProject, setEditProjectStatus) {
+async function handleUpdateProject(
+  project,
+  setProject,
+  setShowAlert,
+  setProjectStatus,
+  setProjectAlertText
+) {
   let updatedDateTime = new Date();
   let tempProject = project;
   tempProject.createdAt =
     firebase.firestore.Timestamp.fromDate(updatedDateTime);
   setProject(tempProject);
 
-  setEditProjectStatus("info");
+  setShowAlert(true);
+  setProjectStatus("info");
+  setProjectAlertText("");
+  if (!project.projectName) {
+    setProjectStatus("warning");
+    setProjectAlertText("กรุณาใส่ชื่อโปรเจค");
+    return;
+  }
+  if (await checkIfProjectExisted(project)) {
+    setShowAlert(true);
+    setProjectStatus("warning");
+    setProjectAlertText(`มีโปรเจคชื่อ ${project.projectName} อยู่แล้ว`);
+    return;
+  }
   try {
     let userRef = db.collection("users").doc("Qc0cyqw24Tf25rivG1ayoJi2XCF3");
 
@@ -16,7 +36,7 @@ async function handleUpdateProject(project, setProject, setEditProjectStatus) {
       .doc(tempProject.id)
       .update(tempProject)
       .catch((error) => {
-        setEditProjectStatus("error");
+        setProjectStatus("error");
       });
 
     await userRef
@@ -27,13 +47,13 @@ async function handleUpdateProject(project, setProject, setEditProjectStatus) {
         projectName: tempProject.projectName,
       })
       .then(() => {
-        setEditProjectStatus("success");
+        setProjectStatus("success");
         setTimeout(() => {
-          setEditProjectStatus("warning");
+          setShowAlert(false);
         }, 2000);
       })
       .catch((error) => {
-        setEditProjectStatus("error");
+        setProjectStatus("error");
       });
   } catch (error) {
     console.log(error);
