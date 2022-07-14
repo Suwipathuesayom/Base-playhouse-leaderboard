@@ -75,15 +75,14 @@ export default function NewMentor({ project, setProject }) {
         <ArrowDropDown className="newMentor__icon" />
       </div>
       <Divider sx={{ bgcolor: "white" }} />
-      {selectedProject.map((item, index) => (
-        <React.Fragment key={index}>
+      {selectedProject.map((item) => (
+        <React.Fragment>
           <div className="newMentor__body">
             <p>
               {editContactId === item.fullName ? (
                 <EditableRow
                   name={item.fullName}
                   setSelectedProject={setSelectedProject}
-                  index={index}
                   selectedProject={selectedProject}
                   setEditContactId={setEditContactId}
                 />
@@ -98,10 +97,7 @@ export default function NewMentor({ project, setProject }) {
               }}
             />
             <Share className="newMentor__icon" />
-            <Delete
-              className="newMentor__icon"
-              onClick={() => handleRemoveMentor(index)}
-            />
+            <Delete className="newMentor__icon" />
             <ContentCopy className="newMentor__icon" />
           </div>
           <Divider sx={{ bgcolor: "white" }} />

@@ -67,8 +67,8 @@ export default function NewLearner({ project, setProject }) {
         <ArrowDropDown className="newLearner__icon" />
       </div>
       <Divider sx={{ bgcolor: "white" }} />
-      {selectedProject.map((item, index) => (
-        <React.Fragment key={index}>
+      {selectedProject.map((item) => (
+        <React.Fragment>
           <div className="newLearner__body">
             <p>
               {editContactId === item.fullName ? (
@@ -76,7 +76,6 @@ export default function NewLearner({ project, setProject }) {
                   className="newLearner__icon"
                   name={item.fullName}
                   setSelectedProject={setSelectedProject}
-                  index={index}
                   selectedProject={selectedProject}
                   setEditContactId={setEditContactId}
                 />
@@ -91,10 +90,7 @@ export default function NewLearner({ project, setProject }) {
               }}
             />
 
-            <Delete
-              className="newLearner__icon"
-              onClick={() => handleRemoveLearner(index)}
-            />
+            <Delete className="newLearner__icon" />
           </div>
           <Divider sx={{ bgcolor: "white" }} />
         </React.Fragment>

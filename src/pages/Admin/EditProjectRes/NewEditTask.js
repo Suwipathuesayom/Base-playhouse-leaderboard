@@ -68,15 +68,14 @@ export default function NewEditTask({ project, setProject }) {
         <ArrowDropDown className="newTask__icon" />
       </div>
       <Divider sx={{ bgcolor: "white" }} />
-      {selectedProject.map((item, index) => (
-        <React.Fragment key={index}>
+      {selectedProject.map((item) => (
+        <React.Fragment>
           <div className="newTask__body">
             <p>
               {editContactId === item.fullName ? (
                 <EditableRow
                   name={item.fullName}
                   setSelectedProject={setSelectedProject}
-                  index={index}
                   selectedProject={selectedProject}
                   setEditContactId={setEditContactId}
                 />
@@ -90,10 +89,7 @@ export default function NewEditTask({ project, setProject }) {
                 setEditContactId(item.fullName);
               }}
             />
-            <Delete
-              className="newTask__icon"
-              onClick={() => handleRemoveLearner(index)}
-            />
+            <Delete className="newTask__icon" />
           </div>
           <Divider sx={{ bgcolor: "white" }} />
         </React.Fragment>
