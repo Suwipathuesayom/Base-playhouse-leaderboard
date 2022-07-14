@@ -35,7 +35,7 @@ function Learner() {
           let tempProject = doc.data();
           tempProject.learnerGroups = tempProject.learnerGroups.sort(
             (lhs, rhs) => {
-              return rhs.totalPoint - lhs.totalPoint;
+              return rhs.totalWeightPoint - lhs.totalWeightPoint;
             }
           );
           setProject(tempProject);
@@ -118,7 +118,7 @@ function Learner() {
       </TableContentText>
       {!smallScreen && <TableContentText flex={1} />}
       <TableContentText flex={1} fontSize={smallScreen ? 18 : 28}>
-        {group.totalPoint > 0 ? group.totalPoint : 0}
+        {group.totalWeightPoint > 0 ? group.totalWeightPoint : 0}
       </TableContentText>
     </Box>
   );

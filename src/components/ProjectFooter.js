@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 import handleAddNewProject from "./Functions/handleAddNewProject";
 import handleUpdateProject from "./Functions/handleUpdateProject";
 
-const ProjectFooter = ({ project, setProject, setEditProjectStatus }) => {
+const ProjectFooter = ({
+  project,
+  setProject,
+  setEditProjectStatus,
+  setEditProjectStatusText,
+}) => {
   const navigate = useNavigate();
   const buttonStyle = {
     width: 100,
@@ -40,7 +45,12 @@ const ProjectFooter = ({ project, setProject, setEditProjectStatus }) => {
           sx={buttonStyle}
           onClick={() => {
             if (!project.id)
-              handleAddNewProject(project, setProject, setEditProjectStatus);
+              handleAddNewProject(
+                project,
+                setProject,
+                setEditProjectStatus,
+                setEditProjectStatusText
+              );
             else handleUpdateProject(project, setProject, setEditProjectStatus);
           }}
         >

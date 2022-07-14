@@ -23,7 +23,7 @@ import "../pages/Admin/AdminProject.css";
 
 const ProjectLearner = ({ project, setProject }) => {
   const [reload, setReload] = useState(false);
-  const [showLearnerGroup, setShowLearnerGroup] = useState(false);
+  const [showLearnerGroup, setShowLearnerGroup] = useState(true);
   const [newGroupName, setNewGroupName] = useState("");
 
   const addPointToNewLearner = () => {
@@ -34,12 +34,14 @@ const ProjectLearner = ({ project, setProject }) => {
         tempSubTask.push({
           isHidden: subTask.isHidden,
           subTaskPoint: 0,
+          subTaskWeightPoint: 0,
         });
       });
       tempPoint.push({
         isHidden: task.isHidden,
         subTasks: tempSubTask,
         taskPoint: 0,
+        taskWeightPoint: 0,
       });
     });
     return tempPoint;
@@ -60,6 +62,7 @@ const ProjectLearner = ({ project, setProject }) => {
       groupName: newGroupName,
       points: addPointToNewLearner(),
       totalPoint: 0,
+      totalWeightPoint: 0,
     });
     setProject(tempProject);
     setNewGroupName("");

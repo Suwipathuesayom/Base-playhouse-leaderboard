@@ -5,8 +5,8 @@ import React from "react";
 const ProjectStatusAlert = ({
   editProjectStatus = "info",
   setEditProjectStatus,
+  editProjectStatusText,
   action,
-  alertText = "",
 }) => {
   return (
     <Collapse
@@ -48,7 +48,7 @@ const ProjectStatusAlert = ({
               : " . . ."
           }`}
         </strong>
-        {!!alertText.length && <p>• {alertText}</p>}
+        {editProjectStatusText && <p>• {editProjectStatusText}</p>}
       </Alert>
     </Collapse>
   );

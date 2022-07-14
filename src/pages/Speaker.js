@@ -27,7 +27,7 @@ function Speaker() {
             let tempProject = doc.data();
             tempProject.learnerGroups = tempProject.learnerGroups.sort(
               (lhs, rhs) => {
-                return rhs.totalPoint - lhs.totalPoint;
+                return rhs.totalWeightPoint - lhs.totalWeightPoint;
               }
             );
             setProject(tempProject);
@@ -150,7 +150,7 @@ function Speaker() {
                     {group.groupName}
                   </TableContentText>
                   <TableContentText flex={1}>
-                    {group.totalPoint}
+                    {group.totalWeightPoint}
                   </TableContentText>
                 </Stack>
               ))}
@@ -208,7 +208,7 @@ function Speaker() {
               >
                 {group.points.map((point, pointIndex) => (
                   <TablePointHeaderText flex={1} key={pointIndex}>
-                    {point.taskPoint}
+                    {point.taskWeightPoint}
                   </TablePointHeaderText>
                 ))}
               </Stack>

@@ -23,7 +23,7 @@ import ProjectHeader from "./ProjectHeader";
 
 const ProjectMentor = ({ project, setProject }) => {
   const [reload, setReload] = useState(false);
-  const [showMentor, setShowMentor] = useState(false);
+  const [showMentor, setShowMentor] = useState(true);
   const [newMentorName, setNewMentorName] = useState("");
 
   const handleAddNewMentor = (newMentorName) => {

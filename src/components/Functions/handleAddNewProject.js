@@ -1,8 +1,14 @@
 import { db, firebase } from "../../config/firebase";
 
-async function handleAddNewProject(project, setProject, setEditProjectStatus) {
+async function handleAddNewProject(
+  project,
+  setProject,
+  setEditProjectStatus,
+  setEditProjectStatusText
+) {
   if (!project.projectName) {
-    setEditProjectStatus("error", "กรุณาใส่ชื่อโปรเจค");
+    setEditProjectStatus("error");
+    setEditProjectStatusText("กรุณาใส่ชื่อโปรเจค");
     return;
   }
   let createdDateTime = new Date();

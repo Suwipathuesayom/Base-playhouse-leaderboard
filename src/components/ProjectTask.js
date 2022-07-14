@@ -1,4 +1,4 @@
-import { Collapse } from "@mui/material";
+import { Collapse, InputAdornment } from "@mui/material";
 import { AddCircle, ArrowDropDown } from "@mui/icons-material";
 import { TransitionGroup } from "react-transition-group";
 
@@ -11,10 +11,11 @@ import {
 import ProjectHeader from "./ProjectHeader";
 import "../pages/Admin/AdminProject.css";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
+import calculateTotalWeight from "./Functions/calculateTotalWeight";
 
 const ProjectTask = ({ project, setProject }) => {
   const [reload, setReload] = useState(false);
-  const [showTask, setShowTask] = useState(false);
+  const [showTask, setShowTask] = useState(true);
   const [newTaskName, setNewTaskName] = useState("");
 
   const handleAddNewTask = (newTaskName) => {
@@ -24,6 +25,7 @@ const ProjectTask = ({ project, setProject }) => {
       showSubTasks: true,
       subTasks: [],
       taskName: newTaskName,
+      weight: 10,
     });
     tempProject.learnerGroups.forEach((group) => {
       group.points.push({
@@ -43,7 +45,9 @@ const ProjectTask = ({ project, setProject }) => {
       className="adminProject__boxContainer"
       style={{ marginBottom: "80px" }}
     >
-      <ProjectHeader>Task</ProjectHeader>
+      <ProjectHeader>{`Task (${calculateTotalWeight(
+        project
+      )}%)`}</ProjectHeader>
       <div className="adminProject__boxInput">
         {/* <strong>Task</strong> */}
         <DropDownTextInput
@@ -65,6 +69,19 @@ const ProjectTask = ({ project, setProject }) => {
             setNewTaskName(event.target.value);
           }}
         />
+        {/* <DropDownTextInput
+          type="number"
+          disabled
+          value={calculateTotalWeight(project)}
+          sx={{ bgcolor: "white", borderRadius: "5px" }}
+          style={{ flexGrow: 0, width: 100 }}
+          size="small"
+          InputProps={{
+            endAdornment: <InputAdornment position="start">%</InputAdornment>,
+          }}
+        /> */}
+
+        {/* <div style={{ flexGrow: 0, width: 4 }} /> */}
         <AddCircle
           sx={addCircleIconStyle(newTaskName)}
           onClick={() => {
