@@ -20,6 +20,9 @@ import {
 import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
 
+import { AgGridColumn, AgGridReact } from "ag-grid-react";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 // const auth = firebase.auth();
 
 function Learner() {
@@ -320,6 +323,12 @@ function Learner() {
     );
   };
 
+  const rowData = [
+    { make: "Toyota", model: "Celica", price: 35000 },
+    { make: "Ford", model: "Mondeo", price: 32000 },
+    { make: "Porsche", model: "Boxter", price: 72000 },
+  ];
+
   if (project) {
     let foundGroupWithinDisplayLimit = false;
     return (
@@ -331,104 +340,13 @@ function Learner() {
         }}
       >
         <PresentationHeader project={project} />
-        <Stack padding={"2%"}>
-          <Stack
-            width={"100%"}
-            height={"80px"}
-            direction={"row"}
-            alignItems={"center"}
-            paddingX={"15px"}
-            backgroundColor={color.primaryBlack}
-            sx={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
-          >
-            <TableHeaderText
-              color={getRankColor(0, project.theme.top3)}
-              flex={1}
-              fontSize={smallScreen ? 18 : 28}
-            >
-              RANK
-            </TableHeaderText>
-            {!smallScreen && <Typography sx={{ flex: 0.5 }} />}
-            {!smallScreen && (
-              <TableHeaderText
-                color={getRankColor(0, project.theme.top3)}
-                flex={0.5}
-              >
-                GROUP
-              </TableHeaderText>
-            )}
-            <TableHeaderText
-              color={getRankColor(0, project.theme.top3)}
-              flex={5}
-              fontSize={smallScreen ? 18 : 28}
-            >
-              NAME
-            </TableHeaderText>
-            {!smallScreen && (
-              <TableHeaderText
-                color={getRankColor(0, project.theme.top3)}
-                flex={1}
-              />
-            )}
-
-            <TableHeaderText
-              color={getRankColor(0, project.theme.top3)}
-              flex={1}
-              fontSize={smallScreen ? 18 : 28}
-            >
-              TOTAL
-            </TableHeaderText>
-          </Stack>
-          <Stack
-            flexGrow={1}
-            paddingX={"15px"}
-            paddingBottom={"15px"}
-            backgroundColor={color.primaryBlack}
-            sx={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}
-          >
-            <Box
-              component={"img"}
-              sx={{
-                width: 40,
-                height: 48,
-              }}
-              src={require("../assets/images/crown1.png")}
-              position={"absolute"}
-            />
-
-            {project?.learnerGroups.map((group, rankIndex) => {
-              if (rankIndex <= DISPLAY_LIMIT - 1) {
-                if (isParamGroupName(group.groupName)) {
-                  foundGroupWithinDisplayLimit = true;
-                }
-                return (
-                  <RankBox
-                    key={rankIndex}
-                    group={group}
-                    rankIndex={rankIndex}
-                  />
-                );
-              } else if (rankIndex > DISPLAY_LIMIT - 1) {
-                if (
-                  !foundGroupWithinDisplayLimit &&
-                  isParamGroupName(group.groupName)
-                ) {
-                  return (
-                    <div key={rankIndex}>
-                      <ThreeDotBox />
-                      <RankBox group={group} rankIndex={rankIndex} />
-                      {rankIndex + 1 !== project.learnerGroups.length && (
-                        <ThreeDotBox />
-                      )}
-                    </div>
-                  );
-                }
-              }
-              return <div key={rankIndex}></div>;
-            })}
-            {foundGroupWithinDisplayLimit && <ThreeDotBox />}
-          </Stack>
-        </Stack>
+        <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
+          <AgGridReact rowData={rowData} animateRows={true}>
+            <AgGridColumn field="make"></AgGridColumn>
+            <AgGridColumn field="model"></AgGridColumn>
+            <AgGridColumn field="price"></AgGridColumn>
+          </AgGridReact>
+        </div>
       </Box>
     );
   } else {
