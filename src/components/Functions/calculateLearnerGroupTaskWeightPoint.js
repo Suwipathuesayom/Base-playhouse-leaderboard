@@ -5,8 +5,9 @@ function calculateLearnerGroupTaskWeightPoint(project, groupIndex, taskIndex) {
       if (!subTask.isHidden)
         tempTaskWeightPoint +=
           (subTask.subTaskPoint *
-            project.tasks[taskIndex].subTasks[subTaskIndex].weight) /
-          100.0;
+            project.tasks[taskIndex].subTasks[subTaskIndex].weight *
+            project.tasks[taskIndex].weight) /
+          10000.0;
     }
   );
   return parseFloat(tempTaskWeightPoint.toFixed(2));
