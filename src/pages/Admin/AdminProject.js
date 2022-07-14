@@ -98,6 +98,7 @@ const AdminProject = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [projectStatus, setProjectStatus] = useState("warning");
   const [projectAlertText, setProjectAlertText] = useState("");
+  const [reload, setReload] = useState(false);
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -137,8 +138,18 @@ const AdminProject = () => {
               smallScreen ? "bottom" : "right"
             }Content`}
           >
-            <ProjectMentor project={project} setProject={setProject} />
-            <ProjectLearner project={project} setProject={setProject} />
+            <ProjectMentor
+              project={project}
+              setProject={setProject}
+              parentReload={reload}
+              setParentReload={setReload}
+            />
+            <ProjectLearner
+              project={project}
+              setProject={setProject}
+              parentReload={reload}
+              setParentReload={setReload}
+            />
             <ProjectTask
               project={project}
               setProject={setProject}

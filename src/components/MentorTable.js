@@ -232,6 +232,115 @@ export default function MentorTable({ project, setProject, mentorName }) {
     return 0;
   };
 
+  const MentorTaskBox = ({ group, taskIndex }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    if (isEditing) {
+      return (
+        <TextInput
+          type="number"
+          sx={{ width: 100, height: 40, m: 0 }}
+          onKeyPress={(event) => {
+            if (event?.key === "-" || event?.key === "+") {
+              event.preventDefault();
+            }
+            if (event.key === "Enter") {
+              setIsEditing(false);
+              handleUpdateGroupTotalPoint(group.groupIndex - 1);
+              handleUpdateProjectPoint(project);
+            }
+          }}
+          onChange={(event) =>
+            handlePointValueChange(
+              event.target.value,
+              group.groupIndex - 1,
+              taskIndex
+            )
+          }
+          onBlur={() => {
+            setIsEditing(false);
+            handleUpdateGroupTotalPoint(group.groupIndex - 1);
+            handleUpdateProjectPoint(project);
+          }}
+          defaultValue={displayGroupPoint(group, taskIndex)}
+        />
+      );
+    } else {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            width: 100,
+            height: 40,
+            alignItems: "center",
+            pl: "10px",
+            borderRadius: "5px",
+            color: "black",
+            bgcolor: "white",
+          }}
+          onClick={() => setIsEditing(true)}
+        >
+          <Typography sx={{ fontSize: 20 }}>
+            {displayGroupPoint(group, taskIndex)}
+          </Typography>
+        </Box>
+      );
+    }
+  };
+  const MentorSubTaskBox = ({ group, taskIndex, subTaskIndex }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    if (isEditing) {
+      return (
+        <TextInput
+          type="number"
+          sx={{ width: 100, height: 40, mx: "75px" }}
+          onKeyPress={(event) => {
+            if (event?.key === "-" || event?.key === "+") {
+              event.preventDefault();
+            }
+            if (event.key === "Enter") {
+              handleUpdateGroupTotalPoint(group.groupIndex - 1);
+              handleUpdateProjectPoint(project);
+            }
+          }}
+          onChange={(event) =>
+            handlePointValueChange(
+              event.target.value,
+              group.groupIndex - 1,
+              taskIndex,
+              subTaskIndex
+            )
+          }
+          onBlur={() => {
+            handleUpdateGroupTotalPoint(group.groupIndex - 1);
+            handleUpdateProjectPoint(project);
+          }}
+          defaultValue={displayGroupPoint(group, taskIndex, subTaskIndex)}
+        />
+      );
+    } else {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            width: 100,
+            height: 40,
+            alignItems: "center",
+            pl: "10px",
+            mx: "75px",
+            borderRadius: "5px",
+            color: "black",
+            bgcolor: "white",
+          }}
+          onClick={() => setIsEditing(true)}
+        >
+          <Typography sx={{ fontSize: 20 }}>
+            {displayGroupPoint(group, taskIndex, subTaskIndex)}
+          </Typography>
+        </Box>
+      );
+    }
+  };
+
   return (
     <TableContainer
       sx={{ padding: "15px", backgroundColor: "#dcdfe1" }}
@@ -287,7 +396,13 @@ export default function MentorTable({ project, setProject, mentorName }) {
         </TableHead>
         <TableBody>
           {learnerGroups
-            .filter((group) => group.assignedMentor === mentorName)
+            .filter(
+              (group) =>
+                group.assignedMentorId ===
+                project.mentors.filter(
+                  (mentor) => mentor.fullName === mentorName
+                )[0]?.id
+            )
             .map((group, groupIndex) => {
               return (
                 <StyledTableRow key={groupIndex}>
@@ -307,43 +422,11 @@ export default function MentorTable({ project, setProject, mentorName }) {
                               {task.subTasks.map((subTask, subTaskIndex) => {
                                 if (!subTask.isHidden) {
                                   return (
-                                    <TextInput
+                                    <MentorSubTaskBox
                                       key={subTaskIndex}
-                                      type="number"
-                                      sx={{ width: 100, mx: "75px" }}
-                                      onKeyPress={(event) => {
-                                        if (
-                                          event?.key === "-" ||
-                                          event?.key === "+"
-                                        ) {
-                                          event.preventDefault();
-                                        }
-                                        if (event.key === "Enter") {
-                                          handleUpdateGroupTotalPoint(
-                                            group.groupIndex - 1
-                                          );
-                                          handleUpdateProjectPoint(project);
-                                        }
-                                      }}
-                                      onChange={(event) =>
-                                        handlePointValueChange(
-                                          event.target.value,
-                                          group.groupIndex - 1,
-                                          taskIndex,
-                                          subTaskIndex
-                                        )
-                                      }
-                                      onBlur={() => {
-                                        handleUpdateGroupTotalPoint(
-                                          group.groupIndex - 1
-                                        );
-                                        handleUpdateProjectPoint(project);
-                                      }}
-                                      defaultValue={displayGroupPoint(
-                                        group,
-                                        taskIndex,
-                                        subTaskIndex
-                                      )}
+                                      group={group}
+                                      taskIndex={taskIndex}
+                                      subTaskIndex={subTaskIndex}
                                     />
                                   );
                                 }
@@ -359,42 +442,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
                               direction="row"
                               justifyContent="space-around"
                             >
-                              <TextInput
-                                type="number"
-                                width={"100px"}
-                                marginright={"5px"}
-                                marginleft={"5px"}
-                                onKeyPress={(event) => {
-                                  if (
-                                    event?.key === "-" ||
-                                    event?.key === "+"
-                                  ) {
-                                    event.preventDefault();
-                                  }
-                                  if (event.key === "Enter") {
-                                    handleUpdateGroupTotalPoint(
-                                      group.groupIndex - 1
-                                    );
-                                    handleUpdateProjectPoint(project);
-                                  }
-                                }}
-                                onChange={(event) =>
-                                  handlePointValueChange(
-                                    event.target.value,
-                                    group.groupIndex - 1,
-                                    taskIndex
-                                  )
-                                }
-                                onBlur={() => {
-                                  handleUpdateGroupTotalPoint(
-                                    group.groupIndex - 1
-                                  );
-                                  handleUpdateProjectPoint(project);
-                                }}
-                                defaultValue={displayGroupPoint(
-                                  group,
-                                  taskIndex
-                                )}
+                              <MentorTaskBox
+                                group={group}
+                                taskIndex={taskIndex}
                               />
                             </Stack>
                           </StyledTableCell>
