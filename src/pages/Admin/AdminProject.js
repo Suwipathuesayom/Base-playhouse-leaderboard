@@ -31,34 +31,43 @@ const AdminProject = () => {
   //           isHidden: false,
   //           subTasks: [],
   //           taskPoint: 1, // 0.8
+  //           taskWeightPoint: 0.8,
   //         },
   //         {
   //           isHidden: false,
   //           subTasks: [
   //             {
   //               isHidden: false,
-  //               subTaskPoint: 2, // 0.3
+  //               subTaskPoint: 2,
+  //               subTaskWeightPoint: 0.6,
   //             },
   //             {
   //               isHidden: true,
-  //               subTaskPoint: 3, // 0.15
+  //               subTaskPoint: 3,
+  //               subTaskWeightPoint: 0.18,
+  //             },
+  //             {
+  //               isHidden: false,
+  //               subTaskPoint: 5,
+  //               subTaskWeightPoint: 0.5,
   //             },
   //           ],
-  //           taskPoint: 2,
+  //           taskPoint: 7,
+  //           taskWeightPoint: 1.1,
   //         },
   //       ],
-  //       totalPoint: 3,
-  //       totalWeightPoint: 1.25,
+  //       totalPoint: 8,
+  //       totalWeightPoint: 1.9,
   //     },
   //   ],
   //   mentors: [
   //     {
   //       fullName: "Stan Lee",
-  //       index: 0,
+  //       id: 0,
   //     },
   //     {
   //       fullName: "Adam WestVieeelllelele",
-  //       index: 1,
+  //       id: 1,
   //     },
   //   ],
   //   projectName: "Marvel",
@@ -77,16 +86,21 @@ const AdminProject = () => {
   //         {
   //           isHidden: false,
   //           subTaskName: "Lift Sokovia",
-  //           weight: 15,
+  //           weight: 30,
   //         },
   //         {
   //           isHidden: true,
   //           subTaskName: "Vision is born",
-  //           weight: 5,
+  //           weight: 60,
+  //         },
+  //         {
+  //           isHidden: false,
+  //           subTaskName: "We Won",
+  //           weight: 10,
   //         },
   //       ],
   //       taskName: "Defeat Ultron",
-  //       weight: 15,
+  //       weight: 20,
   //     },
   //   ],
   //   theme: {

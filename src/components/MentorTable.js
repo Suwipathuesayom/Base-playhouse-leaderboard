@@ -194,8 +194,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
         subTaskIndex
       ].subTaskWeightPoint =
         (tempNewPointValue *
-          tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight) /
-        100.0;
+          tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight *
+          tempProject.tasks[taskIndex].weight) /
+        10000.0;
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
         calculateLearnerGroupTaskPoint(
           tempProject.learnerGroups[groupIndex],

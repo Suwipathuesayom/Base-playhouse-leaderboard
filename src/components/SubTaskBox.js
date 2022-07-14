@@ -44,10 +44,10 @@ const SubsubTaskBox = ({
       newWeightValue ? newWeightValue : 0,
       10
     );
-    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-      tempProject,
-      taskIndex
-    );
+    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+    //   tempProject,
+    //   taskIndex
+    // );
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setSubTaskWeight(
       tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight
@@ -86,11 +86,11 @@ const SubsubTaskBox = ({
         groupIndex
       );
     });
-    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-      tempProject,
-      taskIndex,
-      subTaskIndex
-    );
+    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+    //   tempProject,
+    //   taskIndex,
+    //   subTaskIndex
+    // );
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     console.log(tempProject.tasks[taskIndex].weight);
     // setSubTaskWeight(tempProject.task[taskIndex].subtasks[subTaskIndex].weight);
@@ -123,11 +123,11 @@ const SubsubTaskBox = ({
         groupIndex
       );
     });
-    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-      tempProject,
-      taskIndex,
-      subTaskIndex
-    );
+    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+    //   tempProject,
+    //   taskIndex,
+    //   subTaskIndex
+    // );
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);

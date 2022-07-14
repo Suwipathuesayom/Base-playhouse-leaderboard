@@ -32,6 +32,7 @@ const ProjectTask = ({ project, setProject }) => {
         isHidden: false,
         subTasks: [],
         taskPoint: 0,
+        taskWeightPoint: 0,
       });
     });
     setProject(tempProject);

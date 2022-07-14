@@ -87,9 +87,13 @@ const TaskBox = ({
   const handleDeleteTask = (taskIndex) => {
     let tempProject = project;
     tempProject.tasks.splice(taskIndex, 1);
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points.splice(taskIndex, 1);
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
+      group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
+        tempProject,
+        groupIndex
+      );
     });
     setProject(tempProject);
     setParentReload(!parentReload);
@@ -120,12 +124,12 @@ const TaskBox = ({
         groupIndex
       );
     });
-    if (!!tempProject.tasks[taskIndex].subTasks.length) {
-      tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-        tempProject,
-        taskIndex
-      );
-    }
+    // if (!!tempProject.tasks[taskIndex].subTasks.length) {
+    //   tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+    //     tempProject,
+    //     taskIndex
+    //   );
+    // }
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
@@ -203,9 +207,9 @@ const TaskBox = ({
         {!isEditingWeight && (
           <strong
             onClick={() => {
-              if (!!!task.subTasks.length) {
-                setIsEditingWeight(true);
-              }
+              setIsEditingWeight(true);
+              // if (!!!task.subTasks.length) {
+              // }
             }}
           >
             <div>{task.weight}</div>
