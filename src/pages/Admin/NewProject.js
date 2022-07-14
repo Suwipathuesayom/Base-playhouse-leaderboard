@@ -21,7 +21,7 @@ const NewProject = () => {
     learnerGroups: [],
     tasks: [],
   });
-  const [editProjectStatus, setEditProjectStatus] = useState("warning");
+  const [projectStatus, setProjectStatus] = useState("warning");
 
   return (
     <div>
@@ -30,8 +30,8 @@ const NewProject = () => {
         {/* <Button onClick={() => console.log(project)}>ดู project</Button> */}
         <div className="alert">
           <ProjectStatusAlert
-            editProjectStatus={editProjectStatus}
-            setEditProjectStatus={setEditProjectStatus}
+            projectStatus={projectStatus}
+            setProjectStatus={setProjectStatus}
             action={"new"}
           />
         </div>
@@ -45,7 +45,7 @@ const NewProject = () => {
           project={project}
           setProject={setProject}
           header={"NEW PROJECT"}
-          setEditProjectStatus={setEditProjectStatus}
+          setProjectStatus={setProjectStatus}
         />
       </div>
     </div>

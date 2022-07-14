@@ -3,31 +3,24 @@ import { Alert, Collapse, IconButton } from "@mui/material";
 import React from "react";
 
 const ProjectStatusAlert = ({
-  editProjectStatus = "info",
-  setEditProjectStatus,
-  editProjectStatusText,
+  showAlert,
+  setShowAlert,
+  projectStatus = "info",
+  setProjectStatus,
+  projectAlertText,
   action,
 }) => {
   return (
-    <Collapse
-      sx={{ width: "300px" }}
-      in={
-        editProjectStatus === "info" ||
-        editProjectStatus === "success" ||
-        editProjectStatus === "error"
-      }
-    >
+    <Collapse sx={{ width: "300px" }} in={showAlert}>
       <Alert
-        severity={
-          editProjectStatus === "warning" ? "success" : editProjectStatus
-        }
+        severity={projectStatus}
         action={
           <IconButton
             aria-label="close"
             color="inherit"
             size="small"
             onClick={() => {
-              setEditProjectStatus("warning");
+              setShowAlert(false);
             }}
           >
             <Close fontSize="inherit" />
@@ -38,17 +31,17 @@ const ProjectStatusAlert = ({
         {/* <AlertTitle>
         </AlertTitle> */}
         <strong>
-          {`${editProjectStatus === "info" ? "กำลัง" : ""}${
+          {`${projectStatus === "info" ? "กำลัง" : ""}${
             action === "new" ? "สร้าง" : "แก้ไข"
           }โปรเจค${
-            editProjectStatus === "success"
+            projectStatus === "success"
               ? "สำเร็จ"
-              : editProjectStatus === "error"
+              : projectStatus === "error"
               ? "ล้มเหลว"
               : " . . ."
           }`}
         </strong>
-        {editProjectStatusText && <p>• {editProjectStatusText}</p>}
+        {projectAlertText && <p>• {projectAlertText}</p>}
       </Alert>
     </Collapse>
   );

@@ -17,7 +17,7 @@ import Navbar from "../../components/Navbar";
 function EditProject() {
   const { projectName } = useLocation().state;
   const [project, setProject] = useState(null);
-  const [editProjectStatus, setEditProjectStatus] = useState("warning");
+  const [projectStatus, setProjectStatus] = useState("warning");
 
   const queryProject = (projectName) => {
     try {
@@ -44,8 +44,8 @@ function EditProject() {
           {/* <Button onClick={() => console.log(project)}>ดู project</Button> */}
           <div className="alert">
             <ProjectStatusAlert
-              editProjectStatus={editProjectStatus}
-              setEditProjectStatus={setEditProjectStatus}
+              projectStatus={projectStatus}
+              setProjectStatus={setProjectStatus}
               action={"edit"}
             />
           </div>
@@ -59,7 +59,7 @@ function EditProject() {
             project={project}
             setProject={setProject}
             header={"EDIT PROJECT"}
-            setEditProjectStatus={setEditProjectStatus}
+            setProjectStatus={setProjectStatus}
           />
         </div>
       </div>

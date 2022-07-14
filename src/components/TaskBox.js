@@ -16,6 +16,8 @@ import VisibilityEye from "./VisibilityEye";
 import { TransitionGroup } from "react-transition-group";
 import { arrowIconStyle, iconStyle } from "../assets/styles/IconStyles";
 import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
+import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
+import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
 
 const TaskBox = ({
   project,
@@ -50,17 +52,28 @@ const TaskBox = ({
       subTaskName: "",
       weight: "",
     });
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].isHidden = false;
       group.points[taskIndex].subTasks.push({
         isHidden: false,
         subTaskPoint: 0,
+        subTaskWeightPoint: 0,
       });
       group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
         group,
         taskIndex
       );
+      group.points[taskIndex].taskWeightPoint =
+        calculateLearnerGroupTaskWeightPoint(
+          tempProject,
+          groupIndex,
+          taskIndex
+        );
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
+      group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
+        tempProject,
+        groupIndex
+      );
     });
     setProject(tempProject);
     setParentReload(!parentReload);
@@ -88,7 +101,7 @@ const TaskBox = ({
     tempProject.tasks[taskIndex].subTasks.forEach((subTask) => {
       subTask.isHidden = tempProject.tasks[taskIndex].isHidden;
     });
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].isHidden = tempProject.tasks[taskIndex].isHidden;
       group.points[taskIndex].subTasks.forEach((subTask) => {
         subTask.isHidden = tempProject.tasks[taskIndex].isHidden;
@@ -98,8 +111,14 @@ const TaskBox = ({
           group,
           taskIndex
         );
+        group.points[taskIndex].taskWeightPoint =
+          calculateLearnerGroupTaskWeightPoint(project, groupIndex, taskIndex);
       }
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
+      group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
+        project,
+        groupIndex
+      );
     });
     if (!!tempProject.tasks[taskIndex].subTasks.length) {
       tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
@@ -133,7 +152,7 @@ const TaskBox = ({
         {isEditing && (
           <DropDownTextInput
             sx={{ bgcolor: "white", borderRadius: "5px" }}
-            // fullWidth
+            fullWidth
             size="small"
             inputRef={(input) => {
               input?.focus();
@@ -157,7 +176,7 @@ const TaskBox = ({
             // disabled={!!task.subTasks.length}
             defaultValue={task.weight}
             type="number"
-            sx={{ bgcolor: "white", borderRadius: "5px" }}
+            sx={{ minWidth: 100, bgcolor: "white", borderRadius: "5px" }}
             inputRef={(input) => {
               input?.focus();
               setIsEditing(false);

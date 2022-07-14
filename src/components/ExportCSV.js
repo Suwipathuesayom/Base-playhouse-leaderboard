@@ -26,9 +26,9 @@ function ExportCSV({ selectedProject, mentors }) {
         groupName: group.groupName,
       };
       selectedProject.tasks.forEach((task, taskIndex) => {
-        tempObject[task.taskName] = group.points[taskIndex].taskPoint;
+        tempObject[task.taskName] = group.points[taskIndex].taskWeightPoint;
       });
-      tempObject["totalPoint"] = group.totalPoint;
+      tempObject["totalPoint"] = group.totalWeightPoint;
       let foundNote = false;
       mentors.forEach((mentor) => {
         if (mentor.groupIndex === group.groupIndex - 1) {

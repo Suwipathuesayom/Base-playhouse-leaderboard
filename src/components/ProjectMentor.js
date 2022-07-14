@@ -9,6 +9,7 @@ import {
   OpenInNew,
 } from "@mui/icons-material";
 import React, { useState } from "react";
+import uuid from "react-uuid";
 import "../pages/Admin/AdminProject.css";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
@@ -21,7 +22,12 @@ import {
 } from "../assets/styles/IconStyles";
 import ProjectHeader from "./ProjectHeader";
 
-const ProjectMentor = ({ project, setProject }) => {
+const ProjectMentor = ({
+  project,
+  setProject,
+  parentReload,
+  setParentReload,
+}) => {
   const [reload, setReload] = useState(false);
   const [showMentor, setShowMentor] = useState(true);
   const [newMentorName, setNewMentorName] = useState("");
@@ -30,24 +36,27 @@ const ProjectMentor = ({ project, setProject }) => {
     let tempProject = project;
     tempProject.mentors.push({
       fullName: newMentorName,
-      index: tempProject.mentors.length,
+      id: uuid(),
     });
     setProject(tempProject);
     setNewMentorName("");
     setShowMentor(true);
     setReload(!reload);
+    setParentReload(!parentReload);
   };
   const handleDeleteMentor = (mentorIndex) => {
     let tempProject = project;
     tempProject.mentors.splice(mentorIndex, 1);
     setProject(tempProject);
     setReload(!reload);
+    setParentReload(!parentReload);
   };
   const handleRenameMentor = (mentorIndex, newMentorName) => {
     let tempProject = project;
     tempProject.mentors[mentorIndex].fullName = newMentorName;
     setProject(tempProject);
     setReload(!reload);
+    setParentReload(!parentReload);
   };
 
   const MentorBox = ({ mentor, mentorIndex }) => {

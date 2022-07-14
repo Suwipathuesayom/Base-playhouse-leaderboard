@@ -8,7 +8,7 @@ import {
   DriveFileRenameOutline,
   OpenInNew,
 } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import copyToClipBoard from "./Functions/copyToClipBoard";
@@ -21,7 +21,12 @@ import {
 import ProjectHeader from "./ProjectHeader";
 import "../pages/Admin/AdminProject.css";
 
-const ProjectLearner = ({ project, setProject }) => {
+const ProjectLearner = ({
+  project,
+  setProject,
+  parentReload,
+  setParentReload,
+}) => {
   const [reload, setReload] = useState(false);
   const [showLearnerGroup, setShowLearnerGroup] = useState(true);
   const [newGroupName, setNewGroupName] = useState("");
@@ -47,16 +52,17 @@ const ProjectLearner = ({ project, setProject }) => {
     return tempPoint;
   };
 
-  const handleChangeAssignedMentor = (groupIndex, newAssignedMentor) => {
+  const handleChangeAssignedMentor = (groupIndex, newAssignedMentorId) => {
     let tempProject = project;
-    tempProject.learnerGroups[groupIndex].assignedMentor = newAssignedMentor;
+    tempProject.learnerGroups[groupIndex].assignedMentorId =
+      newAssignedMentorId;
     setProject(tempProject);
     setReload(!reload);
   };
   const handleAddNewLearnerGroup = (newGroupName) => {
     let tempProject = project;
     tempProject.learnerGroups.push({
-      assignedMentor: "",
+      assignedMentorId: undefined,
       avatar: "https://source.unsplash.com/random/64x64/?avatar",
       groupIndex: tempProject.learnerGroups.length + 1,
       groupName: newGroupName,
@@ -72,6 +78,9 @@ const ProjectLearner = ({ project, setProject }) => {
   const handleDeleteLearnerGroup = (groupIndex) => {
     let tempProject = project;
     tempProject.learnerGroups.splice(groupIndex, 1);
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
+      group.groupIndex = groupIndex + 1;
+    });
     setProject(tempProject);
     setReload(!reload);
   };
@@ -82,11 +91,18 @@ const ProjectLearner = ({ project, setProject }) => {
     setReload(!reload);
   };
 
-  const LearnerBox = ({ group, groupIndex }) => {
+  useEffect(() => {
+    setReload(!reload);
+  }, [parentReload]);
+
+  const LearnerBox = ({ group, groupIndex, parentReload }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newGroupName, setNewGroupName] = useState(group.groupName);
-    const [assignedMentor, setAssignedMentor] = useState(group.assignedMentor);
+    // const [assignedMentorId, setAssignedMentorId] = useState(
+    //   group.assignedMentorId
+    // );
     const [copyText, setCopyText] = useState("Copy");
+
     return (
       <div
         style={{
@@ -121,10 +137,18 @@ const ProjectLearner = ({ project, setProject }) => {
           <Autocomplete
             id="select-assigned-mentor"
             // freeSolo
-            value={assignedMentor}
+            value={
+              project.mentors.filter(
+                (mentor) => mentor.id === group.assignedMentorId
+              )[0]?.fullName
+            }
             onChange={(event, newValue) => {
-              setAssignedMentor(newValue);
-              handleChangeAssignedMentor(groupIndex, newValue);
+              handleChangeAssignedMentor(
+                groupIndex,
+                project.mentors.filter(
+                  (mentor) => mentor.fullName === newValue
+                )[0]?.id
+              );
             }}
             options={project.mentors?.map((mentor) => mentor.fullName)}
             isOptionEqualToValue={(option, value) =>
@@ -135,7 +159,7 @@ const ProjectLearner = ({ project, setProject }) => {
                 {...params}
                 fullWidth
                 size="small"
-                placeholder="assign mentor"
+                placeholder="mentor"
               />
             )}
           />
@@ -228,7 +252,11 @@ const ProjectLearner = ({ project, setProject }) => {
         <TransitionGroup>
           {project.learnerGroups.map((group, groupIndex) => (
             <Collapse key={groupIndex}>
-              <LearnerBox group={group} groupIndex={groupIndex} />
+              <LearnerBox
+                group={group}
+                groupIndex={groupIndex}
+                parentReload={parentReload}
+              />
             </Collapse>
           ))}
         </TransitionGroup>

@@ -9,7 +9,9 @@ import { useState } from "react";
 import { iconStyle } from "../assets/styles/IconStyles";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTaskPoint";
+import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
 import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTotalPoint";
+import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
 import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 import checkTaskVisibility from "./Functions/checkTaskVisibility";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
@@ -67,14 +69,22 @@ const SubsubTaskBox = ({
       tempProject.tasks,
       taskIndex
     );
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].subTasks.splice(subTaskIndex, 1);
       group.points[taskIndex].isHidden = tempProject.tasks[taskIndex].isHidden;
       group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
         group,
         taskIndex
       );
+      group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
+        group,
+        taskIndex
+      );
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
+      group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
+        tempProject,
+        groupIndex
+      );
     });
     tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
       tempProject,
@@ -95,7 +105,7 @@ const SubsubTaskBox = ({
       tempProject.tasks,
       taskIndex
     );
-    tempProject.learnerGroups.forEach((group) => {
+    tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].subTasks[subTaskIndex].isHidden =
         tempProject.tasks[taskIndex].subTasks[subTaskIndex].isHidden;
       group.points[taskIndex].isHidden = tempProject.tasks[taskIndex].isHidden;
@@ -104,8 +114,14 @@ const SubsubTaskBox = ({
           group,
           taskIndex
         );
+        group.points[taskIndex].taskWeightPoint =
+          calculateLearnerGroupTaskWeightPoint(project, groupIndex, taskIndex);
       }
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
+      group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
+        project,
+        groupIndex
+      );
     });
     tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
       tempProject,
@@ -131,7 +147,7 @@ const SubsubTaskBox = ({
       {isEditing && (
         <DropDownTextInput
           sx={{ bgcolor: "white", borderRadius: "5px" }}
-          // fullWidth
+          fullWidth
           size="small"
           defaultValue={subTask.subTaskName}
           inputRef={(input) => {
@@ -170,6 +186,7 @@ const SubsubTaskBox = ({
             setIsEditing(false);
           }}
           sx={{
+            minWidth: 100,
             bgcolor: "white",
             borderRadius: "5px",
           }}
@@ -206,7 +223,7 @@ const SubsubTaskBox = ({
           }}
         />
       )}
-      <div style={{ flexGrow: 0, width: 28 }} />
+      <div style={{ flexGrow: 0, minWidth: 28 }} />
       {!isEditing && (
         <Tooltip title="Rename SubTask">
           <DriveFileRenameOutline

@@ -27,7 +27,10 @@ function Speaker() {
             let tempProject = doc.data();
             tempProject.learnerGroups = tempProject.learnerGroups.sort(
               (lhs, rhs) => {
-                return rhs.totalWeightPoint - lhs.totalWeightPoint;
+                return (
+                  parseFloat(rhs.totalWeightPoint) -
+                  parseFloat(lhs.totalWeightPoint)
+                );
               }
             );
             setProject(tempProject);
@@ -150,7 +153,7 @@ function Speaker() {
                     {group.groupName}
                   </TableContentText>
                   <TableContentText flex={1}>
-                    {group.totalWeightPoint}
+                    {group.totalWeightPoint.toFixed(2)}
                   </TableContentText>
                 </Stack>
               ))}
@@ -206,11 +209,15 @@ function Speaker() {
                 marginTop={"15px"}
                 backgroundColor={"#ccc"}
               >
-                {group.points.map((point, pointIndex) => (
-                  <TablePointHeaderText flex={1} key={pointIndex}>
-                    {point.taskWeightPoint}
-                  </TablePointHeaderText>
-                ))}
+                {group.points
+                  .filter(
+                    (task, taskIndex) => !project.tasks[taskIndex].isHidden
+                  )
+                  .map((point, pointIndex) => (
+                    <TablePointHeaderText flex={1} key={pointIndex}>
+                      {point.taskWeightPoint.toFixed(2)}
+                    </TablePointHeaderText>
+                  ))}
               </Stack>
             ))}
           </Stack>
