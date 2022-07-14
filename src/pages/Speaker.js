@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "../assets/styles/SpeakerScreen.css";
+import "../assets/styles/Speaker.css";
+import "../assets/styles/Learner.css";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import color from "../constant/color";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
 import { TableHeaderText } from "../assets/styles/TypographyStyles";
 import limitStringLength from "../components/Functions/limitStringLength";
@@ -11,11 +12,16 @@ import { TableContentText } from "../assets/styles/TypographyStyles";
 import { TablePointHeaderText } from "../assets/styles/TypographyStyles";
 import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
+import Navbar from "../components/Navbar";
+import FlipMove from "react-flip-move";
+import LearnerBox from "../components/LearnerBox";
+import SpeakerBox from "../components/SpeakerBox";
 
 function Speaker() {
-  const [project, setProject] = useState();
+  const [project, setProject] = useState({});
   const { projectNameParams } = useParams();
-
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const queryProject = (projectName) => {
     try {
       db.collection("users")
@@ -41,188 +47,58 @@ function Speaker() {
     }
   };
 
-  if (project) {
+  if (!!Object.keys(project).length) {
     return (
-      <Box
-        sx={{
-          width: "100%",
-          height: "100vh",
-          paddingY: "1%",
-        }}
-      >
+      <div className="App">
+        <Navbar header={`SPEAKER`} />
         <PresentationHeader project={project} />
-        <Stack direction={"row"} padding={"1%"}>
-          <Stack
-            className="fixed_header"
-            backgroundColor={color.primaryBlack}
-            height={"100%"}
-            width={"50vw"}
-            minWidth={600}
-            paddingBottom={"15px"}
-            sx={{
-              borderTopLeftRadius: "20px",
-              borderBottomLeftRadius: "20px",
-            }}
-          >
-            <Stack
-              justifyContent={"center"}
-              height={"80px"}
-              paddingX={"10px"}
-              backgroundColor={color.primaryBlack}
-              sx={{
-                borderTopLeftRadius: 20,
-              }}
-            >
-              <Stack direction={"row"}>
-                <TableHeaderText
-                  color={getRankColor(0, project.theme.top3)}
-                  flex={0.5}
-                >
-                  RANK
-                </TableHeaderText>
-                <Typography sx={{ flex: 0.5 }} />
-                <TableHeaderText
-                  color={getRankColor(0, project.theme.top3)}
-                  flex={0.75}
-                >
-                  GROUP
-                </TableHeaderText>
-                <TableHeaderText
-                  color={getRankColor(0, project.theme.top3)}
-                  flex={3}
-                >
-                  NAME
-                </TableHeaderText>
-                <TableHeaderText
-                  color={getRankColor(0, project.theme.top3)}
-                  flex={1}
-                >
-                  TOTAL
-                </TableHeaderText>
-              </Stack>
-            </Stack>
-            <Stack
-              flexGrow={1}
-              paddingX={"10px"}
-              // backgroundColor={"blue"}
-            >
-              <Box
-                component={"img"}
-                sx={{
-                  width: 40,
-                  height: 48,
-                }}
-                src={require("../assets/images/crown1.png")}
-                position={"absolute"}
-              />
-              {project?.learnerGroups.map((group, index) => (
-                <Stack
-                  key={index}
-                  direction="row"
-                  flexDirection={"row"}
-                  height={48}
-                  alignItems={"center"}
-                  borderRadius={3}
-                  marginTop={"15px"}
-                  backgroundColor={getRankColor(index, project.theme.top3)}
-                >
-                  <TableContentText flex={0.5}> {index + 1}</TableContentText>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flex: 0.5,
-                      justifyContent: "center",
-                      // backgroundColor: "black",
-                    }}
-                  >
-                    <Box
-                      component={"img"}
-                      sx={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 36,
-                      }}
-                      src={`https://picsum.photos/200/300?random=${group.groupIndex}`}
-                      alt={"not found"}
-                    />
-                  </Box>
-                  <TableContentText flex={0.75}>
-                    {group.groupIndex}
-                  </TableContentText>
-                  <TableContentText flex={3}>
-                    {group.groupName}
-                  </TableContentText>
-                  <TableContentText flex={1}>
-                    {group.totalWeightPoint.toFixed(2)}
-                  </TableContentText>
-                </Stack>
+        <div className="speaker__container">
+          <div className="speaker__learnerContent">
+            <div className="learner__header">
+              <h3>RANK</h3>
+              {!smallScreen && <img />}
+              {!smallScreen && <h3>GROUP</h3>}
+              <h2>NAME</h2>
+              <h3>TOTAL</h3>
+            </div>
+            <FlipMove>
+              {project?.learnerGroups?.map((group, rankIndex) => (
+                <LearnerBox
+                  key={group.groupIndex}
+                  rankIndex={rankIndex}
+                  theme={project?.theme}
+                  {...group}
+                  smallScreen={smallScreen}
+                  groupNameParams={"null"}
+                  project={project}
+                />
               ))}
-            </Stack>
-          </Stack>
-          <Stack
-            height={"100%"}
-            flexGrow={1}
-            paddingBottom={"15px"}
-            overflow={"scroll"}
-            sx={{
-              borderTopRightRadius: "20px",
-              borderBottomRightRadius: "20px",
-            }}
-            paddingX={"15px"}
-            backgroundColor={color.primaryBlack}
-          >
-            <Stack
-              justifyContent={"center"}
-              height={"80px"}
-              backgroundColor={color.primaryBlack}
-              sx={{
-                borderTopRightRadius: "20px",
-              }}
-            >
-              <Stack
-                display={"flex"}
-                flexDirection={"row"}
-                alignItems={"center"}
-                width={200 * project?.tasks.length}
-              >
-                {project?.tasks
-                  .filter((task) => !task.isHidden)
-                  .map((task, taskIndex) => {
-                    return (
-                      <TableContentText flex={1} key={taskIndex}>
-                        {limitStringLength(task.taskName, 19)}
-                      </TableContentText>
-                    );
-                  })}
-              </Stack>
-            </Stack>
-
-            {project?.learnerGroups.map((group, index) => (
-              <Stack
-                direction="row"
-                key={index}
-                flexDirection={"row"}
-                height={48}
-                width={200 * project?.tasks.length}
-                alignItems={"center"}
-                borderRadius={3}
-                marginTop={"15px"}
-                backgroundColor={"#ccc"}
-              >
-                {group.points
-                  .filter(
-                    (task, taskIndex) => !project.tasks[taskIndex].isHidden
-                  )
-                  .map((point, pointIndex) => (
-                    <TablePointHeaderText flex={1} key={pointIndex}>
-                      {point.taskWeightPoint.toFixed(2)}
-                    </TablePointHeaderText>
-                  ))}
-              </Stack>
-            ))}
-          </Stack>
-        </Stack>
-      </Box>
+            </FlipMove>
+          </div>
+          <div className="speaker__speakerContent">
+            <div className="speaker__speakerHeader">
+              {project.tasks
+                .filter((task) => !task.isHidden)
+                .map((task) => (
+                  <h3>{task.taskName}</h3>
+                ))}
+            </div>
+            <FlipMove>
+              {project?.learnerGroups?.map((group, rankIndex) => (
+                <SpeakerBox
+                  key={group.groupIndex}
+                  rankIndex={rankIndex}
+                  theme={project?.theme}
+                  {...group}
+                  smallScreen={smallScreen}
+                  groupNameParams={"null"}
+                  project={project}
+                />
+              ))}
+            </FlipMove>
+          </div>
+        </div>
+      </div>
     );
   } else {
     queryProject(projectNameParams);
