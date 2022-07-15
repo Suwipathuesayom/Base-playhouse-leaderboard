@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+
 import {
   Button,
   Dialog,
@@ -97,6 +102,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
 
   //copy to clipboard
   const [copySpeaker, setCopySpeaker] = useState("Copy");
+  const [copyMentor, setCopyMentor] = useState("Copy");
   const [copyLearner, setCopyLearner] = useState("Copy");
 
   const handleClickOpen = (project) => {
@@ -107,6 +113,8 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
   const handleClose = () => {
     setOpen(false);
     setSelectedProject();
+    setLearnerGroups("");
+    setmentorsGroups("");
     setMentors([]);
   };
 
@@ -166,6 +174,11 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
       })
       .catch((error) => console.log(error));
   };
+
+  const [learnerGroups, setLearnerGroups] = useState("");
+  const [mentorsGroups, setmentorsGroups] = useState([]);
+
+  console.log(selectedProject);
 
   return (
     <div>
@@ -335,12 +348,40 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
           </StyledDiv>
           <InputLabel>Learner</InputLabel>
           <StyledDiv>
+            <div>
+              <FormControl sx={{ mr: 1, minWidth: 50 }}>
+                <Select
+                  labelId="label-groups"
+                  id="learnerGroups"
+                  value={learnerGroups}
+                  onChange={(event) => {
+                    setLearnerGroups(event.target.value);
+                  }}
+                  displayEmpty
+                  size={"small"}
+
+                  // inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value={""}>Group</MenuItem>
+                  {selectedProject?.learnerGroups.map((group, groupIndex) => (
+                    <MenuItem value={group.groupName} key={groupIndex}>
+                      <h4>{group.groupName}</h4>
+                    </MenuItem>
+                  ))}
+
+                  {/* <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem> */}
+                </Select>
+              </FormControl>
+            </div>
+
             {selectedProject && (
               <TextField
                 disabled
                 fullWidth
                 id="filled-disabled"
-                value={`${window.location.host}/learner/${selectedProject?.projectName}`}
+                value={`${window.location.host}/learner/${selectedProject?.projectName}/${learnerGroups}`}
                 size={"small"}
               />
             )}
@@ -356,7 +397,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               <Button
                 onClick={() => {
                   copyToClipBoard(
-                    `${window.location.host}/learner/${selectedProject?.projectName}`,
+                    `${window.location.host}/learner/${selectedProject?.projectName}/${learnerGroups}`,
                     setCopyLearner
                   );
                   // resetCopyClick("learner");
@@ -364,6 +405,68 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
                 style={{ marginLeft: "5px", textTransform: "unset" }}
               >
                 {copyLearner}
+              </Button>
+            )}
+          </StyledDiv>
+          <InputLabel>Mentor</InputLabel>
+          <StyledDiv>
+            <div>
+              <FormControl sx={{ mr: 1, minWidth: 50 }}>
+                <Select
+                  labelId="label-mentor"
+                  id="mentorsGroups"
+                  value={mentorsGroups}
+                  onChange={(event) => {
+                    setmentorsGroups(event.target.value);
+                  }}
+                  displayEmpty
+                  size={"small"}
+                  // inputProps={{ "aria-label": "Without label" }}
+                >
+                  {/* <MenuItem value={20}>Group</MenuItem> */}
+                  {selectedProject?.mentors.map((mentors, mentorsIndex) => (
+                    <MenuItem value={mentors.fullName} key={mentorsIndex}>
+                      <h4>{mentors.fullName}</h4>
+                    </MenuItem>
+                  ))}
+                  <MenuItem value="">
+                    <h4>Mentor</h4>
+                  </MenuItem>
+                  {/* <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem> */}
+                </Select>
+              </FormControl>
+            </div>
+            {selectedProject && (
+              <TextField
+                disabled
+                fullWidth
+                id="filled-disabled"
+                value={`${window.location.host}/mentor/${selectedProject?.projectName}/${mentorsGroups}`}
+                size={"small"}
+              />
+            )}
+            {!selectedProject && (
+              <LoadingButton
+                disabled
+                loading={!selectedProject}
+                fullWidth
+                size={"large"}
+              />
+            )}
+            {selectedProject && (
+              <Button
+                onClick={() => {
+                  copyToClipBoard(
+                    `${window.location.host}/mentor/${selectedProject?.projectName}/${mentorsGroups}`,
+                    setCopyMentor
+                  );
+                  // resetCopyClick("learner");
+                }}
+                style={{ marginLeft: "5px", textTransform: "unset" }}
+              >
+                {copyMentor}
               </Button>
             )}
           </StyledDiv>
