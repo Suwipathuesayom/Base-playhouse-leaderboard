@@ -105,7 +105,7 @@ function NewProjectFooter({ project, setProject, header, setProjectStatus }) {
         // className="button"
         style={{
           width: 150,
-          fontSize: 24,
+          fontSize: 20,
           borderRadius: 20,
           color: "white",
           backgroundColor: color.primaryOrange,
@@ -123,7 +123,7 @@ function NewProjectFooter({ project, setProject, header, setProjectStatus }) {
           // className="button"
           style={{
             width: 150,
-            fontSize: 24,
+            fontSize: 20,
             borderRadius: 20,
             color: "white",
             backgroundColor: color.primaryOrange,
@@ -140,7 +140,7 @@ function NewProjectFooter({ project, setProject, header, setProjectStatus }) {
           // className="button"
           style={{
             width: 150,
-            fontSize: 24,
+            fontSize: 20,
             borderRadius: 20,
             color: "white",
             backgroundColor: color.primaryOrange,
