@@ -4,7 +4,7 @@ import {
   Done,
   DriveFileRenameOutline,
 } from "@mui/icons-material";
-import { InputAdornment, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { useState } from "react";
 import { iconStyle } from "../assets/styles/IconStyles";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
@@ -21,7 +21,6 @@ const SubsubTaskBox = ({
   setProject,
   task,
   taskIndex,
-  setTaskWeight,
   subTask,
   subTaskIndex,
   parentReload,
@@ -63,8 +62,6 @@ const SubsubTaskBox = ({
         groupIndex
       );
     });
-    setTaskWeight(tempProject.tasks[taskIndex].weight);
-    console.log(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -94,7 +91,6 @@ const SubsubTaskBox = ({
         groupIndex
       );
     });
-    setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };

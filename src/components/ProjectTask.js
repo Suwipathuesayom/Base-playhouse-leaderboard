@@ -1,4 +1,4 @@
-import { Collapse, InputAdornment } from "@mui/material";
+import { Collapse } from "@mui/material";
 import { AddCircle, ArrowDropDown } from "@mui/icons-material";
 import { TransitionGroup } from "react-transition-group";
 

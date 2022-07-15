@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AdminProject.css";
 import { useParams } from "react-router-dom";
-import { Button, useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import queryProjectFromProjectName from "../../components/Functions/queryProjectFromProjectName";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectImage from "../../components/ProjectImage";
@@ -120,13 +120,13 @@ const AdminProject = () => {
     return (
       <div className="adminProject__container">
         <Navbar header={`${project.id ? "EDIT" : "NEW"} PROJECT`} />
-        <Button
+        {/* <Button
           onClick={() => {
             console.log(project);
           }}
         >
           ดู Project
-        </Button>
+        </Button> */}
         <div
           className={`adminProject__${smallScreen ? "column" : "row"}Container`}
         >
@@ -176,6 +176,7 @@ const AdminProject = () => {
           setProject={setProject}
           showAlert={showAlert}
           setShowAlert={setShowAlert}
+          projectStatus={projectStatus}
           setProjectStatus={setProjectStatus}
           setProjectAlertText={setProjectAlertText}
         />

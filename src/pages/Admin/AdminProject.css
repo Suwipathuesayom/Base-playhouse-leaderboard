@@ -158,3 +158,107 @@
     align-items: center;
     justify-content: space-around;
 }
+
+/* footer */
+.projectFooter > button {
+    display: flex;
+    width: 120px;
+    height: 40px;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #FF5B4A;
+    transition: all 0.5s;
+}
+.projectFooter > #back-button > div {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: all 0.3s;
+    opacity: 0;
+}
+.projectFooter > #back-button > span {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+.projectFooter > #back-button:hover {
+    background-color: #FD2020;
+}
+.projectFooter > #back-button:hover > div {
+    opacity: 1;
+    left: 30px;
+}
+.projectFooter > #back-button:hover > span {
+    padding-left: 20px;
+}
+.projectFooter > #save-button > div {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: all 0.3s;
+    opacity: 0;
+}
+.projectFooter > #save-button > span {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+.projectFooter > #save-button:hover {
+    background-color: #FD2020;
+}
+.projectFooter > #save-button:hover > div {
+    opacity: 1;
+    right: 40px;
+}
+.projectFooter > #save-button:hover > span {
+    padding-right: 30px;
+}
+.projectFooter > #saving-button > div {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}
+.projectFooter > #saving-button > span {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+}
+
+/* loader */
+.loader {
+    border: 3px solid white;
+    border-radius: 50%;
+    border-top: 3px solid #151515;
+    width: 24px;
+    height: 24px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

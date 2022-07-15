@@ -26,7 +26,7 @@ function EditableRow({
             setEditContactId(false);
           }
 
-          console.log("Enter Edit");
+          // console.log("Enter Edit");
         }}
         onChange={(event) => {
           setValue(event.target.value);

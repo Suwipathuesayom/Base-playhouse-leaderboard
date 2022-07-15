@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Moment from "react-moment";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 
 import {
@@ -177,8 +176,6 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
 
   const [learnerGroups, setLearnerGroups] = useState("");
   const [mentorsGroups, setmentorsGroups] = useState([]);
-
-  console.log(selectedProject);
 
   return (
     <div>

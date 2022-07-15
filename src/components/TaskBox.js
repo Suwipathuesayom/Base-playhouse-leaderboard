@@ -30,7 +30,6 @@ const TaskBox = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingWeight, setIsEditingWeight] = useState(false);
   const [newTaskName, setNewTaskName] = useState(task.taskName);
-  const [taskWeight, setTaskWeight] = useState(task.weight);
 
   const handleTaskWeightChange = (taskIndex, newWeightValue) => {
     let tempProject = project;
@@ -38,7 +37,6 @@ const TaskBox = ({
       newWeightValue ? newWeightValue : 0,
       10
     );
-    setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -121,7 +119,6 @@ const TaskBox = ({
         groupIndex
       );
     });
-    setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -189,9 +186,6 @@ const TaskBox = ({
             onBlur={(event) => {
               setIsEditingWeight(false);
               handleTaskWeightChange(taskIndex, event.target.value);
-            }}
-            onChange={(event) => {
-              setTaskWeight(event.target.value);
             }}
           />
         )}
@@ -268,7 +262,6 @@ const TaskBox = ({
                 setProject={setProject}
                 task={task}
                 taskIndex={taskIndex}
-                setTaskWeight={setTaskWeight}
                 subTask={subTask}
                 subTaskIndex={subTaskIndex}
                 parentReload={parentReload}

@@ -8,7 +8,7 @@ import {
   DriveFileRenameOutline,
   OpenInNew,
 } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import copyToClipBoard from "./Functions/copyToClipBoard";
@@ -89,10 +89,6 @@ const ProjectLearner = ({
     setProject(tempProject);
     setReload(!reload);
   };
-
-  useEffect(() => {
-    setReload(!reload);
-  }, [parentReload]);
 
   const LearnerBox = ({ group, groupIndex, parentReload }) => {
     const [isEditing, setIsEditing] = useState(false);
