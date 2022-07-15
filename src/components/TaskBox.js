@@ -15,7 +15,6 @@ import SubTaskBox from "./SubTaskBox";
 import VisibilityEye from "./VisibilityEye";
 import { TransitionGroup } from "react-transition-group";
 import { arrowIconStyle, iconStyle } from "../assets/styles/IconStyles";
-import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
 import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
 
@@ -50,14 +49,12 @@ const TaskBox = ({
     tempProject.tasks[taskIndex].subTasks.push({
       isHidden: false,
       subTaskName: "",
-      weight: "",
     });
     tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].isHidden = false;
       group.points[taskIndex].subTasks.push({
         isHidden: false,
         subTaskPoint: 0,
-        subTaskWeightPoint: 0,
       });
       group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
         group,
@@ -124,12 +121,6 @@ const TaskBox = ({
         groupIndex
       );
     });
-    // if (!!tempProject.tasks[taskIndex].subTasks.length) {
-    //   tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-    //     tempProject,
-    //     taskIndex
-    //   );
-    // }
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);

@@ -12,7 +12,6 @@ import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTas
 import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
 import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTotalPoint";
 import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
-import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 import checkTaskVisibility from "./Functions/checkTaskVisibility";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import VisibilityEye from "./VisibilityEye";
@@ -28,33 +27,9 @@ const SubsubTaskBox = ({
   parentReload,
   setParentReload,
 }) => {
-  const [reload, setReload] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditingWeight, setIsEditingWeight] = useState(false);
   const [newSubTaskName, setNewSubTaskName] = useState(subTask.subTaskName);
-  const [subTaskWeight, setSubTaskWeight] = useState(subTask.weight);
 
-  const handleSubTaskWeightChange = (
-    taskIndex,
-    subTaskIndex,
-    newWeightValue
-  ) => {
-    let tempProject = project;
-    tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight = parseInt(
-      newWeightValue ? newWeightValue : 0,
-      10
-    );
-    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-    //   tempProject,
-    //   taskIndex
-    // );
-    setTaskWeight(tempProject.tasks[taskIndex].weight);
-    setSubTaskWeight(
-      tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight
-    );
-    setProject(tempProject);
-    setParentReload(!parentReload);
-  };
   const handleRenameSubTask = (subTaskIndex, newSubTaskName) => {
     let tempProject = project;
     tempProject.tasks[taskIndex].subTasks[subTaskIndex].subTaskName =
@@ -76,24 +51,20 @@ const SubsubTaskBox = ({
         group,
         taskIndex
       );
-      group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
-        group,
-        taskIndex
-      );
+      group.points[taskIndex].taskWeightPoint =
+        calculateLearnerGroupTaskWeightPoint(
+          tempProject,
+          groupIndex,
+          taskIndex
+        );
       group.totalPoint = calculateLearnerGroupTotalPoint(group);
       group.totalWeightPoint = calculateLearnerGroupTotalWeightPoint(
         tempProject,
         groupIndex
       );
     });
-    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-    //   tempProject,
-    //   taskIndex,
-    //   subTaskIndex
-    // );
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     console.log(tempProject.tasks[taskIndex].weight);
-    // setSubTaskWeight(tempProject.task[taskIndex].subtasks[subTaskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -123,11 +94,6 @@ const SubsubTaskBox = ({
         groupIndex
       );
     });
-    // tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
-    //   tempProject,
-    //   taskIndex,
-    //   subTaskIndex
-    // );
     setTaskWeight(tempProject.tasks[taskIndex].weight);
     setProject(tempProject);
     setParentReload(!parentReload);
@@ -152,7 +118,6 @@ const SubsubTaskBox = ({
           defaultValue={subTask.subTaskName}
           inputRef={(input) => {
             input?.focus();
-            setIsEditingWeight(false);
           }}
           onKeyPress={(event) => {
             if (event.key === "Enter" && !!event.target.value) {
@@ -166,60 +131,6 @@ const SubsubTaskBox = ({
           }}
           onChange={(event) => {
             setNewSubTaskName(event.target.value);
-          }}
-        />
-      )}
-      {!isEditingWeight && (
-        <strong onClick={() => setIsEditingWeight(true)}>
-          <div>{subTask.weight}</div>
-          <div>{" %"}</div>
-        </strong>
-      )}
-      {isEditingWeight && (
-        <DropDownTextInput
-          type="number"
-          defaultValue={subTask.weight}
-          // width={25}
-          // fullWidth
-          inputRef={(input) => {
-            input?.focus();
-            setIsEditing(false);
-          }}
-          sx={{
-            minWidth: 100,
-            bgcolor: "white",
-            borderRadius: "5px",
-          }}
-          style={{ flexGrow: 0, width: 100 }}
-          size="small"
-          InputProps={{
-            endAdornment: <InputAdornment position="start">%</InputAdornment>,
-            // inputProps: {
-            //   style: {
-            //     textAlign: "right",
-            //   },
-            // },
-          }}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
-              setIsEditingWeight(false);
-              handleSubTaskWeightChange(
-                taskIndex,
-                subTaskIndex,
-                event.target.value
-              );
-            }
-          }}
-          onBlur={(event) => {
-            setIsEditingWeight(false);
-            handleSubTaskWeightChange(
-              taskIndex,
-              subTaskIndex,
-              event.target.value
-            );
-          }}
-          onChange={(event) => {
-            setSubTaskWeight(event.target.value);
           }}
         />
       )}
@@ -240,7 +151,6 @@ const SubsubTaskBox = ({
           onClick={() => {
             setIsEditing(false);
             handleRenameSubTask(subTaskIndex, newSubTaskName);
-            handleSubTaskWeightChange(taskIndex, subTaskIndex, subTaskWeight);
           }}
         />
       )}

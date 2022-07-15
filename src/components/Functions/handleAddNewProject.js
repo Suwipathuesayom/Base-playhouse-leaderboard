@@ -52,6 +52,7 @@ async function handleAddNewProject(
         setProjectStatus("success");
         setTimeout(() => {
           setShowAlert(false);
+          setProject({});
           window.open(`/project/${project.projectName}`);
         }, 2000);
       })
