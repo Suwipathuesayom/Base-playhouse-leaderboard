@@ -190,13 +190,6 @@ export default function MentorTable({ project, setProject, mentorName }) {
       tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
         subTaskIndex
       ].subTaskPoint = tempNewPointValue;
-      tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
-        subTaskIndex
-      ].subTaskWeightPoint =
-        (tempNewPointValue *
-          tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight *
-          tempProject.tasks[taskIndex].weight) /
-        10000.0;
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
         calculateLearnerGroupTaskPoint(
           tempProject.learnerGroups[groupIndex],
@@ -431,7 +424,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
                                     />
                                   );
                                 }
-                                return <div key={subTaskIndex} />;
+                                return <React.Fragment key={subTaskIndex} />;
                               })}
                             </Stack>
                           </StyledTableCell>

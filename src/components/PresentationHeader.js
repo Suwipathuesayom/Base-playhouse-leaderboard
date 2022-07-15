@@ -4,7 +4,7 @@ import color from "../constant/color";
 
 const PresentationHeader = ({ project }) => {
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Stack
       display={"flex"}

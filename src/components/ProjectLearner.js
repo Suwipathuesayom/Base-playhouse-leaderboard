@@ -39,7 +39,6 @@ const ProjectLearner = ({
         tempSubTask.push({
           isHidden: subTask.isHidden,
           subTaskPoint: 0,
-          subTaskWeightPoint: 0,
         });
       });
       tempPoint.push({
@@ -62,7 +61,7 @@ const ProjectLearner = ({
   const handleAddNewLearnerGroup = (newGroupName) => {
     let tempProject = project;
     tempProject.learnerGroups.push({
-      assignedMentorId: undefined,
+      assignedMentorId: null,
       avatar: "https://source.unsplash.com/random/64x64/?avatar",
       groupIndex: tempProject.learnerGroups.length + 1,
       groupName: newGroupName,
