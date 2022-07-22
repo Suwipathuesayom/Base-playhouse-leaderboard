@@ -232,6 +232,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
       return (
         <TextInput
           type="number"
+          onFocus={(event) => {
+            event.target.select();
+          }}
           sx={{ width: 100, height: 40, m: 0 }}
           onKeyPress={(event) => {
             if (event?.key === "-" || event?.key === "+") {
@@ -286,6 +289,9 @@ export default function MentorTable({ project, setProject, mentorName }) {
       return (
         <TextInput
           type="number"
+          onFocus={(event) => {
+            event.target.select();
+          }}
           sx={{ width: 100, height: 40, mx: "75px" }}
           onKeyPress={(event) => {
             if (event?.key === "-" || event?.key === "+") {
@@ -393,9 +399,8 @@ export default function MentorTable({ project, setProject, mentorName }) {
             .filter(
               (group) =>
                 group.assignedMentorId ===
-                project.mentors.filter(
-                  (mentor) => mentor.fullName === mentorName
-                )[0]?.id
+                project.mentors.find((mentor) => mentor.fullName === mentorName)
+                  ?.id
             )
             .map((group, groupIndex) => {
               return (

@@ -24,8 +24,7 @@ function AdminLeaderboard() {
           {/* <h1 style={{ fontSize: smallScreen ? 48 : 72 }}>LEADERBOARD</h1> */}
           <div className="admin-header__newLeaderboard">
             <AddCircle
-              className="icon"
-              sx={{ width: "50px", height: "50px", color: "#ff5b4a" }}
+              className="adminLeaderboard__icons"
               onClick={() => {
                 navigate("/project");
               }}

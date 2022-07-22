@@ -133,16 +133,15 @@ const ProjectLearner = ({
             id="select-assigned-mentor"
             // freeSolo
             value={
-              project.mentors.filter(
+              project.mentors.find(
                 (mentor) => mentor.id === group.assignedMentorId
-              )[0]?.fullName
+              )?.fullName
             }
             onChange={(event, newValue) => {
               handleChangeAssignedMentor(
                 groupIndex,
-                project.mentors.filter(
-                  (mentor) => mentor.fullName === newValue
-                )[0]?.id
+                project.mentors.find((mentor) => mentor.fullName === newValue)
+                  ?.id
               );
             }}
             options={project.mentors?.map((mentor) => mentor.fullName)}

@@ -1,6 +1,7 @@
 import { LoadingButton } from "@mui/lab";
-import { Button } from "@mui/material";
+import { FileDownload } from "@mui/icons-material";
 import { CSVLink } from "react-csv";
+import "../assets/styles/AdminDashboard.css";
 
 function ExportCSV({ selectedProject, mentors }) {
   if (selectedProject) {
@@ -40,24 +41,26 @@ function ExportCSV({ selectedProject, mentors }) {
       learnerGroups.push(tempObject);
     });
     return (
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#1d6f42",
-        }}
-      >
-        <CSVLink
-          headers={headers}
-          data={learnerGroups}
-          filename={`${selectedProject.projectName}_points.csv`}
-          style={{
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          Download Excel
-        </CSVLink>
-      </Button>
+      <div className="csv">
+        <button>
+          <span>
+            <CSVLink
+              headers={headers}
+              data={learnerGroups}
+              filename={`${selectedProject.projectName}_points.csv`}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+            >
+              Download Excel
+            </CSVLink>
+          </span>
+          <div>
+            <FileDownload />
+          </div>
+        </button>
+      </div>
     );
   } else {
     return (
