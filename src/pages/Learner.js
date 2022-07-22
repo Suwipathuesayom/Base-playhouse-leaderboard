@@ -33,10 +33,10 @@ const Learner = () => {
               <LearnerBox
                 key={group.groupIndex}
                 rankIndex={rankIndex}
-                theme={project?.theme}
                 {...group}
                 smallScreen={smallScreen}
                 groupNameParams={groupNameParams}
+                project={project}
               />
             ))}
           </FlipMove>

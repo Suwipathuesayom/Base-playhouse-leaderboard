@@ -9,11 +9,11 @@ class LearnerBox extends React.Component {
         style={{
           backgroundColor: getRankColor(
             this.props.rankIndex,
-            this.props.theme.top3
+            this.props.project.theme.top3
           ),
           border:
             this.props.groupNameParams === this.props.groupName
-              ? `3px solid ${this.props.theme.hilight}`
+              ? `3px solid ${this.props.project.theme.hilight}`
               : 0,
         }}
       >
@@ -24,9 +24,13 @@ class LearnerBox extends React.Component {
             alt="not found"
           />
         )}
-        {!this.props.smallScreen && <h3>{this.props.groupIndex + 1}</h3>}
+        {!this.props.smallScreen && <h3>{this.props.groupIndex}</h3>}
         <h2>{this.props.groupName}</h2>
-        <h3>{this.props.totalWeightPoint}</h3>
+        <h3>
+          {this.props.project.useWeight
+            ? this.props.totalWeightPoint
+            : this.props.totalPoint}
+        </h3>
       </div>
     );
   }

@@ -17,6 +17,9 @@ import { TransitionGroup } from "react-transition-group";
 import { arrowIconStyle, iconStyle } from "../assets/styles/IconStyles";
 import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
 import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
+import calculateTotalTaskWeight from "./Functions/calculateTotalTaskWeight";
+import calculateTaskMaxPointFromSubTaskMaxPoint from "./Functions/calculateTaskMaxPointFromSubTaskMaxPoint";
+import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
 
 const TaskBox = ({
   project,
@@ -29,14 +32,28 @@ const TaskBox = ({
   const [reload, setReload] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingWeight, setIsEditingWeight] = useState(false);
+  const [isEditingMaxPoint, setIsEditingMaxPoint] = useState(false);
   const [newTaskName, setNewTaskName] = useState(task.taskName);
+  const [weightOverflow, setWeightOverflow] = useState(false);
 
+  const handleTaskMaxPointChange = (taskIndex, newTaskMaxPoint) => {
+    let tempProject = project;
+    tempProject.tasks[taskIndex].taskMaxPoint = parseInt(
+      newTaskMaxPoint ? newTaskMaxPoint : 0,
+      10
+    );
+    setIsEditingMaxPoint(false);
+    setProject(tempProject);
+    setParentReload(!parentReload);
+  };
   const handleTaskWeightChange = (taskIndex, newWeightValue) => {
     let tempProject = project;
     tempProject.tasks[taskIndex].weight = parseInt(
       newWeightValue ? newWeightValue : 0,
       10
     );
+    setWeightOverflow(calculateTotalTaskWeight(tempProject) > 100);
+    setIsEditingWeight(false);
     setProject(tempProject);
     setParentReload(!parentReload);
   };
@@ -47,12 +64,21 @@ const TaskBox = ({
     tempProject.tasks[taskIndex].subTasks.push({
       isHidden: false,
       subTaskName: "",
+      subTaskMaxPoint: 10,
+      weight: 10,
     });
+    tempProject.tasks[taskIndex].taskMaxPoint =
+      calculateTaskMaxPointFromSubTaskMaxPoint(tempProject, taskIndex);
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex
+    );
     tempProject.learnerGroups.forEach((group, groupIndex) => {
       group.points[taskIndex].isHidden = false;
       group.points[taskIndex].subTasks.push({
         isHidden: false,
         subTaskPoint: 0,
+        subTaskWeightPoint: 0,
       });
       group.points[taskIndex].taskPoint = calculateLearnerGroupTaskPoint(
         group,
@@ -163,17 +189,53 @@ const TaskBox = ({
             }}
           />
         )}
-        {isEditingWeight && (
+        {isEditingMaxPoint && (
           <DropDownTextInput
-            // disabled={!!task.subTasks.length}
-            defaultValue={task.weight}
+            defaultValue={task.taskMaxPoint}
             type="number"
-            sx={{ minWidth: 100, bgcolor: "white", borderRadius: "5px" }}
+            sx={{ minWidth: 80, bgcolor: "white", borderRadius: "5px" }}
             inputRef={(input) => {
               input?.focus();
               setIsEditing(false);
+              setIsEditingWeight(false);
             }}
-            style={{ flexGrow: 0, width: 100 }}
+            style={{ flexGrow: 0, width: 80 }}
+            size="small"
+            InputProps={{
+              endAdornment: <InputAdornment position="start">P</InputAdornment>,
+            }}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleTaskMaxPointChange(taskIndex, event.target.value);
+              }
+            }}
+            onBlur={(event) => {
+              handleTaskMaxPointChange(taskIndex, event.target.value);
+            }}
+          />
+        )}
+        {!isEditingMaxPoint && (
+          <strong
+            onClick={() => {
+              if (!!!task.subTasks.length) setIsEditingMaxPoint(true);
+            }}
+          >
+            <div>{task.taskMaxPoint}</div>
+            <div>{" P"}</div>
+          </strong>
+        )}
+        {isEditingWeight && (
+          <DropDownTextInput
+            disabled={!!task.subTasks.length}
+            defaultValue={task.weight}
+            type="number"
+            sx={{ minWidth: 80, bgcolor: "white", borderRadius: "5px" }}
+            inputRef={(input) => {
+              input?.focus();
+              setIsEditing(false);
+              setIsEditingMaxPoint(false);
+            }}
+            style={{ flexGrow: 0, width: 80 }}
             size="small"
             InputProps={{
               endAdornment: <InputAdornment position="start">%</InputAdornment>,
@@ -184,21 +246,22 @@ const TaskBox = ({
               }
             }}
             onBlur={(event) => {
-              setIsEditingWeight(false);
               handleTaskWeightChange(taskIndex, event.target.value);
             }}
           />
         )}
-        {!isEditingWeight && (
+        {project.useWeight && !isEditingWeight && (
           <strong
             onClick={() => {
-              setIsEditingWeight(true);
-              // if (!!!task.subTasks.length) {
-              // }
+              if (!!!task.subTasks.length) setIsEditingWeight(true);
             }}
           >
-            <div>{task.weight}</div>
-            <div>{" %"}</div>
+            <div style={{ color: weightOverflow ? "red" : "black" }}>
+              {task.weight}
+            </div>
+            <div style={{ color: weightOverflow ? "red" : "black" }}>
+              {" %"}
+            </div>
           </strong>
         )}
         <AddCircle

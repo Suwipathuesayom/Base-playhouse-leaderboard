@@ -60,7 +60,6 @@ function Speaker() {
                 <LearnerBox
                   key={group.groupIndex}
                   rankIndex={rankIndex}
-                  theme={project?.theme}
                   {...group}
                   smallScreen={smallScreen}
                   groupNameParams={"null"}
@@ -78,14 +77,10 @@ function Speaker() {
                 ))}
             </div>
             <FlipMove>
-              {project?.learnerGroups?.map((group, rankIndex) => (
+              {project?.learnerGroups?.map((group) => (
                 <SpeakerBox
                   key={group.groupIndex}
-                  rankIndex={rankIndex}
-                  theme={project?.theme}
                   {...group}
-                  smallScreen={smallScreen}
-                  groupNameParams={"null"}
                   project={project}
                 />
               ))}

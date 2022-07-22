@@ -4,7 +4,7 @@ import {
   Done,
   DriveFileRenameOutline,
 } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { InputAdornment, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { iconStyle } from "../assets/styles/IconStyles";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
@@ -12,6 +12,9 @@ import calculateLearnerGroupTaskPoint from "./Functions/calculateLearnerGroupTas
 import calculateLearnerGroupTaskWeightPoint from "./Functions/calculateLearnerGroupTaskWeightPoint";
 import calculateLearnerGroupTotalPoint from "./Functions/calculateLearnerGroupTotalPoint";
 import calculateLearnerGroupTotalWeightPoint from "./Functions/calculateLearnerGroupTotalWeightPoint";
+import calculateTaskMaxPointFromSubTaskMaxPoint from "./Functions/calculateTaskMaxPointFromSubTaskMaxPoint";
+import calculateTaskWeightFromSubTask from "./Functions/calculateTaskWeightFromSubTask";
+import calculateTotalTaskWeight from "./Functions/calculateTotalTaskWeight";
 import checkTaskVisibility from "./Functions/checkTaskVisibility";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import VisibilityEye from "./VisibilityEye";
@@ -27,8 +30,44 @@ const SubsubTaskBox = ({
   setParentReload,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingWeight, setIsEditingWeight] = useState(false);
+  const [isEditingMaxPoint, setIsEditingMaxPoint] = useState(false);
   const [newSubTaskName, setNewSubTaskName] = useState(subTask.subTaskName);
+  const [weightOverflow, setWeightOverflow] = useState(false);
 
+  const handleSubTaskMaxPointChange = (
+    taskIndex,
+    subTaskIndex,
+    newSubTaskMaxPoint
+  ) => {
+    let tempProject = project;
+    tempProject.tasks[taskIndex].subTasks[subTaskIndex].subTaskMaxPoint =
+      parseInt(newSubTaskMaxPoint ? newSubTaskMaxPoint : 0, 10);
+    tempProject.tasks[taskIndex].taskMaxPoint =
+      calculateTaskMaxPointFromSubTaskMaxPoint(tempProject, taskIndex);
+    setIsEditingMaxPoint(false);
+    setProject(tempProject);
+    setParentReload(!parentReload);
+  };
+  const handleSubTaskWeightChange = (
+    taskIndex,
+    subTaskIndex,
+    newWeightValue
+  ) => {
+    let tempProject = project;
+    tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight = parseInt(
+      newWeightValue ? newWeightValue : 0,
+      10
+    );
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
+      taskIndex
+    );
+    setWeightOverflow(calculateTotalTaskWeight(tempProject) > 100);
+    setIsEditingWeight(false);
+    setProject(tempProject);
+    setParentReload(!parentReload);
+  };
   const handleRenameSubTask = (subTaskIndex, newSubTaskName) => {
     let tempProject = project;
     tempProject.tasks[taskIndex].subTasks[subTaskIndex].subTaskName =
@@ -41,6 +80,12 @@ const SubsubTaskBox = ({
     tempProject.tasks[taskIndex].subTasks.splice(subTaskIndex, 1);
     tempProject.tasks[taskIndex].isHidden = checkTaskVisibility(
       tempProject.tasks,
+      taskIndex
+    );
+    tempProject.tasks[taskIndex].taskMaxPoint =
+      calculateTaskMaxPointFromSubTaskMaxPoint(tempProject, taskIndex);
+    tempProject.tasks[taskIndex].weight = calculateTaskWeightFromSubTask(
+      tempProject,
       taskIndex
     );
     tempProject.learnerGroups.forEach((group, groupIndex) => {
@@ -128,6 +173,104 @@ const SubsubTaskBox = ({
           onChange={(event) => {
             setNewSubTaskName(event.target.value);
           }}
+        />
+      )}
+      {!isEditingMaxPoint && (
+        <strong onClick={() => setIsEditingMaxPoint(true)}>
+          <div>{subTask.subTaskMaxPoint}</div>
+          <div>{" P"}</div>
+        </strong>
+      )}
+      {isEditingMaxPoint && (
+        <DropDownTextInput
+          type="number"
+          defaultValue={subTask.subTaskMaxPoint}
+          // width={25}
+          // fullWidth
+          inputRef={(input) => {
+            input?.focus();
+            setIsEditing(false);
+            setIsEditingWeight(false);
+          }}
+          sx={{
+            minWidth: 80,
+            bgcolor: "white",
+            borderRadius: "5px",
+          }}
+          style={{ flexGrow: 0, width: 80 }}
+          size="small"
+          InputProps={{
+            endAdornment: <InputAdornment position="start">P</InputAdornment>,
+          }}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              handleSubTaskMaxPointChange(
+                taskIndex,
+                subTaskIndex,
+                event.target.value
+              );
+            }
+          }}
+          onBlur={(event) => {
+            handleSubTaskMaxPointChange(
+              taskIndex,
+              subTaskIndex,
+              event.target.value
+            );
+          }}
+          // onChange={(event) => {
+          //   setSubTaskWeight(event.target.value);
+          // }}
+        />
+      )}
+      {project.useWeight && !isEditingWeight && (
+        <strong onClick={() => setIsEditingWeight(true)}>
+          <div style={{ color: weightOverflow ? "red" : "black" }}>
+            {subTask.weight}
+          </div>
+          <div style={{ color: weightOverflow ? "red" : "black" }}>{" %"}</div>
+        </strong>
+      )}
+      {isEditingWeight && (
+        <DropDownTextInput
+          type="number"
+          defaultValue={subTask.weight}
+          // width={25}
+          // fullWidth
+          inputRef={(input) => {
+            input?.focus();
+            setIsEditing(false);
+            setIsEditingMaxPoint(false);
+          }}
+          sx={{
+            minWidth: 80,
+            bgcolor: "white",
+            borderRadius: "5px",
+          }}
+          style={{ flexGrow: 0, width: 80 }}
+          size="small"
+          InputProps={{
+            endAdornment: <InputAdornment position="start">%</InputAdornment>,
+          }}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              handleSubTaskWeightChange(
+                taskIndex,
+                subTaskIndex,
+                event.target.value
+              );
+            }
+          }}
+          onBlur={(event) => {
+            handleSubTaskWeightChange(
+              taskIndex,
+              subTaskIndex,
+              event.target.value
+            );
+          }}
+          // onChange={(event) => {
+          //   setSubTaskWeight(event.target.value);
+          // }}
         />
       )}
       <div style={{ flexGrow: 0, minWidth: 28 }} />
