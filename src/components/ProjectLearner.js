@@ -8,7 +8,7 @@ import {
   DriveFileRenameOutline,
   OpenInNew,
 } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import getBackgroundColorFromIndex from "./Functions/getBackgroundColorFromIndex";
 import { DropDownTextInput } from "../assets/styles/InputStyles";
 import copyToClipBoard from "./Functions/copyToClipBoard";
@@ -90,10 +90,6 @@ const ProjectLearner = ({
     setReload(!reload);
   };
 
-  useEffect(() => {
-    setReload(!reload);
-  }, [parentReload]);
-
   const LearnerBox = ({ group, groupIndex, parentReload }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newGroupName, setNewGroupName] = useState(group.groupName);
@@ -137,16 +133,15 @@ const ProjectLearner = ({
             id="select-assigned-mentor"
             // freeSolo
             value={
-              project.mentors.filter(
+              project.mentors.find(
                 (mentor) => mentor.id === group.assignedMentorId
-              )[0]?.fullName
+              )?.fullName
             }
             onChange={(event, newValue) => {
               handleChangeAssignedMentor(
                 groupIndex,
-                project.mentors.filter(
-                  (mentor) => mentor.fullName === newValue
-                )[0]?.id
+                project.mentors.find((mentor) => mentor.fullName === newValue)
+                  ?.id
               );
             }}
             options={project.mentors?.map((mentor) => mentor.fullName)}

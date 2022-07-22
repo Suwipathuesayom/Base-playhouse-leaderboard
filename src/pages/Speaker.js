@@ -3,14 +3,8 @@ import "../assets/styles/Speaker.css";
 import "../assets/styles/Learner.css";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
-import color from "../constant/color";
-import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import SplashScreen from "../components/SplashScreen";
-import { TableHeaderText } from "../assets/styles/TypographyStyles";
-import limitStringLength from "../components/Functions/limitStringLength";
-import { TableContentText } from "../assets/styles/TypographyStyles";
-import { TablePointHeaderText } from "../assets/styles/TypographyStyles";
-import getRankColor from "../components/Functions/getRankColor";
 import PresentationHeader from "../components/PresentationHeader";
 import Navbar from "../components/Navbar";
 import FlipMove from "react-flip-move";
@@ -56,7 +50,7 @@ function Speaker() {
           <div className="speaker__learnerContent">
             <div className="learner__header">
               <h3>RANK</h3>
-              {!smallScreen && <img />}
+              {!smallScreen && <img alt="" />}
               {!smallScreen && <h3>GROUP</h3>}
               <h2>NAME</h2>
               <h3>TOTAL</h3>
@@ -79,8 +73,8 @@ function Speaker() {
             <div className="speaker__speakerHeader">
               {project.tasks
                 .filter((task) => !task.isHidden)
-                .map((task) => (
-                  <h3>{task.taskName}</h3>
+                .map((task, taskIndex) => (
+                  <h3 key={taskIndex}>{task.taskName}</h3>
                 ))}
             </div>
             <FlipMove>

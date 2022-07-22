@@ -1,27 +1,22 @@
-import { AppBar, Button, Toolbar } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import React from "react";
+import "../pages/Admin/AdminProject.css";
 import color from "../constant/color";
 import { useNavigate } from "react-router-dom";
 import handleAddNewProject from "./Functions/handleAddNewProject";
 import handleUpdateProject from "./Functions/handleUpdateProject";
+import { ChevronLeft, Save } from "@mui/icons-material";
 
 const ProjectFooter = ({
   project,
   setProject,
   showAlert,
   setShowAlert,
+  projectStatus,
   setProjectStatus,
   setProjectAlertText,
 }) => {
   const navigate = useNavigate();
-  const buttonStyle = {
-    width: 100,
-    backgroundColor: color.primaryOrange,
-    color: "white",
-    ":hover": {
-      backgroundColor: color.secondaryOrange,
-    },
-  };
   return (
     <AppBar
       position="fixed"
@@ -33,18 +28,20 @@ const ProjectFooter = ({
         bottom: 0,
       }}
     >
-      <Toolbar>
-        <Button
-          variant="contained"
-          sx={buttonStyle}
+      <Toolbar className="projectFooter">
+        <button
+          disabled={projectStatus === "info"}
+          id={"back-button"}
           onClick={() => navigate("/admin-leaderboard")}
         >
-          ย้อนกลับ
-        </Button>
+          <div>
+            <ChevronLeft />
+          </div>
+          <span>ย้อนกลับ</span>
+        </button>
         <div style={{ flexGrow: 1 }} />
-        <Button
-          variant="contained"
-          sx={buttonStyle}
+        <button
+          id={projectStatus === "info" ? "saving-button" : "save-button"}
           onClick={() => {
             if (!project.id)
               handleAddNewProject(
@@ -65,8 +62,14 @@ const ProjectFooter = ({
               );
           }}
         >
-          {project.id ? "บันทึก" : "สร้าง"}
-        </Button>
+          {projectStatus !== "info" && (
+            <div>
+              <Save />
+            </div>
+          )}
+          {projectStatus === "info" && <div className="loader"></div>}
+          <span>{project.id ? "บันทึก" : "สร้าง"}</span>
+        </button>
       </Toolbar>
     </AppBar>
   );

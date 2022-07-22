@@ -18,12 +18,12 @@ const Learner = () => {
   if (!!Object.keys(project).length) {
     return (
       <div className="App">
-        <Navbar header={`GROUP ${groupNameParams}`} />
+        <Navbar header={`GROUP ${groupNameParams ? groupNameParams : ""}`} />
         <PresentationHeader project={project} />
         <div className="learner__container">
           <div className="learner__header">
             <h3>RANK</h3>
-            {!smallScreen && <img />}
+            {!smallScreen && <img alt="" />}
             {!smallScreen && <h3>GROUP</h3>}
             <h2>NAME</h2>
             <h3>TOTAL</h3>

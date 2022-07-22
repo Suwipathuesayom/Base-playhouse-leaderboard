@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Moment from "react-moment";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 
 import {
@@ -12,6 +11,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   InputLabel,
   Paper,
   Stack,
@@ -24,6 +24,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -32,7 +33,7 @@ import { db } from "../config/firebase";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
-import { ArrowDropDown, Delete } from "@mui/icons-material";
+import { ArrowDropDown, ContentCopy, Delete } from "@mui/icons-material";
 import color from "../constant/color";
 import queryNoteFromId from "./Functions/queryNoteFromId";
 import copyToClipBoard from "./Functions/copyToClipBoard";
@@ -71,7 +72,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: "#FF5B4A",
   fontSize: 15,
   fontFamily: "Raleway",
-  textTransform: "uppercase",
+  // textTransform: "uppercase",
   textDecoration: "none",
 }));
 
@@ -79,6 +80,8 @@ const StyledDiv = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
+  marginTop: "10px",
+  marginBottom: "10px",
 }));
 
 const StyledStack = styled(Stack)(({ theme }) => ({
@@ -177,8 +180,6 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
 
   const [learnerGroups, setLearnerGroups] = useState("");
   const [mentorsGroups, setmentorsGroups] = useState([]);
-
-  console.log(selectedProject);
 
   return (
     <div>
@@ -313,7 +314,7 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               {selectedProject?.projectName}
             </StyledTypography>
           </DialogContentText>
-          <InputLabel>Speaker</InputLabel>
+          <Divider align="center">Speaker</Divider>
           <StyledDiv>
             {selectedProject && (
               <TextField
@@ -333,45 +334,39 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               />
             )}
             {selectedProject && (
-              <Button
-                onClick={() => {
-                  copyToClipBoard(
-                    `${window.location.host}/speaker/${selectedProject?.projectName}`,
-                    setCopySpeaker
-                  );
-                }}
-                style={{ marginLeft: "5px", textTransform: "unset" }}
-              >
-                {copySpeaker}
-              </Button>
+              <Tooltip title={copySpeaker}>
+                <ContentCopy
+                  onClick={() => {
+                    copyToClipBoard(
+                      `${window.location.host}/speaker/${selectedProject?.projectName}`,
+                      setCopySpeaker
+                    );
+                  }}
+                  style={{ marginLeft: "10px", color: "#969696" }}
+                />
+              </Tooltip>
             )}
           </StyledDiv>
-          <InputLabel>Learner</InputLabel>
+          <Divider align="center">Learner</Divider>
           <StyledDiv>
             <div>
-              <FormControl sx={{ mr: 1, minWidth: 50 }}>
+              <FormControl sx={{ mr: 1, minWidth: 100 }} size="small">
+                <InputLabel id="select-group-label">Group</InputLabel>
                 <Select
-                  labelId="label-groups"
-                  id="learnerGroups"
+                  labelId="select-group-label"
+                  id="select-group"
                   value={learnerGroups}
                   onChange={(event) => {
                     setLearnerGroups(event.target.value);
                   }}
-                  displayEmpty
                   size={"small"}
-
-                  // inputProps={{ "aria-label": "Without label" }}
+                  label="Group"
                 >
-                  <MenuItem value={""}>Group</MenuItem>
                   {selectedProject?.learnerGroups.map((group, groupIndex) => (
                     <MenuItem value={group.groupName} key={groupIndex}>
                       <h4>{group.groupName}</h4>
                     </MenuItem>
                   ))}
-
-                  {/* <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem> */}
                 </Select>
               </FormControl>
             </div>
@@ -394,47 +389,39 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               />
             )}
             {selectedProject && (
-              <Button
-                onClick={() => {
-                  copyToClipBoard(
-                    `${window.location.host}/learner/${selectedProject?.projectName}/${learnerGroups}`,
-                    setCopyLearner
-                  );
-                  // resetCopyClick("learner");
-                }}
-                style={{ marginLeft: "5px", textTransform: "unset" }}
-              >
-                {copyLearner}
-              </Button>
+              <Tooltip title={copyLearner}>
+                <ContentCopy
+                  onClick={() => {
+                    copyToClipBoard(
+                      `${window.location.host}/learner/${selectedProject?.projectName}/${learnerGroups}`,
+                      setCopyLearner
+                    );
+                  }}
+                  style={{ marginLeft: "10px", color: "#969696" }}
+                />
+              </Tooltip>
             )}
           </StyledDiv>
-          <InputLabel>Mentor</InputLabel>
+          <Divider align="center">Mentor</Divider>
           <StyledDiv>
             <div>
-              <FormControl sx={{ mr: 1, minWidth: 50 }}>
+              <FormControl sx={{ mr: 1, minWidth: 100 }} size="small">
+                <InputLabel id="select-mentor-label">Mentor</InputLabel>
                 <Select
-                  labelId="label-mentor"
+                  labelId="select-mentor-label"
                   id="mentorsGroups"
                   value={mentorsGroups}
                   onChange={(event) => {
                     setmentorsGroups(event.target.value);
                   }}
-                  displayEmpty
                   size={"small"}
-                  // inputProps={{ "aria-label": "Without label" }}
+                  label="Mentor"
                 >
-                  {/* <MenuItem value={20}>Group</MenuItem> */}
                   {selectedProject?.mentors.map((mentors, mentorsIndex) => (
                     <MenuItem value={mentors.fullName} key={mentorsIndex}>
                       <h4>{mentors.fullName}</h4>
                     </MenuItem>
                   ))}
-                  <MenuItem value="">
-                    <h4>Mentor</h4>
-                  </MenuItem>
-                  {/* <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem> */}
                 </Select>
               </FormControl>
             </div>
@@ -456,18 +443,17 @@ export default function AdminTable({ projectDashboard, setProjectDashboard }) {
               />
             )}
             {selectedProject && (
-              <Button
-                onClick={() => {
-                  copyToClipBoard(
-                    `${window.location.host}/mentor/${selectedProject?.projectName}/${mentorsGroups}`,
-                    setCopyMentor
-                  );
-                  // resetCopyClick("learner");
-                }}
-                style={{ marginLeft: "5px", textTransform: "unset" }}
-              >
-                {copyMentor}
-              </Button>
+              <Tooltip title={copyMentor}>
+                <ContentCopy
+                  onClick={() => {
+                    copyToClipBoard(
+                      `${window.location.host}/mentor/${selectedProject?.projectName}/${mentorsGroups}`,
+                      setCopyMentor
+                    );
+                  }}
+                  style={{ marginLeft: "10px", color: "#969696" }}
+                />
+              </Tooltip>
             )}
           </StyledDiv>
           <div style={{ marginTop: 10 }}>

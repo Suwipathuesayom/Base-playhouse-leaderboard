@@ -17,7 +17,7 @@ class LearnerBox extends React.Component {
               : 0,
         }}
       >
-        <h3>{this.props.rankIndex}</h3>
+        <h3>{this.props.rankIndex + 1}</h3>
         {!this.props.smallScreen && (
           <img
             src={`https://picsum.photos/200/300?random=${this.props.groupIndex}`}
