@@ -8,6 +8,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import LearnerBox from "../components/LearnerBox";
+import SpeakerBox from "./../components/SpeakerBox";
 
 const Learner = () => {
   const [project, setProject] = useState({});
@@ -40,6 +41,28 @@ const Learner = () => {
               />
             ))}
           </FlipMove>
+          <div className="speaker__speakerContent">
+            <div className="speaker__speakerHeader">
+              {project.tasks
+                .filter((task) => !task.isHidden)
+                .map((task, taskIndex) => (
+                  <h3 key={taskIndex}>{task.taskName}</h3>
+                ))}
+            </div>
+            <FlipMove>
+              {project?.learnerGroups?.map((group, rankIndex) => (
+                <SpeakerBox
+                  key={group.groupIndex}
+                  rankIndex={rankIndex}
+                  theme={project?.theme}
+                  {...group}
+                  smallScreen={smallScreen}
+                  groupNameParams={"null"}
+                  project={project}
+                />
+              ))}
+            </FlipMove>
+          </div>
         </div>
       </div>
     );

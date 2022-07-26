@@ -31,11 +31,11 @@ export default function NewEditTask({ project, setProject }) {
   };
 
   // Remove learnerName
-  const handleRemoveLearner = (index) => {
-    let tempMentorList = [...selectedProject];
-    tempMentorList.splice(index, 1);
-    setSelectedProject(tempMentorList);
-  };
+  // const handleRemoveLearner = (index) => {
+  //   let tempMentorList = [...selectedProject];
+  //   tempMentorList.splice(index, 1);
+  //   setSelectedProject(tempMentorList);
+  // };
 
   return (
     <div className="newTask__container">

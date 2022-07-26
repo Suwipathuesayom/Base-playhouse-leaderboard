@@ -11,7 +11,6 @@ import Mentor from "../pages/Mentor";
 import NotFoundPage from "../pages/NotFoundPage";
 import Speaker from "../pages/Speaker";
 import EditProjectRes from "../pages/Admin/EditProjectRes/EditNewProject";
-import Animation from "../pages/Admin/EditProjectRes/Animation";
 
 export default function AdminStack() {
   return (

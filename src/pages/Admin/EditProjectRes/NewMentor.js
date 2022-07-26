@@ -38,11 +38,11 @@ export default function NewMentor({ project, setProject }) {
   };
 
   // Remove mentorName
-  const handleRemoveMentor = (index) => {
-    let tempMentorList = [...selectedProject];
-    tempMentorList.splice(index, 1);
-    setSelectedProject(tempMentorList);
-  };
+  // const handleRemoveMentor = (index) => {
+  //   let tempMentorList = [...selectedProject];
+  //   tempMentorList.splice(index, 1);
+  //   setSelectedProject(tempMentorList);
+  // };
 
   return (
     <div className="newMentor__container">
