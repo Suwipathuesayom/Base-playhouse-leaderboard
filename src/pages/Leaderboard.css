@@ -1,0 +1,17 @@
+.leaderboard-container {
+  height: 100vh;
+  background-color: yellow;
+}
+
+.navbar-container {
+  background-color: green;
+  display: flex;
+  height: 70px;
+  padding-left: 20px;
+  align-items: center;
+}
+.navbar-container > h2 {
+  background-color: red;
+  margin-left: 50px;
+  font-size: 40px;
+}
