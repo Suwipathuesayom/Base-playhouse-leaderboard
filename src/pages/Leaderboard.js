@@ -1,46 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
+import LeaderboardHeader from "../components/Functions/LeaderboardHeader";
+import queryProjectFromProjectName from "../components/Functions/queryProjectFromProjectName";
+import PresentationHeader from "../components/PresentationHeader";
 import "./Leaderboard.css";
 
 const Leaderboard = () => {
-  return (
-    <div className="leaderboard-container">
-      <div className="navbar-container">
-        <img
-          src="https://yt3.ggpht.com/ytc/AKedOLR_UA-QGw_Oe2-RZ6o-egVZQ-Tk5my0qxZfFAvZkg=s900-c-k-c0x00ffffff-no-rj"
-          alt="not found img"
-        />
-        <h2>BASE</h2>
-      </div>
+  const [project, setProject] = useState();
 
-      <div>
-        <div>Leaderboard</div>
-        <div>image</div>
-        <div>project-name</div>
-      </div>
+  if (project) {
+    return (
+      <div className="leaderboard-container">
+        <div className="navbar-container">
+          <img src="https://media.discordapp.net/attachments/982577768279736390/1001408179621593128/BPGLogo-white.png" />
 
-      <div>
-        <div>แท่ง1</div>
-        <div>แท่ง2</div>
-        <div>แท่ง3</div>
-      </div>
+          <h2>| Speaker</h2>
+        </div>
 
-      <div>
-        Table Body
-        <div>Rank</div>
-        <div>Group</div>
-        <div>Name</div>
-        <div>Total</div>
-      </div>
-
-      <div>
-        Table Task
         <div>
-          Header
-          <div>Point Task</div>
+          <LeaderboardHeader project={project} />
+        </div>
+        <div className="leaderboard-table">
+          <div className="leaderboard-tableRank">
+            <div>แท่ง1</div>
+            <div>แท่ง2</div>
+            <div>แท่ง3</div>
+          </div>
+          <div className="leaderboard-tableBody">
+            <div className="leaderboard-texttable">
+              <h1>Rank</h1>
+              <h1>Group</h1>
+              <h1>Name</h1>
+              <h1>Total</h1>
+            </div>
+            {project.learnerGroups.map((group, groupIndex) => {
+              return (
+                <div className="leaderboard-box" key={groupIndex}>
+                  <h1>{groupIndex + 1}</h1>
+                  <h1>{group.groupIndex}</h1>
+                  <h1>{group.groupName}</h1>
+                  <h1>{group.totalPoint}</h1>
+                </div>
+              );
+            })}
+          </div>
+          <div className="leaderboard-tasktable">
+            <div className="leaderboard-texttask">
+              {project.tasks.map((tasks, tasksIndex) => {
+                return <h1>{tasks.taskName}</h1>;
+              })}
+            </div>
+            {project.learnerGroups.map((group, groupIndex) => {
+              return (
+                <div className="leaderboard-taskbox">
+                  {group.points.map((points) => {
+                    return <h1>{points.taskPoint}</h1>;
+                  })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    queryProjectFromProjectName("NCT2023", setProject);
+    return <div>Loding</div>;
+  }
 };
 
 export default Leaderboard;
