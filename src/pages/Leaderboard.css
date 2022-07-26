@@ -1,24 +1,209 @@
 .leaderboard-container {
-  background-image: url("https://media.discordapp.net/attachments/982577768279736390/1001405836364627968/leaderboard-background.png?width=1194&height=675");
+  background: url("../assets/images/leaderboard-background.png");
   height: 100vh;
   background-size: cover;
-  /* background-color: yellow; */
+  background-color: black;
 }
 
 .navbar-container {
-  /* background-color: green; */
-  color: #ffff;
   display: flex;
-  height: 70px;
-  padding-left: 20px;
+  column-gap: 50px;
+  min-height: 100px;
+  padding-left: 3%;
+  padding-top: 2%;
+  padding-bottom: 2%;
   align-items: center;
+  color: #ffff;
+  /* background-color: green; */
 }
-.navbar-container > h2 {
-  /* background-color: red; */
-  margin-left: 50px;
-  font-size: 24px;
-}
-
 .navbar-container > img {
   height: 50px;
+}
+
+.leaderboard-table {
+  display: flex;
+  width: 100%;
+}
+
+.leaderboard-tableRank {
+  display: flex;
+  min-width: 500px;
+  width: 35%;
+  height: calc(100vh - 250px - 5vh);
+  margin-left: 3%;
+  /* background-color: blue; */
+}
+.leaderboard-tableRank:nth-child(1):nth-child(2) {
+  background: url("../assets/images/second.png");
+  background-size: cover;
+}
+.leaderboard-tableRank-chart1,
+.leaderboard-tableRank-chart2,
+.leaderboard-tableRank-chart3
+{
+  flex: 1;
+  text-align: center;
+}
+.leaderboard-tableRank-chart1 :nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 15%;
+  left: 10%;
+}
+.leaderboard-tableRank-chart1 :nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  background: url("../assets/images/second.png");
+  background-size: cover;
+}
+.leaderboard-tableRank-chart2 :nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10%;
+  left: 10%;
+}
+.leaderboard-tableRank-chart2 :nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  background: url("../assets/images/first.png");
+  background-size: cover;
+}
+.leaderboard-tableRank-chart3 :nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 18%;
+  left: 10%;
+}
+.leaderboard-tableRank-chart3 :nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  background: url("../assets/images/third.png");
+  background-size: cover;
+}
+
+.leaderboard-iconRank {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  border-radius: 50%;
+  outline: 5px solid var(--orange);
+  outline-offset: 4px;
+  /* border: 5px solid lime;
+  border-top-color: var(--orange);
+  border-bottom-color: white ;
+  inset: -5px; */
+  background-color: white;
+}
+
+.leaderboard-tableBody {
+  width: 25%;
+  padding-left: 2%;
+}
+.leaderboard-texttable {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: var(--orange);
+  align-items: center;
+  margin-bottom: 10px;
+}
+.leaderboard-texttable > h1 {
+  /* background-color: green; */
+  font-size: 24px;
+  width: 20%;
+  text-align: center;
+  color: #ffff;
+}
+.leaderboard-texttable:nth-child(1) :nth-child(3) {
+  display: flex;
+  /* background-color: rgb(204, 10, 171); */
+  flex-grow: 1;
+  justify-content: center;
+  color: #ffff;
+}
+.leaderboard-tasktable {
+  margin-left: 10px;
+  overflow-x: auto;
+}
+.leaderboard-texttask {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background-color: var(--orange);
+}
+.leaderboard-texttask > h1 {
+  min-width: 200px;
+  font-size: 24px;
+  color: #ffff;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+.leaderboard-taskbox {
+  display: flex;
+  min-width: 300px;
+  height: 70px;
+  background-color: var(--orange);
+  border-radius: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.leaderboard-taskbox > h1 {
+  min-width: 200px;
+  font-size: 24px;
+  color: #ffff;
+  text-align: center;
+}
+.leaderboard-box {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: var(--orange);
+  border-radius: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.leaderboard-box > h1 {
+  font-size: 24px;
+  width: 20%;
+  text-align: center;
+  color: #ffff;
+  /* background-color: blue; */
+}
+.leaderboard-box :nth-child(3) {
+  /* background-color: yellow; */
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  color: #ffff;
 }
