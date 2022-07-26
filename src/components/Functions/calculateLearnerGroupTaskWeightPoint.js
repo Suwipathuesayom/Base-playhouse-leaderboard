@@ -3,11 +3,9 @@ function calculateLearnerGroupTaskWeightPoint(project, groupIndex, taskIndex) {
   project.learnerGroups[groupIndex].points[taskIndex].subTasks
     .filter((subTask) => !subTask.isHidden)
     .forEach((subTask) => {
-      tempTaskWeightPoint += subTask.subTaskPoint;
+      tempTaskWeightPoint += subTask.subTaskWeightPoint;
     });
-  return parseFloat(
-    ((tempTaskWeightPoint * project.tasks[taskIndex].weight) / 100.0).toFixed(2)
-  );
+  return parseFloat(tempTaskWeightPoint.toFixed(2));
 }
 
 export default calculateLearnerGroupTaskWeightPoint;

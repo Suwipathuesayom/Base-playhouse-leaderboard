@@ -8,7 +8,11 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import LearnerBox from "../components/LearnerBox";
+<<<<<<< HEAD
 import SpeakerBox from "./../components/SpeakerBox";
+=======
+import SpeakerBox from "../components/SpeakerBox";
+>>>>>>> main2
 
 const Learner = () => {
   const [project, setProject] = useState({});
@@ -18,6 +22,7 @@ const Learner = () => {
 
   if (!!Object.keys(project).length) {
     return (
+<<<<<<< HEAD
       <div className="App">
         <Navbar header={`GROUP ${groupNameParams ? groupNameParams : ""}`} />
         <PresentationHeader project={project} />
@@ -63,8 +68,81 @@ const Learner = () => {
               ))}
             </FlipMove>
           </div>
+=======
+      <>
+        <div className="App">
+          <Navbar header={`GROUP ${groupNameParams ? groupNameParams : ""}`} />
+          <PresentationHeader project={project} />
+          {smallScreen && (
+            <div className="learner__container">
+              <div className="learner__header">
+                <h3>RANK</h3>
+                {!smallScreen && <img alt="" />}
+                {!smallScreen && <h3>GROUP</h3>}
+                <h2>NAME</h2>
+                <h3>TOTAL</h3>
+              </div>
+              <FlipMove className="learner__flipMove">
+                {project?.learnerGroups?.map((group, rankIndex) => (
+                  <LearnerBox
+                    key={group.groupIndex}
+                    rankIndex={rankIndex}
+                    {...group}
+                    smallScreen={smallScreen}
+                    groupNameParams={groupNameParams}
+                    project={project}
+                  />
+                ))}
+              </FlipMove>
+            </div>
+          )}
+          {!smallScreen && (
+            <div className="speaker__container">
+              <div className="speaker__learnerContent">
+                <div className="learner__header">
+                  <h3>RANK</h3>
+                  {!smallScreen && <img alt="" />}
+                  {!smallScreen && <h3>GROUP</h3>}
+                  <h2>NAME</h2>
+                  <h3>TOTAL</h3>
+                </div>
+                <FlipMove>
+                  {project?.learnerGroups?.map((group, rankIndex) => (
+                    <LearnerBox
+                      key={group.groupIndex}
+                      rankIndex={rankIndex}
+                      {...group}
+                      smallScreen={smallScreen}
+                      groupNameParams={"null"}
+                      project={project}
+                    />
+                  ))}
+                </FlipMove>
+              </div>
+              <div className="speaker__speakerContent">
+                <div className="speaker__speakerHeader">
+                  {project.tasks
+                    .filter((task) => !task.isHidden)
+                    .map((task, taskIndex) => (
+                      <h3 key={taskIndex}>{task.taskName}</h3>
+                    ))}
+                </div>
+                <FlipMove>
+                  {project?.learnerGroups?.map((group) => (
+                    <SpeakerBox
+                      key={group.groupIndex}
+                      smmallScreen={smallScreen}
+                      {...group}
+                      project={project}
+                    />
+                  ))}
+                </FlipMove>
+              </div>
+            </div>
+          )}
+>>>>>>> main2
         </div>
-      </div>
+      </>
     );
   } else {
     try {

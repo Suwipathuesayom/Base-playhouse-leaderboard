@@ -1,7 +1,7 @@
 function calculateTaskWeightFromSubTask(project, taskIndex) {
   let tempTaskWeight = 0;
   project.tasks[taskIndex].subTasks
-    .filter((subTask) => !subTask.isHidden)
+    // .filter((subTask) => !subTask.isHidden)
     .forEach((subTask) => {
       tempTaskWeight += subTask.weight ? subTask.weight : 0;
     });

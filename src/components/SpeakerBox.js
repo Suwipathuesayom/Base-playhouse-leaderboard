@@ -9,7 +9,11 @@ class SpeakerBox extends React.Component {
           {this.props.points
             .filter((point) => !point.isHidden)
             .map((point, pointIndex) => (
-              <h3 key={pointIndex}>{point.taskWeightPoint}</h3>
+              <h3 key={pointIndex}>
+                {this.props.project.useWeight
+                  ? point.taskWeightPoint
+                  : point.taskPoint}
+              </h3>
             ))}
         </div>
       </div>

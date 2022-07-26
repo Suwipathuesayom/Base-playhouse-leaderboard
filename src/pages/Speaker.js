@@ -15,7 +15,9 @@ function Speaker() {
   const [project, setProject] = useState({});
   const { projectNameParams } = useParams();
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("lg"));
+  const smallScreen = useMediaQuery(theme.breakpoints.down("300"));
+  console.log(smallScreen);
+
   const queryProject = (projectName) => {
     try {
       db.collection("users")
@@ -60,7 +62,6 @@ function Speaker() {
                 <LearnerBox
                   key={group.groupIndex}
                   rankIndex={rankIndex}
-                  theme={project?.theme}
                   {...group}
                   smallScreen={smallScreen}
                   groupNameParams={"null"}
@@ -78,14 +79,11 @@ function Speaker() {
                 ))}
             </div>
             <FlipMove>
-              {project?.learnerGroups?.map((group, rankIndex) => (
+              {project?.learnerGroups?.map((group) => (
                 <SpeakerBox
                   key={group.groupIndex}
-                  rankIndex={rankIndex}
-                  theme={project?.theme}
+                  smmallScreen={smallScreen}
                   {...group}
-                  smallScreen={smallScreen}
-                  groupNameParams={"null"}
                   project={project}
                 />
               ))}

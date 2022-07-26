@@ -185,11 +185,20 @@ export default function MentorTable({ project, setProject, mentorName }) {
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
         tempNewPointValue;
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskWeightPoint =
-        (tempNewPointValue * tempProject.tasks[taskIndex].weight) / 100.0;
+        ((tempNewPointValue / tempProject.tasks[taskIndex].taskMaxPoint) *
+          tempProject.tasks[taskIndex].weight) /
+        100.0;
     } else {
       tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
         subTaskIndex
       ].subTaskPoint = tempNewPointValue;
+      tempProject.learnerGroups[groupIndex].points[taskIndex].subTasks[
+        subTaskIndex
+      ].subTaskWeightPoint =
+        ((tempNewPointValue /
+          tempProject.tasks[taskIndex].subTasks[subTaskIndex].subTaskMaxPoint) *
+          tempProject.tasks[taskIndex].subTasks[subTaskIndex].weight) /
+        100.0;
       tempProject.learnerGroups[groupIndex].points[taskIndex].taskPoint =
         calculateLearnerGroupTaskPoint(
           tempProject.learnerGroups[groupIndex],
@@ -355,7 +364,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
               if (!task.isHidden) {
                 return (
                   <StyledTableCell key={taskIndex}>
-                    {`${task.taskName}`}
+                    {`${task.taskName} (${task.taskMaxPoint})`}
                     {!!task.subTasks.length && (
                       <Divider
                         sx={{
@@ -380,7 +389,7 @@ export default function MentorTable({ project, setProject, mentorName }) {
                                 }}
                                 key={subTaskIndex}
                               >
-                                {`${subTask.subTaskName}`}
+                                {`${subTask.subTaskName} (${subTask.subTaskMaxPoint})`}
                               </div>
                             );
                           })}

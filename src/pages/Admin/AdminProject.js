@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AdminProject.css";
 import { useParams } from "react-router-dom";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 import queryProjectFromProjectName from "../../components/Functions/queryProjectFromProjectName";
 import SplashScreen from "../../components/SplashScreen";
 import ProjectImage from "../../components/ProjectImage";
@@ -29,35 +29,36 @@ const AdminProject = () => {
   //       points: [
   //         {
   //           isHidden: false,
-  //           subTasks: [],
-  //           taskPoint: 1, // 0.8
-  //           taskWeightPoint: 0.8,
-  //         },
-  //         {
-  //           isHidden: false,
   //           subTasks: [
   //             {
   //               isHidden: false,
-  //               subTaskPoint: 2,
-  //               subTaskWeightPoint: 0.6,
-  //             },
-  //             {
-  //               isHidden: true,
-  //               subTaskPoint: 3,
-  //               subTaskWeightPoint: 0.18,
+  //               subTaskPoint: 12,
+  //               subTaskWeightPoint: 0.4,
   //             },
   //             {
   //               isHidden: false,
-  //               subTaskPoint: 5,
-  //               subTaskWeightPoint: 0.5,
+  //               subTaskPoint: 1,
+  //               subTaskWeightPoint: 0.02,
   //             },
   //           ],
-  //           taskPoint: 7,
-  //           taskWeightPoint: 1.1,
+  //           taskPoint: 13,
+  //           taskWeightPoint: 0.42,
+  //         },
+  //         {
+  //           isHidden: false,
+  //           subTasks: [],
+  //           taskPoint: 9,
+  //           taskWeightPoint: 0.27,
+  //         },
+  //         {
+  //           isHidden: false,
+  //           subTasks: [],
+  //           taskPoint: 6,
+  //           taskWeightPoint: 0.06,
   //         },
   //       ],
-  //       totalPoint: 8,
-  //       totalWeightPoint: 1.9,
+  //       totalPoint: 28,
+  //       totalWeightPoint: 0.75,
   //     },
   //   ],
   //   mentors: [
@@ -75,38 +76,46 @@ const AdminProject = () => {
   //     {
   //       isHidden: false,
   //       showSubTasks: true,
-  //       subTasks: [],
-  //       taskName: "Bannish Loki",
-  //       weight: 80,
-  //     },
-  //     {
-  //       isHidden: false,
-  //       showSubTasks: true,
   //       subTasks: [
   //         {
   //           isHidden: false,
   //           subTaskName: "Lift Sokovia",
-  //           weight: 30,
+  //           subTaskMaxPoint: 15,
+  //           weight: 50,
   //         },
   //         {
   //           isHidden: true,
   //           subTaskName: "Vision is born",
-  //           weight: 60,
-  //         },
-  //         {
-  //           isHidden: false,
-  //           subTaskName: "We Won",
+  //           subTaskMaxPoint: 5,
   //           weight: 10,
   //         },
   //       ],
   //       taskName: "Defeat Ultron",
-  //       weight: 20,
+  //       taskMaxPoint: 20,
+  //       weight: 60,
+  //     },
+  //     {
+  //       isHidden: false,
+  //       showSubTasks: true,
+  //       subTasks: [],
+  //       taskName: "Bannish Loki",
+  //       taskMaxPoint: 10,
+  //       weight: 30,
+  //     },
+  //     {
+  //       isHidden: false,
+  //       showSubTasks: true,
+  //       subTasks: [],
+  //       taskName: "Civil War",
+  //       taskMaxPoint: 10,
+  //       weight: 10,
   //     },
   //   ],
   //   theme: {
   //     hilight: "#00ff00",
   //     top3: "#ff0000",
   //   },
+  //   useWeight: true,
   // });
   const [project, setProject] = useState({});
   const [showAlert, setShowAlert] = useState(false);
@@ -120,13 +129,13 @@ const AdminProject = () => {
     return (
       <div className="adminProject__container">
         <Navbar header={`${project.id ? "EDIT" : "NEW"} PROJECT`} />
-        {/* <Button
+        <Button
           onClick={() => {
             console.log(project);
           }}
         >
           ดู Project
-        </Button> */}
+        </Button>
         <div
           className={`adminProject__${smallScreen ? "column" : "row"}Container`}
         >
@@ -196,6 +205,7 @@ const AdminProject = () => {
           hilight: "#000000",
           top3: "#000000",
         },
+        useWeight: false,
       });
     }
     return <SplashScreen />;

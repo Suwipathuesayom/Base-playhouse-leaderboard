@@ -107,7 +107,7 @@
 }
 .adminProject__boxItem > strong {
     display: flex;
-    min-width: 100px;
+    min-width: 80px;
     height: 40px;
     padding-right: 15px;
     padding-left: 15px;
@@ -157,6 +157,17 @@
     height: 100px;
     align-items: center;
     justify-content: space-around;
+}
+
+/* task */
+.projectTask__switch {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.projectTask__switch > h3 {
+    color: white;
 }
 
 /* footer */
