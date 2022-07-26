@@ -1,0 +1,67 @@
+.landing-container {
+  background-image: url("https://cdn.discordapp.com/attachments/982577768279736390/1001430397139296296/landing-background.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+.landing-textHeader > h1 {
+  font-size: 110px;
+  font-style: bold;
+  
+  padding: 10%;
+  background-color: turquoise;
+}
+
+.landing-box {
+  background: greenyellow;
+  height: 230px;
+  width: 45%;
+  margin-left: 50%;
+  border-radius: 60px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+#inputLeaderBoard-Project {
+  height: 80px;
+  width: 70%;
+  border-radius: 20px;
+  background-color: red;
+  margin-left: 20px;
+}
+
+.landing-selectProject > button {
+  height: 80px;
+  width: 20%;
+  border-radius: 20px;
+}
+
+#inputLeaderBoard-Group {
+  height: 80px;
+  width: 70%;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.landing-selectGroup > button {
+  height: 80px;
+  width: 20%;
+  border-radius: 20px;
+}
+.landing-selectProject {
+  width: 100%;
+  background-color: orange;
+}
+
+.landing-selectGroup {
+  width: 100%;
+  margin-top: 30px;
+}
+
+#buttonBacktoADMIN {
+  height: 35px;
+  width: 130px;
+  border-radius: 10px;
+}

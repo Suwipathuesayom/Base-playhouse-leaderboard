@@ -8,6 +8,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #dcdfe1;
+  --orange: #ec4724;
   /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif; */
