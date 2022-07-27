@@ -4,16 +4,17 @@
   height: 100vh;
 }
 
-.landing-textHeader > h1 {
+.landing-textHeader > p {
   font-size: 110px;
-  font-style: bold;
-  
+  /* font-style: bold; */
+  height: 120px;
+  font-weight: bold;
   padding: 10%;
-  background-color: turquoise;
+  /* background-color: turquoise; */
 }
 
 .landing-box {
-  background: greenyellow;
+  background: #dddddd;
   height: 230px;
   width: 45%;
   margin-left: 50%;
@@ -28,14 +29,16 @@
   height: 80px;
   width: 70%;
   border-radius: 20px;
-  background-color: red;
+  /* background-color: red; */
   margin-left: 20px;
+  border-color: white;
 }
 
 .landing-selectProject > button {
   height: 80px;
   width: 20%;
   border-radius: 20px;
+  border-color: white;
 }
 
 #inputLeaderBoard-Group {
@@ -43,16 +46,18 @@
   width: 70%;
   border-radius: 20px;
   margin-left: 20px;
+  border-color: white;
 }
 
 .landing-selectGroup > button {
   height: 80px;
   width: 20%;
   border-radius: 20px;
+  border-color: white;
 }
 .landing-selectProject {
   width: 100%;
-  background-color: orange;
+  /* background-color: orange; */
 }
 
 .landing-selectGroup {
@@ -64,4 +69,13 @@
   height: 35px;
   width: 130px;
   border-radius: 10px;
+  margin-top: 70px;
+  margin-left: 150px;
+}
+
+#landing-textCopy {
+  color: white;
+  display: flex;
+  margin-left: 75%;
+  margin-top: 50px;
 }
