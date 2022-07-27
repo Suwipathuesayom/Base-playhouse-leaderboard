@@ -4,7 +4,7 @@ const NewLanding = () => {
   return (
     <div className="landing-container">
       <div className="landing-textHeader">
-        <h1>LEADERBOARD</h1>
+        <p>LEADERBOARD</p>
       </div>
 
       <div className="landing-box">
@@ -23,7 +23,9 @@ const NewLanding = () => {
         <button id="buttonBacktoADMIN">Back to ADMIN</button>
       </div>
 
-      <div>Copyright © BASE Playhouse,All Rights Reserved.</div>
+      <div id="landing-textCopy">
+        Copyright © BASE Playhouse,All Rights Reserved.
+      </div>
     </div>
   );
 };
