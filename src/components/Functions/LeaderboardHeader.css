@@ -1,114 +1,25 @@
 .leaderboardHeader-container {
-  /* background-color: brown; */
   display: flex;
-  height: 300px;
-  padding: 20px;
+  padding-left: 3%;
+  /* background-color: brown; */
 }
 .leaderboardHeader-container > img {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
+  border-radius: 5%;
 }
-.leaderboard-textheader > h1 {
-  margin-left: 20px;
-  font-size: 48px;
+.leaderboardHeader-textheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 50px;
+}
+.leaderboardHeader-textheader > h1 {
+  font-size: 72px;
   color: #ffff;
   margin-bottom: 10px;
 }
-.leaderboard-textheader > h2 {
-  margin-left: 20px;
-  font-size: 28px;
+.leaderboardHeader-textheader > h2 {
+  font-size: 36px;
   color: var(--orange);
-}
-.leaderboard-table {
-  display: flex;
-  /* background-color: rgb(0, 242, 255); */
-  width: 100%;
-  height: 100%;
-}
-.leaderboard-tableRank {
-  background-color: blue;
-  width: 40%;
-  margin-left: 10px;
-}
-.leaderboard-tableBody {
-  width: 50%;
-}
-.leaderboard-texttable {
-  display: flex;
-  height: 70px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: var(--orange);
-  align-items: center;
-  margin-bottom: 10px;
-}
-.leaderboard-texttable > h1 {
-  /* background-color: green; */
-  font-size: 24px;
-  width: 20%;
-  text-align: center;
-  color: #ffff;
-}
-.leaderboard-texttable:nth-child(1) :nth-child(3) {
-  display: flex;
-  /* background-color: rgb(204, 10, 171); */
-  flex-grow: 1;
-  justify-content: center;
-  color: #ffff;
-}
-.leaderboard-tasktable {
-  width: 40%;
-  height: 70px;
-  border-radius: 20px;
-  background-color: var(--orange);
-  margin-left: 10px;
-}
-.leaderboard-taskbox {
-  display: flex;
-  width: 100%;
-  height: 70px;
-  background-color: var(--orange);
-  border-radius: 20px;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.leaderboard-taskbox > h1 {
-  font-size: 24px;
-  color: #ffff;
-}
-.leaderboard-texttask {
-  display: flex;
-  height: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.leaderboard-texttask > h1 {
-  font-size: 24px;
-  color: #ffff;
-}
-.leaderboard-box {
-  display: flex;
-  width: 100%;
-  height: 70px;
-  background-color: var(--orange);
-  border-radius: 20px;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.leaderboard-box > h1 {
-  font-size: 24px;
-  width: 20%;
-  text-align: center;
-  color: #ffff;
-  /* background-color: blue; */
-}
-.leaderboard-box :nth-child(3) {
-  /* background-color: yellow; */
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-  color: #ffff;
 }
