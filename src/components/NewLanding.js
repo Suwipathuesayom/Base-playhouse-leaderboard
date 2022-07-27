@@ -19,12 +19,14 @@ const NewLanding = () => {
         </div>
       </div>
 
-      <div>
-        <button id="buttonBacktoADMIN">Back to ADMIN</button>
+      <div className="buttonBack-container">
+        <button className="buttonBack">Back to ADMIN</button>
       </div>
 
-      <div id="landing-textCopy">
-        Copyright © BASE Playhouse,All Rights Reserved.
+      <div className="landing-textCopy-container">
+        <div className="landing-textCopy">
+          Copyright © BASE Playhouse,All Rights Reserved.
+        </div>
       </div>
     </div>
   );
