@@ -4,38 +4,42 @@
   height: 100vh;
 }
 
-.landing-textHeader > h1 {
-  font-size: 110px;
-  font-style: bold;
-  
-  padding: 10%;
-  background-color: turquoise;
+.landing-textHeader {
+  display: flex;
+  height: 50vh;
+  /* background-color: green; */
+  align-items: center;
+  padding-left: 5%;
+}
+
+.landing-textHeader > p {
+  /* background-color: red; */
+  font-size: max(13vh, 60px);
+  position: relative;
+  top: 40px;
 }
 
 .landing-box {
-  background: greenyellow;
-  height: 230px;
-  width: 45%;
-  margin-left: 50%;
-  border-radius: 60px;
   display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
+  justify-content: flex-end;
+  height: 30vh;
+  background-color: yellow;
 }
 
 #inputLeaderBoard-Project {
   height: 80px;
   width: 70%;
   border-radius: 20px;
-  background-color: red;
+  /* background-color: red; */
   margin-left: 20px;
+  border-color: white;
 }
 
 .landing-selectProject > button {
   height: 80px;
   width: 20%;
   border-radius: 20px;
+  border-color: white;
 }
 
 #inputLeaderBoard-Group {
@@ -43,16 +47,18 @@
   width: 70%;
   border-radius: 20px;
   margin-left: 20px;
+  border-color: white;
 }
 
 .landing-selectGroup > button {
   height: 80px;
   width: 20%;
   border-radius: 20px;
+  border-color: white;
 }
 .landing-selectProject {
   width: 100%;
-  background-color: orange;
+  /* background-color: orange; */
 }
 
 .landing-selectGroup {
@@ -60,8 +66,79 @@
   margin-top: 30px;
 }
 
-#buttonBacktoADMIN {
-  height: 35px;
-  width: 130px;
-  border-radius: 10px;
+.buttonBack-container {
+  height: 7vh;
+  display: flex;
+  /* background-color: aqua; */
+  padding-left: 7%;
 }
+
+.buttonBack {
+  /* background-color: orchid; */
+  font-size: max(2.5vh, 10px);
+  border-radius: 20px;
+}
+
+.landing-textCopy-container {
+  height: 10vh;
+  /* background-color: orange; */
+  display: flex;
+  justify-content: flex-end;
+
+  color: white;
+}
+
+.landing-textCopy {
+  padding-right: 5%;
+  position: relative;
+  top: 70%;
+}
+
+/* .H {
+  display: flex;
+  height: 50vh;
+  background-color: green;
+  align-items: center;
+  padding-left: 5%;
+}
+
+.b {
+  display: flex;
+  justify-content: flex-end;
+  height: 30vh;
+  background-color: yellow;
+}
+
+.bb {
+  height: 10vh;
+  display: flex;
+  background-color: aqua;
+  padding-left: 7%;
+}
+
+.c {
+  height: 10vh;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+
+.A {
+  background-color: red;
+  font-size: max(13vh, 60px);
+  position: relative;
+  top: 40px;
+}
+
+.B {
+  background-color: orangered;
+  font-size: max(30vh, 60px);
+  position: relative;
+  right: 350px;
+}
+
+.C {
+  background-color: orchid;
+  font-size: max(2.5vh, 10px);
+} */
