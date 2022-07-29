@@ -39,8 +39,7 @@
 }
 .leaderboard-tableRank-chart1,
 .leaderboard-tableRank-chart2,
-.leaderboard-tableRank-chart3
-{
+.leaderboard-tableRank-chart3 {
   flex: 1;
   text-align: center;
 }
@@ -120,8 +119,10 @@
 }
 
 .leaderboard-tableBody {
-  width: 25%;
+  width: 30%;
   padding-left: 2%;
+  overflow-y: auto;
+  height: 680px;
 }
 .leaderboard-texttable {
   display: flex;
